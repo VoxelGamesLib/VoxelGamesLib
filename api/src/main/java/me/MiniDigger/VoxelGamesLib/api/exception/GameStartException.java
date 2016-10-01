@@ -1,8 +1,9 @@
-package me.MiniDigger.VoxelGamesLib.api.game;
+package me.MiniDigger.VoxelGamesLib.api.exception;
 
 import javax.annotation.Nonnull;
 
-import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
+import me.MiniDigger.VoxelGamesLib.api.game.Game;
+import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
 
 /**
  * Thrown when something goes wrong while starting a {@link Game}

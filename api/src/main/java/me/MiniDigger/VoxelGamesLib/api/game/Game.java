@@ -31,10 +31,12 @@ public interface Game extends Tickable {
     /**
      * @return the {@link GameMode} this {@link Game} is an instance of.
      */
+    @Nonnull
     GameMode getGameMode();
 
     /**
      * @return returns the {@link Phase} that is currently active
      */
+    @Nonnull
     Phase getActivePhase();
 }

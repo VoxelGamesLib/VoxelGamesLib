@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import me.MiniDigger.VoxelGamesLib.api.exception.GameModeNotAvailableException;
+import me.MiniDigger.VoxelGamesLib.api.exception.GameStartException;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 
 /**
@@ -48,6 +50,7 @@ public class GameHandler implements Handler {
      *                                       server
      * @throws GameStartException            if something goes wrong while starting
      */
+    @Nonnull
     public Game startGame(@Nonnull GameMode mode) {
         if (!modes.contains(mode)) {
             throw new GameModeNotAvailableException(mode);

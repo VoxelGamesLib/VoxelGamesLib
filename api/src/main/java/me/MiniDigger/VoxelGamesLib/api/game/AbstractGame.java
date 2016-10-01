@@ -64,11 +64,13 @@ public class AbstractGame implements Game {
         activePhase.stop();
     }
 
+    @Nonnull
     @Override
     public GameMode getGameMode() {
         return gameMode;
     }
 
+    @Nonnull
     @Override
     public Phase getActivePhase() {
         return activePhase;

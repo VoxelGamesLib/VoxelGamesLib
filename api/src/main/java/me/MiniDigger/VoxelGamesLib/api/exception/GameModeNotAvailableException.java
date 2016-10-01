@@ -1,8 +1,8 @@
-package me.MiniDigger.VoxelGamesLib.api.game;
+package me.MiniDigger.VoxelGamesLib.api.exception;
 
 import javax.annotation.Nonnull;
 
-import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
+import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
 
 /**
  * Thrown when trying to do something with a {@link GameMode} that is not registered on this server

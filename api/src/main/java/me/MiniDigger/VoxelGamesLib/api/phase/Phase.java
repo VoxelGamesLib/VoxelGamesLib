@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
-import me.MiniDigger.VoxelGamesLib.api.feature.NoSuchFeatureException;
+import me.MiniDigger.VoxelGamesLib.api.exception.NoSuchFeatureException;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
 import me.MiniDigger.VoxelGamesLib.api.tick.Tickable;
 
@@ -18,11 +18,13 @@ public interface Phase extends Tickable {
     /**
      * @return the name of this {@link Phase}
      */
+    @Nonnull
     String getName();
 
     /**
      * @return the {@link Game}, this {@link Phase} is tied to
      */
+    @Nonnull
     Game getGame();
 
     /**
@@ -32,15 +34,18 @@ public interface Phase extends Tickable {
      * @return the instance of the class, if present.
      * @throws NoSuchFeatureException if this phase doesn't has that feature registered
      */
+    @Nonnull
     Feature getFeature(@Nonnull Class<Feature> clazz);
 
     /**
      * @return a list with all {@link Feature}s that are present in this {@link Phase}
      */
+    @Nonnull
     List<Feature> getFeatures();
 
     /**
      * @return the {@link Phase} that will follow after this {@link Phase} has ended.
      */
+    @Nonnull
     Phase getNextPhase();
 }

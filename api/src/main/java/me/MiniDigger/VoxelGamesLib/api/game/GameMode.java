@@ -24,6 +24,7 @@ public class GameMode {
     /**
      * @return the name of this {@link GameMode}
      */
+    @Nonnull
     public String getName() {
         return name;
     }
@@ -31,6 +32,7 @@ public class GameMode {
     /**
      * @return the class that implements this {@link GameMode}
      */
+    @Nonnull
     public Class<Game> getGameClass() {
         return gameClass;
     }

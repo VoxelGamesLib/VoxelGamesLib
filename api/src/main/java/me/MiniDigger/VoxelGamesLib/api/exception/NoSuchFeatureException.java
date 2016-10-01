@@ -1,8 +1,9 @@
-package me.MiniDigger.VoxelGamesLib.api.feature;
+package me.MiniDigger.VoxelGamesLib.api.exception;
 
 import javax.annotation.Nonnull;
 
-import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
+import me.MiniDigger.VoxelGamesLib.api.exception.VoxelGameLibException;
+import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 
 /**
  * Thrown when something tries to access a {@link Feature} in a {@link me.MiniDigger.VoxelGamesLib.api.phase.Phase} that is not present at

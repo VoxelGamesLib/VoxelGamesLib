@@ -16,29 +16,34 @@ public interface User {
     /**
      * @return the {@link Role} the user is assigned to
      */
+    @Nonnull
     Role getRole();
 
     /**
      * @return the prefix that should be displayed in chat and other location where the player name
      * is displayed
      */
+    @Nonnull
     ChatMessage getPrefix();
 
     /**
      * @return the suffix that should be displayed in chat and other location where the player name
      * is displayed
      */
+    @Nonnull
     ChatMessage getSuffix();
 
     /**
      * @return the display name of the user. doesn't need to be bound to the name of the underlaying
      * player implementation
      */
+    @Nonnull
     ChatMessage getDisplayName();
 
     /**
      * @return a unique identifier for that user.
      */
+    @Nonnull
     UUID getUUID();
 
     /**

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
-import me.MiniDigger.VoxelGamesLib.api.feature.NoSuchFeatureException;
+import me.MiniDigger.VoxelGamesLib.api.exception.NoSuchFeatureException;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
 
 /**
@@ -33,26 +33,31 @@ public abstract class AbstractPhase implements Phase {
         this.nextPhase = nextPhase;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;
     }
 
+    @Nonnull
     @Override
     public Game getGame() {
         return game;
     }
 
+    @Nonnull
     @Override
     public Feature getFeature(@Nonnull Class<Feature> clazz) {
         return features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
 
+    @Nonnull
     @Override
     public List<Feature> getFeatures() {
         return features;
     }
 
+    @Nonnull
     @Override
     public Phase getNextPhase() {
         return nextPhase;

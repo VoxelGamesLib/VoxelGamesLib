@@ -1,4 +1,4 @@
-package me.MiniDigger.VoxelGamesLib.api.error;
+package me.MiniDigger.VoxelGamesLib.api.exception;
 
 /**
  * A global exception.
