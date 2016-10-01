@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import me.MiniDigger.VoxelGamesLib.api.VoxelGamesLib;
 
-public final class VoxelGameLibBukkit extends JavaPlugin implements Listener {
+public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
     private VoxelGamesLib voxelGameLib = new VoxelGamesLib();
 
