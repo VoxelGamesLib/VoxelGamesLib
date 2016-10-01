@@ -12,8 +12,8 @@ public class GameMode {
 
     /**
      * Constructs a new {@link GameMode}
-     * 
-     * @param name the name of this {@link GameMode}
+     *
+     * @param name      the name of this {@link GameMode}
      * @param gameClass the class that implements this {@link GameMode}
      */
     public GameMode(@Nonnull String name, @Nonnull Class<Game> gameClass) {

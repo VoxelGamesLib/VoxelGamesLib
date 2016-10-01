@@ -8,14 +8,13 @@ import me.MiniDigger.VoxelGamesLib.api.tick.Tickable;
 
 /**
  * A {@link Game} is the representation of an instance of a {@link GameMode}. Handles everything
- * that is related to that {@link GameMode}: starting, stopping, {@link Phases} etc.
- *
+ * that is related to that {@link GameMode}: starting, stopping, {@link Phase}s etc.
  */
 public interface Game extends Tickable {
 
     /**
-     * Sends a {@link ChatMessage} to every {@link User} that is related to this {@link Game}. This
-     * could be a participant in the game or a spectator.
+     * Sends a {@link ChatMessage} to every {@link me.MiniDigger.VoxelGamesLib.api.user.User} that
+     * is related to this {@link Game}. This could be a participant in the game or a spectator.
      */
     void broadcastMessage(@Nonnull ChatMessage message);
 

@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
 
 /**
- * Thrown when something tries to access a {@link Feature} in a {@link Phase} that is not present at
+ * Thrown when something tries to access a {@link Feature} in a {@link me.MiniDigger.VoxelGamesLib.api.phase.Phase} that is not present at
  * this time.
  */
 public class NoSuchFeatureException extends VoxelGameLibException {

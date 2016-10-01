@@ -45,8 +45,8 @@ public class AbstractGame implements Game {
 
     @Override
     public void stop() {
-        // ignore stop from tickhandler, we only need to care about that stop if sever shuts down
-        // and then we know about it via the gamehandler and endGame() anyways
+        // ignore stop from tick handler, we only need to care about that stop if sever shuts down
+        // and then we know about it via the game handler and endGame() anyways
     }
 
     @Override

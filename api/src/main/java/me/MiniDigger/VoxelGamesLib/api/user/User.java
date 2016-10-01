@@ -20,19 +20,19 @@ public interface User {
 
     /**
      * @return the prefix that should be displayed in chat and other location where the player name
-     *         is displayed
+     * is displayed
      */
     ChatMessage getPrefix();
 
     /**
      * @return the suffix that should be displayed in chat and other location where the player name
-     *         is displayed
+     * is displayed
      */
     ChatMessage getSuffix();
 
     /**
-     * @return the diplayname of the user. doesn't need to be bound to the name of the underlaying
-     *         player implementation
+     * @return the display name of the user. doesn't need to be bound to the name of the underlaying
+     * player implementation
      */
     ChatMessage getDisplayName();
 
@@ -43,7 +43,7 @@ public interface User {
 
     /**
      * Send a {@link ChatMessage} to this user.
-     * 
+     *
      * @param message the {@link ChatMessage} to be send
      */
     void sendMessage(@Nonnull ChatMessage message);

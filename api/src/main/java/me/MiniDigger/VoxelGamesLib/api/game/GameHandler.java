@@ -30,7 +30,7 @@ public class GameHandler implements Handler {
     /**
      * Registers a new {@link GameMode}. Fails silently if that {@link GameMode} is already
      * registered.
-     * 
+     *
      * @param mode the new mode to be registered
      */
     public void registerGameMode(@Nonnull GameMode mode) {
@@ -41,12 +41,12 @@ public class GameHandler implements Handler {
 
     /**
      * Starts a new {@link Game} instance of that {@link GameMode}.
-     * 
+     *
      * @param mode the {@link GameMode} that should be started.
      * @return the started {@link Game}
      * @throws GameModeNotAvailableException if that {@link GameMode} is not registered on this
-     *         server
-     * @throws GameStartException if something goes wrong while starting
+     *                                       server
+     * @throws GameStartException            if something goes wrong while starting
      */
     public Game startGame(@Nonnull GameMode mode) {
         if (!modes.contains(mode)) {

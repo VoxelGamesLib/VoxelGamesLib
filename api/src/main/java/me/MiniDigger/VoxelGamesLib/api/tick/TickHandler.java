@@ -11,7 +11,7 @@ import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
 
 /**
  * The TickHandler handles the ticking of all Tickables on the server. However not every Tickable is
- * registered here. {@link Phase}s and {@link Feature}s receive their ticks from the {@link Game}
+ * registered here. {@link Phase}s and {@link Feature}s receive their ticks from the {@link me.MiniDigger.VoxelGamesLib.api.game.Game}
  * instance<br>
  * Every server mod has it's own implementation of the TickHandler
  */
@@ -20,7 +20,7 @@ public abstract class TickHandler implements Handler {
     private List<Tickable> tickables = new ArrayList<>();
 
     /**
-     * Called when the underlaying server mod calls a tick. Causes all {@link Tickable}s to tick
+     * Called when the underlying server mod calls a tick. Causes all {@link Tickable}s to tick
      */
     public void tick() {
         tickables.forEach(Tickable::tick);
@@ -37,7 +37,7 @@ public abstract class TickHandler implements Handler {
 
     /**
      * Registers a new {@link Tickable}. Calls the {@link Tickable#start()} method.
-     * 
+     *
      * @param tickable the new {@link Tickable} that should now receive server ticks
      */
     public void registerTickable(@Nonnull Tickable tickable) {
