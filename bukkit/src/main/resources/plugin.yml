@@ -1,0 +1,4 @@
+name: VoxelGameLibBukkit
+version: ${project.version}
+main: me.minidigger.voxelgameslib.bukkit.VoxelGameLibBukkit
+authors: [MiniDigger]

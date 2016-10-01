@@ -10,4 +10,19 @@ public class VoxelGamesLib {
 
     private TickHandler tickHandler;
     private GameHandler gameHandler;
+
+
+    /**
+     * Called when the server starts and/or the plugin gets loaded
+     */
+    public void onEnable() {
+
+    }
+
+    /**
+     * Called when the server stops and/or the plugin gets disabled
+     */
+    public void onDisable() {
+
+    }
 }
