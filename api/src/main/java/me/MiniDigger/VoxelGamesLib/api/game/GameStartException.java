@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
 
 /**
@@ -9,7 +11,7 @@ public class GameStartException extends VoxelGameLibException {
 
     private static final long serialVersionUID = 6204377462121639450L;
 
-    public GameStartException(GameMode mode, ReflectiveOperationException e) {
+    public GameStartException(@Nonnull GameMode mode, @Nonnull ReflectiveOperationException e) {
         // TODO Auto-generated constructor stub
     }
 }

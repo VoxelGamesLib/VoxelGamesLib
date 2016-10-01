@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
 
 /**
@@ -9,7 +11,7 @@ public class GameModeNotAvailableException extends VoxelGameLibException {
 
     private static final long serialVersionUID = 7018826370298874901L;
 
-    public GameModeNotAvailableException(GameMode mode) {
+    public GameModeNotAvailableException(@Nonnull GameMode mode) {
         // TODO Auto-generated constructor stub
     }
 

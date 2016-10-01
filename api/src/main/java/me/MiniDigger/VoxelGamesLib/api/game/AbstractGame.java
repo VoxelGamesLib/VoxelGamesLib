@@ -3,12 +3,14 @@ package me.MiniDigger.VoxelGamesLib.api.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 
 /**
- * Abstract implementation of a {@link Game}. Handles broadcasting, ticking and user management. 
+ * Abstract implementation of a {@link Game}. Handles broadcasting, ticking and user management.
  */
 public class AbstractGame implements Game {
 
@@ -22,17 +24,17 @@ public class AbstractGame implements Game {
 
     /**
      * Constructs a new {@link AbstractGame}
-     * 
-     * @param mode the mode this {@link Game} is an instance of.
+     *
+     * @param mode       the mode this {@link Game} is an instance of.
      * @param firstPhase the first {@link Phase}
      */
-    public AbstractGame(GameMode mode, Phase firstPhase) {
+    public AbstractGame(@Nonnull GameMode mode, @Nonnull Phase firstPhase) {
         this.gameMode = mode;
         this.activePhase = firstPhase;
     }
 
     @Override
-    public void broadcastMessage(ChatMessage message) {
+    public void broadcastMessage(@Nonnull ChatMessage message) {
         users.forEach(u -> u.sendMessage(message));
     }
 
@@ -61,14 +63,14 @@ public class AbstractGame implements Game {
     public void endGame() {
         activePhase.stop();
     }
-    
+
     @Override
-    public GameMode getGameMode(){
+    public GameMode getGameMode() {
         return gameMode;
     }
-    
+
     @Override
-    public Phase getActivePhase(){
+    public Phase getActivePhase() {
         return activePhase;
     }
 }

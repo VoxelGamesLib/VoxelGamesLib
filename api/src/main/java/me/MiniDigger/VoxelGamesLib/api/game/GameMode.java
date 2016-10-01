@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
+import javax.annotation.Nonnull;
+
 /**
  * A {@link GameMode} is a identifier for the type of a {@link Game}.
  */
@@ -14,7 +16,7 @@ public class GameMode {
      * @param name the name of this {@link GameMode}
      * @param gameClass the class that implements this {@link GameMode}
      */
-    public GameMode(String name, Class<Game> gameClass) {
+    public GameMode(@Nonnull String name, @Nonnull Class<Game> gameClass) {
         this.name = name;
         this.gameClass = gameClass;
     }

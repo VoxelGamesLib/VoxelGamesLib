@@ -3,6 +3,8 @@ package me.MiniDigger.VoxelGamesLib.api.tick;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
@@ -38,7 +40,7 @@ public abstract class TickHandler implements Handler {
      * 
      * @param tickable the new {@link Tickable} that should now receive server ticks
      */
-    public void registerTickable(Tickable tickable) {
+    public void registerTickable(@Nonnull Tickable tickable) {
         tickables.add(tickable);
         tickable.start();
     }

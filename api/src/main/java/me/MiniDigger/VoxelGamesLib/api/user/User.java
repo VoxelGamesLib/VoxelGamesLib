@@ -2,6 +2,8 @@ package me.MiniDigger.VoxelGamesLib.api.user;
 
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 
@@ -44,6 +46,6 @@ public interface User {
      * 
      * @param message the {@link ChatMessage} to be send
      */
-    void sendMessage(ChatMessage message);
+    void sendMessage(@Nonnull ChatMessage message);
 
 }

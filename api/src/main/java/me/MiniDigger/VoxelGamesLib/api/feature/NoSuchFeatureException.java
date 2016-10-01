@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.feature;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.error.VoxelGameLibException;
 
 /**
@@ -10,7 +12,7 @@ public class NoSuchFeatureException extends VoxelGameLibException {
 
     private static final long serialVersionUID = 2711461799912246262L;
 
-    public NoSuchFeatureException(Class<Feature> clazz) {
+    public NoSuchFeatureException(@Nonnull Class<Feature> clazz) {
         // TODO Auto-generated constructor stub
     }
 

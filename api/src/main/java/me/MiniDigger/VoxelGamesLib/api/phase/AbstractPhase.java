@@ -2,6 +2,8 @@ package me.MiniDigger.VoxelGamesLib.api.phase;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.feature.NoSuchFeatureException;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
@@ -18,13 +20,13 @@ public abstract class AbstractPhase implements Phase {
 
     /**
      * Constructs a new Phase.
-     * 
-     * @param name the name of this {@link Phase}
-     * @param game the {@link Game} this {@link Phase} is tied too
-     * @param features a list with all {@link Feature}s that are present in this {@link Phase}
+     *
+     * @param name      the name of this {@link Phase}
+     * @param game      the {@link Game} this {@link Phase} is tied too
+     * @param features  a list with all {@link Feature}s that are present in this {@link Phase}
      * @param nextPhase the {@link Phase} that will follow after this {@link Phase} has ended
      */
-    public AbstractPhase(String name, Game game, List<Feature> features, Phase nextPhase) {
+    public AbstractPhase(@Nonnull String name, @Nonnull Game game, @Nonnull List<Feature> features, @Nonnull Phase nextPhase) {
         this.name = name;
         this.game = game;
         this.features = features;
@@ -42,7 +44,7 @@ public abstract class AbstractPhase implements Phase {
     }
 
     @Override
-    public Feature getFeature(Class<Feature> clazz) {
+    public Feature getFeature(@Nonnull Class<Feature> clazz) {
         return features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
 
@@ -58,16 +60,16 @@ public abstract class AbstractPhase implements Phase {
 
     @Override
     public void start() {
-        features.stream().forEach(Feature::start);
+        features.forEach(Feature::start);
     }
 
     @Override
     public void stop() {
-        features.stream().forEach(Feature::stop);
+        features.forEach(Feature::stop);
     }
 
     @Override
     public void tick() {
-        features.stream().forEach(Feature::tick);
+        features.forEach(Feature::tick);
     }
 }

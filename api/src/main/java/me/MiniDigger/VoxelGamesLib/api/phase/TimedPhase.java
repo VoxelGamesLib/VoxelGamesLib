@@ -2,6 +2,8 @@ package me.MiniDigger.VoxelGamesLib.api.phase;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
 
@@ -21,7 +23,7 @@ public class TimedPhase extends AbstractPhase {
      * @param nextPhase the {@link Phase} that will follow after this {@link Phase} has ended
      * @param ticks the amount of ticks this phase will tick. After that, the phase will end.
      */
-    public TimedPhase(String name, Game game, List<Feature> features, Phase nextPhase, int ticks) {
+    public TimedPhase(@Nonnull String name, @Nonnull Game game, @Nonnull List<Feature> features, @Nonnull Phase nextPhase, int ticks) {
         super(name, game, features, nextPhase);
         this.ticks = ticks;
     }

@@ -2,6 +2,8 @@ package me.MiniDigger.VoxelGamesLib.api.phase;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.feature.NoSuchFeatureException;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
@@ -30,7 +32,7 @@ public interface Phase extends Tickable {
      * @return the instane of the class, if present.
      * @throws NoSuchFeatureException if this phase doesn't has that feature registered
      */
-    Feature getFeature(Class<Feature> clazz);
+    Feature getFeature(@Nonnull Class<Feature> clazz);
 
     /**
      * @return a list with all {@link Feature}s that are present in this {@link Phase}

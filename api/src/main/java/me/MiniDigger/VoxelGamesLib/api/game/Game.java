@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
 import me.MiniDigger.VoxelGamesLib.api.tick.Tickable;
@@ -15,7 +17,7 @@ public interface Game extends Tickable {
      * Sends a {@link ChatMessage} to every {@link User} that is related to this {@link Game}. This
      * could be a participant in the game or a spectator.
      */
-    void broadcastMessage(ChatMessage message);
+    void broadcastMessage(@Nonnull ChatMessage message);
 
     /**
      * Ends the current {@link Phase} and starts the next one.

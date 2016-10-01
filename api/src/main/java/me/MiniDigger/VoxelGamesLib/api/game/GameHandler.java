@@ -3,6 +3,8 @@ package me.MiniDigger.VoxelGamesLib.api.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 
 /**
@@ -31,7 +33,7 @@ public class GameHandler implements Handler {
      * 
      * @param mode the new mode to be registered
      */
-    public void registerGameMode(GameMode mode) {
+    public void registerGameMode(@Nonnull GameMode mode) {
         if (!modes.contains(mode)) {
             modes.add(mode);
         }
@@ -46,7 +48,7 @@ public class GameHandler implements Handler {
      *         server
      * @throws GameStartException if something goes wrong while starting
      */
-    public Game startGame(GameMode mode) {
+    public Game startGame(@Nonnull GameMode mode) {
         if (!modes.contains(mode)) {
             throw new GameModeNotAvailableException(mode);
         }
