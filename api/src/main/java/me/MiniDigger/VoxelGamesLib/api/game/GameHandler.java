@@ -12,6 +12,7 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 /**
  * Handles all {@link Game} instances and all {@link GameMode}s.
  */
+@com.google.inject.Singleton
 public class GameHandler implements Handler {
 
     private List<Game> games = new ArrayList<>();

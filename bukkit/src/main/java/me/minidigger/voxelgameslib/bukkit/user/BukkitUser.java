@@ -14,26 +14,31 @@ public class BukkitUser implements User {
 
     private Player player;
 
+    @Nonnull
     @Override
     public Role getRole() {
         return null;
     }
 
+    @Nonnull
     @Override
     public ChatMessage getPrefix() {
         return null;
     }
 
+    @Nonnull
     @Override
     public ChatMessage getSuffix() {
         return null;
     }
 
+    @Nonnull
     @Override
     public ChatMessage getDisplayName() {
         return null;
     }
 
+    @Nonnull
     @Override
     public UUID getUUID() {
         return player.getUniqueId();
@@ -42,5 +47,10 @@ public class BukkitUser implements User {
     @Override
     public void sendMessage(@Nonnull ChatMessage message) {
         player.sendRawMessage(message.toRawMessage());
+    }
+
+    @Override
+    public boolean hasPermission(@Nonnull String perm) {
+        return player.hasPermission(perm);
     }
 }

@@ -53,4 +53,11 @@ public interface User {
      */
     void sendMessage(@Nonnull ChatMessage message);
 
+    /**
+     * checks if that user has the desired permission.
+     *
+     * @param perm the permission string
+     * @return whether or not the user has that permission
+     */
+    boolean hasPermission(@Nonnull String perm);
 }
