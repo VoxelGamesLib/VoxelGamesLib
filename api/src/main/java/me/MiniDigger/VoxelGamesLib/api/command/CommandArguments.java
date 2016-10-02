@@ -13,10 +13,10 @@ import me.MiniDigger.VoxelGamesLib.api.user.User;
 public class CommandArguments {
 
     private User sender;
-    private Command command;
+    private CommandInfo command;
     private String[] args;
 
-    CommandArguments(@Nonnull Command command, @Nonnull User sender, @Nonnull String[] args) {
+    CommandArguments(@Nonnull CommandInfo command, @Nonnull User sender, @Nonnull String[] args) {
         this.args = args;
         this.command = command;
         this.sender = sender;
@@ -55,10 +55,10 @@ public class CommandArguments {
     }
 
     /**
-     * @return The original command
+     * @return The original command info
      */
     @Nonnull
-    public Command getCommand() {
+    public CommandInfo getCommand() {
         return command;
     }
 }
