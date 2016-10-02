@@ -28,11 +28,11 @@ public @interface CommandInfo {
     /**
      * The permission node a player needs to have attached for him to be able to execute this
      * command<br>
-     * Defaults to command.< name > (for example command.warp.spawn)
+     *
      * @return The permission node
      */
     @Nonnull
-    String perm() default "TEMP";
+    String perm();
 
     /**
      * The aliases for this command. The aliases follow the same naming convention listed in {@link
