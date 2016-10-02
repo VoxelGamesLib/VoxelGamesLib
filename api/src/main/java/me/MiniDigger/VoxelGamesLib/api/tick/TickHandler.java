@@ -17,7 +17,6 @@ import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
  * me.MiniDigger.VoxelGamesLib.api.game.Game} instance<br> Every server mod has it's own
  * implementation of the TickHandler
  */
-@Singleton
 public abstract class TickHandler implements Handler {
 
     private List<Tickable> tickables = new ArrayList<>();
