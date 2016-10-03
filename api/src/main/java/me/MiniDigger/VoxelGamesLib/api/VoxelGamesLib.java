@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import javax.inject.Inject;
 
 import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
+import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.error.ErrorHandler;
 import me.MiniDigger.VoxelGamesLib.api.game.GameHandler;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
@@ -17,6 +18,8 @@ import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
 @Singleton
 public class VoxelGamesLib {
 
+    @Inject
+    private ConfigHandler configHandler;
     @Inject
     private TickHandler tickHandler;
     @Inject
@@ -34,6 +37,7 @@ public class VoxelGamesLib {
      * Called when the server starts and/or the plugin gets loaded
      */
     public void onEnable() {
+        configHandler.start();
         tickHandler.start();
         gameHandler.start();
         userHandler.start();
@@ -46,6 +50,7 @@ public class VoxelGamesLib {
      * Called when the server stops and/or the plugin gets disabled
      */
     public void onDisable() {
+        configHandler.stop();
         tickHandler.stop();
         gameHandler.stop();
         userHandler.stop();

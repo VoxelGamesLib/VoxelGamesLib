@@ -3,10 +3,13 @@ package me.minidigger.voxelgameslib.bukkit;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.name.Names;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 import javax.inject.Singleton;
 
@@ -14,6 +17,8 @@ import me.MiniDigger.VoxelGamesLib.api.VoxelGamesLib;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
+import me.MiniDigger.VoxelGamesLib.api.config.Config;
+import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
@@ -45,6 +50,9 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         sender.setUser(Bukkit.getConsoleSender());
         cmdHandler.executeCommand(sender, "test command");
 
+        Config config = injector.getInstance(Config.class);
+        System.out.println("loaded config with version " + config.configVersion);
+
         this.getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -67,6 +75,8 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(TickHandler.class).to(BukkitTickHandler.class);
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
+            bind(Config.class).toProvider(ConfigHandler.class);
+            bind(File.class).annotatedWith(Names.named("ConfigFile")).toInstance(new File(getDataFolder(), "config.json"));
         }
     }
 }
