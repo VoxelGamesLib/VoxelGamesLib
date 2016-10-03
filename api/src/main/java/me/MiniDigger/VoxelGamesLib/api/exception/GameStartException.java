@@ -10,9 +10,11 @@ import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
  */
 public class GameStartException extends VoxelGameLibException {
 
-    private static final long serialVersionUID = 6204377462121639450L;
-
-    public GameStartException(@Nonnull GameMode mode, @Nonnull ReflectiveOperationException e) {
-        // TODO Auto-generated constructor stub
+    /**
+     * @param mode the gamemode that was tried to start
+     * @param e    the exception that was thrown while starting
+     */
+    public GameStartException(@Nonnull GameMode mode, @Nonnull Exception e) {
+        super("Error while starting the game " + mode.getName(), e);
     }
 }

@@ -9,10 +9,11 @@ import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
  */
 public class GameModeNotAvailableException extends VoxelGameLibException {
 
-    private static final long serialVersionUID = 7018826370298874901L;
-
+    /**
+     * @param mode the gamemode that was tried to access
+     */
     public GameModeNotAvailableException(@Nonnull GameMode mode) {
-        // TODO Auto-generated constructor stub
+        super("Gamemode " + mode.getName() + " is not available. Was it correctly installed and loaded?");
     }
 
 }
