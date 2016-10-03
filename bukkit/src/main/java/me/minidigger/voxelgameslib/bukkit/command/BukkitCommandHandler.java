@@ -72,8 +72,8 @@ public class BukkitCommandHandler extends CommandHandler {
     }
 
     @Override
-    protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
-        super.unregisterCommand(commandLabel, info, method, object);
+    protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object, boolean remove) {
+        super.unregisterCommand(commandLabel, info, method, object, remove);
 
         //TODO unregister command
     }

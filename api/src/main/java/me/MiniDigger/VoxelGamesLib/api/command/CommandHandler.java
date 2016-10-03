@@ -41,8 +41,8 @@ public class CommandHandler implements Handler {
     @Override
     public void stop() {
         // unregister all whats left
-        commandExecutors.values().forEach(this::unregister);
-        completerExecutors.values().forEach(this::unregister);
+        commandExecutors.values().forEach(c -> unregister(c, false));
+        completerExecutors.values().forEach(c -> unregister(c, false));
 
         commands.clear();
         commandExecutors.clear();
@@ -127,7 +127,7 @@ public class CommandHandler implements Handler {
      * @param object a instance of the class where the command executors life. its the same instance
      *               that will be used to execute the executors
      */
-    public void unregister(@Nonnull Object object) {
+    public void unregister(@Nonnull Object object, boolean remove) {
         for (Method method : object.getClass().getMethods()) {
             if (method.isAnnotationPresent(CommandInfo.class)) {
                 CommandInfo commandInfo = method.getAnnotation(CommandInfo.class);
@@ -137,9 +137,9 @@ public class CommandHandler implements Handler {
                     continue;
                 }
 
-                unregisterCommand(commandInfo.name(), commandInfo, method, object);
+                unregisterCommand(commandInfo.name(), commandInfo, method, object, remove);
                 for (String alias : commandInfo.aliases()) {
-                    unregisterCommand(alias, commandInfo, method, object);
+                    unregisterCommand(alias, commandInfo, method, object, remove);
                 }
             } else if (method.isAnnotationPresent(CompleterInfo.class)) {
                 CompleterInfo completerInfo = method.getAnnotation(CompleterInfo.class);
@@ -171,10 +171,13 @@ public class CommandHandler implements Handler {
      * @param info         the info annotation of that command
      * @param method       the method that will be called on execution
      * @param object       the instance of the class that has the method
+     * @param remove       if the internal lists should be accessed, used to aviod CMEs
      */
-    protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
-        commands.remove(commandLabel);
-        commandExecutors.remove(commandLabel);
+    protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object, boolean remove) {
+        if (remove) {
+            commands.remove(commandLabel);
+            commandExecutors.remove(commandLabel);
+        }
     }
 
     /**
