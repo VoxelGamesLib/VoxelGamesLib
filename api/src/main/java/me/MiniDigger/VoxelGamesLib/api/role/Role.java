@@ -4,19 +4,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * A role is part of the simplified permission system. all permissions are assigned to roles by default so there is no permission setup needed.
+ * A role is part of the simplified permission system. all permissions are assigned to roles by
+ * default so there is no permission setup needed.
  */
-public class Role {
+public enum Role {
 
-    public static final String DEFAULT = "default";
-    public static final String PREMIUM = "premium";
-    public static final String MODERATOR = "moderator";
-    public static final String ADMIN = "admin";
+    DEFAULT("default", null),
+    PREMIUM("premium", DEFAULT),
+    MODERATOR("moderator", PREMIUM),
+    ADMIN("admin", MODERATOR);
 
     private String name;
     private Role parent;
 
-    public Role(@Nonnull String name, @Nullable Role parent) {
+    Role(@Nonnull String name, @Nullable Role parent) {
         this.name = name;
         this.parent = parent;
     }

@@ -17,25 +17,15 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 public class RoleHandler implements Handler {
 
     private List<Permission> knownPermissions = new ArrayList<>();
-    private List<Role> roles = new ArrayList<>();
 
     @Override
     public void start() {
-        Role DEFAULT = new Role(Role.DEFAULT, null);
-        Role PREMIUM = new Role(Role.PREMIUM, DEFAULT);
-        Role MODERATOR = new Role(Role.MODERATOR, PREMIUM);
-        Role ADMIN = new Role(Role.ADMIN, MODERATOR);
 
-        roles.add(DEFAULT);
-        roles.add(PREMIUM);
-        roles.add(MODERATOR);
-        roles.add(ADMIN);
     }
 
     @Override
     public void stop() {
         knownPermissions.clear();
-        roles.clear();
     }
 
     /**
@@ -81,6 +71,10 @@ public class RoleHandler implements Handler {
      * @return the optional search result
      */
     public Optional<Role> getRole(String role) {
-        return roles.stream().filter(r -> r.getName().equalsIgnoreCase(role)).findAny();
+        try {
+            return Optional.of(Role.valueOf(role));
+        } catch (IllegalArgumentException ex) {
+            return Optional.empty();
+        }
     }
 }

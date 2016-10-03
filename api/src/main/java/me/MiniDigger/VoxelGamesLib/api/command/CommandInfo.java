@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 import javax.annotation.Nonnull;
 
+import me.MiniDigger.VoxelGamesLib.api.role.Role;
+
 /**
  * Simple annotation to represent a command<br>
  * Methods which are annotated with this @interface need to have single {@link CommandArguments}
@@ -38,7 +40,7 @@ public @interface CommandInfo {
      * @return The min role this command requires to be executed.
      */
     @Nonnull
-    String role();
+    Role role();
 
     /**
      * The aliases for this command. The aliases follow the same naming convention listed in {@link
