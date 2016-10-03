@@ -15,6 +15,7 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
+import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
@@ -52,7 +53,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         voxelGameLib.onDisable();
     }
 
-    @CommandInfo(name = "test", perm = "command.test")
+    @CommandInfo(name = "test", perm = "command.test", role = Role.DEFAULT)
     public void command(CommandArguments args) {
         args.getSender().sendMessage(ChatMessage.fromLegacyFormat("got command!"));
     }

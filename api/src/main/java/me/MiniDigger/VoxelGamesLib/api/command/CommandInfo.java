@@ -35,6 +35,12 @@ public @interface CommandInfo {
     String perm();
 
     /**
+     * @return The min role this command requires to be executed.
+     */
+    @Nonnull
+    String role();
+
+    /**
      * The aliases for this command. The aliases follow the same naming convention listed in {@link
      * #name()}
      *

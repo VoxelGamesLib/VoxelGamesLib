@@ -5,19 +5,26 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
+import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
+import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 
 public class BukkitUser implements User {
 
     private Player player;
+    private Role role;
+
+    @Inject
+    private RoleHandler roleHandler;
 
     @Nonnull
     @Override
     public Role getRole() {
-        return null;
+        return role;
     }
 
     @Nonnull
@@ -50,7 +57,11 @@ public class BukkitUser implements User {
     }
 
     @Override
-    public boolean hasPermission(@Nonnull String perm) {
-        return player.hasPermission(perm);
+    public boolean hasPermission(@Nonnull Permission perm) {
+        if (config.useRoleSystem) {
+            return role.hasPermission(perm);
+        } else {
+            return player.hasPermission(perm.getString());
+        }
     }
 }

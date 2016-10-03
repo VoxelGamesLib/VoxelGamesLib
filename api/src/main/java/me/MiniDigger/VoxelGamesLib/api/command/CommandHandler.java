@@ -7,18 +7,25 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+import me.MiniDigger.VoxelGamesLib.api.role.Permission;
+import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 
 @Log
 @Singleton
 public class CommandHandler implements Handler {
+
+    @Inject
+    private RoleHandler roleHandler;
 
     private Map<String, Method> commands = new HashMap<>();
     private Map<String, Object> commandExecutors = new HashMap<>();
@@ -212,7 +219,8 @@ public class CommandHandler implements Handler {
             if (commands.containsKey(cmdLabel)) {
                 Method commandMethod = commands.get(cmdLabel);
                 CommandInfo commandInfo = commandMethod.getAnnotation(CommandInfo.class);
-                if (!commandInfo.perm().equals("") && !sender.hasPermission(commandInfo.perm())) {
+                Optional<Permission> perm = roleHandler.getPermission(commandInfo.perm());
+                if (perm.isPresent() && !sender.hasPermission(perm.get())) {
                     //TODO Send no permission message
                     return true;
                 }

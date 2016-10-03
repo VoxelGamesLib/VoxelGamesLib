@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
+import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 
 /**
@@ -56,8 +57,8 @@ public interface User {
     /**
      * checks if that user has the desired permission.
      *
-     * @param perm the permission string
+     * @param perm the permission object to check
      * @return whether or not the user has that permission
      */
-    boolean hasPermission(@Nonnull String perm);
+    boolean hasPermission(@Nonnull Permission perm);
 }

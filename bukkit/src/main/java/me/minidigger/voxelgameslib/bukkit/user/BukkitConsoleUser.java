@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
+import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 
@@ -53,7 +54,7 @@ public class BukkitConsoleUser implements ConsoleUser {
     }
 
     @Override
-    public boolean hasPermission(@Nonnull String perm) {
+    public boolean hasPermission(@Nonnull Permission perm) {
         return true;
     }
 
