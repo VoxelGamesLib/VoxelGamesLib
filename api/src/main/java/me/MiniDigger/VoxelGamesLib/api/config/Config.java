@@ -8,7 +8,9 @@ import javax.inject.Singleton;
 @Singleton
 public class Config {
 
-    public int configVersion = 1;
+    public static final int CONFIG_VERSION = 1;
+
+    public int configVersion = CONFIG_VERSION;
     public boolean useRoleSystem = true;
 
     /**
