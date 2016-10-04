@@ -8,6 +8,7 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.error.ErrorHandler;
 import me.MiniDigger.VoxelGamesLib.api.game.GameHandler;
+import me.MiniDigger.VoxelGamesLib.api.map.MapHandler;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
@@ -32,6 +33,8 @@ public class VoxelGamesLib {
     private CommandHandler commandHandler;
     @Inject
     private ErrorHandler errorHandler;
+    @Inject
+    private MapHandler mapHandler;
 
     /**
      * Called when the server starts and/or the plugin gets loaded
@@ -44,6 +47,7 @@ public class VoxelGamesLib {
         roleHandler.start();
         commandHandler.start();
         errorHandler.start();
+        mapHandler.start();
     }
 
     /**
@@ -57,5 +61,6 @@ public class VoxelGamesLib {
         roleHandler.stop();
         commandHandler.stop();
         errorHandler.stop();
+        mapHandler.stop();
     }
 }

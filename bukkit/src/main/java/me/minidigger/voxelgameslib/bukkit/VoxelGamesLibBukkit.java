@@ -19,12 +19,14 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.config.Config;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
+import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
+import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
@@ -77,6 +79,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(Config.class).toProvider(ConfigHandler.class);
             bind(File.class).annotatedWith(Names.named("ConfigFile")).toInstance(new File(getDataFolder(), "config.json"));
+            bind(MapScanner.class).to(BukkitMapScanner.class);
         }
     }
 }
