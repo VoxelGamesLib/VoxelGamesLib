@@ -230,4 +230,13 @@ public enum Material {
     public int getId() {
         return id;
     }
+
+    public static Material fromId(int id) {
+        for (Material mat : values()) {
+            if (mat.getId() == id) {
+                return mat;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for id " + id);
+    }
 }

@@ -6,16 +6,19 @@ import org.bukkit.Material;
 import org.bukkit.SkullType;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Chest;
 import org.bukkit.block.Skull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.MiniDigger.VoxelGamesLib.api.exception.MapException;
+import me.MiniDigger.VoxelGamesLib.api.map.ChestMarker;
 import me.MiniDigger.VoxelGamesLib.api.map.Map;
 import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
 import me.MiniDigger.VoxelGamesLib.api.map.Marker;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
+import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 
 /**
  * Created by Martin on 04.10.2016.
@@ -23,13 +26,14 @@ import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 public class BukkitMapScanner extends MapScanner {
 
     @Override
-    public List<Marker> searchForMarkers(Map map, Vector3D center, int range) {
+    public void searchForMarkers(Map map, Vector3D center, int range) {
         World world = Bukkit.getWorld(map.getWorldName());
         if (world == null) {
             throw new MapException("Could not find world " + map.getWorldName() + ". Is it loaded?");
         }
 
         List<Marker> markers = new ArrayList<>();
+        List<ChestMarker> chestMarkers = new ArrayList<>();
 
         int startX = (int) center.getX();
         int startY = (int) center.getZ();
@@ -50,11 +54,20 @@ public class BukkitMapScanner extends MapScanner {
                             String markerData = skull.getOwningPlayer().getName();
                             markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), markerData));
                         }
+                    } else if (te.getType() == Material.CHEST) {
+                        Chest chest = (Chest) te;
+                        String name = chest.getBlockInventory().getName();
+                        BukkitItem[] items = new BukkitItem[chest.getBlockInventory().getStorageContents().length];
+                        for (int i = 0; i < items.length; i++) {
+                            items[i] = BukkitItem.fromItemStack(chest.getBlockInventory().getItem(i));
+                        }
+                        chestMarkers.add(new ChestMarker(new Vector3D(chest.getX(), chest.getY(), chest.getZ()), name, items));
                     }
                 }
             }
         }
 
-        return markers;
+        map.setMarkers(markers);
+        map.setChestMarkers(chestMarkers);
     }
 }

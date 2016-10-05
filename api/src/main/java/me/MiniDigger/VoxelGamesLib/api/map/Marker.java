@@ -1,8 +1,11 @@
 package me.MiniDigger.VoxelGamesLib.api.map;
 
+import lombok.Data;
+
 /**
  * Created by Martin on 04.10.2016.
  */
+@Data
 public class Marker {
 
     private Vector3D loc;
