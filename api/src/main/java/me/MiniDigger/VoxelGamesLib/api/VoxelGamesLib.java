@@ -12,6 +12,7 @@ import me.MiniDigger.VoxelGamesLib.api.map.MapHandler;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
+import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
@@ -35,6 +36,8 @@ public class VoxelGamesLib {
     private ErrorHandler errorHandler;
     @Inject
     private MapHandler mapHandler;
+    @Inject
+    private WorldHandler worldHandler;
 
     /**
      * Called when the server starts and/or the plugin gets loaded
@@ -48,6 +51,7 @@ public class VoxelGamesLib {
         commandHandler.start();
         errorHandler.start();
         mapHandler.start();
+        worldHandler.start();
     }
 
     /**
@@ -62,5 +66,6 @@ public class VoxelGamesLib {
         commandHandler.stop();
         errorHandler.stop();
         mapHandler.stop();
+        worldHandler.stop();
     }
 }

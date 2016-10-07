@@ -1,23 +1,21 @@
-package me.MiniDigger.VoxelGamesLib.api.config;
+package me.MiniDigger.VoxelGamesLib.api.world;
 
-import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.MiniDigger.VoxelGamesLib.api.config.Config;
 
 /**
- * The config defines all configuration values (and the default values)
+ * Created by Martin on 07.10.2016.
  */
-@Singleton
-public class GlobalConfig extends Config {
+public class WorldConfig extends Config {
 
     public final int configVersion = 1;
     public int currentVersion = configVersion;
+    public List<String> maps = new ArrayList<>();
 
-    public boolean useRoleSystem = true;
-
-    /**
-     * @return the default config, with all default settings
-     */
-    public static GlobalConfig getDefault() {
-        return new GlobalConfig();
+    public static WorldConfig getDefault() {
+        return new WorldConfig();
     }
 
     @Override

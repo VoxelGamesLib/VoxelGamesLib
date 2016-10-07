@@ -39,11 +39,11 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     @Override
     public void start() {
         if (!globalConfigFile.exists()) {
-            log.warning("Did not found config, saving default");
+            log.warning("Did not found global config, saving default");
             globalConfig = GlobalConfig.getDefault();
             saveConfig(globalConfigFile, globalConfig);
         } else {
-            log.info("Loading config");
+            log.info("Loading global config");
             globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
 
 
@@ -60,7 +60,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @return if the config needs to be migrated
      */
     public boolean checkMigrate(Config config) {
-        return config.configVersion != config.CONFIG_VERSION;
+        return config.getConfigVersion() != config.getCurrentVersion();
     }
 
     /**
@@ -70,17 +70,17 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @param config     the config to migrate
      * @throws ConfigException if there was an error while creating an backup
      */
-    private void migrate(File configFile, Config config) {
-        log.info("Migrating config from v" + config.configVersion + " to v" + config.CONFIG_VERSION);
+    public void migrate(File configFile, Config config) {
+        log.info("Migrating config from v" + config.getCurrentVersion() + " to v" + config.getConfigVersion());
         try {
-            File backup = new File(configFile.getParent(), configFile.getName() + ".v" + config.configVersion + ".backup");
+            File backup = new File(configFile.getParent(), configFile.getName() + ".v" + config.getCurrentVersion() + ".backup");
             Files.copy(configFile, backup);
             log.info("Saved backup to " + backup.getAbsolutePath());
         } catch (IOException e) {
             throw new ConfigException("Error while migrating config", e);
         }
 
-        config.configVersion = config.CONFIG_VERSION;
+        config.setCurrentVersion(config.getConfigVersion());
         saveConfig(configFile, config);
         log.info("Done migrating");
     }

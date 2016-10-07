@@ -5,7 +5,10 @@ package me.MiniDigger.VoxelGamesLib.api.config;
  */
 public abstract class Config {
 
-    public final int CONFIG_VERSION = 1;
 
-    public int configVersion = CONFIG_VERSION;
+    public abstract int getConfigVersion();
+
+    public abstract int getCurrentVersion();
+
+    public abstract void setCurrentVersion(int currentVersion);
 }

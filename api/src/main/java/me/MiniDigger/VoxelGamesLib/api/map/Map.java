@@ -16,6 +16,7 @@ public class Map {
     private String worldName;
     private List<Marker> markers = new ArrayList<>();
     private List<ChestMarker> chestMarkers = new ArrayList<>();
+    private boolean loaded;
 
     public Optional<ChestMarker> getChestMarker(String name) {
         return chestMarkers.stream().filter(chestMarker -> chestMarker.getData().equalsIgnoreCase(name)).findAny();

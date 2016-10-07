@@ -17,19 +17,22 @@ import me.MiniDigger.VoxelGamesLib.api.VoxelGamesLib;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
-import me.MiniDigger.VoxelGamesLib.api.config.Config;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
+import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
 import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
+import me.MiniDigger.VoxelGamesLib.api.world.WorldConfig;
+import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
+import me.minidigger.voxelgameslib.bukkit.world.BukkitWorldHandler;
 
 @Singleton
 public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
@@ -52,7 +55,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         sender.setUser(Bukkit.getConsoleSender());
         cmdHandler.executeCommand(sender, "test command");
 
-        Config config = injector.getInstance(Config.class);
+        GlobalConfig config = injector.getInstance(GlobalConfig.class);
         System.out.println("loaded config with version " + config.configVersion);
 
         this.getServer().getPluginManager().registerEvents(this, this);
@@ -75,11 +78,18 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(CommandHandler.class).to(BukkitCommandHandler.class);
             bind(User.class).to(BukkitUser.class);
             bind(TickHandler.class).to(BukkitTickHandler.class);
-            bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
-            bind(Config.class).toProvider(ConfigHandler.class);
-            bind(File.class).annotatedWith(Names.named("ConfigFile")).toInstance(new File(getDataFolder(), "config.json"));
             bind(MapScanner.class).to(BukkitMapScanner.class);
+            bind(WorldHandler.class).to(BukkitWorldHandler.class);
+
+            bind(WorldConfig.class).toProvider(WorldHandler.class);
+            bind(GlobalConfig.class).toProvider(ConfigHandler.class);
+
+            bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
+
+            bind(File.class).annotatedWith(Names.named("ConfigFolder")).toInstance(getDataFolder());
+            bind(File.class).annotatedWith(Names.named("WorldsFolder")).toInstance(new File(getServer().getWorldContainer(), "worlds"));
+            bind(File.class).annotatedWith(Names.named("WorldContainer")).toInstance(getServer().getWorldContainer());
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import me.MiniDigger.VoxelGamesLib.api.config.Config;
+import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -22,7 +22,7 @@ public class BukkitUser implements User {
     @Inject
     private RoleHandler roleHandler;
     @Inject
-    private Config config;
+    private GlobalConfig config;
 
     @Nonnull
     @Override
