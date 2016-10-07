@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -26,38 +25,53 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
  */
 @Log
 @Singleton
-public class ConfigHandler implements Handler, Provider<Config> {
+public class ConfigHandler implements Handler, Provider<GlobalConfig> {
 
     @Inject
-    @Named("ConfigFile")
-    private File configFile;
+    @Named("ConfigFolder")
+    private File configFolder;
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    private Config config;
+
+    private File globalConfigFile = new File(configFolder, "config.json");
+    private GlobalConfig globalConfig;
 
     @Override
     public void start() {
-        if (!configFile.exists()) {
+        if (!globalConfigFile.exists()) {
             log.warning("Did not found config, saving default");
-            config = Config.getDefault();
-            saveConfig();
+            globalConfig = GlobalConfig.getDefault();
+            saveConfig(globalConfigFile, globalConfig);
         } else {
             log.info("Loading config");
-            loadConfig();
+            globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
 
-            if (config.configVersion != Config.CONFIG_VERSION) {
-                migrate();
+
+            if (checkMigrate(globalConfig)) {
+                migrate(globalConfigFile, globalConfig);
             }
         }
     }
 
     /**
+     * Checks if the config needs to be migrated
+     *
+     * @param config the config that should be checked
+     * @return if the config needs to be migrated
+     */
+    public boolean checkMigrate(Config config) {
+        return config.configVersion != config.CONFIG_VERSION;
+    }
+
+    /**
      * Migrates the config to a new config version.
      *
+     * @param configFile the file to migrate
+     * @param config     the config to migrate
      * @throws ConfigException if there was an error while creating an backup
      */
-    private void migrate() {
-        log.info("Migrating config from v" + config.configVersion + " to v" + Config.CONFIG_VERSION);
+    private void migrate(File configFile, Config config) {
+        log.info("Migrating config from v" + config.configVersion + " to v" + config.CONFIG_VERSION);
         try {
             File backup = new File(configFile.getParent(), configFile.getName() + ".v" + config.configVersion + ".backup");
             Files.copy(configFile, backup);
@@ -66,8 +80,8 @@ public class ConfigHandler implements Handler, Provider<Config> {
             throw new ConfigException("Error while migrating config", e);
         }
 
-        config.configVersion = Config.CONFIG_VERSION;
-        saveConfig();
+        config.configVersion = config.CONFIG_VERSION;
+        saveConfig(configFile, config);
         log.info("Done migrating");
     }
 
@@ -79,24 +93,27 @@ public class ConfigHandler implements Handler, Provider<Config> {
     /**
      * (Re)Loads the config
      *
+     * @param clazz      the class of the config
+     * @param configFile the file to load
+     * @return the loaded config
      * @throws ConfigException if something went wrong
      */
-    public void loadConfig() {
+    public <T extends Config> T loadConfig(File configFile, Class<T> clazz) {
         try {
-            config = gson.fromJson(new JsonReader(new FileReader(configFile)), Config.class);
+            return gson.fromJson(new JsonReader(new FileReader(configFile)), clazz);
         } catch (Exception e) {
             throw new ConfigException("Error while loading config", e);
         }
-
-        //TODO need to figure out what happens if config version changes
     }
 
     /**
      * saves the config
      *
+     * @param configFile the file that should be saved to
+     * @param config     the config that should be saved
      * @throws ConfigException if something went wrong
      */
-    public void saveConfig() {
+    public void saveConfig(File configFile, Config config) {
         if (!configFile.exists()) {
             try {
                 configFile.getParentFile().mkdirs();
@@ -121,8 +138,7 @@ public class ConfigHandler implements Handler, Provider<Config> {
     }
 
     @Override
-    @Nullable
-    public Config get() {
-        return config;
+    public GlobalConfig get() {
+        return globalConfig;
     }
 }
