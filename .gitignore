@@ -10,3 +10,10 @@ hs_err_pid*
 
 # idea
 .idea/
+
+# server stuff
+/testserver/crash-reports
+/testserver/logs
+/testserver/world
+/testserver/spigot.jar
+/testserver/usercache.json
