@@ -237,6 +237,18 @@ public class CommandHandler implements Handler {
                     String[] newArgs = new String[args.length - subCommand];
                     System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
 
+                    if (commandInfo.min() != -1 && args.length < commandInfo.min()) {
+                        // TODO send too few arguments message
+                        // TODO send usage
+                        return true;
+                    }
+
+                    if (commandInfo.max() != -1 && args.length > commandInfo.max()) {
+                        // TODO send too many arguments message
+                        // TODO send usage
+                        return true;
+                    }
+
                     commandMethod.invoke(commandExecutors.get(cmdLabel), new CommandArguments(commandInfo, sender, newArgs));
                 } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();

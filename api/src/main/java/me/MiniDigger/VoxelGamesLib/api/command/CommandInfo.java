@@ -77,4 +77,14 @@ public @interface CommandInfo {
      */
     @Nonnull
     String description() default "";
+
+    /**
+     * @return the minimum amount of arguments required for this command, -1 for disabled (default).
+     */
+    int min() default -1;
+
+    /**
+     * @return the maximum amount of arguments required for this command, -1 for disabled (default)
+     */
+    int max() default -1;
 }
