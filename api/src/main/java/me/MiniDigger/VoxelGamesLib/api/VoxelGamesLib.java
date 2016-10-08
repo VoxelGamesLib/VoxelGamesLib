@@ -12,6 +12,7 @@ import me.MiniDigger.VoxelGamesLib.api.map.MapHandler;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
+import me.MiniDigger.VoxelGamesLib.api.world.WorldCommands;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 
 /**
@@ -52,6 +53,8 @@ public class VoxelGamesLib {
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
+
+        commandHandler.register(new WorldCommands());
     }
 
     /**

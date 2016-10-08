@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Map {
 
-    private String name;
+    private String displayname;
     private String worldName;
     private List<Marker> markers = new ArrayList<>();
     private List<ChestMarker> chestMarkers = new ArrayList<>();

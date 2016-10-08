@@ -3,17 +3,13 @@ package me.MiniDigger.VoxelGamesLib.api.map;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Singleton;
-
 import lombok.extern.java.Log;
 
 /**
- * Created by Martin on 04.10.2016.
+ * Scans the map for markers.
  */
 @Log
-@Singleton
 public abstract class MapScanner {
-
 
     public void scan(Map map, Vector3D center, int range) {
         searchForMarkers(map, center, range);

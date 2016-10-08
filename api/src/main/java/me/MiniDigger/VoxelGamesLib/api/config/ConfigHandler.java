@@ -31,7 +31,8 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     @Named("ConfigFolder")
     private File configFolder;
 
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    @Inject
+    private Gson gson;
 
     private File globalConfigFile = new File(configFolder, "config.json");
     private GlobalConfig globalConfig;

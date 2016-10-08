@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -85,6 +87,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
 
+            bind(Gson.class).toInstance(new GsonBuilder().setPrettyPrinting().create());
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
 
             bind(File.class).annotatedWith(Names.named("ConfigFolder")).toInstance(getDataFolder());
