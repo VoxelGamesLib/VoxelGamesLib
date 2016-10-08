@@ -1,5 +1,8 @@
 {
   "configVersion": 1,
-  "currentVersion": 1,
-  "useRoleSystem": true
+  "currentVersion": 3,
+  "useRoleSystem": true,
+  "anInt": 10,
+  "aDouble": 10.0,
+  "anotherDouble": 10.102
 }

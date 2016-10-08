@@ -8,6 +8,7 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.map.Map;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
+import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 
 /**
@@ -17,6 +18,12 @@ public class WorldCommands {
 
     @Inject
     private WorldHandler handler;
+
+    @CommandInfo(name = "world", perm = "command.world", role = Role.ADMIN)
+    public void world(CommandArguments args) {
+//TODO remove me once GH-17 is implemented
+        args.getSender().sendMessage(ChatMessage.fromLegacyFormat("it works!"));
+    }
 
     @CommandInfo(name = "world.load", perm = "command.world.load", role = Role.ADMIN, description = "Loads a world", min = 1)
     public void load(CommandArguments args) {
@@ -45,7 +52,9 @@ public class WorldCommands {
     public void tp(CommandArguments args) {
         Optional<Map> o = handler.getMap(args.getArg(0));
         if (o.isPresent()) {
-           args.getSender().teleport(new Vector3D(0,0,0));
+            args.getSender().teleport(new Vector3D(0, 0, 0));
+        } else {
+            // TODO send unknown map message
         }
     }
 }

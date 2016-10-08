@@ -30,6 +30,14 @@ public class BukkitUser implements User {
     @Inject
     private GlobalConfig config;
 
+    public BukkitUser(Player player) {
+        this.player = player;
+    }
+
+    public BukkitUser() {
+
+    }
+
     @Nonnull
     @Override
     public Role getRole() {
@@ -39,19 +47,19 @@ public class BukkitUser implements User {
     @Nonnull
     @Override
     public ChatMessage getPrefix() {
-        return null;
+        return ChatMessage.fromLegacyFormat("");
     }
 
     @Nonnull
     @Override
     public ChatMessage getSuffix() {
-        return null;
+        return ChatMessage.fromLegacyFormat("");
     }
 
     @Nonnull
     @Override
     public ChatMessage getDisplayName() {
-        return null;
+        return ChatMessage.fromLegacyFormat(player.getDisplayName());
     }
 
     @Nonnull

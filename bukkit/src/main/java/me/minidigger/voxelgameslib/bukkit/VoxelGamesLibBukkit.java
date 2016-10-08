@@ -30,10 +30,12 @@ import me.MiniDigger.VoxelGamesLib.api.user.User;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldConfig;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
+import me.minidigger.voxelgameslib.bukkit.command.CommandListener;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
+import me.minidigger.voxelgameslib.bukkit.user.UserListener;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorldHandler;
 
 @Singleton
@@ -46,21 +48,27 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     public void onEnable() {
         voxelGamesLibBukkit = this;
 
+        // enable guice and the api
         Injector injector = Guice.createInjector(new BukkitInjector());
 
         voxelGameLib = injector.getInstance(VoxelGamesLib.class);
-        voxelGameLib.onEnable();
+        voxelGameLib.onEnable(injector);
 
+        // command test
         CommandHandler cmdHandler = injector.getInstance(CommandHandler.class);
         cmdHandler.register(this);
         BukkitConsoleUser sender = new BukkitConsoleUser();
         sender.setUser(Bukkit.getConsoleSender());
         cmdHandler.executeCommand(sender, "test command");
 
+        // config test
         GlobalConfig config = injector.getInstance(GlobalConfig.class);
         System.out.println("loaded config with version " + config.configVersion);
 
+        // register listeners
         this.getServer().getPluginManager().registerEvents(this, this);
+        this.getServer().getPluginManager().registerEvents(injector.getInstance(CommandListener.class), this);
+        this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
     }
 
     @Override

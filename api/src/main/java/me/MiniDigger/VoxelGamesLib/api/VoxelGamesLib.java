@@ -1,5 +1,6 @@
 package me.MiniDigger.VoxelGamesLib.api;
 
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import javax.inject.Inject;
@@ -43,7 +44,7 @@ public class VoxelGamesLib {
     /**
      * Called when the server starts and/or the plugin gets loaded
      */
-    public void onEnable() {
+    public void onEnable(Injector injector) {
         configHandler.start();
         tickHandler.start();
         gameHandler.start();
@@ -54,7 +55,7 @@ public class VoxelGamesLib {
         mapHandler.start();
         worldHandler.start();
 
-        commandHandler.register(new WorldCommands());
+        commandHandler.register(injector.getInstance(WorldCommands.class));
     }
 
     /**

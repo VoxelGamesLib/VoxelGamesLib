@@ -8,10 +8,13 @@ import javax.inject.Singleton;
 @Singleton
 public class GlobalConfig extends Config {
 
-    public final int configVersion = 1;
+    public final int configVersion = 3;
     public int currentVersion = configVersion;
 
     public boolean useRoleSystem = true;
+    public int anInt = 10;
+    public double aDouble = 10;
+    public double anotherDouble = 10.1020;
 
     /**
      * @return the default config, with all default settings
