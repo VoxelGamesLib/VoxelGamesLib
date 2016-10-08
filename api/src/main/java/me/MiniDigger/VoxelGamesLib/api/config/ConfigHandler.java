@@ -2,7 +2,6 @@ package me.MiniDigger.VoxelGamesLib.api.config;
 
 import com.google.common.io.Files;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
@@ -34,11 +33,12 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     @Inject
     private Gson gson;
 
-    private File globalConfigFile = new File(configFolder, "config.json");
+    private File globalConfigFile;
     private GlobalConfig globalConfig;
 
     @Override
     public void start() {
+        globalConfigFile = new File(configFolder, "config.json");
         if (!globalConfigFile.exists()) {
             log.warning("Did not found global config, saving default");
             globalConfig = GlobalConfig.getDefault();
@@ -100,6 +100,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @throws ConfigException if something went wrong
      */
     public <T extends Config> T loadConfig(File configFile, Class<T> clazz) {
+        log.finer("Loading " + clazz.getName() + " from " + configFile.getAbsolutePath());
         try {
             return gson.fromJson(new JsonReader(new FileReader(configFile)), clazz);
         } catch (Exception e) {
@@ -115,9 +116,12 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @throws ConfigException if something went wrong
      */
     public void saveConfig(File configFile, Config config) {
+        log.finer("Saving " + config.getClass().getName() + " to " + configFile.getAbsolutePath());
         if (!configFile.exists()) {
             try {
-                configFile.getParentFile().mkdirs();
+                if (configFile.getParentFile() != null) {
+                    configFile.getParentFile().mkdirs();
+                }
                 configFile.createNewFile();
             } catch (Exception e) {
                 throw new ConfigException("Error while creating config file. Does that server has rw-rights to '" + configFile.getAbsolutePath() + "'?", e);

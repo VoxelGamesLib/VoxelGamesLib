@@ -16,6 +16,7 @@
     </properties>
 
     <build>
+        <finalName>VoxelGamesLib</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>

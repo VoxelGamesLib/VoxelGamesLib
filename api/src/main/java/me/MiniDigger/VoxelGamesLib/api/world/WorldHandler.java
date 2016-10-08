@@ -51,7 +51,7 @@ public class WorldHandler implements Handler, Provider<WorldConfig> {
     private Gson gson;
 
     private WorldConfig config;
-    private File configFile = new File(worldsFolder, "worlds.json");
+    private File configFile;
 
     private List<Map> maps = new ArrayList<>();
 
@@ -127,6 +127,7 @@ public class WorldHandler implements Handler, Provider<WorldConfig> {
 
     @Override
     public void start() {
+        configFile = new File(worldsFolder, "worlds.json");
         if (!worldsFolder.exists()) {
             log.warning("Could not find worldsfolder " + worldsFolder.getAbsolutePath() + ". Creating...");
             worldsFolder.mkdirs();
