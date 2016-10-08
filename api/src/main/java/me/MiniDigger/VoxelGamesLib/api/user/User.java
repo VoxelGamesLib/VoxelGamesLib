@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -61,4 +62,19 @@ public interface User {
      * @return whether or not the user has that permission
      */
     boolean hasPermission(@Nonnull Permission perm);
+
+    /**
+     * teleports the player to a location in the same world he is currently in
+     *
+     * @param loc the location to tp to
+     */
+    void teleport(Vector3D loc);
+
+    /**
+     * teleports the play to a location in a given world
+     *
+     * @param world the world to tp to
+     * @param loc   the location to tp to
+     */
+    void teleport(String world, Vector3D loc);
 }

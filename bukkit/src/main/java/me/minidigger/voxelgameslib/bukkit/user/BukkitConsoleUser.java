@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -56,6 +57,16 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public boolean hasPermission(@Nonnull Permission perm) {
         return true;
+    }
+
+    @Override
+    public void teleport(Vector3D loc) {
+        // ignore
+    }
+
+    @Override
+    public void teleport(String world, Vector3D loc) {
+        // ignore
     }
 
     public void setUser(ConsoleCommandSender user) {

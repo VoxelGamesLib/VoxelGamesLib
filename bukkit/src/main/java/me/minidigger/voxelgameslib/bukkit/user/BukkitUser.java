@@ -1,5 +1,8 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -7,13 +10,16 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
+import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 
+@Log
 public class BukkitUser implements User {
 
     private Player player;
@@ -65,6 +71,21 @@ public class BukkitUser implements User {
             return role.hasPermission(perm);
         } else {
             return player.hasPermission(perm.getString());
+        }
+    }
+
+    @Override
+    public void teleport(Vector3D loc) {
+        player.teleport(new Location(player.getWorld(), loc.getX(), loc.getY(), loc.getZ()));
+    }
+
+    @Override
+    public void teleport(String world, Vector3D loc) {
+        World w = Bukkit.getWorld(world);
+        if (w != null) {
+            player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
+        } else {
+            log.warning("Tries to teleport player " + getDisplayName() + " to world " + world + " which is not loaded!");
         }
     }
 }
