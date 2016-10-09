@@ -17,7 +17,18 @@ public class BukkitWorldHandler extends WorldHandler {
     public void loadWorld(Map map) {
         super.loadWorld(map);
 
-        WorldCreator wc = new WorldCreator(map.getWorldName());
+        loadLocalWorld(map.getWorldName());
+    }
+
+    @Override
+    public void unloadWorld(Map map) {
+        unloadLocalWorld(map.getWorldName());
+        super.unloadWorld(map);
+    }
+
+    @Override
+    public void loadLocalWorld(String name) {
+        WorldCreator wc = new WorldCreator(name);
         wc.environment(World.Environment.NORMAL); //TODO do we need support for environment in maps?
         wc.generateStructures(false);
         wc.type(WorldType.NORMAL);
@@ -27,8 +38,7 @@ public class BukkitWorldHandler extends WorldHandler {
     }
 
     @Override
-    public void unloadWorld(Map map) {
-        Bukkit.unloadWorld(map.getWorldName(), false);
-        super.unloadWorld(map);
+    public void unloadLocalWorld(String name) {
+        Bukkit.unloadWorld(name, false);
     }
 }

@@ -34,7 +34,7 @@ import me.MiniDigger.VoxelGamesLib.api.utils.FileUtils;
  */
 @Log
 @Singleton
-public class WorldHandler implements Handler, Provider<WorldConfig> {
+public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
 
     @Inject
     @Named("WorldsFolder")
@@ -157,4 +157,20 @@ public class WorldHandler implements Handler, Provider<WorldConfig> {
     public WorldConfig get() {
         return config;
     }
+
+    /**
+     * Loads a local world
+     *
+     * @param name the world to load
+     * @throws WorldException if the world is not found or something else goes wrong
+     */
+    public abstract void loadLocalWorld(String name);
+
+    /**
+     * Unloads a local world
+     *
+     * @param name the world to load
+     * @throws WorldException if the world is not found or something else goes wrong
+     */
+    public abstract void unloadLocalWorld(String name);
 }

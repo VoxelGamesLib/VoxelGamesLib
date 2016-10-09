@@ -13,6 +13,7 @@ public class WorldConfig extends Config {
     public final int configVersion = 1;
     public int currentVersion = configVersion;
     public List<String> maps = new ArrayList<>();
+    // TODO we need to save the gamemodes for the maps here so that voting and stuff can easily pick maps
 
     public static WorldConfig getDefault() {
         return new WorldConfig();
