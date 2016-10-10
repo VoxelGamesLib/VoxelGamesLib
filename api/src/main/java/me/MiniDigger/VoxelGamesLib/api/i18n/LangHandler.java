@@ -14,7 +14,7 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 public class LangHandler implements Handler {
 
     private Map<Locale, LangStorage> storages = new HashMap<>();
-    private Locale defaultLocale = Locale.ENGLISH; //TODO move defualtLocale to config
+    private Locale defaultLocale = Locale.ENGLISH; //TODO move defaultLocale to config
     private LangStorage defaultStorage;
 
     @Override
