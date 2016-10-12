@@ -11,6 +11,7 @@
     <modules>
         <module>api</module>
         <module>bukkit</module>
+        <module>chat</module>
     </modules>
 
     <properties>
