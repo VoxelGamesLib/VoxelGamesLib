@@ -66,4 +66,8 @@ public class GameHandler implements Handler {
             throw new GameStartException(mode, e);
         }
     }
+
+    public List<GameMode> getGameMode() {
+        return modes;
+    }
 }

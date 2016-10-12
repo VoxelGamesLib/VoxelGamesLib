@@ -1,5 +1,8 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -69,8 +72,9 @@ public class BukkitUser implements User {
     }
 
     @Override
-    public void sendMessage(@Nonnull ChatMessage message) {
-        player.sendRawMessage(message.toRawMessage());
+    public void sendMessage(@Nonnull BaseComponent... message) {
+        //TODO check if this actually works
+        player.sendRawMessage(ComponentSerializer.toString(message));
     }
 
     @Override
@@ -95,5 +99,10 @@ public class BukkitUser implements User {
         } else {
             log.warning("Tries to teleport player " + getDisplayName() + " to world " + world + " which is not loaded!");
         }
+    }
+
+    @Override
+    public void teleport(String world) {
+
     }
 }

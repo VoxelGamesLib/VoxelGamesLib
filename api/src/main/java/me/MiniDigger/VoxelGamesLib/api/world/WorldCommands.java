@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.world;
 
+import net.md_5.bungee.api.chat.TextComponent;
+
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -8,7 +10,6 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.map.Map;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
-import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 
 /**
@@ -22,7 +23,7 @@ public class WorldCommands {
     @CommandInfo(name = "world", perm = "command.world", role = Role.ADMIN)
     public void world(CommandArguments args) {
 //TODO remove me once GH-17 is implemented
-        args.getSender().sendMessage(ChatMessage.fromLegacyFormat("it works!"));
+        args.getSender().sendMessage(new TextComponent("It works!"));
     }
 
     @CommandInfo(name = "world.load", perm = "command.world.load", role = Role.ADMIN, description = "Loads a world", min = 1)

@@ -1,5 +1,9 @@
 package me.MiniDigger.VoxelGamesLib.api.i18n;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TranslatableComponent;
+
 import javax.inject.Inject;
 
 /**
@@ -11,24 +15,22 @@ public class Lang {
     private static LangHandler handler;
 
 
-    public static String t(String key) {
+    public static ComponentBuilder t(LangKey key) {
         return t(key, handler.getDefaultLocale());
     }
 
-    public static String t(String key, String... args) {
+    public static ComponentBuilder t(LangKey key, Object... args) {
         return t(key, handler.getDefaultLocale(), args);
     }
 
-    public static String t(String key, Locale loc) {
-        return t(key, loc, new String[0]);
+    public static ComponentBuilder t(LangKey key, Locale loc) {
+        return t(key, loc, new Object[0]);
     }
 
-    public static String t(String key, Locale loc, String[] args) {
+    public static ComponentBuilder t(LangKey key, Locale loc, Object... args) {
         LangStorage storage = handler.getStorage(loc);
         String string = storage.get(key);
-
-        //TODO apply args
-
-        return string;
+        //TODO check if this actually works
+        return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
     }
 }

@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.user;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
@@ -49,11 +51,11 @@ public interface User {
     UUID getUUID();
 
     /**
-     * Send a {@link ChatMessage} to this user.
+     * Send a message to this user.
      *
-     * @param message the {@link ChatMessage} to be send
+     * @param message the message to be send
      */
-    void sendMessage(@Nonnull ChatMessage message);
+    void sendMessage(@Nonnull BaseComponent... message);
 
     /**
      * checks if that user has the desired permission.
@@ -71,10 +73,16 @@ public interface User {
     void teleport(Vector3D loc);
 
     /**
-     * teleports the play to a location in a given world
+     * teleports the player to a location in a given world
      *
      * @param world the world to tp to
      * @param loc   the location to tp to
      */
     void teleport(String world, Vector3D loc);
+
+    /**
+     * teleports the player to that world (location is implementation detail, should be spawn if possible)
+     * @param world the world to tp to
+     */
+    void teleport(String world);
 }

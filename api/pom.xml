@@ -54,5 +54,10 @@
             <artifactId>zip4j</artifactId>
             <version>1.3.2</version>
         </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-chat</artifactId>
+            <version>1.10-SNAPSHOT-VOXELGAMESLIB</version>
+        </dependency>
     </dependencies>
 </project>

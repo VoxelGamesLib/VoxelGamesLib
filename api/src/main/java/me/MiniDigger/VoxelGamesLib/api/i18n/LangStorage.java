@@ -47,7 +47,7 @@ public class LangStorage {
         }
     }
 
-    public String get(String key) {
-        return messages.getProperty(key,handler.getDefaultStorage().get(key));
+    public String get(LangKey key) {
+        return messages.getProperty(key.name(), handler.getDefaultStorage().get(key));
     }
 }

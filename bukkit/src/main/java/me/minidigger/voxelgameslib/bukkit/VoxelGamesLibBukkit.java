@@ -7,6 +7,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
+import net.md_5.bungee.api.chat.TextComponent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -78,7 +80,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
     @CommandInfo(name = "test", perm = "command.test", role = Role.DEFAULT)
     public void command(CommandArguments args) {
-        args.getSender().sendMessage(ChatMessage.fromLegacyFormat("got command!"));
+        args.getSender().sendMessage(new TextComponent("Command send!"));
     }
 
     class BukkitInjector extends AbstractModule {

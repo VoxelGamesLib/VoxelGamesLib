@@ -1,5 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class AbstractGame implements Game {
     }
 
     @Override
-    public void broadcastMessage(@Nonnull ChatMessage message) {
+    public void broadcastMessage(@Nonnull BaseComponent... message) {
         users.forEach(u -> u.sendMessage(message));
     }
 

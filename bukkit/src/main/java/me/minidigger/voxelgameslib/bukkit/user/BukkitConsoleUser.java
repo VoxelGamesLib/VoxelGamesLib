@@ -1,5 +1,8 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.chat.ComponentSerializer;
+
 import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.UUID;
@@ -50,8 +53,9 @@ public class BukkitConsoleUser implements ConsoleUser {
     }
 
     @Override
-    public void sendMessage(@Nonnull ChatMessage message) {
-        user.sendRawMessage(message.toRawMessage());
+    public void sendMessage(@Nonnull BaseComponent... message) {
+        //TODO check if this actually works
+        user.sendRawMessage(ComponentSerializer.toString(message));
     }
 
     @Override
@@ -67,6 +71,11 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public void teleport(String world, Vector3D loc) {
         // ignore
+    }
+
+    @Override
+    public void teleport(String world) {
+
     }
 
     public void setUser(ConsoleCommandSender user) {
