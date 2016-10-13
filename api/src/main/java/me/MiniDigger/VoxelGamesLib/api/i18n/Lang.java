@@ -17,19 +17,19 @@ public class Lang {
         Lang.handler = handler;
     }
 
-    public static ComponentBuilder t(LangKey key) {
-        return t(key, handler.getDefaultLocale());
+    public static ComponentBuilder trans(LangKey key) {
+        return trans(key, handler.getDefaultLocale());
     }
 
-    public static ComponentBuilder t(LangKey key, Object... args) {
-        return t(key, handler.getDefaultLocale(), args);
+    public static ComponentBuilder trans(LangKey key, Object... args) {
+        return trans(key, handler.getDefaultLocale(), args);
     }
 
-    public static ComponentBuilder t(LangKey key, Locale loc) {
-        return t(key, loc, new Object[0]);
+    public static ComponentBuilder trans(LangKey key, Locale loc) {
+        return trans(key, loc, new Object[0]);
     }
 
-    public static ComponentBuilder t(LangKey key, Locale loc, Object... args) {
+    public static ComponentBuilder trans(LangKey key, Locale loc, Object... args) {
         if (args.length != key.getArgs()) {
             throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
         }
@@ -40,11 +40,11 @@ public class Lang {
         return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
     }
 
-    public static void m(User user, LangKey key) {
-        user.sendMessage(t(key).create());
+    public static void msg(User user, LangKey key) {
+        user.sendMessage(trans(key).create());
     }
 
-    public static void m(User user, LangKey key, Object... args) {
-        user.sendMessage(t(key, args).create());
+    public static void msg(User user, LangKey key, Object... args) {
+        user.sendMessage(trans(key, args).create());
     }
 }

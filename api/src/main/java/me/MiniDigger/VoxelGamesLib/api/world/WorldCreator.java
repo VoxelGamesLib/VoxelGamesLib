@@ -47,17 +47,17 @@ public class WorldCreator {
 
     @CommandInfo(name = "worldcreator", perm = "command.worldcreator", role = Role.ADMIN)
     public void worldcreator(CommandArguments arguments) {
-        Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_INFO);
+        Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_INFO);
     }
 
     @CommandInfo(name = "worldcreator.start", perm = "command.worldcreator.start", role = Role.ADMIN, allowConsole = false)
     public void start(CommandArguments arguments) {
         if (editor != null) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_IN_USE, ChatUtil.toPlainText(editor.getDisplayName()));
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_IN_USE, ChatUtil.toPlainText(editor.getDisplayName()));
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_ENTER_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator world ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator world ")).create());
 
         step = 1;
     }
@@ -65,14 +65,14 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.world", perm = "command.worldcreator.world", role = Role.ADMIN, min = 1, allowConsole = false)
     public void world(CommandArguments arguments) {
         if (step != 1) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 1);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 1);
             return;
         }
 
         worldHandler.loadLocalWorld(arguments.getArg(0));
         arguments.getSender().teleport(arguments.getArg(0));
 
-        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_ENTER_CENTER, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator center")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_CENTER, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator center")).create());
 
         step = 2;
     }
@@ -80,11 +80,11 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.center", perm = "command.worldcreator.center", role = Role.ADMIN, allowConsole = false)
     public void center(CommandArguments arguments) {
         if (step != 2) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 2);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 2);
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_ENTER_RADIUS, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator radius ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_RADIUS, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator radius ")).create());
 
         step = 3;
     }
@@ -92,18 +92,18 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.radius", perm = "command.worldcreator.radius", role = Role.ADMIN, min = 1, allowConsole = false)
     public void radius(CommandArguments arguments) {
         if (step != 3) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 3);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 3);
             return;
         }
 
         try {
             radius = Integer.parseInt(arguments.getArg(0));
         } catch (NumberFormatException ex) {
-            Lang.m(arguments.getSender(), LangKey.GENERAL_NOT_A_NUMBER);
+            Lang.msg(arguments.getSender(), LangKey.GENERAL_NOT_A_NUMBER);
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_ENTER_DISPLAY_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator name ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_DISPLAY_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator name ")).create());
 
         step = 4;
     }
@@ -111,7 +111,7 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.name", perm = "command.worldcreator.name", role = Role.ADMIN, min = 1, allowConsole = false)
     public void name(CommandArguments arguments) {
         if (step != 4) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 4);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 4);
             return;
         }
 
@@ -121,7 +121,7 @@ public class WorldCreator {
         }
         displayName = sb.toString();
 
-        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator author ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator author ")).create());
 
         step = 5;
     }
@@ -129,7 +129,7 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.author", perm = "command.worldcreator.author", role = Role.ADMIN, min = 1, allowConsole = false)
     public void author(CommandArguments arguments) {
         if (step != 5) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 5);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 5);
             return;
         }
 
@@ -139,13 +139,13 @@ public class WorldCreator {
         }
         author = sb.toString();
 
-        Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
+        Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
         for (GameMode mode : gameHandler.getGameMode()) {
             arguments.getSender().sendMessage(new ComponentBuilder(mode.getName() + " ").color(ChatColor.YELLOW)
                     .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator gamemode " + mode.getName())).create());
         }
 
-        Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_DONE_BUTTON);
+        Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_DONE_BUTTON);
 
         step = 6;
     }
@@ -153,25 +153,25 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.gamemode", perm = "command.worldcreator.gamemode", role = Role.ADMIN, min = 1, allowConsole = false)
     public void gamemode(CommandArguments arguments) {
         if (step != 6) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 6);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 6);
             return;
         }
 
         String gamemode = arguments.getArg(0);
         if (gamemode.equalsIgnoreCase("done")) {
-            arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_EDIT_MODE_ON, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit on")).create());
-            arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_EDIT_MODE_OFF, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit off")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_ON, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit on")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_OFF, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit off")).create());
             step = 7;
         } else {
             gameModes.add(gamemode);
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_ADDED);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_ADDED);
         }
     }
 
     @CommandInfo(name = "worldcreator.edit", perm = "command.worldcreator.edit", role = Role.ADMIN, min = 1, allowConsole = false)
     public void edit(CommandArguments arguments) {
         if (step != 7) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 7);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 7);
             return;
         }
 
@@ -179,17 +179,17 @@ public class WorldCreator {
             // TODO implement editing mode
         } else if (arguments.getArg(0).equalsIgnoreCase("off")) {
             //TODO print summery of all stuff
-            arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator done")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator done")).create());
             step = 8;
         } else {
-            Lang.m(arguments.getSender(), LangKey.GENERAL_INVALID_ARGUMENT, arguments.getArg(0));
+            Lang.msg(arguments.getSender(), LangKey.GENERAL_INVALID_ARGUMENT, arguments.getArg(0));
         }
     }
 
     @CommandInfo(name = "worldcreator.done", perm = "command.worldcreator.done", role = Role.ADMIN, allowConsole = false)
     public void done(CommandArguments arguments) {
         if (step != 8) {
-            Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 8);
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 8);
             return;
         }
 
@@ -208,6 +208,6 @@ public class WorldCreator {
         author = null;
         gameModes = new ArrayList<>();
 
-        Lang.m(arguments.getSender(), LangKey.WORLD_CREATOR_DONE);
+        Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_DONE);
     }
 }

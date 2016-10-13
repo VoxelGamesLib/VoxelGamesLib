@@ -22,18 +22,18 @@ public class LangCommands {
         for (Locale loc : langHandler.getInstalledLocales()) {
             sb.append(loc.getName()).append(" ");
         }
-        Lang.m(args.getSender(), LangKey.LANG_INSTALLED, sb.toString());
-        Lang.m(args.getSender(), LangKey.LANG_USING, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_INSTALLED, sb.toString());
+        Lang.msg(args.getSender(), LangKey.LANG_USING, args.getSender().getLocale().getName());
     }
 
     @CommandInfo(name = "lang.set", perm = "command.lang.set", role = Role.DEFAULT, min = 1)
     public void set(CommandArguments args) {
         Optional<Locale> loc = Locale.fromTag(args.getArg(0));
         if (!loc.isPresent()) {
-            Lang.m(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));
+            Lang.msg(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));
             return;
         }
         args.getSender().setLocal(loc.get());
-        Lang.m(args.getSender(), LangKey.LANG_SET, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_SET, args.getSender().getLocale().getName());
     }
 }
