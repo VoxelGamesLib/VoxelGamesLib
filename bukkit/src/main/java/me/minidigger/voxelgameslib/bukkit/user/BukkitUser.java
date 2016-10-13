@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
-import me.MiniDigger.VoxelGamesLib.api.i18n.Locale;
+import me.MiniDigger.VoxelGamesLib.api.lang.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;

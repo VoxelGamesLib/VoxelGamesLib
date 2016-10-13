@@ -1,4 +1,4 @@
-package me.MiniDigger.VoxelGamesLib.api.i18n;
+package me.MiniDigger.VoxelGamesLib.api.lang;
 
 /**
  * Created by Martin on 12.10.2016.

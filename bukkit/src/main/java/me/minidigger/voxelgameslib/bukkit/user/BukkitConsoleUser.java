@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import me.MiniDigger.VoxelGamesLib.api.i18n.Locale;
+import me.MiniDigger.VoxelGamesLib.api.lang.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;

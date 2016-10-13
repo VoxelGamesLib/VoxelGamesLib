@@ -1,4 +1,4 @@
-package me.MiniDigger.VoxelGamesLib.api.i18n;
+package me.MiniDigger.VoxelGamesLib.api.lang;
 
 import java.util.Optional;
 

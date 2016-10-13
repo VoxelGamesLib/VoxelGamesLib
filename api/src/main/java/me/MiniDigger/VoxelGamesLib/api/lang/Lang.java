@@ -1,4 +1,4 @@
-package me.MiniDigger.VoxelGamesLib.api.i18n;
+package me.MiniDigger.VoxelGamesLib.api.lang;
 
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TranslatableComponent;
