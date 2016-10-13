@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
+import me.MiniDigger.VoxelGamesLib.api.i18n.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -27,6 +28,7 @@ public class BukkitUser implements User {
 
     private Player player;
     private Role role;
+    private Locale locale = Locale.ENGLISH;
 
     @Inject
     private RoleHandler roleHandler;
@@ -45,6 +47,17 @@ public class BukkitUser implements User {
     @Override
     public Role getRole() {
         return role;
+    }
+
+    @Nonnull
+    @Override
+    public Locale getLocale() {
+        return locale;
+    }
+
+    @Override
+    public void setLocal(@Nonnull Locale locale) {
+        this.locale = locale;
     }
 
     @Nonnull

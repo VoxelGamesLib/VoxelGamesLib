@@ -4,6 +4,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 
 import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
+import me.MiniDigger.VoxelGamesLib.api.user.User;
 
 /**
  * Created by Martin on 09.10.2016.
@@ -37,5 +38,13 @@ public class Lang {
         String string = storage.get(key);
         //TODO check if this actually works
         return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
+    }
+
+    public static void m(User user, LangKey key) {
+        user.sendMessage(t(key).create());
+    }
+
+    public static void m(User user, LangKey key, Object... args) {
+        user.sendMessage(t(key, args).create());
     }
 }

@@ -9,6 +9,7 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.error.ErrorHandler;
 import me.MiniDigger.VoxelGamesLib.api.game.GameHandler;
+import me.MiniDigger.VoxelGamesLib.api.i18n.LangCommands;
 import me.MiniDigger.VoxelGamesLib.api.i18n.LangHandler;
 import me.MiniDigger.VoxelGamesLib.api.map.MapHandler;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
@@ -66,6 +67,7 @@ public class VoxelGamesLib {
 
         commandHandler.register(injector.getInstance(WorldCommands.class));
         commandHandler.register(injector.getInstance(WorldCreator.class));
+        commandHandler.register(injector.getInstance(LangCommands.class));
     }
 
     /**

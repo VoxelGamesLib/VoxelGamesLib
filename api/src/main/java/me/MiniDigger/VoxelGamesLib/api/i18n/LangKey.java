@@ -24,7 +24,12 @@ public enum LangKey {
     WORLD_CREATOR_INFO("TODO: Enter a nice info message about the world creator", 0),//TODO world creator info
 
     GENERAL_NOT_A_NUMBER("%s is not a valid number!", 1),
-    GENERAL_INVALID_ARGUMENT("u w00t m8? %s is not an accepted argument", 1);
+    GENERAL_INVALID_ARGUMENT("u w00t m8? %s is not an accepted argument!", 1),
+
+    LANG_INSTALLED("The following languages are installed and available on this server: %s", 1),
+    LANG_USING("You are currently using langauge %s, use /lang set <language> to set it to another language.", 1),
+    LANG_SET("You are now receiving messages in %s!", 1),
+    LANG_UNKNOWN("Unknown language %s! Use /lang to see which languages are available!", 1);
 
     private String defaultValue;
     private int args;

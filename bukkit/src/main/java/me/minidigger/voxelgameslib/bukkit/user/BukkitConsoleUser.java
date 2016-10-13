@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import me.MiniDigger.VoxelGamesLib.api.i18n.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -26,6 +27,17 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public Role getRole() {
         return Role.ADMIN;
+    }
+
+    @Nonnull
+    @Override
+    public Locale getLocale() {
+        return Locale.ENGLISH;
+    }
+
+    @Override
+    public void setLocal(@Nonnull Locale local) {
+        // ignored
     }
 
     @Nonnull

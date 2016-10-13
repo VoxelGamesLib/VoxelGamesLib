@@ -2,6 +2,7 @@ package me.MiniDigger.VoxelGamesLib.api.i18n;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -57,5 +58,9 @@ public class LangHandler implements Handler {
 
     public LangStorage getDefaultStorage() {
         return defaultStorage;
+    }
+
+    public Set<Locale> getInstalledLocales() {
+        return storages.keySet();
     }
 }
