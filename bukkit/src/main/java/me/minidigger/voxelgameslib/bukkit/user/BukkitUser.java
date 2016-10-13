@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.chat.ComponentSerializer;
 
 import org.bukkit.Bukkit;
@@ -16,7 +17,6 @@ import javax.inject.Inject;
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
-import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
@@ -49,20 +49,20 @@ public class BukkitUser implements User {
 
     @Nonnull
     @Override
-    public ChatMessage getPrefix() {
-        return ChatMessage.fromLegacyFormat("");
+    public BaseComponent[] getPrefix() {
+        return new ComponentBuilder("PREFIX").create();
     }
 
     @Nonnull
     @Override
-    public ChatMessage getSuffix() {
-        return ChatMessage.fromLegacyFormat("");
+    public BaseComponent[] getSuffix() {
+        return new ComponentBuilder("SUFFIX").create();
     }
 
     @Nonnull
     @Override
-    public ChatMessage getDisplayName() {
-        return ChatMessage.fromLegacyFormat(player.getDisplayName());
+    public BaseComponent[] getDisplayName() {
+        return new ComponentBuilder(player.getDisplayName()).create();
     }
 
     @Nonnull
@@ -73,8 +73,8 @@ public class BukkitUser implements User {
 
     @Override
     public void sendMessage(@Nonnull BaseComponent... message) {
-        //TODO check if this actually works
-        player.sendRawMessage(ComponentSerializer.toString(message));
+        //TODO this is so ugly...
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + ComponentSerializer.toString(message));
     }
 
     @Override

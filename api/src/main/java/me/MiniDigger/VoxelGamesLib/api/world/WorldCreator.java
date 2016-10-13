@@ -46,7 +46,7 @@ public class WorldCreator {
 
     @CommandInfo(name = "worldcreator", perm = "command.worldcreator", role = Role.ADMIN)
     public void worldcreator(CommandArguments arguments) {
-        //TODO show info on how to use the world creator
+        arguments.getSender().sendMessage(Lang.t(LangKey.WORLD_CREATOR_INFO).create());
     }
 
     @CommandInfo(name = "worldcreator.start", perm = "command.worldcreator.start", role = Role.ADMIN, allowConsole = false)

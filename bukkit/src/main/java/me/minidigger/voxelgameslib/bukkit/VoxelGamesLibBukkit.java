@@ -24,7 +24,6 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
 import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
-import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;

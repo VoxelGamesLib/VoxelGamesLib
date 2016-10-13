@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.exception.UserException;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
 
 @Log
 @Singleton
@@ -39,7 +40,7 @@ public class UserHandler implements Handler {
      */
     public void join(User user) {
         if (!hasLoggedIn(user.getUUID())) {
-            throw new UserException("User " + user.getUUID() + "(" + user.getDisplayName().toRawMessage() + ") tried to join without beeing logged in!");
+            throw new UserException("User " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without beeing logged in!");
         }
 
         if (!users.containsKey(user.getUUID())) {
@@ -48,7 +49,7 @@ public class UserHandler implements Handler {
 
         //TODO apply loaded data
         Object temp = tempData.remove(user.getUUID());
-        log.info("Applied data for user " + user.getUUID() + "(" + user.getDisplayName().toRawMessage() + ")");
+        log.info("Applied data for user " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
     }
 
     /**

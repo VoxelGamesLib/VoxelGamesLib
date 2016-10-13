@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 

@@ -3,8 +3,10 @@ package me.MiniDigger.VoxelGamesLib.api.i18n;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.MiniDigger.VoxelGamesLib.api.VoxelGamesLib;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 
 /**
@@ -17,9 +19,15 @@ public class LangHandler implements Handler {
     private Locale defaultLocale = Locale.ENGLISH; //TODO move defaultLocale to config
     private LangStorage defaultStorage;
 
+    @Inject
+    private VoxelGamesLib voxelGameLib;
+
     @Override
     public void start() {
-        defaultStorage = new LangStorage(defaultLocale);
+        Lang.setLangHandler(this);
+
+        defaultStorage = voxelGameLib.getInjector().getInstance(LangStorage.class);
+        defaultStorage.setLocale(defaultLocale);
         defaultStorage.load();
 
         registerLocale(Locale.ENGLISH);
@@ -32,7 +40,9 @@ public class LangHandler implements Handler {
     }
 
     public void registerLocale(Locale loc) {
-        LangStorage s = new LangStorage(loc);
+        LangStorage s = voxelGameLib.getInjector().getInstance(LangStorage.class);
+        s.setLocale(loc);
+        s.setParentStorage(defaultStorage);
         s.load();
         storages.put(loc, s);
     }

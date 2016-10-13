@@ -15,6 +15,7 @@ import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldCommands;
+import me.MiniDigger.VoxelGamesLib.api.world.WorldCreator;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 
 /**
@@ -44,10 +45,14 @@ public class VoxelGamesLib {
     @Inject
     private LangHandler langHandler;
 
+    private Injector injector;
+
     /**
      * Called when the server starts and/or the plugin gets loaded
      */
     public void onEnable(Injector injector) {
+        this.injector = injector;
+
         configHandler.start();
         langHandler.start();
         tickHandler.start();
@@ -60,6 +65,7 @@ public class VoxelGamesLib {
         worldHandler.start();
 
         commandHandler.register(injector.getInstance(WorldCommands.class));
+        commandHandler.register(injector.getInstance(WorldCreator.class));
     }
 
     /**
@@ -76,5 +82,11 @@ public class VoxelGamesLib {
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
+
+        injector = null;
+    }
+
+    public Injector getInjector() {
+        return injector;
     }
 }

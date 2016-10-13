@@ -21,6 +21,7 @@ public enum LangKey {
     WORLD_CREATOR_GAME_MODE_ADDED("Added gamemode, press another or press done to continue.", 0),
     WORLD_CREATOR_ENTER_CENTER("World loaded. Walk to the middle of the world and click here to mark it.", 0),
     WORLD_CREATOR_ENTER_RADIUS("Center set. Click here and enter the radius of this world (in which we should search for markers and load chunks and stuff).", 0),
+    WORLD_CREATOR_INFO("TODO: Enter a nice info message about the world creator", 0),//TODO world creator info
 
     GENERAL_NOT_A_NUMBER("%s is not a valid number!", 1),
     GENERAL_INVALID_ARGUMENT("u w00t m8? %s is not an accepted argument", 1);

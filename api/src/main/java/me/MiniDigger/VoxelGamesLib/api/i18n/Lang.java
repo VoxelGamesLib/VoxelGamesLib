@@ -3,8 +3,6 @@ package me.MiniDigger.VoxelGamesLib.api.i18n;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 
-import javax.inject.Inject;
-
 import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
 
 /**
@@ -12,8 +10,11 @@ import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
  */
 public class Lang {
 
-    @Inject
     private static LangHandler handler;
+
+    public static void setLangHandler(LangHandler handler) {
+        Lang.handler = handler;
+    }
 
     public static ComponentBuilder t(LangKey key) {
         return t(key, handler.getDefaultLocale());

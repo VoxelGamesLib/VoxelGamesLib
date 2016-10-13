@@ -33,7 +33,6 @@ import me.MiniDigger.VoxelGamesLib.api.utils.FileUtils;
  * Handles the worlds (loading, unloading etc)
  */
 @Log
-@Singleton
 public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
 
     @Inject

@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
-import me.MiniDigger.VoxelGamesLib.api.message.ChatMessage;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 
@@ -28,21 +27,21 @@ public interface User {
      * is displayed
      */
     @Nonnull
-    ChatMessage getPrefix();
+    BaseComponent[] getPrefix();
 
     /**
      * @return the suffix that should be displayed in chat and other location where the player name
      * is displayed
      */
     @Nonnull
-    ChatMessage getSuffix();
+    BaseComponent[] getSuffix();
 
     /**
      * @return the display name of the user. doesn't need to be bound to the name of the underlaying
      * player implementation
      */
     @Nonnull
-    ChatMessage getDisplayName();
+    BaseComponent[] getDisplayName();
 
     /**
      * @return a unique identifier for that user.
@@ -81,7 +80,9 @@ public interface User {
     void teleport(String world, Vector3D loc);
 
     /**
-     * teleports the player to that world (location is implementation detail, should be spawn if possible)
+     * teleports the player to that world (location is implementation detail, should be spawn if
+     * possible)
+     *
      * @param world the world to tp to
      */
     void teleport(String world);
