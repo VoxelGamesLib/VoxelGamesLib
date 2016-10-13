@@ -9,6 +9,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.MiniDigger.VoxelGamesLib.api.lang.Lang;
+import me.MiniDigger.VoxelGamesLib.api.lang.LangKey;
 import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
 
 /**
@@ -23,7 +25,8 @@ public class UserListener implements Listener {
     @EventHandler
     public void join(PlayerJoinEvent event) {
         if (!handler.hasLoggedIn(event.getPlayer().getUniqueId())) {
-            event.getPlayer().kickPlayer("Your data has not been loaded, please join again!"); //TODO better message
+            // we don't have a locale here since the data was not loaded :/
+            event.getPlayer().kickPlayer(Lang.string(LangKey.DATA_NOT_LOADED));
         }
         handler.join(new BukkitUser(event.getPlayer()));
     }
@@ -34,7 +37,7 @@ public class UserListener implements Listener {
     }
 
     @EventHandler
-    public void logout(PlayerQuitEvent event){
+    public void logout(PlayerQuitEvent event) {
         handler.logout(event.getPlayer().getUniqueId());
     }
 }

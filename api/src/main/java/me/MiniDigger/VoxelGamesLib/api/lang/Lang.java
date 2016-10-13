@@ -36,7 +36,6 @@ public class Lang {
 
         LangStorage storage = handler.getStorage(loc);
         String string = storage.get(key);
-        //TODO check if this actually works
         return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
     }
 
@@ -46,5 +45,27 @@ public class Lang {
 
     public static void msg(User user, LangKey key, Object... args) {
         user.sendMessage(trans(key, args).create());
+    }
+
+    public static String string(LangKey key) {
+        return string(key, handler.getDefaultLocale());
+    }
+
+    public static String string(LangKey key, Object... args) {
+        return string(key, handler.getDefaultLocale(), args);
+    }
+
+    public static String string(LangKey key, Locale loc) {
+        return string(key, loc, new Object[0]);
+    }
+
+    public static String string(LangKey key, Locale loc, Object... args) {
+        if (args.length != key.getArgs()) {
+            throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
+        }
+
+        LangStorage storage = handler.getStorage(loc);
+        String string = storage.get(key);
+        return String.format(string, args);
     }
 }

@@ -15,6 +15,8 @@ import javax.inject.Inject;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+import me.MiniDigger.VoxelGamesLib.api.lang.Lang;
+import me.MiniDigger.VoxelGamesLib.api.lang.LangKey;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
@@ -224,11 +226,11 @@ public class CommandHandler implements Handler {
                 CommandInfo commandInfo = commandMethod.getAnnotation(CommandInfo.class);
                 Optional<Permission> perm = roleHandler.getPermission(commandInfo.perm());
                 if (perm.isPresent() && !sender.hasPermission(perm.get())) {
-                    //TODO Send no permission message
+                    Lang.msg(sender, LangKey.COMMAND_NO_PERMISSION, perm.get().getString());
                     return true;
                 }
                 if (!commandInfo.allowConsole() && !(sender instanceof ConsoleUser)) {
-                    // TODO send no console message
+                    Lang.msg(sender, LangKey.COMMAND_NO_CONSOLE);
                     return true;
                 }
                 try {
@@ -238,13 +240,13 @@ public class CommandHandler implements Handler {
                     System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
 
                     if (commandInfo.min() != -1 && args.length < commandInfo.min()) {
-                        // TODO send too few arguments message
+                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.min(), args.length);
                         // TODO send usage
                         return true;
                     }
 
                     if (commandInfo.max() != -1 && args.length > commandInfo.max()) {
-                        // TODO send too many arguments message
+                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.max(), args.length);
                         // TODO send usage
                         return true;
                     }

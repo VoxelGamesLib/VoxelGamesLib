@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
+import me.MiniDigger.VoxelGamesLib.api.lang.Lang;
+import me.MiniDigger.VoxelGamesLib.api.lang.LangKey;
 import me.MiniDigger.VoxelGamesLib.api.map.Map;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
@@ -45,7 +47,7 @@ public class WorldCommands {
         if (o.isPresent()) {
             handler.unloadWorld(o.get());
         } else {
-            // TODO send unknown map message
+            Lang.msg(args.getSender(), LangKey.WORLD_UNKNOWN_MAP, args.getArg(0));
         }
     }
 
@@ -55,7 +57,7 @@ public class WorldCommands {
         if (o.isPresent()) {
             args.getSender().teleport(new Vector3D(0, 0, 0));
         } else {
-            // TODO send unknown map message
+            Lang.msg(args.getSender(), LangKey.WORLD_UNKNOWN_MAP, args.getArg(0));
         }
     }
 }
