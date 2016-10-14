@@ -15,5 +15,8 @@ hs_err_pid*
 /testserver/crash-reports
 /testserver/logs
 /testserver/world
-/testserver/spigot.jar
 /testserver/usercache.json
+*.iml
+*/dependency-reduced-pom.xml
+testserver/plugins/VoxelGamesLibBukkit/lang/
+*/target/
