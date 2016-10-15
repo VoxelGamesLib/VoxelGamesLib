@@ -229,7 +229,7 @@ public class CommandHandler implements Handler {
                     Lang.msg(sender, LangKey.COMMAND_NO_PERMISSION, perm.get().getString());
                     return true;
                 }
-                if (!commandInfo.allowConsole() && !(sender instanceof ConsoleUser)) {
+                if (!commandInfo.allowConsole() && sender instanceof ConsoleUser) {
                     Lang.msg(sender, LangKey.COMMAND_NO_CONSOLE);
                     return true;
                 }
