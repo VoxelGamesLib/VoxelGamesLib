@@ -1,10 +1,10 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +103,7 @@ public abstract class BaseComponent
 
     /**
      * Converts the components to a string that uses the old formatting codes
-     * ({@link net.md_5.bungee.api.ChatColor#COLOR_CHAR}
+     * ({@link ChatColor#COLOR_CHAR}
      *
      * @param components the components to convert
      * @return the string in the old format
@@ -136,7 +136,7 @@ public abstract class BaseComponent
 
     /**
      * Returns the color of this component. This uses the parent's color if this
-     * component doesn't have one. {@link net.md_5.bungee.api.ChatColor#WHITE}
+     * component doesn't have one. {@link ChatColor#WHITE}
      * is returned if no color is found.
      *
      * @return the color of this component
@@ -374,7 +374,7 @@ public abstract class BaseComponent
 
     /**
      * Converts the component to a string that uses the old formatting codes
-     * ({@link net.md_5.bungee.api.ChatColor#COLOR_CHAR}
+     * ({@link ChatColor#COLOR_CHAR}
      *
      * @return the string in the old format
      */

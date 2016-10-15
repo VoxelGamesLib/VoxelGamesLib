@@ -1,10 +1,9 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class TextComponent extends BaseComponent
 
     /**
      * Converts the old formatting system that used
-     * {@link net.md_5.bungee.api.ChatColor#COLOR_CHAR} into the new json based
+     * {@link ChatColor#COLOR_CHAR} into the new json based
      * system.
      *
      * @param message the text to convert

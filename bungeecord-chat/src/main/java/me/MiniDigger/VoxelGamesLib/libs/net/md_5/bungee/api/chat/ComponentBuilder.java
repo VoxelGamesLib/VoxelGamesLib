@@ -1,6 +1,6 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
-import net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +16,9 @@ import java.util.List;
  * <p>
  * All methods (excluding {@link #append(String)} and {@link #create()} work on
  * the last part appended to the builder, so in the example above "Hello " would
- * be {@link net.md_5.bungee.api.ChatColor#RED} and "World" would be
- * {@link net.md_5.bungee.api.ChatColor#BLUE} but "!" would be bold and
- * {@link net.md_5.bungee.api.ChatColor#BLUE} because append copies the previous
+ * be {@link ChatColor#RED} and "World" would be
+ * {@link ChatColor#BLUE} but "!" would be bold and
+ * {@link ChatColor#BLUE} because append copies the previous
  * part's formatting
  * </p>
  */

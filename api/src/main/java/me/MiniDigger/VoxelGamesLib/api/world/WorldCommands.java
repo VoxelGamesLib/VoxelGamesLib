@@ -1,6 +1,6 @@
 package me.MiniDigger.VoxelGamesLib.api.world;
 
-import net.md_5.bungee.api.chat.TextComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 import java.util.Optional;
 

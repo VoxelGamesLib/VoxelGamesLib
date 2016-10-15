@@ -1,6 +1,6 @@
 package me.MiniDigger.VoxelGamesLib.api.utils;
 
-import net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 /**
  * Created by Martin on 13.10.2016.

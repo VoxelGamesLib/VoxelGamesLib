@@ -7,8 +7,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
-import net.md_5.bungee.api.chat.TextComponent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +28,7 @@ import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldConfig;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.TextComponent;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.command.CommandListener;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;

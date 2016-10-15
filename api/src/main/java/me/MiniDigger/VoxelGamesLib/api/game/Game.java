@@ -1,6 +1,6 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
-import net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 import javax.annotation.Nonnull;
 

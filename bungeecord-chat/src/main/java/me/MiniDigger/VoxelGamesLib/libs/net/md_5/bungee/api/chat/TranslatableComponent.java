@@ -1,9 +1,9 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -60,7 +60,7 @@ public class TranslatableComponent extends BaseComponent
      * @see #setWith(java.util.List)
      * @param translate the translation key
      * @param with the {@link java.lang.String}s and
-     * {@link net.md_5.bungee.api.chat.BaseComponent}s to use into the
+     * {@link BaseComponent}s to use into the
      * translation
      */
     public TranslatableComponent(String translate, Object... with)
@@ -72,9 +72,12 @@ public class TranslatableComponent extends BaseComponent
             if ( w instanceof String )
             {
                 temp.add( new TextComponent( (String) w ) );
-            } else
+            } else if ( w instanceof BaseComponent)
             {
                 temp.add( (BaseComponent) w );
+            } else
+            {
+                temp.add( new TextComponent( String.valueOf(w) ) ); // VGL: make it accept other objects too
             }
         }
         setWith( temp );

@@ -1,13 +1,13 @@
-package net.md_5.bungee.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.chat;
 
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ClickEvent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.HoverEvent;
 
 import java.util.Arrays;
 import java.util.HashSet;

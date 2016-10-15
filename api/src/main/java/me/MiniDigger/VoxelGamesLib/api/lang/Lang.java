@@ -1,7 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.lang;
 
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.TranslatableComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.TranslatableComponent;
 
 import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
 import me.MiniDigger.VoxelGamesLib.api.user.User;

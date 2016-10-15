@@ -1,7 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
 import org.bukkit.command.ConsoleCommandSender;
 

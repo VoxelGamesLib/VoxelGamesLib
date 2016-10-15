@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;

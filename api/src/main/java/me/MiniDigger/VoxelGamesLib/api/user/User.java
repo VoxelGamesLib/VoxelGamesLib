@@ -1,6 +1,6 @@
 package me.MiniDigger.VoxelGamesLib.api.user;
 
-import net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 import java.util.UUID;
 

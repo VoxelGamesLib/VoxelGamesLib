@@ -10,8 +10,8 @@
 
     <modules>
         <module>api</module>
-        <module>bungeecord-chat</module>
         <module>bukkit</module>
+        <module>bungeecord-chat</module>
     </modules>
 
     <properties>

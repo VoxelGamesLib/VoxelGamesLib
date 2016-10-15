@@ -1,9 +1,8 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
-import net.md_5.bungee.api.chat.ClickEvent.Action;
 
 @Getter
 @ToString
@@ -27,28 +26,28 @@ public final class ClickEvent
 
         /**
          * Open a url at the path given by
-         * {@link net.md_5.bungee.api.chat.ClickEvent#value}
+         * {@link ClickEvent#value}
          */
         OPEN_URL,
         /**
          * Open a file at the path given by
-         * {@link net.md_5.bungee.api.chat.ClickEvent#value}
+         * {@link ClickEvent#value}
          */
         OPEN_FILE,
         /**
          * Run the command given by
-         * {@link net.md_5.bungee.api.chat.ClickEvent#value}
+         * {@link ClickEvent#value}
          */
         RUN_COMMAND,
         /**
          * Inserts the string given by
-         * {@link net.md_5.bungee.api.chat.ClickEvent#value} into the players
+         * {@link ClickEvent#value} into the players
          * text box
          */
         SUGGEST_COMMAND,
         /**
          * Change to the page number given by
-         * {@link net.md_5.bungee.api.chat.ClickEvent#value} in a book
+         * {@link ClickEvent#value} in a book
          */
         CHANGE_PAGE
     }

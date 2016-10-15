@@ -1,4 +1,4 @@
-package net.md_5.bungee.api;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api;
 
 import java.util.HashMap;
 import java.util.Map;

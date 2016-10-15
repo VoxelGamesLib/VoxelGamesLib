@@ -1,4 +1,4 @@
-package net.md_5.bungee.api.chat;
+package me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
