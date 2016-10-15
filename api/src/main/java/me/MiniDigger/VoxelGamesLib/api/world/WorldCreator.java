@@ -2,10 +2,6 @@ package me.MiniDigger.VoxelGamesLib.api.world;
 
 import com.google.inject.Singleton;
 
-import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
-import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ClickEvent;
-import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +17,9 @@ import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ClickEvent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
 /**
  * Handles creation of new worlds/maps
@@ -57,7 +56,7 @@ public class WorldCreator {
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator world ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator world ")).create());
 
         step = 1;
     }
@@ -72,7 +71,7 @@ public class WorldCreator {
         worldHandler.loadLocalWorld(arguments.getArg(0));
         arguments.getSender().teleport(arguments.getArg(0));
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_CENTER, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator center")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_CENTER, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator center")).create());
 
         step = 2;
     }
@@ -84,7 +83,7 @@ public class WorldCreator {
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_RADIUS, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator radius ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_RADIUS, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator radius ")).create());
 
         step = 3;
     }
@@ -103,7 +102,7 @@ public class WorldCreator {
             return;
         }
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_DISPLAY_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator name ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_DISPLAY_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator name ")).create());
 
         step = 4;
     }
@@ -121,7 +120,7 @@ public class WorldCreator {
         }
         displayName = sb.toString();
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator author ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator author ")).create());
 
         step = 5;
     }
@@ -142,7 +141,7 @@ public class WorldCreator {
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
         for (GameMode mode : gameHandler.getGameMode()) {
             arguments.getSender().sendMessage(new ComponentBuilder(mode.getName() + " ").color(ChatColor.YELLOW)
-                    .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator gamemode " + mode.getName())).create());
+                    .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator gamemode " + mode.getName())).create());
         }
 
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_DONE_BUTTON);
@@ -159,8 +158,8 @@ public class WorldCreator {
 
         String gamemode = arguments.getArg(0);
         if (gamemode.equalsIgnoreCase("done")) {
-            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_ON, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit on")).create());
-            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_OFF, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "worldcreator edit off")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_ON, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator edit on")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_EDIT_MODE_OFF, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator edit off")).create());
             step = 7;
         } else {
             gameModes.add(gamemode);
@@ -179,7 +178,7 @@ public class WorldCreator {
             // TODO implement editing mode
         } else if (arguments.getArg(0).equalsIgnoreCase("off")) {
             //TODO print summery of all stuff
-            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "worldcreator done")).create());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator done")).create());
             step = 8;
         } else {
             Lang.msg(arguments.getSender(), LangKey.GENERAL_INVALID_ARGUMENT, arguments.getArg(0));
