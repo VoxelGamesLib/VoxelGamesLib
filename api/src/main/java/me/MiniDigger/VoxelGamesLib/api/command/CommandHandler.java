@@ -239,14 +239,14 @@ public class CommandHandler implements Handler {
                     String[] newArgs = new String[args.length - subCommand];
                     System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
 
-                    if (commandInfo.min() != -1 && args.length < commandInfo.min()) {
-                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.min(), args.length);
+                    if (commandInfo.min() != -1 && newArgs.length < commandInfo.min()) {
+                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.min(), newArgs.length);
                         // TODO send usage
                         return true;
                     }
 
-                    if (commandInfo.max() != -1 && args.length > commandInfo.max()) {
-                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.max(), args.length);
+                    if (commandInfo.max() != -1 && newArgs.length > commandInfo.max()) {
+                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.max(), newArgs.length);
                         // TODO send usage
                         return true;
                     }
