@@ -18,6 +18,7 @@ import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.role.RoleHandler;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
+import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.chat.ComponentSerializer;
@@ -109,12 +110,18 @@ public class BukkitUser implements User {
         if (w != null) {
             player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
         } else {
-            log.warning("Tries to teleport player " + getDisplayName() + " to world " + world + " which is not loaded!");
+            log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
         }
     }
 
     @Override
     public void teleport(String world) {
-
+        World w = Bukkit.getWorld(world);
+        if (w != null) {
+            Vector3D loc = new Vector3D(w.getSpawnLocation().getX(), w.getSpawnLocation().getY(), w.getSpawnLocation().getZ());
+            player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
+        } else {
+            log.warning("Tries to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
+        }
     }
 }
