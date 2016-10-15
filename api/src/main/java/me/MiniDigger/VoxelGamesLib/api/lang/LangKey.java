@@ -37,8 +37,8 @@ public enum LangKey {
 
     COMMAND_NO_PERMISSION("You don't have the required permission %s to execute this command!", 1),
     COMMAND_NO_CONSOLE("This command can't be executed via console!", 0),
-    COMMAND_TO_FEW_ARGUMENTS("You entered to few arguments! Minimum is %s, you entered &s", 2),
-    COMMAND_TO_MANY_ARGUMENTS("You entered to many arguments! Maximum is %s, you entered &s", 2);
+    COMMAND_TO_FEW_ARGUMENTS("You entered to few arguments! Minimum is %s, you entered %s", 2),
+    COMMAND_TO_MANY_ARGUMENTS("You entered to many arguments! Maximum is %s, you entered %s", 2);
 
     private String defaultValue;
     private int args;
