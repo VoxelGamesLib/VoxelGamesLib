@@ -14,10 +14,12 @@ config-version: 8
 settings:
   debug: false
   save-user-cache-on-stop-only: false
-  filter-creative-items: true
   moved-wrongly-threshold: 0.0625
+  filter-creative-items: true
   moved-too-quickly-multiplier: 10.0
-  item-dirty-ticks: 20
+  timeout-time: 600000000
+  restart-on-crash: true
+  restart-script: ./start.bat
   attribute:
     maxHealth:
       max: 2048.0
@@ -25,19 +27,28 @@ settings:
       max: 2048.0
     attackDamage:
       max: 2048.0
+  netty-threads: 4
+  item-dirty-ticks: 20
+  player-shuffle: 0
   sample-count: 12
-  timeout-time: 60
-  restart-on-crash: true
-  restart-script: ./start.bat
+  user-cache-size: 1000
+  late-bind: true
   int-cache-limit: 1024
   bungeecord: false
-  netty-threads: 4
-  late-bind: true
-  user-cache-size: 1000
-  player-shuffle: 0
 stats:
   disable-saving: false
   forced-stats: {}
+commands:
+  tab-complete: 0
+  silent-commandblock-console: false
+  spam-exclusions:
+  - /skill
+  replace-commands:
+  - setblock
+  - summon
+  - testforblock
+  - tellraw
+  log: true
 messages:
   whitelist: You are not whitelisted on this server!
   unknown-command: Unknown command. Type "/help" for help.
@@ -45,34 +56,34 @@ messages:
   outdated-client: Outdated client! Please use {0}
   outdated-server: Outdated server! I'm still on {0}
   restart: Server is restarting
-commands:
-  tab-complete: 0
-  silent-commandblock-console: false
-  replace-commands:
-  - setblock
-  - summon
-  - testforblock
-  - tellraw
-  log: true
-  spam-exclusions:
-  - /skill
 world-settings:
   default:
     verbose: false
-    enable-zombie-pigmen-portal-spawns: true
-    wither-spawn-sound-radius: 0
-    nerf-spawner-mobs: false
-    hanging-tick-frequency: 100
-    item-despawn-rate: 6000
-    merge-radius:
-      item: 2.5
-      exp: 3.0
     arrow-despawn-rate: 1200
+    nerf-spawner-mobs: false
+    mob-spawn-range: 4
+    merge-radius:
+      exp: 3.0
+      item: 2.5
+    wither-spawn-sound-radius: 0
+    max-entity-collisions: 8
     dragon-death-sound-radius: 0
     seed-village: 10387312
     seed-feature: 14357617
-    max-entity-collisions: 8
-    mob-spawn-range: 4
+    hanging-tick-frequency: 100
+    item-despawn-rate: 6000
+    enable-zombie-pigmen-portal-spawns: true
+    random-light-updates: false
+    save-structure-info: true
+    max-tick-time:
+      tile: 50
+      entity: 50
+    hunger:
+      walk-exhaustion: 0.2
+      sprint-exhaustion: 0.8
+      combat-exhaustion: 0.3
+      regen-exhaustion: 3.0
+    max-tnt-per-tick: 100
     entity-tracking-range:
       players: 48
       animals: 48
@@ -98,16 +109,5 @@ world-settings:
       netherwart-modifier: 100
       vine-modifier: 100
       cocoa-modifier: 100
-    random-light-updates: false
-    save-structure-info: true
-    hunger:
-      walk-exhaustion: 0.2
-      sprint-exhaustion: 0.8
-      combat-exhaustion: 0.3
-      regen-exhaustion: 3.0
-    max-tnt-per-tick: 100
-    max-tick-time:
-      tile: 50
-      entity: 50
     zombie-aggressive-towards-villager: true
     view-distance: 10
