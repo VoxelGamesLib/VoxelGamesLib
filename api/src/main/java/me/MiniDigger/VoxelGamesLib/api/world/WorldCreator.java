@@ -1,7 +1,15 @@
 package me.MiniDigger.VoxelGamesLib.api.world;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
 import com.google.inject.Singleton;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +21,13 @@ import me.MiniDigger.VoxelGamesLib.api.game.GameHandler;
 import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
 import me.MiniDigger.VoxelGamesLib.api.lang.Lang;
 import me.MiniDigger.VoxelGamesLib.api.lang.LangKey;
+import me.MiniDigger.VoxelGamesLib.api.map.Map;
+import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.user.User;
 import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
+import me.MiniDigger.VoxelGamesLib.api.utils.ZipUtil;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.ChatColor;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ClickEvent;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
@@ -33,6 +44,12 @@ public class WorldCreator {
     @Inject
     private GameHandler gameHandler;
 
+    @Inject
+    private MapScanner mapScanner;
+
+    @Inject
+    private Gson gson;
+
     private User editor;
 
     private int step = 0;
@@ -43,6 +60,8 @@ public class WorldCreator {
     private String displayName;
     private String author;
     private List<String> gameModes;
+
+    private Map map;
 
     @CommandInfo(name = "worldcreator", perm = "command.worldcreator", role = Role.ADMIN)
     public void worldcreator(CommandArguments arguments) {
@@ -56,6 +75,9 @@ public class WorldCreator {
             return;
         }
 
+        editor = arguments.getSender();
+        gameModes = new ArrayList<>();
+
         arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_NAME, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator world ")).create());
 
         step = 1;
@@ -68,8 +90,10 @@ public class WorldCreator {
             return;
         }
 
-        worldHandler.loadLocalWorld(arguments.getArg(0));
-        arguments.getSender().teleport(arguments.getArg(0));
+        worldName = arguments.getArg(0);
+
+        worldHandler.loadLocalWorld(worldName);
+        arguments.getSender().teleport(worldName);
 
         arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_CENTER, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator center")).create());
 
@@ -82,6 +106,8 @@ public class WorldCreator {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 2);
             return;
         }
+
+        center = arguments.getSender().getLocation();
 
         arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_RADIUS, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator radius ")).create());
 
@@ -120,7 +146,7 @@ public class WorldCreator {
         }
         displayName = sb.toString();
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator author ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale(), displayName).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator author ")).create());
 
         step = 5;
     }
@@ -141,10 +167,10 @@ public class WorldCreator {
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
         for (GameMode mode : gameHandler.getGameMode()) {
             arguments.getSender().sendMessage(new ComponentBuilder(mode.getName() + " ").color(ChatColor.YELLOW)
-                    .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator gamemode " + mode.getName())).create());
+                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode " + mode.getName())).create());
         }
 
-        Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_GAME_MODE_DONE_BUTTON);
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_GAME_MODE_DONE_BUTTON, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode done")).create());
 
         step = 6;
     }
@@ -177,8 +203,9 @@ public class WorldCreator {
         if (arguments.getArg(0).equalsIgnoreCase("on")) {
             // TODO implement editing mode
         } else if (arguments.getArg(0).equalsIgnoreCase("off")) {
-            //TODO print summery of all stuff
-            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator done")).create());
+            map = new Map(displayName, worldName, author, gameModes, center, radius);
+            map.printSummery(arguments.getSender());
+            arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator done")).create());
             step = 8;
         } else {
             Lang.msg(arguments.getSender(), LangKey.GENERAL_INVALID_ARGUMENT, arguments.getArg(0));
@@ -192,9 +219,25 @@ public class WorldCreator {
             return;
         }
 
-        // TODO map scan
-        // TODO save stuff to json
-        // TODO zip world
+        mapScanner.scan(map);
+
+        File worldFolder = new File(worldHandler.getWorldContainer(), map.getWorldName());
+
+        try {
+            gson.toJson(map, Map.class, new JsonWriter(new FileWriter(worldFolder)));
+        } catch (IOException e) {
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_SAVE_CONFIG_ERROR, e.getMessage(), e.getClass().getName());
+            return;
+        }
+
+        ZipFile zip;
+        try {
+            zip = ZipUtil.createZip(worldFolder);
+        } catch (ZipException e) {
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_SAVE_ZIP_ERROR, e.getMessage(), e.getClass().getName());
+            return;
+        }
+
         // TODO move zip to worlds folder
         // TODO add map into world config
 

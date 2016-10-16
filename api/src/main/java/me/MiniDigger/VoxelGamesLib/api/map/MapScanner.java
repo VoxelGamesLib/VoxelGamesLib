@@ -3,6 +3,8 @@ package me.MiniDigger.VoxelGamesLib.api.map;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import lombok.extern.java.Log;
 
 /**
@@ -11,8 +13,8 @@ import lombok.extern.java.Log;
 @Log
 public abstract class MapScanner {
 
-    public void scan(Map map, Vector3D center, int range) {
-        searchForMarkers(map, center, range);
+    public void scan(Map map) {
+        searchForMarkers(map, map.getCenter(), map.getRadius());
 
         List<Marker> errored = new ArrayList<>();
 

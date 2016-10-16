@@ -124,4 +124,9 @@ public class BukkitUser implements User {
             log.warning("Tries to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
         }
     }
+
+    @Override
+    public Vector3D getLocation() {
+        return new Vector3D(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
+    }
 }

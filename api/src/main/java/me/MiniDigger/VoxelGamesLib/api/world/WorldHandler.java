@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.exception.MapException;
@@ -38,6 +39,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     @Named("WorldsFolder")
     private File worldsFolder;
 
+    @Getter
     @Inject
     @Named("WorldContainer")
     private File worldContainer;

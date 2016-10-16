@@ -21,7 +21,7 @@ public class GameHandler implements Handler {
     @Override
     public void start() {
         // TODO Auto-generated method stub
-
+        registerGameMode(new GameMode("Test", null));
     }
 
     @Override

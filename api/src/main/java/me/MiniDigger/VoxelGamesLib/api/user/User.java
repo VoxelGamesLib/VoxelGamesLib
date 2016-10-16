@@ -92,4 +92,6 @@ public interface User {
      * @param world the world to tp to
      */
     void teleport(String world);
+
+    Vector3D getLocation();
 }

@@ -1,8 +1,5 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
-import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
-import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
-
 import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.UUID;
@@ -15,6 +12,8 @@ import me.MiniDigger.VoxelGamesLib.api.role.Permission;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.user.ConsoleUser;
 import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
+import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
 /**
  * Created by Martin on 02.10.2016.
@@ -87,6 +86,11 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public void teleport(String world) {
 
+    }
+
+    @Override
+    public Vector3D getLocation() {
+        return new Vector3D(0, 0, 0);
     }
 
     public void setUser(ConsoleCommandSender user) {
