@@ -13,10 +13,10 @@ import me.MiniDigger.VoxelGamesLib.api.game.Game;
  */
 public abstract class AbstractPhase implements Phase {
 
-    private String name;
-    private Game game;
-    private List<Feature> features;
-    private Phase nextPhase;
+    private final String name;
+    private final Game game;
+    private final List<Feature> features;
+    private final Phase nextPhase;
 
     /**
      * Constructs a new Phase.

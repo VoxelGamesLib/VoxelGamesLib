@@ -3,7 +3,7 @@ package me.MiniDigger.VoxelGamesLib.api.lang;
 /**
  * Created by Martin on 12.10.2016.
  *
- * Style note: the members needs to be sorted alphabeticly! TODO figure out how to do that..........
+ * Style note: the members needs to be sorted alphabetical! TODO figure out how to do that..........
  */
 public enum LangKey {
 
@@ -43,8 +43,8 @@ public enum LangKey {
     COMMAND_TO_FEW_ARGUMENTS("You entered to few arguments! Minimum is %s, you entered %s", 2),
     COMMAND_TO_MANY_ARGUMENTS("You entered to many arguments! Maximum is %s, you entered %s", 2);
 
-    private String defaultValue;
-    private int args;
+    private final String defaultValue;
+    private final int args;
 
     LangKey(String defaultValue, int args) {
         this.defaultValue = defaultValue;

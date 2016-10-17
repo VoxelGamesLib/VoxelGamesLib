@@ -9,7 +9,7 @@ import me.MiniDigger.VoxelGamesLib.api.item.Item;
  */
 public class ChestMarker extends Marker {
 
-    private Item[] items;
+    private final Item[] items;
 
     public ChestMarker(@Nonnull Vector3D loc, @Nonnull String name, @Nonnull Item[] items) {
         super(loc, name);

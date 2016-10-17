@@ -1,7 +1,5 @@
 package me.MiniDigger.VoxelGamesLib.api.utils;
 
-import com.google.common.io.Files;
-
 import java.io.File;
 
 /**
@@ -16,8 +14,11 @@ public class FileUtils {
      */
     public static void delete(File f) {
         if (f.isDirectory()) {
-            for (File c : f.listFiles()) {
-                delete(c);
+            File[] files = f.listFiles();
+            if (files != null) {
+                for (File c : files) {
+                    delete(c);
+                }
             }
         }
         if (!f.delete()) {

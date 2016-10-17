@@ -247,7 +247,7 @@ public class ComponentBuilder
         return result;
     }
 
-    public static enum FormatRetention
+    public enum FormatRetention
     {
 
         /**

@@ -29,7 +29,7 @@ public class LangStorage {
     private File langFile;
 
     private Locale locale;
-    private Properties messages = new Properties();
+    private final Properties messages = new Properties();
     private LangStorage parentStorage;
 
     public Locale getLocale() {

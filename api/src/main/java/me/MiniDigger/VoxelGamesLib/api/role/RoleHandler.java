@@ -16,7 +16,7 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 @Singleton
 public class RoleHandler implements Handler {
 
-    private List<Permission> knownPermissions = new ArrayList<>();
+    private final List<Permission> knownPermissions = new ArrayList<>();
 
     @Override
     public void start() {

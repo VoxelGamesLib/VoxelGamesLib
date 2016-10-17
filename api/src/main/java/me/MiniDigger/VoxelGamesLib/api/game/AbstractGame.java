@@ -15,13 +15,13 @@ import me.MiniDigger.VoxelGamesLib.api.user.User;
  */
 public class AbstractGame implements Game {
 
-    private GameMode gameMode;
-    private Phase activePhase;
+    private final GameMode gameMode;
+    private final Phase activePhase;
 
     /**
      * A list with all {@link User}s that participate in this game, aka should receive messages.
      */
-    private List<User> users = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 
     /**
      * Constructs a new {@link AbstractGame}

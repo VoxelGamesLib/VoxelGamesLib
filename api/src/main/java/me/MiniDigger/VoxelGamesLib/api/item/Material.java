@@ -221,7 +221,7 @@ public enum Material {
     FROSTED_ICE(212),
     STRUCTURE_BLOCK(255);
 
-    private int id;
+    private final int id;
 
     Material(int id) {
         this.id = id;

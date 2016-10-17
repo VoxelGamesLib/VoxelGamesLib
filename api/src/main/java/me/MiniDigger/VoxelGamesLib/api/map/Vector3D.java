@@ -42,6 +42,7 @@ public class Vector3D implements Cloneable {
      */
     @Override
     @Nonnull
+    @SuppressWarnings("CloneDoesntCallSuperClone")
     public final Vector3D clone() {
         // We don't need to call super.clone() because the method is final.
         return new Vector3D(x, y, z);

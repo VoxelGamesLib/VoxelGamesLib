@@ -7,8 +7,8 @@ import javax.annotation.Nonnull;
  */
 public class GameMode {
 
-    private String name;
-    private Class<Game> gameClass;
+    private final String name;
+    private final Class<Game> gameClass;
 
     /**
      * Constructs a new {@link GameMode}

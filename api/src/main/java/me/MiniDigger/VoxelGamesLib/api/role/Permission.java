@@ -5,8 +5,8 @@ package me.MiniDigger.VoxelGamesLib.api.role;
  */
 public class Permission {
 
-    private String string;
-    private Role role;
+    private final String string;
+    private final Role role;
 
     Permission(String string, Role role) {
         this.string = string;

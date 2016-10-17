@@ -53,7 +53,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     private WorldConfig config;
     private File configFile;
 
-    private List<Map> maps = new ArrayList<>();
+    private final List<Map> maps = new ArrayList<>();
 
     /**
      * Gets a map from a list of loaded maps
@@ -129,7 +129,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     public void start() {
         configFile = new File(worldsFolder, "worlds.json");
         if (!worldsFolder.exists()) {
-            log.warning("Could not find worldsfolder " + worldsFolder.getAbsolutePath() + ". Creating...");
+            log.warning("Could not find worlds folder " + worldsFolder.getAbsolutePath() + ". Creating...");
             worldsFolder.mkdirs();
         }
 

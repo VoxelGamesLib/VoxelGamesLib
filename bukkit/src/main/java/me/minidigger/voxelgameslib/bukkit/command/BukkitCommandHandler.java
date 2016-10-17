@@ -48,8 +48,8 @@ public class BukkitCommandHandler extends CommandHandler {
                 final Field knownCommandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
                 knownCommandField.setAccessible(true);
                 Object obj = knownCommandField.get(bukkitCommandMap);
-                if (obj instanceof Map) {
-                    knownCommands = (Map<String, org.bukkit.command.Command>) knownCommandField.get(bukkitCommandMap);
+                if (obj.getClass().isAssignableFrom(Map.class)) {
+                    knownCommands = (Map<String, org.bukkit.command.Command>) obj;
                 } else {
                     log.warning("Could get knownCommands from the SimpleCommandMap (returned unexpected object), can't unregister any commands!");
                 }

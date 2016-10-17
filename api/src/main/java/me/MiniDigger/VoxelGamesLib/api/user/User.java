@@ -43,7 +43,7 @@ public interface User {
     BaseComponent[] getSuffix();
 
     /**
-     * @return the display name of the user. doesn't need to be bound to the name of the underlaying
+     * @return the display name of the user. doesn't need to be bound to the name of the underlying
      * player implementation
      */
     @Nonnull

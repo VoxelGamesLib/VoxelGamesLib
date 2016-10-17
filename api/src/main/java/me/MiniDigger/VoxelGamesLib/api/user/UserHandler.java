@@ -40,7 +40,7 @@ public class UserHandler implements Handler {
      */
     public void join(User user) {
         if (!hasLoggedIn(user.getUUID())) {
-            throw new UserException("User " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without beeing logged in!");
+            throw new UserException("User " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
         }
 
         if (!users.containsKey(user.getUUID())) {

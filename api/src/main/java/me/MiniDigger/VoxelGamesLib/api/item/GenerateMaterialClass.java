@@ -70,8 +70,8 @@ class GenerateMaterialClass {
 
     private static class Block {
 
-        String name;
-        int id;
+        final String name;
+        final int id;
 
         Block(String name, int id) {
             this.name = name;

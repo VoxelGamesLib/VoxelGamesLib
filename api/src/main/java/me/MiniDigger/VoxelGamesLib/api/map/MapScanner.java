@@ -3,8 +3,6 @@ package me.MiniDigger.VoxelGamesLib.api.map;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Singleton;
-
 import lombok.extern.java.Log;
 
 /**

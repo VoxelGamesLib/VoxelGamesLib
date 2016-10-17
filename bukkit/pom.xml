@@ -62,6 +62,7 @@
                                 </tstamp>
                                 <delete>
                                     <fileset dir="../testserver/logs">
+                                        <!--suppress MavenModelInspection // it can't detect -->
                                         <date datetime="${touch.time}" when="before"/>
 
                                         <scriptselector language="javascript">

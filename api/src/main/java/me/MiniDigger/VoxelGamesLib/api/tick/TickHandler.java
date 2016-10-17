@@ -1,7 +1,5 @@
 package me.MiniDigger.VoxelGamesLib.api.tick;
 
-import com.google.inject.Singleton;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +17,7 @@ import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
  */
 public abstract class TickHandler implements Handler {
 
-    private List<Tickable> tickables = new ArrayList<>();
+    private final List<Tickable> tickables = new ArrayList<>();
 
     /**
      * Called when the underlying server mod calls a tick. Causes all {@link Tickable}s to tick

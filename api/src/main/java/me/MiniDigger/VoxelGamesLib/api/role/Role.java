@@ -14,8 +14,8 @@ public enum Role {
     MODERATOR("moderator", PREMIUM),
     ADMIN("admin", MODERATOR);
 
-    private String name;
-    private Role parent;
+    private final String name;
+    private final Role parent;
 
     Role(@Nonnull String name, @Nullable Role parent) {
         this.name = name;

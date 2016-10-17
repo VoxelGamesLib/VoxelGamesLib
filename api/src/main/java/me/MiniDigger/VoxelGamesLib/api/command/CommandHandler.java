@@ -29,11 +29,11 @@ public class CommandHandler implements Handler {
     @Inject
     private RoleHandler roleHandler;
 
-    private Map<String, Method> commands = new HashMap<>();
-    private Map<String, Object> commandExecutors = new HashMap<>();
+    private final Map<String, Method> commands = new HashMap<>();
+    private final Map<String, Object> commandExecutors = new HashMap<>();
 
-    private Map<String, Method> completer = new HashMap<>();
-    private Map<String, Object> completerExecutors = new HashMap<>();
+    private final Map<String, Method> completer = new HashMap<>();
+    private final Map<String, Object> completerExecutors = new HashMap<>();
 
     @Override
     public void start() {

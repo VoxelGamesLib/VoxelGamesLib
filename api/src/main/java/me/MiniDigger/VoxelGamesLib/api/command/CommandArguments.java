@@ -12,9 +12,9 @@ import me.MiniDigger.VoxelGamesLib.api.user.User;
  */
 public class CommandArguments {
 
-    private User sender;
-    private CommandInfo command;
-    private String[] args;
+    private final User sender;
+    private final CommandInfo command;
+    private final String[] args;
 
     CommandArguments(@Nonnull CommandInfo command, @Nonnull User sender, @Nonnull String[] args) {
         this.args = args;
