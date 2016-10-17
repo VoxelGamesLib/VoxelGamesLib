@@ -10,7 +10,7 @@ import me.MiniDigger.VoxelGamesLib.api.tick.Tickable;
  * reused in a variety of {@link GameMode}s
  */
 public interface Feature extends Tickable {
-
+    
     /**
      * @return the {@link Phase} this {@link Feature} is attached too.
      */

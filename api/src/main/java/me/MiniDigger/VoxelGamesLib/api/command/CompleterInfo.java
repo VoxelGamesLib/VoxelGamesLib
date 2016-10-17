@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CompleterInfo {
-
+    
     /**
      * The name of the command that this method should be the completer for. Follows the same naming
      * convention as described in {@link CommandInfo#name()}
@@ -21,7 +21,7 @@ public @interface CompleterInfo {
      * @return The name of the command
      */
     String name();
-
+    
     /**
      * The aliases of the command that this method should be the completer for. Follows the same
      * naming convention as described in {@link CommandInfo#name()}

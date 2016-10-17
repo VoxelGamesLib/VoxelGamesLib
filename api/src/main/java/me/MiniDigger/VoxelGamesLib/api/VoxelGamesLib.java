@@ -3,8 +3,6 @@ package me.MiniDigger.VoxelGamesLib.api;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
-import javax.inject.Inject;
-
 import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.error.ErrorHandler;
@@ -19,12 +17,14 @@ import me.MiniDigger.VoxelGamesLib.api.world.WorldCommands;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldCreator;
 import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 
+import javax.inject.Inject;
+
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
  */
 @Singleton
 public class VoxelGamesLib {
-
+    
     @Inject
     private ConfigHandler configHandler;
     @Inject
@@ -45,15 +45,15 @@ public class VoxelGamesLib {
     private WorldHandler worldHandler;
     @Inject
     private LangHandler langHandler;
-
+    
     private Injector injector;
-
+    
     /**
      * Called when the server starts and/or the plugin gets loaded
      */
     public void onEnable(Injector injector) {
         this.injector = injector;
-
+        
         configHandler.start();
         langHandler.start();
         tickHandler.start();
@@ -64,12 +64,12 @@ public class VoxelGamesLib {
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
-
+        
         commandHandler.register(injector.getInstance(WorldCommands.class));
         commandHandler.register(injector.getInstance(LangCommands.class));
         commandHandler.register(injector.getInstance(WorldCreator.class));
     }
-
+    
     /**
      * Called when the server stops and/or the plugin gets disabled
      */
@@ -84,10 +84,10 @@ public class VoxelGamesLib {
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
-
+        
         injector = null;
     }
-
+    
     public Injector getInjector() {
         return injector;
     }

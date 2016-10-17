@@ -1,35 +1,34 @@
 package me.MiniDigger.VoxelGamesLib.api.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import me.MiniDigger.VoxelGamesLib.api.exception.GameModeNotAvailableException;
 import me.MiniDigger.VoxelGamesLib.api.exception.GameStartException;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles all {@link Game} instances and all {@link GameMode}s.
  */
 @com.google.inject.Singleton
 public class GameHandler implements Handler {
-
+    
     private final List<Game> games = new ArrayList<>();
     private final List<GameMode> modes = new ArrayList<>();
-
+    
     @Override
     public void start() {
         // TODO Auto-generated method stub
         registerGameMode(new GameMode("Test", null));
     }
-
+    
     @Override
     public void stop() {
         games.forEach(Game::stop);
         games.clear();
     }
-
+    
     /**
      * Registers a new {@link GameMode}. Fails silently if that {@link GameMode} is already
      * registered.
@@ -41,7 +40,7 @@ public class GameHandler implements Handler {
             modes.add(mode);
         }
     }
-
+    
     /**
      * Starts a new {@link Game} instance of that {@link GameMode}.
      *
@@ -56,7 +55,7 @@ public class GameHandler implements Handler {
         if (!modes.contains(mode)) {
             throw new GameModeNotAvailableException(mode);
         }
-
+        
         try {
             Game game = mode.getGameClass().newInstance();
             games.add(game);
@@ -66,7 +65,7 @@ public class GameHandler implements Handler {
             throw new GameStartException(mode, e);
         }
     }
-
+    
     public List<GameMode> getGameMode() {
         return modes;
     }

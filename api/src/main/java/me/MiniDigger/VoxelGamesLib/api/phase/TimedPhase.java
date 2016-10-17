@@ -1,19 +1,18 @@
 package me.MiniDigger.VoxelGamesLib.api.phase;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * A special {@link Phase} that automatically ends after a specified amount of ticks.
  */
 public class TimedPhase extends AbstractPhase {
-
+    
     private int ticks;
-
+    
     /**
      * Constructs a new Phase.
      *
@@ -27,12 +26,12 @@ public class TimedPhase extends AbstractPhase {
         super(name, game, features, nextPhase);
         this.ticks = ticks;
     }
-
+    
     @Override
     public void tick() {
         super.tick();
         ticks--;
-
+        
         if (ticks <= 0) {
             getGame().endPhase();
         }

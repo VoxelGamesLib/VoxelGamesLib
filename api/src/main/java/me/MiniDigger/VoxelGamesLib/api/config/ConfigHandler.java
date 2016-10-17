@@ -5,19 +5,18 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import com.google.inject.Provider;
 import com.google.inject.name.Named;
+import lombok.extern.java.Log;
 
+import me.MiniDigger.VoxelGamesLib.api.exception.ConfigException;
+import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import lombok.extern.java.Log;
-import me.MiniDigger.VoxelGamesLib.api.exception.ConfigException;
-import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 
 /**
  * the config handler handles all configs (uhh)
@@ -25,17 +24,17 @@ import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 @Log
 @Singleton
 public class ConfigHandler implements Handler, Provider<GlobalConfig> {
-
+    
     @Inject
     @Named("ConfigFolder")
     private File configFolder;
-
+    
     @Inject
     private Gson gson;
-
+    
     private File globalConfigFile;
     private GlobalConfig globalConfig;
-
+    
     @Override
     public void start() {
         globalConfigFile = new File(configFolder, "config.json");
@@ -46,14 +45,14 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
         } else {
             log.info("Loading global config");
             globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
-
-
+            
+            
             if (checkMigrate(globalConfig)) {
                 migrate(globalConfigFile, globalConfig);
             }
         }
     }
-
+    
     /**
      * Checks if the config needs to be migrated
      *
@@ -63,7 +62,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     public boolean checkMigrate(Config config) {
         return config.getConfigVersion() != config.getCurrentVersion();
     }
-
+    
     /**
      * Migrates the config to a new config version.
      *
@@ -80,17 +79,17 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
         } catch (IOException e) {
             throw new ConfigException("Error while migrating config", e);
         }
-
+        
         config.setCurrentVersion(config.getConfigVersion());
         saveConfig(configFile, config);
         log.info("Done migrating");
     }
-
+    
     @Override
     public void stop() {
-
+        
     }
-
+    
     /**
      * (Re)Loads the config
      *
@@ -107,7 +106,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             throw new ConfigException("Error while loading config", e);
         }
     }
-
+    
     /**
      * saves the config
      *
@@ -127,12 +126,12 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
                 throw new ConfigException("Error while creating config file. Does that server has rw-rights to '" + configFile.getAbsolutePath() + "'?", e);
             }
         }
-
+        
         if (config == null) {
             log.warning("Tried to save a null config!");
             return;
         }
-
+        
         try {
             Writer writer = new FileWriter(configFile, false);
             gson.toJson(config, writer);
@@ -141,7 +140,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             throw new ConfigException("Error while saving config", e);
         }
     }
-
+    
     @Override
     public GlobalConfig get() {
         return globalConfig;

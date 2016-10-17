@@ -1,8 +1,8 @@
 package me.MiniDigger.VoxelGamesLib.api.command;
 
-import javax.annotation.Nonnull;
-
 import me.MiniDigger.VoxelGamesLib.api.user.User;
+
+import javax.annotation.Nonnull;
 
 /**
  * Holds all information about a command that was excuted by a user
@@ -11,17 +11,17 @@ import me.MiniDigger.VoxelGamesLib.api.user.User;
  * @version 1.0.0
  */
 public class CommandArguments {
-
+    
     private final User sender;
     private final CommandInfo command;
     private final String[] args;
-
+    
     CommandArguments(@Nonnull CommandInfo command, @Nonnull User sender, @Nonnull String[] args) {
         this.args = args;
         this.command = command;
         this.sender = sender;
     }
-
+    
     /**
      * @return The {@link User} who executed the command.
      */
@@ -29,7 +29,7 @@ public class CommandArguments {
     public User getSender() {
         return sender;
     }
-
+    
     /**
      * @param i The index
      * @return The argument at index i
@@ -38,14 +38,14 @@ public class CommandArguments {
     public String getArg(int i) {
         return args[i];
     }
-
+    
     /**
      * @return The number of arguments the sender entered
      */
     public int getNumArgs() {
         return args.length;
     }
-
+    
     /**
      * @return All arguments the sender entered
      */
@@ -53,7 +53,7 @@ public class CommandArguments {
     public String[] getArgs() {
         return args;
     }
-
+    
     /**
      * @return The original command info
      */

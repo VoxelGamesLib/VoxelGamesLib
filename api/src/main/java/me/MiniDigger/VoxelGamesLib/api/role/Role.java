@@ -8,20 +8,20 @@ import javax.annotation.Nullable;
  * default so there is no permission setup needed.
  */
 public enum Role {
-
+    
     DEFAULT("default", null),
     PREMIUM("premium", DEFAULT),
     MODERATOR("moderator", PREMIUM),
     ADMIN("admin", MODERATOR);
-
+    
     private final String name;
     private final Role parent;
-
+    
     Role(@Nonnull String name, @Nullable Role parent) {
         this.name = name;
         this.parent = parent;
     }
-
+    
     /**
      * @return the name of the role
      */
@@ -29,7 +29,7 @@ public enum Role {
     public String getName() {
         return name;
     }
-
+    
     /**
      * @return the parent role, can be null if there is no parent (like for the default role)
      */
@@ -37,7 +37,7 @@ public enum Role {
     public Role getParent() {
         return parent;
     }
-
+    
     /**
      * Checks if this role has the desired permission. Walks up the inheritance tree.
      *
@@ -51,10 +51,10 @@ public enum Role {
             if (currRole.getName().equalsIgnoreCase(roleName)) {
                 return true;
             }
-
+            
             currRole = currRole.getParent();
         }
-
+        
         return false;
     }
 }

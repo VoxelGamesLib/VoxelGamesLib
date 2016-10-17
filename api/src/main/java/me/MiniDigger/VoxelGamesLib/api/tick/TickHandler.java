@@ -1,13 +1,12 @@
 package me.MiniDigger.VoxelGamesLib.api.tick;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
 import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The TickHandler handles the ticking of all Tickables on the server. However not every Tickable is
@@ -16,16 +15,16 @@ import me.MiniDigger.VoxelGamesLib.api.phase.Phase;
  * implementation of the TickHandler
  */
 public abstract class TickHandler implements Handler {
-
+    
     private final List<Tickable> tickables = new ArrayList<>();
-
+    
     /**
      * Called when the underlying server mod calls a tick. Causes all {@link Tickable}s to tick
      */
     public void tick() {
         tickables.forEach(Tickable::tick);
     }
-
+    
     /**
      * Stops every {@link Tickable} from ticking and does some cleanup
      */
@@ -34,7 +33,7 @@ public abstract class TickHandler implements Handler {
         tickables.forEach(Tickable::stop);
         tickables.clear();
     }
-
+    
     /**
      * Registers a new {@link Tickable}. Calls the {@link Tickable#start()} method.
      *

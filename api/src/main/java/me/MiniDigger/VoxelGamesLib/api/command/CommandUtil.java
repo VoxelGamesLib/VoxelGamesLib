@@ -1,15 +1,14 @@
 package me.MiniDigger.VoxelGamesLib.api.command;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
 
 /**
  * Util methods related to the command system
  */
 public class CommandUtil {
-
+    
     /**
      * Filters the list to only include entries that start with the prefix
      *

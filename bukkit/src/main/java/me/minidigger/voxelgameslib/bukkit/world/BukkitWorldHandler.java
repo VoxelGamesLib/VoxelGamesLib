@@ -12,20 +12,20 @@ import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
  * Created by Martin on 07.10.2016.
  */
 public class BukkitWorldHandler extends WorldHandler {
-
+    
     @Override
     public void loadWorld(Map map) {
         super.loadWorld(map);
-
+        
         loadLocalWorld(map.getWorldName());
     }
-
+    
     @Override
     public void unloadWorld(Map map) {
         unloadLocalWorld(map.getWorldName());
         super.unloadWorld(map);
     }
-
+    
     @Override
     public void loadLocalWorld(String name) {
         WorldCreator wc = new WorldCreator(name);
@@ -36,7 +36,7 @@ public class BukkitWorldHandler extends WorldHandler {
         wc.generatorSettings("");
         wc.createWorld();
     }
-
+    
     @Override
     public void unloadLocalWorld(String name) {
         Bukkit.unloadWorld(name, false);

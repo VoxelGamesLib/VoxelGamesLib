@@ -2,32 +2,32 @@ package me.MiniDigger.VoxelGamesLib.api.role;
 
 import com.google.inject.Singleton;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import me.MiniDigger.VoxelGamesLib.api.exception.DuplicatePermissionDefinitionException;
 import me.MiniDigger.VoxelGamesLib.api.exception.NoSuchRoleException;
 import me.MiniDigger.VoxelGamesLib.api.handler.Handler;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Handles all roles for this server. TODO javadoc for RoleHandler
  */
 @Singleton
 public class RoleHandler implements Handler {
-
+    
     private final List<Permission> knownPermissions = new ArrayList<>();
-
+    
     @Override
     public void start() {
-
+        
     }
-
+    
     @Override
     public void stop() {
         knownPermissions.clear();
     }
-
+    
     /**
      * Tries to register a new permission object. will return existing one instead of duplicating.
      *
@@ -41,19 +41,19 @@ public class RoleHandler implements Handler {
         if (!r.isPresent()) {
             throw new NoSuchRoleException(role);
         }
-
+        
         Optional<Permission> opt = getPermission(perm);
         if (opt.isPresent()) {
             if (!opt.get().getRole().getName().equalsIgnoreCase(role)) {
                 throw new DuplicatePermissionDefinitionException(opt.get(), role);
             }
         }
-
+        
         Permission p = new Permission(perm, r.get());
         knownPermissions.add(p);
         return p;
     }
-
+    
     /**
      * Searches for a permission object with that permission string
      *
@@ -63,7 +63,7 @@ public class RoleHandler implements Handler {
     public Optional<Permission> getPermission(String perm) {
         return knownPermissions.stream().filter(p -> p.getString().equalsIgnoreCase(perm)).findAny();
     }
-
+    
     /**
      * Searches for a role with that name
      *

@@ -7,15 +7,13 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-final public class HoverEvent
-{
-
+final public class HoverEvent {
+    
     private final Action action;
     private final BaseComponent[] value;
-
-    public enum Action
-    {
-
+    
+    public enum Action {
+        
         SHOW_TEXT,
         SHOW_ACHIEVEMENT,
         SHOW_ITEM,

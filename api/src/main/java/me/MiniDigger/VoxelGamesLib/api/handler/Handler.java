@@ -5,12 +5,12 @@ package me.MiniDigger.VoxelGamesLib.api.handler;
  * and destroyed by the main class.
  */
 public interface Handler {
-
+    
     /**
      * Called on server start
      */
     void start();
-
+    
     /**
      * Called on server stop. used to cleanup things.
      */

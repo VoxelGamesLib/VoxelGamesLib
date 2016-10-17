@@ -1,55 +1,54 @@
 package me.MiniDigger.VoxelGamesLib.api.lang;
 
 import com.google.inject.name.Named;
+import lombok.extern.java.Log;
 
+import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
+
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.inject.Inject;
-
-import lombok.extern.java.Log;
-import me.MiniDigger.VoxelGamesLib.api.exception.LangException;
-
 /**
  * Created by Martin on 09.10.2016.
  */
 @Log
 public class LangStorage {
-
+    
     @Inject
     @Named("LangFolder")
     private File langFolder;
-
+    
     @Inject
     private LangHandler handler;
-
+    
     private File langFile;
-
+    
     private Locale locale;
     private final Properties messages = new Properties();
     private LangStorage parentStorage;
-
+    
     public Locale getLocale() {
         return locale;
     }
-
+    
     public void setLocale(Locale locale) {
         this.locale = locale;
         langFile = new File(langFolder, locale.getTag() + ".properties");
     }
-
+    
     public void setParentStorage(LangStorage parentStorage) {
         this.parentStorage = parentStorage;
     }
-
+    
     public void saveDefaultValue() {
         if (!langFolder.exists()) {
             langFolder.mkdirs();
         }
-
+        
         for (LangKey key : LangKey.values()) {
             messages.setProperty(key.name(), key.getDefaultValue());
         }
@@ -59,7 +58,7 @@ public class LangStorage {
             throw new LangException("Error while saving default lang values to " + langFile.getAbsolutePath(), e);
         }
     }
-
+    
     /**
      * Tries to load the messages from the langFolder
      *
@@ -76,7 +75,7 @@ public class LangStorage {
             throw new LangException("Could not find lang file for locale" + locale, e);
         }
     }
-
+    
     public String get(LangKey key) {
         String message = messages.getProperty(key.name());
         if (message == null) {
@@ -84,11 +83,11 @@ public class LangStorage {
                 message = parentStorage.get(key);
             }
         }
-
+        
         if (message == null) {
             throw new LangException("Could not find value for lang key " + key.name()); //TODO do we want to return the default value here?
         }
-
+        
         return message;
     }
 }

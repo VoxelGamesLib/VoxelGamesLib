@@ -6,7 +6,7 @@ import java.io.File;
  * Collection of file related utils
  */
 public class FileUtils {
-
+    
     /**
      * Deletes a file (or folder)
      *

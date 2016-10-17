@@ -1,15 +1,15 @@
 package me.MiniDigger.VoxelGamesLib.api.exception;
 
-import javax.annotation.Nonnull;
-
 import me.MiniDigger.VoxelGamesLib.api.game.Game;
 import me.MiniDigger.VoxelGamesLib.api.game.GameMode;
+
+import javax.annotation.Nonnull;
 
 /**
  * Thrown when something goes wrong while starting a {@link Game}
  */
 public class GameStartException extends VoxelGameLibException {
-
+    
     /**
      * @param mode the gamemode that was tried to start
      * @param e    the exception that was thrown while starting

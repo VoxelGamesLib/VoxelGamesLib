@@ -5,7 +5,7 @@ package me.MiniDigger.VoxelGamesLib.api.item;
  * primsmarinejs guys. go check them out here https://github.com/PrismarineJS/minecraft-data/
  */
 public enum Material {
-
+    
     AIR(0),
     STONE(1),
     GRASS(2),
@@ -220,17 +220,17 @@ public enum Material {
     CHAIN_COMMAND_BLOCK(211),
     FROSTED_ICE(212),
     STRUCTURE_BLOCK(255);
-
+    
     private final int id;
-
+    
     Material(int id) {
         this.id = id;
     }
-
+    
     public int getId() {
         return id;
     }
-
+    
     public static Material fromId(int id) {
         for (Material mat : values()) {
             if (mat.getId() == id) {

@@ -1,23 +1,22 @@
 package me.MiniDigger.VoxelGamesLib.api.phase;
 
-import java.util.List;
+import me.MiniDigger.VoxelGamesLib.api.exception.NoSuchFeatureException;
+import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
+import me.MiniDigger.VoxelGamesLib.api.game.Game;
 
 import javax.annotation.Nonnull;
-
-import me.MiniDigger.VoxelGamesLib.api.feature.Feature;
-import me.MiniDigger.VoxelGamesLib.api.exception.NoSuchFeatureException;
-import me.MiniDigger.VoxelGamesLib.api.game.Game;
+import java.util.List;
 
 /**
  * Simple implementation of a {@link Phase}. Implements the necessary {@link Feature}-handling.
  */
 public abstract class AbstractPhase implements Phase {
-
+    
     private final String name;
     private final Game game;
     private final List<Feature> features;
     private final Phase nextPhase;
-
+    
     /**
      * Constructs a new Phase.
      *
@@ -32,47 +31,47 @@ public abstract class AbstractPhase implements Phase {
         this.features = features;
         this.nextPhase = nextPhase;
     }
-
+    
     @Nonnull
     @Override
     public String getName() {
         return name;
     }
-
+    
     @Nonnull
     @Override
     public Game getGame() {
         return game;
     }
-
+    
     @Nonnull
     @Override
     public Feature getFeature(@Nonnull Class<Feature> clazz) {
         return features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
-
+    
     @Nonnull
     @Override
     public List<Feature> getFeatures() {
         return features;
     }
-
+    
     @Nonnull
     @Override
     public Phase getNextPhase() {
         return nextPhase;
     }
-
+    
     @Override
     public void start() {
         features.forEach(Feature::start);
     }
-
+    
     @Override
     public void stop() {
         features.forEach(Feature::stop);
     }
-
+    
     @Override
     public void tick() {
         features.forEach(Feature::tick);

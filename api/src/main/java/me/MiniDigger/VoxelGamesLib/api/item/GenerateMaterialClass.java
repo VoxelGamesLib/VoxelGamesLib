@@ -19,13 +19,13 @@ import java.util.Scanner;
  * primsmarinejs guys. go check them out here https://github.com/PrismarineJS/minecraft-data/
  */
 class GenerateMaterialClass {
-
+    
     private static final String blocksJsonUrl = "https://raw.githubusercontent.com/PrismarineJS/minecraft-data/master/data/pc/1.10/blocks.json";
     private static final File file = new File("Z:\\Dev\\spigot-intellij\\VoxelGamesLib\\api\\src\\main\\java\\me\\MiniDigger\\VoxelGamesLib\\api\\item\\Material.java");
-
+    
     public static void main(String[] args) throws IOException, ParseException {
         List<Block> blocks = new ArrayList<>();
-
+        
         JSONArray arr = (JSONArray) new JSONParser().parse(new InputStreamReader(new URL(blocksJsonUrl).openStream()));
         for (Object t : arr) {
             JSONObject obj = (JSONObject) t;
@@ -33,21 +33,21 @@ class GenerateMaterialClass {
             int id = ((Long) obj.get("id")).intValue();
             blocks.add(new Block(name, id));
         }
-
+        
         StringBuilder sb = new StringBuilder();
         for (Block block : blocks) {
             sb.append("\t").append(block.name).append("(").append(block.id).append(")").append(",").append("\n");
         }
         String write = sb.toString().substring(0, sb.length() - 2) + ";";
-
-        final Scanner s = new Scanner(file);
+        
+        Scanner s = new Scanner(file);
         List<String> lines = new ArrayList<>();
         while (s.hasNextLine()) {
             lines.add(s.nextLine());
         }
         s.close();
-
-        final PrintWriter w = new PrintWriter(file);
+        
+        PrintWriter w = new PrintWriter(file);
         for (String line : lines) {
             w.println(line);
             if (line.equalsIgnoreCase("public enum Material {")) {
@@ -67,12 +67,12 @@ class GenerateMaterialClass {
         }
         w.close();
     }
-
+    
     private static class Block {
-
+        
         final String name;
         final int id;
-
+        
         Block(String name, int id) {
             this.name = name;
             this.id = id;
