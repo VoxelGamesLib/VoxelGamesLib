@@ -1,5 +1,7 @@
 {
   "configVersion": 1,
   "currentVersion": 1,
-  "maps": []
+  "maps": [
+    "highjacked"
+  ]
 }

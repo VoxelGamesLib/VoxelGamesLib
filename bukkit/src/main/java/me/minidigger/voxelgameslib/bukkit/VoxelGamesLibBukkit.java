@@ -81,7 +81,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         args.getSender().sendMessage(new TextComponent("Command send!"));
     }
 
-    class BukkitInjector extends AbstractModule {
+    private class BukkitInjector extends AbstractModule {
 
         @Override
         protected void configure() {
@@ -90,7 +90,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(TickHandler.class).to(BukkitTickHandler.class);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
-            bind(WorldHandler.class).to(BukkitWorldHandler.class);
+            bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
 
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);

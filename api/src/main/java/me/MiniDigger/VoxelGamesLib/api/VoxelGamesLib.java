@@ -66,8 +66,8 @@ public class VoxelGamesLib {
         worldHandler.start();
 
         commandHandler.register(injector.getInstance(WorldCommands.class));
-        commandHandler.register(injector.getInstance(WorldCreator.class));
         commandHandler.register(injector.getInstance(LangCommands.class));
+        commandHandler.register(injector.getInstance(WorldCreator.class));
     }
 
     /**

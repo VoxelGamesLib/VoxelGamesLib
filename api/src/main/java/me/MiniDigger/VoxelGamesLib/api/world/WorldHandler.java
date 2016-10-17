@@ -141,7 +141,6 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             log.info("Loading world config");
             config = configHandler.loadConfig(configFile, WorldConfig.class);
 
-
             if (configHandler.checkMigrate(config)) {
                 configHandler.migrate(configFile, config);
             }
@@ -173,4 +172,12 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @throws WorldException if the world is not found or something else goes wrong
      */
     public abstract void unloadLocalWorld(String name);
+
+    public File getWorldsFolder() {
+        return worldsFolder;
+    }
+
+    public void saveConfig() {
+        configHandler.saveConfig(configFile, config);
+    }
 }

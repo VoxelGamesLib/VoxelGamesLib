@@ -1,7 +1,7 @@
 package me.MiniDigger.VoxelGamesLib.api.world;
 
+import com.google.common.io.Files;
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonWriter;
 import com.google.inject.Singleton;
 
 import net.lingala.zip4j.core.ZipFile;
@@ -12,9 +12,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.inject.Inject;
 
+import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.game.GameHandler;
@@ -35,6 +37,7 @@ import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilde
 /**
  * Handles creation of new worlds/maps
  */
+@Log
 @Singleton
 public class WorldCreator {
 
@@ -46,6 +49,9 @@ public class WorldCreator {
 
     @Inject
     private MapScanner mapScanner;
+
+    @Inject
+    private WorldConfig config;
 
     @Inject
     private Gson gson;
@@ -224,9 +230,12 @@ public class WorldCreator {
         File worldFolder = new File(worldHandler.getWorldContainer(), map.getWorldName());
 
         try {
-            gson.toJson(map, Map.class, new JsonWriter(new FileWriter(worldFolder)));
+            FileWriter fileWriter = new FileWriter(new File(worldFolder, "config.json"));
+            gson.toJson(map, fileWriter);
+            fileWriter.close();
         } catch (IOException e) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_SAVE_CONFIG_ERROR, e.getMessage(), e.getClass().getName());
+            log.log(Level.WARNING, "Error while saving the world config", e);
             return;
         }
 
@@ -235,11 +244,18 @@ public class WorldCreator {
             zip = ZipUtil.createZip(worldFolder);
         } catch (ZipException e) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_SAVE_ZIP_ERROR, e.getMessage(), e.getClass().getName());
+            log.log(Level.WARNING, "Error while creating the zip", e);
             return;
         }
 
-        // TODO move zip to worlds folder
-        // TODO add map into world config
+        try {
+            Files.move(zip.getFile(), new File(worldHandler.getWorldsFolder(), zip.getFile().getName()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        config.maps.add(map.getWorldName());
+        worldHandler.saveConfig();
 
         editor = null;
         step = 0;
