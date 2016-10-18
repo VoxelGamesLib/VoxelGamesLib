@@ -8,8 +8,9 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 /**
- * Created by Martin on 13.10.2016.
+ * Handles all commands related to lang and i18n
  */
+@SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class LangCommands {
     
     @Inject
