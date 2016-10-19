@@ -92,4 +92,6 @@ public interface User {
     void teleport(String world);
     
     Vector3D getLocation();
+
+    String getWorld();
 }

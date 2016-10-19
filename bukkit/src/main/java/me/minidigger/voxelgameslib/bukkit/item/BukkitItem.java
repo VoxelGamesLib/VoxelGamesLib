@@ -10,6 +10,8 @@ import me.MiniDigger.VoxelGamesLib.api.item.Material;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Martin on 05.10.2016.
  */
@@ -19,7 +21,7 @@ public class BukkitItem extends Item {
         super(material, variation, amount, name, lore);
     }
     
-    public static BukkitItem fromItemStack(ItemStack is) {
+    public static BukkitItem fromItemStack(@Nonnull ItemStack is) {
         String name = is.getType().name();
         List<String> lore = new ArrayList<>();
         if (is.hasItemMeta()) {
