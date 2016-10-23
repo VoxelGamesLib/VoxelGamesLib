@@ -39,6 +39,7 @@ import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilde
  */
 @Log
 @Singleton
+@SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class WorldCreator {
 
     @Inject

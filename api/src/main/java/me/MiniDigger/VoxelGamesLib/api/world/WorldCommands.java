@@ -3,6 +3,7 @@ package me.MiniDigger.VoxelGamesLib.api.world;
 import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import me.MiniDigger.VoxelGamesLib.api.command.CommandArguments;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
@@ -16,6 +17,7 @@ import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.TextComponent;
 /**
  * Commands related to worlds
  */
+@Singleton
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class WorldCommands {
 
