@@ -1,21 +1,21 @@
 package me.minidigger.voxelgameslib.bukkit.command;
 
-import lombok.extern.java.Log;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import me.minidigger.voxelgameslib.api.command.CommandHandler;
+import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.bukkit.VoxelGamesLibBukkit;
 
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.SimplePluginManager;
 
-import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
-import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
-
-import javax.annotation.Nonnull;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Map;
+import lombok.extern.java.Log;
 
 @Log
 @Singleton

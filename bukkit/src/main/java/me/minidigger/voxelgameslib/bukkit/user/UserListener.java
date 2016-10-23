@@ -1,17 +1,17 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import me.minidigger.voxelgameslib.api.lang.Lang;
+import me.minidigger.voxelgameslib.api.lang.LangKey;
+import me.minidigger.voxelgameslib.api.user.UserHandler;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import me.MiniDigger.VoxelGamesLib.api.lang.Lang;
-import me.MiniDigger.VoxelGamesLib.api.lang.LangKey;
-import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Created by Martin on 08.10.2016.

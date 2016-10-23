@@ -1,12 +1,12 @@
 package me.minidigger.voxelgameslib.bukkit.world;
 
+import me.minidigger.voxelgameslib.api.map.Map;
+import me.minidigger.voxelgameslib.api.world.WorldHandler;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-
-import me.MiniDigger.VoxelGamesLib.api.map.Map;
-import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 
 /**
  * Created by Martin on 07.10.2016.

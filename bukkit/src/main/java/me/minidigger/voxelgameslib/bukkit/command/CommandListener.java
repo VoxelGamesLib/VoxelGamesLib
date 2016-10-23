@@ -1,17 +1,17 @@
 package me.minidigger.voxelgameslib.bukkit.command;
 
+import java.util.Optional;
+import java.util.regex.Pattern;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import me.minidigger.voxelgameslib.api.command.CommandHandler;
+import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.user.UserHandler;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-
-import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
-import me.MiniDigger.VoxelGamesLib.api.user.User;
-import me.MiniDigger.VoxelGamesLib.api.user.UserHandler;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.Optional;
-import java.util.regex.Pattern;
 
 /**
  * Created by Martin on 08.10.2016.

@@ -1,9 +1,9 @@
 package me.minidigger.voxelgameslib.bukkit.world;
 
+import java.util.Random;
+
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
-
-import java.util.Random;
 
 /**
  * Created by Martin on 07.10.2016.

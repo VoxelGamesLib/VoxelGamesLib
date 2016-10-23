@@ -1,6 +1,6 @@
 package me.minidigger.voxelgameslib.bukkit.item;
 
-import me.MiniDigger.VoxelGamesLib.api.item.Material;
+import me.minidigger.voxelgameslib.api.item.Material;
 
 /**
  * Created by Martin on 05.10.2016.
