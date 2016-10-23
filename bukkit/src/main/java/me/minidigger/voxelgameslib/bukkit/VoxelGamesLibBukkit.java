@@ -22,6 +22,7 @@ import me.MiniDigger.VoxelGamesLib.api.command.CommandHandler;
 import me.MiniDigger.VoxelGamesLib.api.command.CommandInfo;
 import me.MiniDigger.VoxelGamesLib.api.config.ConfigHandler;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
+import me.MiniDigger.VoxelGamesLib.api.item.Item;
 import me.MiniDigger.VoxelGamesLib.api.map.MapScanner;
 import me.MiniDigger.VoxelGamesLib.api.role.Role;
 import me.MiniDigger.VoxelGamesLib.api.tick.TickHandler;
@@ -32,6 +33,7 @@ import me.MiniDigger.VoxelGamesLib.api.world.WorldHandler;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.TextComponent;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.command.CommandListener;
+import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
@@ -94,6 +96,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         protected void configure() {
             bind(CommandHandler.class).to(BukkitCommandHandler.class);
             bind(User.class).to(BukkitUser.class);
+            bind(Item.class).to(BukkitItem.class);
             bind(TickHandler.class).to(BukkitTickHandler.class);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);

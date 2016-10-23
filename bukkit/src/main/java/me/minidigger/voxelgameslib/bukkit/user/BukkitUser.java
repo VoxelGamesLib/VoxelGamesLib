@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import com.google.inject.Injector;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -12,6 +14,8 @@ import javax.inject.Inject;
 
 import lombok.extern.java.Log;
 import me.MiniDigger.VoxelGamesLib.api.config.GlobalConfig;
+import me.MiniDigger.VoxelGamesLib.api.item.Hand;
+import me.MiniDigger.VoxelGamesLib.api.item.Item;
 import me.MiniDigger.VoxelGamesLib.api.lang.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
@@ -22,6 +26,7 @@ import me.MiniDigger.VoxelGamesLib.api.utils.ChatUtil;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.chat.ComponentSerializer;
+import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 
 @Log
 public class BukkitUser implements User {
@@ -34,6 +39,8 @@ public class BukkitUser implements User {
     private RoleHandler roleHandler;
     @Inject
     private GlobalConfig config;
+    @Inject
+    private Injector injector;
 
     public BukkitUser(Player player) {
         this.player = player;
@@ -133,5 +140,38 @@ public class BukkitUser implements User {
     @Override
     public String getWorld() {
         return player.getWorld().getName();
+    }
+
+    @Override
+    public void setItemInHand(Hand hand, Item item) {
+        if (hand == Hand.MAINHAND) {
+            player.getInventory().setItemInMainHand(((BukkitItem) item).toItemStack());
+        } else {
+            player.getInventory().setItemInOffHand(((BukkitItem) item).toItemStack());
+        }
+    }
+
+    @Override
+    public Item getItemInHand(Hand hand) {
+        if (hand == Hand.MAINHAND) {
+            return BukkitItem.fromItemStack(player.getInventory().getItemInMainHand());
+        } else {
+            return BukkitItem.fromItemStack(player.getInventory().getItemInOffHand());
+        }
+    }
+
+    @Override
+    public void setIventory(int slot, Item item) {
+        player.getInventory().setItem(slot, ((BukkitItem) item).toItemStack());
+    }
+
+    @Override
+    public Item getInventory(int slot) {
+        return BukkitItem.fromItemStack(player.getInventory().getItem(slot));
+    }
+
+    @Override
+    public Injector getInjector() {
+        return injector;
     }
 }

@@ -2,25 +2,34 @@ package me.minidigger.voxelgameslib.bukkit.item;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.material.MaterialData;
-
-import me.MiniDigger.VoxelGamesLib.api.item.Item;
-import me.MiniDigger.VoxelGamesLib.api.item.Material;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
+
+import lombok.extern.java.Log;
+import me.MiniDigger.VoxelGamesLib.api.item.Item;
+import me.MiniDigger.VoxelGamesLib.api.item.Material;
 
 /**
  * Created by Martin on 05.10.2016.
  */
+@Log
 public class BukkitItem extends Item {
-    
-    public BukkitItem(Material material, byte variation, int amount, String name, List<String> lore) {
-        super(material, variation, amount, name, lore);
+
+    public BukkitItem(Material material, byte variation, int amount, String name, List<String> lore, Map<String, Object> tags) {
+        super(material, variation, amount, name, lore, tags);
     }
-    
+
+    public BukkitItem() {
+        // injector constructor
+        super();
+    }
+
     public static BukkitItem fromItemStack(@Nonnull ItemStack is) {
         String name = is.getType().name();
         List<String> lore = new ArrayList<>();
@@ -33,17 +42,41 @@ public class BukkitItem extends Item {
                 lore = meta.getLore();
             }
         }
-        return new BukkitItem(Material.fromId(is.getTypeId()), is.getData().getData(), is.getAmount(), name, lore);
+
+        // special tag handeling //TODO do we have a better way for this?
+        Map<String, Object> tags = new HashMap<>();
+        // skull owner
+        if (is.getType() == org.bukkit.Material.SKULL) {
+            if (is.hasItemMeta() && is.getItemMeta() instanceof SkullMeta) {
+                SkullMeta meta = (SkullMeta) is.getItemMeta();
+                tags.put("SkullOwner", meta.getOwner());
+            }
+        }
+
+        return new BukkitItem(Material.fromId(is.getTypeId()), is.getData().getData(), is.getAmount(), name, lore, tags);
     }
-    
+
     public ItemStack toItemStack() {
         ItemStack is = new ItemStack(BukkitMaterial.toMaterial(getMaterial()));
         is.setAmount(getAmount());
-        is.setData(new MaterialData(is.getType(), getVariation()));
+        is.setDurability(getVariation());
         ItemMeta meta = is.getItemMeta();
         meta.setDisplayName(getName());
         meta.setLore(getLore());
         is.setItemMeta(meta);
+
+        // special tag handeling //TODO do we have a better way for this?
+        // skull owner
+        if (getTags().containsKey("SkullOwner")) {
+            if (is.getType() == org.bukkit.Material.SKULL_ITEM && is.hasItemMeta() && is.getItemMeta() instanceof SkullMeta) {
+                SkullMeta skullMeta = (SkullMeta) is.getItemMeta();
+                skullMeta.setOwner((String) getTags().get("SkullOwner"));
+                is.setItemMeta(skullMeta);
+            } else {
+                log.warning("Failed to translate item " + this + " to itemstack " + is);
+            }
+        }
+
         return is;
     }
 }

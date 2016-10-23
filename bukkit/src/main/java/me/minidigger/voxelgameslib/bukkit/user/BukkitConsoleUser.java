@@ -1,11 +1,18 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import com.google.inject.Injector;
+
 import org.bukkit.command.ConsoleCommandSender;
 
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
+import me.MiniDigger.VoxelGamesLib.api.item.Hand;
+import me.MiniDigger.VoxelGamesLib.api.item.Item;
+import me.MiniDigger.VoxelGamesLib.api.item.ItemBuilder;
+import me.MiniDigger.VoxelGamesLib.api.item.Material;
 import me.MiniDigger.VoxelGamesLib.api.lang.Locale;
 import me.MiniDigger.VoxelGamesLib.api.map.Vector3D;
 import me.MiniDigger.VoxelGamesLib.api.role.Permission;
@@ -21,6 +28,9 @@ import me.MiniDigger.VoxelGamesLib.libs.net.md_5.bungee.api.chat.ComponentBuilde
 public class BukkitConsoleUser implements ConsoleUser {
 
     private ConsoleCommandSender user;
+
+    @Inject
+    private Injector injector;
 
     @Nonnull
     @Override
@@ -85,7 +95,7 @@ public class BukkitConsoleUser implements ConsoleUser {
 
     @Override
     public void teleport(String world) {
-
+        // ignore
     }
 
     @Override
@@ -100,5 +110,30 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public String getWorld() {
         return "world";
+    }
+
+    @Override
+    public void setItemInHand(Hand hand, Item item) {
+        // ignore
+    }
+
+    @Override
+    public Item getItemInHand(Hand hand) {
+        return new ItemBuilder(Material.AIR, injector).build();
+    }
+
+    @Override
+    public void setIventory(int slot, Item item) {
+        // ignore
+    }
+
+    @Override
+    public Item getInventory(int slot) {
+        return new ItemBuilder(Material.AIR, injector).build();
+    }
+
+    @Override
+    public Injector getInjector() {
+        return injector;
     }
 }
