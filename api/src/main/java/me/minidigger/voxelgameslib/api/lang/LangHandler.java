@@ -9,9 +9,12 @@ import javax.inject.Singleton;
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 
+import lombok.extern.java.Log;
+
 /**
  * Created by Martin on 09.10.2016.
  */
+@Log
 @Singleton
 public class LangHandler implements Handler {
     
@@ -30,6 +33,11 @@ public class LangHandler implements Handler {
         defaultStorage.setLocale(defaultLocale);
         defaultStorage.load();
         
+        int counter = defaultStorage.processNewValues();
+        if (counter > 0) {
+            log.info("Migrated lang file " + defaultStorage.getLangFile().getAbsolutePath() + ": Added " + counter + " new keys!");
+        }
+        
         registerLocale(Locale.ENGLISH);
         registerLocale(Locale.GERMAN);
     }
@@ -44,6 +52,12 @@ public class LangHandler implements Handler {
         s.setLocale(loc);
         s.setParentStorage(defaultStorage);
         s.load();
+        
+        int counter = s.processNewValues();
+        if (counter > 0) {
+            log.info("Migrated lang file " + s.getLangFile().getAbsolutePath() + ": Added " + counter + " new keys!");
+        }
+        
         storages.put(loc, s);
     }
     

@@ -60,6 +60,26 @@ public class LangStorage {
         }
     }
     
+    public int processNewValues() {
+        int counter = 0;
+        for (LangKey key : LangKey.values()) {
+            if (!messages.containsKey(key)) {
+                counter++;
+                messages.setProperty(key.name(), key.getDefaultValue());
+            }
+        }
+        
+        if (counter > 0) {
+            try {
+                messages.store(new FileWriter(langFile), "This is a command. I don't really know what this is supposed to do, but lets see!\nLets throw in\nsome newlines!");
+            } catch (IOException e) {
+                throw new LangException("Error while saving default lang values to " + langFile.getAbsolutePath(), e);
+            }
+        }
+        
+        return counter;
+    }
+    
     /**
      * Tries to load the messages from the langFolder
      *
@@ -90,5 +110,9 @@ public class LangStorage {
         }
         
         return message;
+    }
+    
+    public File getLangFile(){
+        return langFile;
     }
 }
