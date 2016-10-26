@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>me.MiniDigger.VoxelGamesLib</groupId>
+        <groupId>me.minidigger.voxelgameslib</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
