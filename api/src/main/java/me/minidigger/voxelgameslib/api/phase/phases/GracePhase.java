@@ -9,7 +9,8 @@ import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
 /**
- * Created by Martin on 26.10.2016.
+ * The grace phase is the phase before the real action starts. pvp is disabled, players are expected
+ * to run away, hide or collect stuff.
  */
 public class GracePhase extends TimedPhase {
     

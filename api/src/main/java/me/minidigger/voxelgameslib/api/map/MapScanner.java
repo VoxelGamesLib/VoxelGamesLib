@@ -11,6 +11,11 @@ import lombok.extern.java.Log;
 @Log
 public abstract class MapScanner {
     
+    /**
+     * Scans a map for markers
+     *
+     * @param map the map to scan
+     */
     public void scan(Map map) {
         searchForMarkers(map, map.getCenter(), map.getRadius());
         

@@ -10,4 +10,6 @@ public @interface ModuleInfo {
     String[] authors();
     
     String version();
+    
+    //TODO module info javadoc
 }

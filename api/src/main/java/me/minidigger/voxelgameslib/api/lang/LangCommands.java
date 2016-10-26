@@ -35,7 +35,7 @@ public class LangCommands {
             Lang.msg(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));
             return;
         }
-        args.getSender().setLocal(loc.get());
+        args.getSender().setLocale(loc.get());
         Lang.msg(args.getSender(), LangKey.LANG_SET, args.getSender().getLocale().getName());
     }
 }

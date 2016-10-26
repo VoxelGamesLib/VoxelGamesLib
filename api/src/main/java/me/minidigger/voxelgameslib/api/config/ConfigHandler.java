@@ -128,11 +128,6 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             }
         }
         
-        if (config == null) {
-            log.warning("Tried to save a null config!");
-            return;
-        }
-        
         try {
             Writer writer = new FileWriter(configFile, false);
             gson.toJson(config, writer);

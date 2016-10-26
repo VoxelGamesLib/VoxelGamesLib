@@ -1,7 +1,7 @@
 package me.minidigger.voxelgameslib.api.item;
 
 /**
- * Created by Martin on 23.10.2016.
+ * Identify the hand the player is using to do stuff
  */
 public enum Hand {
     

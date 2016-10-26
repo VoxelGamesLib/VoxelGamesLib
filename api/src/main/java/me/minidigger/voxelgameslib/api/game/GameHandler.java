@@ -19,7 +19,7 @@ public class GameHandler implements Handler {
     
     @Override
     public void start() {
-        // TODO Auto-generated method stub
+        //TODO debug code
         registerGameMode(new GameMode("Test", null));
     }
     
@@ -66,6 +66,9 @@ public class GameHandler implements Handler {
         }
     }
     
+    /**
+     * @return a list with all registered gamemodes
+     */
     public List<GameMode> getGameMode() {
         return modes;
     }

@@ -9,7 +9,8 @@ import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
 import me.minidigger.voxelgameslib.api.phase.Phase;
 
 /**
- * Created by Martin on 26.10.2016.
+ * The lobby phase is the phase that part before the game starts. players can do cool activities
+ * while they wait for more players to join.
  */
 public class LobbyPhase extends AbstractPhase {
     

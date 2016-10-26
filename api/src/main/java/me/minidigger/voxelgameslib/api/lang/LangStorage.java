@@ -14,7 +14,7 @@ import me.minidigger.voxelgameslib.api.exception.LangException;
 import lombok.extern.java.Log;
 
 /**
- * Created by Martin on 09.10.2016.
+ * A lang storage holds all lang keys (and their translations) that are translated into one locale
  */
 @Log
 public class LangStorage {
@@ -32,19 +32,36 @@ public class LangStorage {
     private final Properties messages = new Properties();
     private LangStorage parentStorage;
     
+    /**
+     * @return the local that the keys in this storage are translated with
+     */
     public Locale getLocale() {
         return locale;
     }
     
+    /**
+     * sets the locale (and with that, the lang file) for this storage
+     *
+     * @param locale the new locale to set
+     */
     public void setLocale(Locale locale) {
         this.locale = locale;
         langFile = new File(langFolder, locale.getTag() + ".properties");
     }
     
+    /**
+     * sets the parent storage for this storage. the parent storage is used to get keys that are not
+     * translated in this storage.
+     *
+     * @param parentStorage the new parent storage
+     */
     public void setParentStorage(LangStorage parentStorage) {
         this.parentStorage = parentStorage;
     }
     
+    /**
+     * Saves the default values for the local that this storage is using to the lang file.
+     */
     public void saveDefaultValue() {
         if (!langFolder.exists()) {
             langFolder.mkdirs();
@@ -60,6 +77,11 @@ public class LangStorage {
         }
     }
     
+    /**
+     * Adds new values to the lang file, if there where any new added with a update.
+     *
+     * @return the amount of new values that have been added.
+     */
     public int processNewValues() {
         int counter = 0;
         for (LangKey key : LangKey.values()) {
@@ -97,6 +119,14 @@ public class LangStorage {
         }
     }
     
+    /**
+     * Gets the value for a key. it this storage does not have a translation for that key, the
+     * parent storage is used.
+     *
+     * @param key the key that should be translated
+     * @return the translation for that key
+     * @throws LangException if the parent storage did not return a value translation.
+     */
     public String get(LangKey key) {
         String message = messages.getProperty(key.name());
         if (message == null) {
@@ -112,7 +142,10 @@ public class LangStorage {
         return message;
     }
     
-    public File getLangFile(){
+    /**
+     * @return the file that this storage saves its keys in
+     */
+    public File getLangFile() {
         return langFile;
     }
 }

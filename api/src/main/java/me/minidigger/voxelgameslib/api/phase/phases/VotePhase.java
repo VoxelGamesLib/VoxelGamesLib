@@ -9,7 +9,7 @@ import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
 /**
- * Created by Martin on 26.10.2016.
+ * Can be used to vote on the next gamemode or the next map.
  */
 public class VotePhase extends TimedPhase {
     

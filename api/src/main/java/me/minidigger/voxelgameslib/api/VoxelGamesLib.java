@@ -51,6 +51,8 @@ public class VoxelGamesLib {
     
     /**
      * Called when the server starts and/or the plugin gets loaded
+     *
+     * @param injector the injector that was used to create this class
      */
     public void onEnable(Injector injector) {
         this.injector = injector;
@@ -90,6 +92,9 @@ public class VoxelGamesLib {
         injector = null;
     }
     
+    /**
+     * @return the injector that was used to create this class
+     */
     public Injector getInjector() {
         return injector;
     }

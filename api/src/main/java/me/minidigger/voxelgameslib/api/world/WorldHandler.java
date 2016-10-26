@@ -173,10 +173,17 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      */
     public abstract void unloadLocalWorld(String name);
     
+    /**
+     * @return the folder where the playerable worlds are saved in (think about it as a repo for
+     * worlds/maps)
+     */
     public File getWorldsFolder() {
         return worldsFolder;
     }
     
+    /**
+     * saves the worldconfig
+     */
     public void saveConfig() {
         configHandler.saveConfig(configFile, config);
     }

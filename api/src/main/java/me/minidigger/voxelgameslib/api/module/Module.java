@@ -8,4 +8,6 @@ public interface Module {
     void enable();
     
     void disable();
+    
+    //TODO module javadoc
 }

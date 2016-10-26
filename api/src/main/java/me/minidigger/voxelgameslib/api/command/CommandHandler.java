@@ -22,6 +22,9 @@ import me.minidigger.voxelgameslib.api.user.User;
 
 import lombok.extern.java.Log;
 
+/**
+ * Handles all commands
+ */
 @Log
 @Singleton
 public class CommandHandler implements Handler {
@@ -128,6 +131,8 @@ public class CommandHandler implements Handler {
      *
      * @param object a instance of the class where the command executors life. its the same instance
      *               that will be used to execute the executors
+     * @param remove if the command should be removed form the command list, used to avoid current
+     *               modification exceptions
      */
     public void unregister(@Nonnull Object object, boolean remove) {
         for (Method method : object.getClass().getMethods()) {
@@ -200,6 +205,8 @@ public class CommandHandler implements Handler {
     /**
      * Executes a command.
      *
+     * @param sender      the sender who execute the command
+     * @param commandLine the command line to execute
      * @return true if the command was handled, false if not (that happens if the command is not
      * registered on this command handler)
      */

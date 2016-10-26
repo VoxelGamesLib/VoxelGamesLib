@@ -44,7 +44,7 @@ public class BukkitConsoleUser implements ConsoleUser {
     }
     
     @Override
-    public void setLocal(@Nonnull Locale local) {
+    public void setLocale(@Nonnull Locale locale) {
         // ignored
     }
     

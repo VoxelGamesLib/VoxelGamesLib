@@ -259,7 +259,8 @@ public class WorldCreator {
             config.maps.add(map.getWorldName());
             worldHandler.saveConfig();
         }
-
+        
+        // TODO debug
 //        editor = null;
 //        step = 0;
 //        worldName = null;

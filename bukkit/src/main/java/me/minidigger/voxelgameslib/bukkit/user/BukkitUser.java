@@ -63,7 +63,7 @@ public class BukkitUser implements User {
     }
     
     @Override
-    public void setLocal(@Nonnull Locale locale) {
+    public void setLocale(@Nonnull Locale locale) {
         this.locale = locale;
     }
     

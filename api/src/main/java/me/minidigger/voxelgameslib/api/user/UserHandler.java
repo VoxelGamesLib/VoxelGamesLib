@@ -75,6 +75,8 @@ public class UserHandler implements Handler {
     
     /**
      * Called when a user logs in. used to load all kind of stuff
+     *
+     * @param uniqueId the id of the user that logged in
      */
     public void login(UUID uniqueId) {
         Thread t = new Thread() {
@@ -92,6 +94,7 @@ public class UserHandler implements Handler {
     /**
      * Checks if a user has logged in (if the data was loaded successfully)
      *
+     * @param uniqueId the id of the user that should be checked
      * @return true if everything is good, false if the data was not loaded
      */
     public boolean hasLoggedIn(UUID uniqueId) {

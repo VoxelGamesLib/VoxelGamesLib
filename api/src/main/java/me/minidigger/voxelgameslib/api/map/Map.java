@@ -11,7 +11,8 @@ import me.minidigger.voxelgameslib.api.user.User;
 import lombok.Data;
 
 /**
- * Created by Martin on 04.10.2016.
+ * A map. A map is a world that is playable in gamemodes. has all kind of extra informations about a
+ * world.
  */
 @Data
 public class Map {
@@ -34,6 +35,8 @@ public class Map {
         this.center = center;
         this.radius = radius;
     }
+    
+    //TODO javadoc for Map
     
     public Optional<ChestMarker> getChestMarker(String name) {
         return chestMarkers.stream().filter(chestMarker -> chestMarker.getData().equalsIgnoreCase(name)).findAny();

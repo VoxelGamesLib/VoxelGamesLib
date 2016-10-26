@@ -11,7 +11,8 @@ import me.minidigger.voxelgameslib.api.exception.NoSuchRoleException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 
 /**
- * Handles all roles for this server. TODO javadoc for RoleHandler
+ * Handles all roles for this server. The idea of roles is that server admins don't need to deal
+ * with permissions because all permissions are organized under roles by default
  */
 @Singleton
 public class RoleHandler implements Handler {

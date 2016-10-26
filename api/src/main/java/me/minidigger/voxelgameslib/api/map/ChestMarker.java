@@ -5,17 +5,28 @@ import javax.annotation.Nonnull;
 import me.minidigger.voxelgameslib.api.item.Item;
 
 /**
- * Created by Martin on 04.10.2016.
+ * A chest marker is a marker that is a chest (uh)<br>
+ * it is used to save kits or layout for chest locations in the map
  */
 public class ChestMarker extends Marker {
     
     private final Item[] items;
     
+    /**
+     * constructs a new chest marker
+     *
+     * @param loc   the location that his marker is at in the world
+     * @param name  the name of this chest marker (the name of the inventory)
+     * @param items the items that ar in that chest
+     */
     public ChestMarker(@Nonnull Vector3D loc, @Nonnull String name, @Nonnull Item[] items) {
         super(loc, name);
         this.items = items;
     }
     
+    /**
+     * @return the items that are in this chest
+     */
     @Nonnull
     public Item[] getItems() {
         return items;

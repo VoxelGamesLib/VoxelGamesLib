@@ -7,10 +7,20 @@ import java.io.IOException;
  */
 public class LangException extends VoxelGameLibException {
     
+    /**
+     * @param message the message that explains the issue
+     */
     public LangException(String message) {
         super(message);
     }
     
+    
+    /**
+     * Used for IO related exceptions
+     *
+     * @param message the message that explains the issue
+     * @param ex      the root issue that was thrown
+     */
     public LangException(String message, IOException ex) {
         super(message, ex);
     }

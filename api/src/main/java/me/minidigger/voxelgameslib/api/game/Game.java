@@ -14,7 +14,9 @@ public interface Game extends Tickable {
     
     /**
      * Sends a message to every {@link me.minidigger.voxelgameslib.api.user.User} that
-     * is related to this {@link Game}. This could be a participant in the game or a spectator.
+     * is related to this . This could be a participant in the game or a spectator.
+     *
+     * @param message the message to be send
      */
     void broadcastMessage(@Nonnull BaseComponent... message);
     
@@ -24,12 +26,12 @@ public interface Game extends Tickable {
     void endPhase();
     
     /**
-     * Ends the {@link Game}, handles who has won.
+     * Ends the , handles who has won.
      */
     void endGame();
     
     /**
-     * @return the {@link GameMode} this {@link Game} is an instance of.
+     * @return the gamemode that is played in this game
      */
     @Nonnull
     GameMode getGameMode();

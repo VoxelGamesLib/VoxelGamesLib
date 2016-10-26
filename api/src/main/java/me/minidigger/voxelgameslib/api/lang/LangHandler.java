@@ -12,7 +12,7 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
 import lombok.extern.java.Log;
 
 /**
- * Created by Martin on 09.10.2016.
+ * Handles the languages. holds all lang storages and registered languages.
  */
 @Log
 @Singleton
@@ -47,6 +47,11 @@ public class LangHandler implements Handler {
         
     }
     
+    /**
+     * Registers a new locale. also loads the file and migrates it if needed
+     *
+     * @param loc the locale to load
+     */
     public void registerLocale(Locale loc) {
         LangStorage s = voxelGameLib.getInjector().getInstance(LangStorage.class);
         s.setLocale(loc);
@@ -61,18 +66,34 @@ public class LangHandler implements Handler {
         storages.put(loc, s);
     }
     
+    /**
+     * @return the default locale used on this server
+     */
     public Locale getDefaultLocale() {
         return defaultLocale;
     }
     
+    /**
+     * Gets the storage for that lang. if there is no storage for that lang, the default storage is
+     * returned;
+     *
+     * @param loc the locale to get the storage from
+     * @return the storage for that locale, or the default storage if the locale was not loaded
+     */
     public LangStorage getStorage(Locale loc) {
         return storages.getOrDefault(loc, defaultStorage);
     }
     
+    /**
+     * @return the default lang storage
+     */
     public LangStorage getDefaultStorage() {
         return defaultStorage;
     }
     
+    /**
+     * @return a set with all installed locales
+     */
     public Set<Locale> getInstalledLocales() {
         return storages.keySet();
     }

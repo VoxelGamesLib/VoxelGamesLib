@@ -25,10 +25,18 @@ public interface User {
     @Nonnull
     Role getRole();
     
+    /**
+     * @return the locale this player whished to receive messages in
+     */
     @Nonnull
     Locale getLocale();
     
-    void setLocal(@Nonnull Locale local);
+    /**
+     * sets the preferred locale of this user
+     *
+     * @param locale the perferred locale of this user
+     */
+    void setLocale(@Nonnull Locale locale);
     
     /**
      * @return the prefix that should be displayed in chat and other location where the player name
@@ -95,17 +103,48 @@ public interface User {
      */
     void teleport(String world);
     
+    /**
+     * @return the location this user is located at in his world
+     */
     Vector3D getLocation();
     
+    /**
+     * @return the world this user is currently playing on
+     */
     String getWorld();
     
+    /**
+     * sets the item the user holds in his hand
+     *
+     * @param hand the hand which the item should be held in
+     * @param item the item to hold
+     */
     void setItemInHand(Hand hand, Item item);
     
+    /**
+     * gets the item the user is holding in the specified hand
+     *
+     * @param hand the hand which item should be returned
+     * @return the item in the specified hand
+     */
     Item getItemInHand(Hand hand);
     
+    /**
+     * sets a item in the inventory of the user
+     *
+     * @param slot the slot to change
+     * @param item the new item that should be placed in that slot
+     */
     void setIventory(int slot, Item item);
     
+    /**
+     * @param slot the slot
+     * @return the item in the speficied inventory slot
+     */
     Item getInventory(int slot);
     
+    /**
+     * @return the injector that was used to create this user
+     */
     Injector getInjector();
 }
