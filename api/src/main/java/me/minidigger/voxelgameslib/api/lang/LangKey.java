@@ -46,7 +46,9 @@ public enum LangKey {
     EDITMODE_NOT_ENABLED("Edit mode not enabled! Enable to via '/editmode on'", 0),
     EDITMODE_ENABLED("Edit mode enabled!", 0),
     EDITMODE_DISABLED("Edit mode disabled!", 0),
-    EDITMODE_ALREADY_ENABLED("Edit mode already enabled!", 0);
+    EDITMODE_ALREADY_ENABLED("Edit mode already enabled!", 0),
+    
+    GAME_INSTALLED_GAMEMODES("Installed gamemodes: %s", 1);
     
     private final String defaultValue;
     private final int args;

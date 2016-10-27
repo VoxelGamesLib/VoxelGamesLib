@@ -69,7 +69,7 @@ public class GameHandler implements Handler {
     /**
      * @return a list with all registered gamemodes
      */
-    public List<GameMode> getGameMode() {
+    public List<GameMode> getGameModes() {
         return modes;
     }
 }

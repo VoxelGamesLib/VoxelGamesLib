@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
+import me.minidigger.voxelgameslib.api.game.GameCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.lang.LangCommands;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
@@ -76,6 +77,7 @@ public class VoxelGamesLib {
         commandHandler.register(injector.getInstance(LangCommands.class));
         commandHandler.register(injector.getInstance(WorldCreator.class));
         commandHandler.register(injector.getInstance(EditMode.class));
+        commandHandler.register(injector.getInstance(GameCommands.class));
     }
     
     /**

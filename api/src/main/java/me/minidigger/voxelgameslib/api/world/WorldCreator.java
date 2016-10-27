@@ -172,7 +172,7 @@ public class WorldCreator {
         author = sb.toString();
         
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
-        for (GameMode mode : gameHandler.getGameMode()) {
+        for (GameMode mode : gameHandler.getGameModes()) {
             arguments.getSender().sendMessage(new ComponentBuilder(mode.getName() + " ").color(ChatColor.YELLOW)
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode " + mode.getName())).create());
         }

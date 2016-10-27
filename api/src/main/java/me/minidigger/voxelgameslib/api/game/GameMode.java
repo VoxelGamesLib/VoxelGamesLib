@@ -55,4 +55,12 @@ public class GameMode {
         result = 31 * result + (gameClass != null ? gameClass.hashCode() : 0);
         return result;
     }
+    
+    @Override
+    public String toString() {
+        return "GameMode{" +
+                "name='" + name + '\'' +
+                ", gameClass=" + gameClass +
+                '}';
+    }
 }
