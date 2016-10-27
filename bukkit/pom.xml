@@ -108,5 +108,23 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+        <!-- here because maven complains... -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
+        </dependency>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-chat</artifactId>
+            <version>1.10-SNAPSHOT-VOXELGAMESLIB</version>
+        </dependency>
+        <!-- TODO, find a better way to handle modules -->
+        <dependency>
+            <groupId>me.minidigger.voxelgameslib</groupId>
+            <artifactId>survivalgames</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

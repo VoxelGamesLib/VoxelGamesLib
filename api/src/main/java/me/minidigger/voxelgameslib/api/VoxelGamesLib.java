@@ -12,6 +12,7 @@ import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.lang.LangCommands;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
+import me.minidigger.voxelgameslib.api.module.ModuleHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
@@ -46,6 +47,8 @@ public class VoxelGamesLib {
     private WorldHandler worldHandler;
     @Inject
     private LangHandler langHandler;
+    @Inject
+    private ModuleHandler moduleHandler;
     
     private Injector injector;
     
@@ -67,6 +70,7 @@ public class VoxelGamesLib {
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
+        moduleHandler.start();
         
         commandHandler.register(injector.getInstance(WorldCommands.class));
         commandHandler.register(injector.getInstance(LangCommands.class));
@@ -88,6 +92,7 @@ public class VoxelGamesLib {
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
+        moduleHandler.stop();
         
         injector = null;
     }
