@@ -1,0 +1,13 @@
+dependencies {
+    compile "org.bukkit:bukkit:1.10.2-R0.1-SNAPSHOT"
+
+    compile project(":api")
+
+    compile project(":survivalgames")
+}
+
+repositories {
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/groups/public/"
+    }
+}
