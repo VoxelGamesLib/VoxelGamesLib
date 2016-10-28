@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>me.MiniDigger.VoxelGamesLib</groupId>
+        <groupId>me.minidigger.voxelgameslib</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -90,6 +90,10 @@
 
     <repositories>
         <repository>
+            <id>aikar</id>
+            <url>http://ci.emc.gs/nexus/content/repositories/aikar/</url>
+        </repository>
+        <repository>
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
@@ -103,7 +107,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.MiniDigger.VoxelGamesLib</groupId>
+            <groupId>me.minidigger.voxelgameslib</groupId>
             <artifactId>api</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
@@ -113,17 +117,31 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.10</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-chat</artifactId>
             <version>1.10-SNAPSHOT-VOXELGAMESLIB</version>
+            <scope>compile</scope>
         </dependency>
         <!-- TODO, find a better way to handle modules -->
         <dependency>
             <groupId>me.minidigger.voxelgameslib</groupId>
             <artifactId>survivalgames</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>2.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>co.aikar</groupId>
+            <artifactId>taskchain-bukkit</artifactId>
+            <version>3.0.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

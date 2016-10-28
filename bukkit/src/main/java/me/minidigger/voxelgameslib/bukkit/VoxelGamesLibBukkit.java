@@ -40,6 +40,9 @@ import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChainFactory;
+
 @Singleton
 public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     
@@ -100,6 +103,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
+            bind(TaskChainFactory.class).to(BukkitTaskChainFactory.class);
             
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
@@ -111,6 +115,8 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(File.class).annotatedWith(Names.named("LangFolder")).toInstance(new File(getDataFolder(), "lang"));
             bind(File.class).annotatedWith(Names.named("WorldsFolder")).toInstance(new File(getServer().getWorldContainer(), "worlds"));
             bind(File.class).annotatedWith(Names.named("WorldContainer")).toInstance(getServer().getWorldContainer());
+            
+            requestStaticInjection(VoxelGamesLib.class);
         }
     }
 }
