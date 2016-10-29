@@ -1,4 +1,4 @@
-# VoxelGamesLib [![Build Status](http://bender.minidigger.me:9090/job/VoxelGamesLib/badge/icon)](http://bender.minidigger.me:9090/job/VoxelGamesLib)
+# VoxelGamesLib [![Build Status](http://ci.minidigger.me/buildStatus/icon?job=VoxelGamesLib&build=2)](http://ci.minidigger.me/job/VoxelGamesLib/2/)
 
 > WIP!
 
