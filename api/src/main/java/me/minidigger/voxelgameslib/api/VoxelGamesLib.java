@@ -22,14 +22,17 @@ import me.minidigger.voxelgameslib.api.world.WorldCommands;
 import me.minidigger.voxelgameslib.api.world.WorldCreator;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
+
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
  */
 @Singleton
 public class VoxelGamesLib {
     //TODO fix taskchain
-//    @Inject
-//    private static TaskChainFactory taskChainFactory;
+    @Inject
+    private static TaskChainFactory taskChainFactory;
     
     @Inject
     private ConfigHandler configHandler;
@@ -111,21 +114,23 @@ public class VoxelGamesLib {
     
     /**
      * Create a new (normal) chain using the right factory for this server mod
+     *
      * @param <T> TODO what is this?
      * @return a normal task chain
      */
-    //TODO fix taskchain
-//    public static <T> TaskChain<T> newChain() {
-//        return taskChainFactory.newChain();
-//    }
+    public static <T> TaskChain<T> newChain() {
+        return taskChainFactory.newChain();
+    }
     
     /**
      * Create a new shared chain using the right factory for this server mod
-     * @param <T> TODO what is this?
+     *
+     * @param <T>  TODO what is this?
+     * @param name the name of the new shared chain
      * @return a shared task chain
      */
-//    public static <T> TaskChain<T> newSharedChain(String name) {
-//        return taskChainFactory.newSharedChain(name);
-//    }
+    public static <T> TaskChain<T> newSharedChain(String name) {
+        return taskChainFactory.newSharedChain(name);
+    }
     
 }

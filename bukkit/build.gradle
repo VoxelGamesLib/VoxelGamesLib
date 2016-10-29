@@ -1,7 +1,8 @@
 dependencies {
-    compile "org.bukkit:bukkit:1.10.2-R0.1-SNAPSHOT"
+    compileOnly "org.bukkit:bukkit:1.10.2-R0.1-SNAPSHOT"
+    compile "co.aikar:taskchain-bukkit:3.0.1"
 
-    compile project(":api")
+    compile project(path: ":api", configuration: 'shadow')
 
     compile project(":survivalgames")
 }
@@ -11,3 +12,25 @@ repositories {
         url "https://hub.spigotmc.org/nexus/content/groups/public/"
     }
 }
+
+task copyPluginToTestServer(type: Copy) {
+    from("${rootProject.projectDir}\\bukkit\\build\\libs\\") {
+        include "**/*-all.jar"
+    }
+    into "${rootProject.projectDir}\\testserver\\plugins\\"
+}
+
+task deleteOldLogFiles(type: Delete) {
+    def cutoff = new Date().minus(1); //24 hrs ago
+
+    delete fileTree(dir: 'testserver/logs/')
+            .matching { include '*.log' }
+            .findAll {
+        def filedate = new Date(it.lastModified())
+        filedate.before(cutoff)
+    }
+}
+
+build.finalizedBy(shadowJar)
+shadowJar.finalizedBy(copyPluginToTestServer)
+shadowJar.finalizedBy(deleteOldLogFiles)

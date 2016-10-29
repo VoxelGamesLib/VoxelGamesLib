@@ -8,6 +8,7 @@ import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
@@ -39,6 +40,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChainFactory;
 
 @Singleton
 public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
@@ -89,6 +93,11 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         args.getSender().sendMessage(new TextComponent("te: " + loc.getChunk().getTileEntities().length));
     }
     
+    @CommandInfo(name = "chaintest", perm = "command.chaintest", role = Role.ADMIN)
+    public void chaintest(CommandArguments args) {
+        VoxelGamesLib.newChain().async(() -> System.out.println("Test")).delay(10, TimeUnit.SECONDS).sync(() -> System.out.println("Test")).execute();
+    }
+    
     private class BukkitInjector extends AbstractModule {
         
         @Override
@@ -100,12 +109,11 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
-            // TODO fix taskchain
-//            bind(TaskChainFactory.class).to(BukkitTaskChainFactory.class);
             
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
-            
+    
+            bind(TaskChainFactory.class).toInstance(BukkitTaskChainFactory.create(voxelGamesLibBukkit));
             bind(Gson.class).toInstance(new GsonBuilder().setPrettyPrinting().create());
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
             

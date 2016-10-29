@@ -1,14 +1,48 @@
+group = "me.minidigger.voxelgameslib"
+
+defaultTasks "build"
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
 subprojects {
     apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: 'com.github.johnrengelman.shadow'
 
-    sourceCompatibility = 1.8
-    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+
+    version = "0.0.1-SNAPSHOT"
 
     repositories {
         mavenCentral()
+        maven {
+            url "http://ci.emc.gs/nexus/content/repositories/aikar/"
+        }
     }
 
-    dependencies{
+    dependencies {
         testCompile "junit.junit:4.12"
     }
+
+    shadowJar {
+        dependencies {
+            exclude(dependency("junit:junit"))
+        }
+    }
 }
+
+println """
+*********************************************************
+You are compiling VoxelGamesLib
+if you encounter any issues, create a issue on github
+https://github.com/MiniDigger/VoxelGamesLib/issues
+*********************************************************
+"""
