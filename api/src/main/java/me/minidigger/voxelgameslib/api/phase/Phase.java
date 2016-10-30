@@ -15,6 +15,39 @@ import me.minidigger.voxelgameslib.api.tick.Tickable;
 public interface Phase extends Tickable {
     
     /**
+     * Initialises this phase
+     */
+    void init();
+    
+    /**
+     * sets the next phase
+     *
+     * @param nextPhase the new next phase
+     */
+    void setNextPhase(Phase nextPhase);
+    
+    /**
+     * sets the game this phase is attached to
+     *
+     * @param game the game
+     */
+    void setGame(Game game);
+    
+    /**
+     * Adds a new feature to this phase
+     *
+     * @param feature the new feature to add
+     */
+    void addFeature(Feature feature);
+    
+    /**
+     * sets the name of this phase
+     *
+     * @param name the new name for this phase
+     */
+    void setName(@Nonnull String name);
+    
+    /**
      * @return the name of this {@link Phase}
      */
     @Nonnull
@@ -47,4 +80,28 @@ public interface Phase extends Tickable {
      */
     @Nonnull
     Phase getNextPhase();
+    
+    /**
+     * sets if new players are allowed to join while this phase is active
+     *
+     * @param allowJoin if new players should join
+     */
+    void setAllowJoin(boolean allowJoin);
+    
+    /**
+     * @return if new players are allowed to join while this phase is active
+     */
+    boolean allowJoin();
+    
+    /**
+     * sets if new players are allowed to join this game to spectate (not play!)
+     *
+     * @param allowSpectate if new players should join and spectate
+     */
+    void setAllowSpectate(boolean allowSpectate);
+    
+    /**
+     * @return if new players are allowed to join and spectate while this phase is active
+     */
+    boolean allowSpectate();
 }

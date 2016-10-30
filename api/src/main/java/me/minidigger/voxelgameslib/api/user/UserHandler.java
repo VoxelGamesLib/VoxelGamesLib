@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.UserException;
+import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
@@ -17,6 +19,9 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class UserHandler implements Handler {
+    
+    @Inject
+    private GameHandler gameHandler;
     
     private Map<UUID, User> users;
     private Map<UUID, Object> tempData;
@@ -54,13 +59,18 @@ public class UserHandler implements Handler {
     }
     
     /**
-     * Handles logout
+     * Handles logout. All other handlers should try to handle logout here!
      *
      * @param id the uuid of the user that logged out
      */
     public void logout(UUID id) {
         users.remove(id);
         tempData.remove(id);
+        
+        Optional<User> user = getUser(id);
+        if (user.isPresent()) {
+            gameHandler.getGames(user.get(), true).forEach(game -> game.leave(user.get()));
+        }
     }
     
     /**

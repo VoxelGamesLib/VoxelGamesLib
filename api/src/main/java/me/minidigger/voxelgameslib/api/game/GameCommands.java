@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -34,10 +35,15 @@ public class GameCommands {
         Lang.msg(args.getSender(), LangKey.GAME_INSTALLED_GAMEMODES, sb.toString());
     }
     
-    @CommandInfo(name = "game.start", perm = "command.game.start", role = Role.MODERATOR, description = "Starts a new game")
+    @CommandInfo(name = "game.start", perm = "command.game.start", role = Role.MODERATOR, description = "Starts a new game", min = 1)
     public void gameStart(CommandArguments args) {
-        // todo game start command
-        //   gameHandler.startGame(gamemode);
+        Optional<GameMode> mode = gameHandler.getGameModes().stream().filter(gameMode -> gameMode.getName().equalsIgnoreCase(args.getArg(0))).findAny();
+        if (!mode.isPresent()) {
+            Lang.msg(args.getSender(), LangKey.GAME_UNKNOWN_GAMEMODE, args.getArg(0));
+            return;
+        }
+        Game game = gameHandler.startGame(mode.get());
+        game.join(args.getSender());
     }
     
     @CommandInfo(name = "game.join", perm = "command.game.join", role = Role.DEFAULT, description = "Joins a game")

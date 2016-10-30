@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.phase;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -12,30 +13,37 @@ import me.minidigger.voxelgameslib.api.game.Game;
  */
 public abstract class AbstractPhase implements Phase {
     
-    private final String name;
-    private final Game game;
-    private final List<Feature> features;
-    private final Phase nextPhase;
+    private String name;
+    private Game game;
+    private List<Feature> features = new ArrayList<>();
+    private Phase nextPhase;
+    private boolean allowJoin;
+    private boolean allowSpectate;
     
-    /**
-     * Constructs a new Phase.
-     *
-     * @param name      the name of this {@link Phase}
-     * @param game      the {@link Game} this {@link Phase} is tied too
-     * @param features  a list with all {@link Feature}s that are present in this {@link Phase}
-     * @param nextPhase the {@link Phase} that will follow after this {@link Phase} has ended
-     */
-    public AbstractPhase(@Nonnull String name, @Nonnull Game game, @Nonnull List<Feature> features, @Nonnull Phase nextPhase) {
+    @Override
+    public void setName(@Nonnull String name) {
         this.name = name;
-        this.game = game;
-        this.features = features;
-        this.nextPhase = nextPhase;
     }
     
     @Nonnull
     @Override
     public String getName() {
         return name;
+    }
+    
+    @Override
+    public void setNextPhase(Phase nextPhase) {
+        this.nextPhase = nextPhase;
+    }
+    
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
+    
+    @Override
+    public void addFeature(Feature feature) {
+        features.add(feature);
     }
     
     @Nonnull
@@ -75,5 +83,25 @@ public abstract class AbstractPhase implements Phase {
     @Override
     public void tick() {
         features.forEach(Feature::tick);
+    }
+    
+    @Override
+    public boolean allowJoin() {
+        return allowJoin;
+    }
+    
+    @Override
+    public void setAllowJoin(boolean allowJoin) {
+        this.allowJoin = allowJoin;
+    }
+    
+    @Override
+    public boolean allowSpectate() {
+        return allowSpectate;
+    }
+    
+    @Override
+    public void setAllowSpectate(boolean allowSpectate) {
+        this.allowSpectate = allowSpectate;
     }
 }

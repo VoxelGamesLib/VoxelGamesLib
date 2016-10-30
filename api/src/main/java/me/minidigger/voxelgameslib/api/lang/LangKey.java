@@ -48,7 +48,10 @@ public enum LangKey {
     EDITMODE_DISABLED("Edit mode disabled!", 0),
     EDITMODE_ALREADY_ENABLED("Edit mode already enabled!", 0),
     
-    GAME_INSTALLED_GAMEMODES("Installed gamemodes: %s", 1);
+    GAME_INSTALLED_GAMEMODES("Installed gamemodes: %s", 1),
+    GAME_UNKNOWN_GAMEMODE("Unknown GameMode %s. Is it installed?", 1),
+    GAME_PLAYER_JOIN("%s has joined the game", 1),
+    GAME_PLAYER_LEAVE("%s has left the game", 1);
     
     private final String defaultValue;
     private final int args;

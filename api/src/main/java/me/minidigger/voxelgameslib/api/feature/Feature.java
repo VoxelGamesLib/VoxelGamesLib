@@ -15,4 +15,16 @@ public interface Feature extends Tickable {
      * @return the {@link Phase} this {@link Feature} is attached too.
      */
     Phase getPhase();
+    
+    /**
+     * sets the face that this feature is attached to
+     *
+     * @param phase the phase that this feature is attached to
+     */
+    void setPhase(Phase phase);
+    
+    /**
+     * initialises this feature
+     */
+    void init();
 }
