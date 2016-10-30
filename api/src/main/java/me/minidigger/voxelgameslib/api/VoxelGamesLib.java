@@ -11,18 +11,13 @@ import me.minidigger.voxelgameslib.api.error.ErrorHandler;
 import me.minidigger.voxelgameslib.api.event.EventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
-import me.minidigger.voxelgameslib.api.game.GameCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
-import me.minidigger.voxelgameslib.api.lang.LangCommands;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
-import me.minidigger.voxelgameslib.api.world.EditMode;
-import me.minidigger.voxelgameslib.api.world.WorldCommands;
-import me.minidigger.voxelgameslib.api.world.WorldCreator;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
 import co.aikar.taskchain.TaskChain;
@@ -87,13 +82,6 @@ public class VoxelGamesLib {
         //load event and command stuff after modules so that modules get a chance to provide
         eventHandler.start();
         commandHandler.start();
-        
-        //TODO change command handler to use annotations to register command classes (like modules and event listeners)
-        commandHandler.register(injector.getInstance(WorldCommands.class));
-        commandHandler.register(injector.getInstance(LangCommands.class));
-        commandHandler.register(injector.getInstance(WorldCreator.class));
-        commandHandler.register(injector.getInstance(EditMode.class));
-        commandHandler.register(injector.getInstance(GameCommands.class));
         
         eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }

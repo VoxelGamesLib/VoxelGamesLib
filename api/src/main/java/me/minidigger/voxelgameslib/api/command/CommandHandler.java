@@ -1,6 +1,9 @@
 package me.minidigger.voxelgameslib.api.command;
 
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
+
+import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -31,6 +35,8 @@ public class CommandHandler implements Handler {
     
     @Inject
     private RoleHandler roleHandler;
+    @Inject
+    private Injector injector;
     
     private final Map<String, Method> commands = new HashMap<>();
     private final Map<String, Object> commandExecutors = new HashMap<>();
@@ -40,7 +46,7 @@ public class CommandHandler implements Handler {
     
     @Override
     public void start() {
-        
+        registerCommands();
     }
     
     @Override
@@ -53,6 +59,14 @@ public class CommandHandler implements Handler {
         commandExecutors.clear();
         completer.clear();
         commandExecutors.clear();
+    }
+    
+    /**
+     * Registers all commands in the classpath
+     */
+    public void registerCommands() {
+        Set<Class<?>> excutors = new Reflections().getTypesAnnotatedWith(CommandExecutor.class);
+        excutors.forEach(aClass -> register(injector.getInstance(aClass)));
     }
     
     /**

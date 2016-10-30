@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
+import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.game.GameMode;
@@ -39,6 +40,7 @@ import lombok.extern.java.Log;
  */
 @Log
 @Singleton
+@CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class WorldCreator {
     

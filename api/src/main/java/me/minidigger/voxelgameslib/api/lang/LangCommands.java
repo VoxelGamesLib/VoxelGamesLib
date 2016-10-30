@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
+import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.role.Role;
 
@@ -12,6 +13,7 @@ import me.minidigger.voxelgameslib.api.role.Role;
  * Handles all commands related to lang and i18n
  */
 @Singleton
+@CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class LangCommands {
     

@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
+import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
@@ -17,6 +18,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
  * Commands related to worlds
  */
 @Singleton
+@CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class WorldCommands {
     
