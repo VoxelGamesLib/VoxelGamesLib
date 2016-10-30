@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -68,6 +69,8 @@ public class TranslatableComponent extends BaseComponent {
                 temp.add(new TextComponent((String) w));
             } else if (w instanceof BaseComponent) {
                 temp.add((BaseComponent) w);
+            } else if (w instanceof BaseComponent[]) {
+                Collections.addAll(temp, (BaseComponent[]) w);
             } else {
                 temp.add(new TextComponent(String.valueOf(w))); // VGL: make it accept other objects too
             }
