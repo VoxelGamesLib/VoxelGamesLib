@@ -22,3 +22,5 @@ hs_err_pid*
 */dependency-reduced-pom.xml
 testserver/plugins/VoxelGamesLibBukkit/lang/
 */target/
+*/build/
+.gradle
