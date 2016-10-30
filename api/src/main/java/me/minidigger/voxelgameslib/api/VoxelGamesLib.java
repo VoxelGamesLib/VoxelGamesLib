@@ -8,6 +8,9 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
+import me.minidigger.voxelgameslib.api.event.EventHandler;
+import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
+import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
 import me.minidigger.voxelgameslib.api.game.GameCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.lang.LangCommands;
@@ -56,6 +59,8 @@ public class VoxelGamesLib {
     private LangHandler langHandler;
     @Inject
     private ModuleHandler moduleHandler;
+    @Inject
+    private EventHandler eventHandler;
     
     private Injector injector;
     
@@ -73,34 +78,46 @@ public class VoxelGamesLib {
         gameHandler.start();
         userHandler.start();
         roleHandler.start();
-        commandHandler.start();
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
+        
         moduleHandler.start();
         
+        //load event and command stuff after modules so that modules get a chance to provide
+        eventHandler.start();
+        commandHandler.start();
+        
+        //TODO change command handler to use annotations to register command classes (like modules and event listeners)
         commandHandler.register(injector.getInstance(WorldCommands.class));
         commandHandler.register(injector.getInstance(LangCommands.class));
         commandHandler.register(injector.getInstance(WorldCreator.class));
         commandHandler.register(injector.getInstance(EditMode.class));
         commandHandler.register(injector.getInstance(GameCommands.class));
+        
+        eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }
     
     /**
      * Called when the server stops and/or the plugin gets disabled
      */
     public void onDisable() {
+        eventHandler.callEvent(new VoxelGamesLibDisableEvent());
+        
         configHandler.stop();
         langHandler.stop();
         tickHandler.stop();
         gameHandler.stop();
         userHandler.stop();
         roleHandler.stop();
-        commandHandler.stop();
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
+        
         moduleHandler.stop();
+        
+        eventHandler.stop();
+        commandHandler.stop();
         
         injector = null;
     }

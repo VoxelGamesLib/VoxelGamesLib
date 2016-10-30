@@ -9,5 +9,6 @@ public interface Module {
     
     void disable();
     
+    ModuleInfo getModuleInfo();
     //TODO module javadoc
 }

@@ -28,4 +28,9 @@ public class SurvivalGamesModule implements Module {
     public void disable() {
         
     }
+    
+    @Override
+    public ModuleInfo getModuleInfo() {
+        return getClass().getAnnotation(ModuleInfo.class); //TODO better module info handling
+    }
 }
