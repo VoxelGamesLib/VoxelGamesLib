@@ -84,21 +84,14 @@ public class UserHandler implements Handler {
     }
     
     /**
-     * Called when a user logs in. used to load all kind of stuff
+     * Called when a user logs in. used to load all kind of stuff. Should only be called async!
      *
      * @param uniqueId the id of the user that logged in
      */
     public void login(UUID uniqueId) {
-        Thread t = new Thread() {
-            @Override
-            public void run() {
-                log.info("Loading data for user " + uniqueId);
-                // TODO load roles and stuff from somewhere
-                tempData.put(uniqueId, "HEYHO");
-            }
-        };
-        t.setName("LoginTask: " + uniqueId);
-        t.start();
+        log.info("Loading data for user " + uniqueId);
+        // TODO load roles and stuff from somewhere
+        tempData.put(uniqueId, "HEYHO");
     }
     
     /**
