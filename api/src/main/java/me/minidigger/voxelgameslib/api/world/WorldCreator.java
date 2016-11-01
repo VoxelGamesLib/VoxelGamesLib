@@ -24,6 +24,7 @@ import me.minidigger.voxelgameslib.api.game.GameMode;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.map.Map;
+import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Role;
@@ -213,7 +214,8 @@ public class WorldCreator {
         if (arguments.getArg(0).equalsIgnoreCase("on")) {
             // TODO implement editing mode
         } else if (arguments.getArg(0).equalsIgnoreCase("off")) {
-            map = new Map(displayName, worldName, author, gameModes, center, radius);
+            MapInfo info = new MapInfo(displayName, author, gameModes);
+            map = new Map(info, worldName, center, radius);
             map.printSummery(arguments.getSender());
             arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUESTIONMARK, arguments.getSender().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator done")).create());
             step = 8;
@@ -258,8 +260,8 @@ public class WorldCreator {
             e.printStackTrace();
         }
         
-        if (!config.maps.contains(map.getWorldName())) {
-            config.maps.add(map.getWorldName());
+        if (!config.maps.contains(map.getInfo())) {
+            config.maps.add(map.getInfo());
             worldHandler.saveConfig();
         }
         

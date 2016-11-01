@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.config.Config;
+import me.minidigger.voxelgameslib.api.map.MapInfo;
 
 /**
  * The config that knows about all world/maps that are playable
@@ -13,8 +14,7 @@ public class WorldConfig extends Config {
     
     public final int configVersion = 1;
     public int currentVersion = configVersion;
-    public final List<String> maps = new ArrayList<>();
-    // TODO we need to save the gamemodes for the maps here so that voting and stuff can easily pick maps
+    public final List<MapInfo> maps = new ArrayList<>();
     
     /**
      * @return the default values for this config
