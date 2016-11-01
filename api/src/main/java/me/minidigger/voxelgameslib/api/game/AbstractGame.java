@@ -76,7 +76,14 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void endPhase() {
-        activePhase.stop();
+        if (activePhase.getNextPhase() != null) {
+            activePhase.stop();
+            activePhase = activePhase.getNextPhase();
+            assert activePhase != null;
+            activePhase.start();
+        } else {
+            endGame();
+        }
     }
     
     @Override

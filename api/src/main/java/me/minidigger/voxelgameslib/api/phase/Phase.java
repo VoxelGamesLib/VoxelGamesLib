@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.phase;
 
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import me.minidigger.voxelgameslib.api.exception.NoSuchFeatureException;
 import me.minidigger.voxelgameslib.api.feature.Feature;
@@ -78,7 +79,7 @@ public interface Phase extends Tickable {
     /**
      * @return the {@link Phase} that will follow after this {@link Phase} has ended.
      */
-    @Nonnull
+    @Nullable
     Phase getNextPhase();
     
     /**

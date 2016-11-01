@@ -31,5 +31,7 @@ public abstract class TimedPhase extends AbstractPhase {
         if (ticks <= 0) {
             getGame().endPhase();
         }
+        
+        //TODO progress bar for timed phase
     }
 }

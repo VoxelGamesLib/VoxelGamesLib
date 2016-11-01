@@ -3,15 +3,26 @@ package me.minidigger.voxelgameslib.api.phase;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.command.CommandArguments;
+import me.minidigger.voxelgameslib.api.command.CommandHandler;
+import me.minidigger.voxelgameslib.api.command.CommandInfo;
+import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.exception.NoSuchFeatureException;
 import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.game.Game;
+import me.minidigger.voxelgameslib.api.role.Role;
 
 /**
  * Simple implementation of a {@link Phase}. Implements the necessary {@link Feature}-handling.
  */
 public abstract class AbstractPhase implements Phase {
+    
+    @Inject
+    private VGLEventHandler eventHandler;
+    @Inject
+    private CommandHandler commandHandler;
     
     private String name;
     private Game game;
@@ -73,12 +84,28 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void start() {
-        features.forEach(Feature::start);
+        System.out.println("start " + getName());
+        features.forEach((feature) -> {
+            feature.start();
+            eventHandler.registerEvents(feature);
+            commandHandler.register(feature);
+        });
+        
+        eventHandler.registerEvents(this);
+        commandHandler.register(this);
     }
     
     @Override
     public void stop() {
-        features.forEach(Feature::stop);
+        System.out.println("stop " + getName());
+        features.forEach((feature) -> {
+            feature.stop();
+            eventHandler.unregisterEvents(feature);
+            commandHandler.unregister(feature, true);
+        });
+    
+        eventHandler.unregisterEvents(this);
+        commandHandler.unregister(this, true);
     }
     
     @Override
@@ -104,5 +131,14 @@ public abstract class AbstractPhase implements Phase {
     @Override
     public void setAllowSpectate(boolean allowSpectate) {
         this.allowSpectate = allowSpectate;
+    }
+    
+    @SuppressWarnings("JavaDoc")
+    @CommandInfo(name = "skip", perm = "command.skip", role = Role.MODERATOR)
+    public void skip(@Nonnull CommandArguments arguments) {
+        if (getGame().isPlaying(arguments.getSender()) || getGame().isSpectating(arguments.getSender())) {
+            System.out.println("skip " + getName());
+            getGame().endPhase();
+        }
     }
 }

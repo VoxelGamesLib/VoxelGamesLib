@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
+import me.minidigger.voxelgameslib.api.GameConstants;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
 /**
@@ -13,6 +14,7 @@ public class GracePhase extends TimedPhase {
         setName("GracePhase");
         setAllowJoin(false);
         setAllowSpectate(true);
+        setTicks(60 * GameConstants.TPS);
     }
     
     //TODO GracePhase

@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
+import me.minidigger.voxelgameslib.api.GameConstants;
+import me.minidigger.voxelgameslib.api.feature.features.VoteFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
 /**
@@ -12,6 +14,10 @@ public class VotePhase extends TimedPhase {
         setName("VotePhase");
         setAllowJoin(true);
         setAllowSpectate(false);
+        setTicks(60 * GameConstants.TPS);
+        
+        System.out.println("add vote feature");
+        addFeature(getGame().createFeature(VoteFeature.class, this));
     }
     
     //TODO vote phase
