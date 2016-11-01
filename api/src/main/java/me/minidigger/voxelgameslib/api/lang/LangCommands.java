@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.lang;
 
 import java.util.Optional;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -21,7 +22,7 @@ public class LangCommands {
     private LangHandler langHandler;
     
     @CommandInfo(name = "lang", perm = "command.lang", role = Role.DEFAULT)
-    public void lang(CommandArguments args) {
+    public void lang(@Nonnull CommandArguments args) {
         StringBuilder sb = new StringBuilder();
         for (Locale loc : langHandler.getInstalledLocales()) {
             sb.append(loc.getName()).append(" ");
@@ -31,7 +32,7 @@ public class LangCommands {
     }
     
     @CommandInfo(name = "lang.set", perm = "command.lang.set", role = Role.DEFAULT, min = 1)
-    public void set(CommandArguments args) {
+    public void set(@Nonnull CommandArguments args) {
         Optional<Locale> loc = Locale.fromTag(args.getArg(0));
         if (!loc.isPresent()) {
             Lang.msg(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));

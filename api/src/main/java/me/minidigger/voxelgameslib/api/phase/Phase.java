@@ -24,21 +24,21 @@ public interface Phase extends Tickable {
      *
      * @param nextPhase the new next phase
      */
-    void setNextPhase(Phase nextPhase);
+    void setNextPhase(@Nonnull Phase nextPhase);
     
     /**
      * sets the game this phase is attached to
      *
      * @param game the game
      */
-    void setGame(Game game);
+    void setGame(@Nonnull Game game);
     
     /**
      * Adds a new feature to this phase
      *
      * @param feature the new feature to add
      */
-    void addFeature(Feature feature);
+    void addFeature(@Nonnull Feature feature);
     
     /**
      * sets the name of this phase

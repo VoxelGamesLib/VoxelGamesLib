@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.exception;
 
 import java.io.IOException;
+import javax.annotation.Nonnull;
 
 /**
  * Thrown when something is wrong related to lang stuff
@@ -10,7 +11,7 @@ public class LangException extends VoxelGameLibException {
     /**
      * @param message the message that explains the issue
      */
-    public LangException(String message) {
+    public LangException(@Nonnull String message) {
         super(message);
     }
     
@@ -21,7 +22,7 @@ public class LangException extends VoxelGameLibException {
      * @param message the message that explains the issue
      * @param ex      the root issue that was thrown
      */
-    public LangException(String message, IOException ex) {
+    public LangException(@Nonnull String message, @Nonnull IOException ex) {
         super(message, ex);
     }
 }

@@ -2,6 +2,7 @@ package me.minidigger.voxelgames.survivalgames;
 
 import com.google.inject.Singleton;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.game.GameHandler;
@@ -29,6 +30,7 @@ public class SurvivalGamesModule implements Module {
         
     }
     
+    @Nonnull
     @Override
     public ModuleInfo getModuleInfo() {
         return getClass().getAnnotation(ModuleInfo.class); //TODO better module info handling

@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.config;
 
+import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 /**
@@ -19,6 +20,7 @@ public class GlobalConfig extends Config {
     /**
      * @return the default config, with all default settings
      */
+    @Nonnull
     public static GlobalConfig getDefault() {
         return new GlobalConfig();
     }

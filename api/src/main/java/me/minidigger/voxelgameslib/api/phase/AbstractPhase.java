@@ -15,6 +15,7 @@ public abstract class AbstractPhase implements Phase {
     
     private String name;
     private Game game;
+    @Nonnull
     private List<Feature> features = new ArrayList<>();
     private Phase nextPhase;
     private boolean allowJoin;
@@ -32,17 +33,17 @@ public abstract class AbstractPhase implements Phase {
     }
     
     @Override
-    public void setNextPhase(Phase nextPhase) {
+    public void setNextPhase(@Nonnull Phase nextPhase) {
         this.nextPhase = nextPhase;
     }
     
     @Override
-    public void setGame(Game game) {
+    public void setGame(@Nonnull Game game) {
         this.game = game;
     }
     
     @Override
-    public void addFeature(Feature feature) {
+    public void addFeature(@Nonnull Feature feature) {
         features.add(feature);
     }
     

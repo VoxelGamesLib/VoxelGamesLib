@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.world;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
@@ -14,20 +16,20 @@ import org.bukkit.WorldType;
 public class BukkitWorldHandler extends WorldHandler {
     
     @Override
-    public void loadWorld(Map map) {
+    public void loadWorld(@Nonnull Map map) {
         super.loadWorld(map);
         
         loadLocalWorld(map.getWorldName());
     }
     
     @Override
-    public void unloadWorld(Map map) {
+    public void unloadWorld(@Nonnull Map map) {
         unloadLocalWorld(map.getWorldName());
         super.unloadWorld(map);
     }
     
     @Override
-    public void loadLocalWorld(String name) {
+    public void loadLocalWorld(@Nonnull String name) {
         WorldCreator wc = new WorldCreator(name);
         wc.environment(World.Environment.NORMAL); //TODO do we need support for environment in maps?
         wc.generateStructures(false);
@@ -38,7 +40,7 @@ public class BukkitWorldHandler extends WorldHandler {
     }
     
     @Override
-    public void unloadLocalWorld(String name) {
+    public void unloadLocalWorld(@Nonnull String name) {
         Bukkit.unloadWorld(name, false);
     }
 }

@@ -33,7 +33,7 @@ public class BukkitConsoleUser implements ConsoleUser {
     private Injector injector;
     
     @Override
-    public void setPlayerObject(Object playerObject) {
+    public void setPlayerObject(@Nonnull Object playerObject) {
         // unused
     }
     
@@ -89,50 +89,55 @@ public class BukkitConsoleUser implements ConsoleUser {
     }
     
     @Override
-    public void teleport(Vector3D loc) {
+    public void teleport(@Nonnull Vector3D loc) {
         // ignore
     }
     
     @Override
-    public void teleport(String world, Vector3D loc) {
+    public void teleport(@Nonnull String world, @Nonnull Vector3D loc) {
         // ignore
     }
     
     @Override
-    public void teleport(String world) {
+    public void teleport(@Nonnull String world) {
         // ignore
     }
     
+    @Nonnull
     @Override
     public Vector3D getLocation() {
         return new Vector3D(0, 0, 0);
     }
     
+    @Nonnull
     @Override
     public String getWorld() {
         return "world";
     }
     
     @Override
-    public void setItemInHand(Hand hand, Item item) {
+    public void setItemInHand(@Nonnull Hand hand, @Nonnull Item item) {
         // ignore
     }
     
+    @Nonnull
     @Override
-    public Item getItemInHand(Hand hand) {
+    public Item getItemInHand(@Nonnull Hand hand) {
         return new ItemBuilder(Material.AIR, injector).build();
     }
     
     @Override
-    public void setIventory(int slot, Item item) {
+    public void setIventory(int slot, @Nonnull Item item) {
         // ignore
     }
     
+    @Nonnull
     @Override
     public Item getInventory(int slot) {
         return new ItemBuilder(Material.AIR, injector).build();
     }
     
+    @Nonnull
     @Override
     public Injector getInjector() {
         return injector;

@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.world;
 
 import java.util.Optional;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -26,26 +27,21 @@ public class WorldCommands {
     private WorldHandler handler;
     
     @CommandInfo(name = "world", perm = "command.world", role = Role.ADMIN)
-    public void world(CommandArguments args) {
+    public void world(@Nonnull CommandArguments args) {
 //TODO remove me once GH-17 is implemented
         args.getSender().sendMessage(new TextComponent("It works!"));
     }
     
     @CommandInfo(name = "world.load", perm = "command.world.load", role = Role.ADMIN, description = "Loads a world", min = 1)
-    public void load(CommandArguments args) {
+    public void load(@Nonnull CommandArguments args) {
         Optional<Map> o = handler.getMap(args.getArg(0));
-        Map map;
-        if (o.isPresent()) {
-            map = o.get();
-        } else {
-            map = handler.loadMap(args.getArg(0));
-        }
+        Map map = o.orElseGet(() -> handler.loadMap(args.getArg(0)));
         
         handler.loadWorld(map);
     }
     
     @CommandInfo(name = "world.unload", perm = "command.world.unload", role = Role.ADMIN, description = "Unloads a world", min = 1)
-    public void unload(CommandArguments args) {
+    public void unload(@Nonnull CommandArguments args) {
         Optional<Map> o = handler.getMap(args.getArg(0));
         if (o.isPresent()) {
             handler.unloadWorld(o.get());
@@ -55,7 +51,7 @@ public class WorldCommands {
     }
     
     @CommandInfo(name = "world.tp", perm = "command.world.tp", role = Role.MODERATOR, description = "TPs to a world", min = 1)
-    public void tp(CommandArguments args) {
+    public void tp(@Nonnull CommandArguments args) {
         Optional<Map> o = handler.getMap(args.getArg(0));
         if (o.isPresent()) {
             args.getSender().teleport(new Vector3D(0, 0, 0));

@@ -21,7 +21,7 @@ import lombok.extern.java.Log;
 @Log
 public class BukkitItem extends Item {
     
-    public BukkitItem(Material material, byte variation, int amount, String name, List<String> lore, Map<String, Object> tags) {
+    public BukkitItem(@Nonnull Material material, byte variation, int amount, @Nonnull String name, @Nonnull List<String> lore, @Nonnull Map<String, Object> tags) {
         super(material, variation, amount, name, lore, tags);
     }
     
@@ -30,6 +30,7 @@ public class BukkitItem extends Item {
         super();
     }
     
+    @Nonnull
     public static BukkitItem fromItemStack(@Nonnull ItemStack is) {
         String name = is.getType().name();
         List<String> lore = new ArrayList<>();
@@ -56,6 +57,7 @@ public class BukkitItem extends Item {
         return new BukkitItem(Material.fromId(is.getTypeId()), is.getData().getData(), is.getAmount(), name, lore, tags);
     }
     
+    @Nonnull
     public ItemStack toItemStack() {
         ItemStack is = new ItemStack(BukkitMaterial.toMaterial(getMaterial()));
         is.setAmount(getAmount());

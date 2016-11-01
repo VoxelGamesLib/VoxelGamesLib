@@ -273,7 +273,7 @@ public class CommandHandler implements Handler {
                     }
                     
                     commandMethod.invoke(commandExecutors.get(cmdLabel), new CommandArguments(commandInfo, sender, newArgs));
-                } catch (IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+                } catch (@Nonnull IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
                 return true;

@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
 
 /**
  * Call to create items, as a chainable builder.
@@ -21,7 +22,7 @@ public class ItemBuilder {
      * @param material a base material to go off from
      * @param injector the injector that should be used to create a new instance of the item class
      */
-    public ItemBuilder(Material material, Injector injector) {
+    public ItemBuilder(@Nonnull Material material, @Nonnull Injector injector) {
         item = injector.getInstance(Item.class);
         item.setMaterial(material);
     }
@@ -31,7 +32,7 @@ public class ItemBuilder {
      *
      * @param item the exisiting item to modify
      */
-    public ItemBuilder(Item item) {
+    public ItemBuilder(@Nonnull Item item) {
         this.item = item;
     }
     
@@ -41,7 +42,8 @@ public class ItemBuilder {
      * @param material the new material
      * @return this builder for chaining
      */
-    public ItemBuilder material(Material material) {
+    @Nonnull
+    public ItemBuilder material(@Nonnull Material material) {
         item.setMaterial(material);
         return this;
     }
@@ -52,6 +54,7 @@ public class ItemBuilder {
      * @param variation the new variation to set
      * @return this builder for chaining
      */
+    @Nonnull
     public ItemBuilder variation(byte variation) {
         item.setVariation(variation);
         return this;
@@ -63,6 +66,7 @@ public class ItemBuilder {
      * @param amount the new amount to set
      * @return this builder for chaining
      */
+    @Nonnull
     public ItemBuilder amount(int amount) {
         item.setAmount(amount);
         return this;
@@ -74,7 +78,8 @@ public class ItemBuilder {
      * @param name the name to set
      * @return this builder for chaining
      */
-    public ItemBuilder name(String name) {
+    @Nonnull
+    public ItemBuilder name(@Nonnull String name) {
         item.setName(name);
         return this;
     }
@@ -85,7 +90,8 @@ public class ItemBuilder {
      * @param lore the new line to add
      * @return this builder for chaining
      */
-    public ItemBuilder addLore(String lore) {
+    @Nonnull
+    public ItemBuilder addLore(@Nonnull String lore) {
         List<String> loreList = item.getLore();
         if (loreList == null) {
             loreList = new ArrayList<>();
@@ -101,7 +107,8 @@ public class ItemBuilder {
      * @param lore the new lines to add
      * @return this builder for chaining
      */
-    public ItemBuilder addLore(String... lore) {
+    @Nonnull
+    public ItemBuilder addLore(@Nonnull String... lore) {
         List<String> loreList = item.getLore();
         if (loreList == null) {
             loreList = new ArrayList<>();
@@ -116,6 +123,7 @@ public class ItemBuilder {
      *
      * @return this builder for chaining
      */
+    @Nonnull
     public ItemBuilder clearLore() {
         item.setLore(new ArrayList<>());
         return this;
@@ -128,7 +136,8 @@ public class ItemBuilder {
      * @param value the value for the tag
      * @return this builder for chaining
      */
-    public ItemBuilder tag(String tag, Object value) {
+    @Nonnull
+    public ItemBuilder tag(@Nonnull String tag, @Nonnull Object value) {
         Map<String, Object> tags = item.getTags();
         if (tags == null) {
             tags = new HashMap<>();
@@ -143,6 +152,7 @@ public class ItemBuilder {
      *
      * @return this builder for chaining
      */
+    @Nonnull
     public ItemBuilder clearTags() {
         item.setTags(new HashMap<>());
         return this;
@@ -151,6 +161,7 @@ public class ItemBuilder {
     /**
      * @return the constructed item
      */
+    @Nonnull
     public Item build() {
         return item;
     }

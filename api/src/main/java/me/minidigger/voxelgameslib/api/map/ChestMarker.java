@@ -10,6 +10,7 @@ import me.minidigger.voxelgameslib.api.item.Item;
  */
 public class ChestMarker extends Marker {
     
+    @Nonnull
     private final Item[] items;
     
     /**

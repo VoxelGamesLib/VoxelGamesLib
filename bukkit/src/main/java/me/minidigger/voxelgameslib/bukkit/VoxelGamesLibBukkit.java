@@ -9,6 +9,7 @@ import com.google.inject.name.Names;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
@@ -82,12 +83,12 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     }
     
     @CommandInfo(name = "test", perm = "command.test", role = Role.DEFAULT)
-    public void command(CommandArguments args) {
+    public void command(@Nonnull CommandArguments args) {
         args.getSender().sendMessage(new TextComponent("Command send!"));
     }
     
     @CommandInfo(name = "chunktest", perm = "command.chunktest", role = Role.ADMIN)
-    public void chunktest(CommandArguments args) {
+    public void chunktest(@Nonnull CommandArguments args) {
         Location loc = new Location(Bukkit.getWorld(args.getSender().getWorld()), args.getSender().getLocation().getX(), args.getSender().getLocation().getY(), args.getSender().getLocation().getZ());
         args.getSender().sendMessage(new TextComponent("te: " + loc.getChunk().getTileEntities().length));
     }
@@ -111,7 +112,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
-    
+            
             bind(TaskChainFactory.class).toInstance(BukkitTaskChainFactory.create(voxelGamesLibBukkit));
             bind(Gson.class).toInstance(new GsonBuilder().setPrettyPrinting().create());
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);

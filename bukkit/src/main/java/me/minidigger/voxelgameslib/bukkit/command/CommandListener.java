@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.bukkit.command;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -25,7 +26,7 @@ public class CommandListener implements Listener {
     private CommandHandler commandHandler;
     
     @EventHandler
-    public void onCommand(PlayerCommandPreprocessEvent event) {
+    public void onCommand(@Nonnull PlayerCommandPreprocessEvent event) {
         Optional<User> userOptional = userHandler.getUser(event.getPlayer().getUniqueId());
         if (!userOptional.isPresent()) {
             return;

@@ -21,7 +21,7 @@ task copyPluginToTestServer(type: Copy) {
 }
 
 task deleteOldLogFiles(type: Delete) {
-    def cutoff = new Date().minus(1); //24 hrs ago
+    def cutoff = new Date().minus(1) //24 hrs ago
 
     delete fileTree(dir: 'testserver/logs/')
             .matching { include '*.log' }

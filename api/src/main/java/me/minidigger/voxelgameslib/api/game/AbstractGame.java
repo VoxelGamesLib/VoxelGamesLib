@@ -27,6 +27,7 @@ public abstract class AbstractGame implements Game {
     @Inject
     private VGLEventHandler eventHandler;
     
+    @Nonnull
     private final GameMode gameMode;
     protected Phase activePhase;
     
@@ -96,7 +97,7 @@ public abstract class AbstractGame implements Game {
     }
     
     @Override
-    public void join(User user) {
+    public void join(@Nonnull User user) {
         if (!isPlaying(user)) {
             players.add(user);
             eventHandler.callEvent(new GameJoinEvent(this, user));
@@ -105,14 +106,14 @@ public abstract class AbstractGame implements Game {
     }
     
     @Override
-    public void spectate(User user) {
+    public void spectate(@Nonnull User user) {
         if (!isPlaying(user) && !isSpectating(user)) {
             spectators.add(user);
         }
     }
     
     @Override
-    public void leave(User user) {
+    public void leave(@Nonnull User user) {
         players.remove(user);
         spectators.remove(user);
         eventHandler.callEvent(new GameLeaveEvent(this, user));
@@ -120,17 +121,18 @@ public abstract class AbstractGame implements Game {
     }
     
     @Override
-    public boolean isPlaying(User user) {
+    public boolean isPlaying(@Nonnull User user) {
         return players.contains(user);
     }
     
     @Override
-    public boolean isSpectating(User user) {
+    public boolean isSpectating(@Nonnull User user) {
         return spectators.contains(user);
     }
     
     @Override
-    public <T extends Feature> T createFeature(Class<T> featureClass, Phase phase) {
+    @Nonnull
+    public <T extends Feature> T createFeature(@Nonnull Class<T> featureClass, @Nonnull Phase phase) {
         T feature = injector.getInstance(featureClass);
         feature.setPhase(phase);
         feature.init();
@@ -138,7 +140,8 @@ public abstract class AbstractGame implements Game {
     }
     
     @Override
-    public <T extends Phase> T createPhase(Class<T> phaseClass) {
+    @Nonnull
+    public <T extends Phase> T createPhase(@Nonnull Class<T> phaseClass) {
         T phase = injector.getInstance(phaseClass);
         phase.setGame(this);
         phase.init();

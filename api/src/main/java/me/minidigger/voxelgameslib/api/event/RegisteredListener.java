@@ -2,35 +2,53 @@ package me.minidigger.voxelgameslib.api.event;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.exception.EventException;
 
 /**
- * Created by Martin on 30.10.2016.
+ * Represents a listener method that was registered and saved
  */
-public class RegisteredListener {
+class RegisteredListener {
     
     private Object listener;
     private Method executor;
     
-    public RegisteredListener(Object listener, Method executor) {
+    /**
+     * @param listener a instance of the listener class
+     * @param executor the method that is in the listener class
+     */
+    RegisteredListener(@Nonnull Object listener, @Nonnull Method executor) {
         this.listener = listener;
         this.executor = executor;
     }
     
-    public void execute(Event event) {
+    /**
+     * Executes the event
+     *
+     * @param event the event to execute
+     */
+    void execute(@Nonnull Event event) {
         try {
             executor.invoke(listener, event);
-        } catch (IllegalAccessException | InvocationTargetException e) {
+        } catch (@Nonnull IllegalAccessException | InvocationTargetException e) {
             throw new EventException("Could not handle event " + event.getClass().getName() + " to listener in " + listener.getClass().getName(), e);
         }
     }
     
-    public Method getExecutor() {
+    /**
+     * @return the executor that will execute events
+     */
+    @Nonnull
+    Method getExecutor() {
         return executor;
     }
     
-    public Object getListener() {
+    /**
+     * @return a object of the listener class
+     */
+    @Nonnull
+    Object getListener() {
         return listener;
     }
 }

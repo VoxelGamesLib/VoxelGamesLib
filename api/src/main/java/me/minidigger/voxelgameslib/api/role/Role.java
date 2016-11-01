@@ -14,7 +14,9 @@ public enum Role {
     MODERATOR("moderator", PREMIUM),
     ADMIN("admin", MODERATOR);
     
+    @Nonnull
     private final String name;
+    @Nullable
     private final Role parent;
     
     Role(@Nonnull String name, @Nullable Role parent) {
@@ -44,7 +46,7 @@ public enum Role {
      * @param perm the permission to check
      * @return if the role has that permission
      */
-    public boolean hasPermission(Permission perm) {
+    public boolean hasPermission(@Nonnull Permission perm) {
         String roleName = perm.getRole().getName();
         Role currRole = this;
         while (currRole != null) {

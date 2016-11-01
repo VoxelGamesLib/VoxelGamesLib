@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
 import java.util.HashMap;
+import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
@@ -11,6 +12,7 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
 @Singleton
 public class MapHandler implements Handler {
     
+    @Nonnull
     private HashMap<String, ChestMarker> chests = new HashMap<>();
     
     @Override

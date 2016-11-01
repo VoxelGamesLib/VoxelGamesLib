@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -60,7 +61,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @param config the config that should be checked
      * @return if the config needs to be migrated
      */
-    public boolean checkMigrate(Config config) {
+    public boolean checkMigrate(@Nonnull Config config) {
         return config.getConfigVersion() != config.getCurrentVersion();
     }
     
@@ -71,7 +72,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @param config     the config to migrate
      * @throws ConfigException if there was an error while creating an backup
      */
-    public void migrate(File configFile, Config config) {
+    public void migrate(@Nonnull File configFile, @Nonnull Config config) {
         log.info("Migrating config from v" + config.getCurrentVersion() + " to v" + config.getConfigVersion());
         try {
             File backup = new File(configFile.getParent(), configFile.getName() + ".v" + config.getCurrentVersion() + ".backup");
@@ -99,7 +100,8 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @return the loaded config
      * @throws ConfigException if something went wrong
      */
-    public <T extends Config> T loadConfig(File configFile, Class<T> clazz) {
+    @Nonnull
+    public <T extends Config> T loadConfig(@Nonnull File configFile, @Nonnull Class<T> clazz) {
         log.finer("Loading " + clazz.getName() + " from " + configFile.getAbsolutePath());
         try {
             return gson.fromJson(new JsonReader(new FileReader(configFile)), clazz);
@@ -115,7 +117,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
      * @param config     the config that should be saved
      * @throws ConfigException if something went wrong
      */
-    public void saveConfig(File configFile, Config config) {
+    public void saveConfig(@Nonnull File configFile, @Nonnull Config config) {
         log.finer("Saving " + config.getClass().getName() + " to " + configFile.getAbsolutePath());
         if (!configFile.exists()) {
             try {

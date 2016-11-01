@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
@@ -73,12 +74,12 @@ public class WorldCreator {
     private Map map;
     
     @CommandInfo(name = "worldcreator", perm = "command.worldcreator", role = Role.ADMIN)
-    public void worldcreator(CommandArguments arguments) {
+    public void worldcreator(@Nonnull CommandArguments arguments) {
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_INFO);
     }
     
     @CommandInfo(name = "worldcreator.start", perm = "command.worldcreator.start", role = Role.ADMIN, allowConsole = false)
-    public void start(CommandArguments arguments) {
+    public void start(@Nonnull CommandArguments arguments) {
         if (editor != null) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_IN_USE, ChatUtil.toPlainText(editor.getDisplayName()));
             return;
@@ -93,7 +94,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.world", perm = "command.worldcreator.world", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void world(CommandArguments arguments) {
+    public void world(@Nonnull CommandArguments arguments) {
         if (step != 1) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 1);
             return;
@@ -110,7 +111,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.center", perm = "command.worldcreator.center", role = Role.ADMIN, allowConsole = false)
-    public void center(CommandArguments arguments) {
+    public void center(@Nonnull CommandArguments arguments) {
         if (step != 2) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 2);
             return;
@@ -124,7 +125,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.radius", perm = "command.worldcreator.radius", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void radius(CommandArguments arguments) {
+    public void radius(@Nonnull CommandArguments arguments) {
         if (step != 3) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 3);
             return;
@@ -143,7 +144,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.name", perm = "command.worldcreator.name", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void name(CommandArguments arguments) {
+    public void name(@Nonnull CommandArguments arguments) {
         if (step != 4) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 4);
             return;
@@ -161,7 +162,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.author", perm = "command.worldcreator.author", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void author(CommandArguments arguments) {
+    public void author(@Nonnull CommandArguments arguments) {
         if (step != 5) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 5);
             return;
@@ -185,7 +186,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.gamemode", perm = "command.worldcreator.gamemode", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void gamemode(CommandArguments arguments) {
+    public void gamemode(@Nonnull CommandArguments arguments) {
         if (step != 6) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 6);
             return;
@@ -203,7 +204,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.edit", perm = "command.worldcreator.edit", role = Role.ADMIN, min = 1, allowConsole = false)
-    public void edit(CommandArguments arguments) {
+    public void edit(@Nonnull CommandArguments arguments) {
         if (step != 7) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 7);
             return;
@@ -222,7 +223,7 @@ public class WorldCreator {
     }
     
     @CommandInfo(name = "worldcreator.done", perm = "command.worldcreator.done", role = Role.ADMIN, allowConsole = false)
-    public void done(CommandArguments arguments) {
+    public void done(@Nonnull CommandArguments arguments) {
         if (step != 8) {
             Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_WRONG_STEP, step, 8);
             return;

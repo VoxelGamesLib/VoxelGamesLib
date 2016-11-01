@@ -78,7 +78,7 @@ public class Vector3D implements Cloneable {
      * @return A new vector, or null if the format is incorrect.
      */
     @Nullable
-    public static Vector3D fromString(String string) {
+    public static Vector3D fromString(@Nonnull String string) {
         if (!string.startsWith("V") || !string.endsWith(";")) {
             return null;
         }
@@ -125,7 +125,7 @@ public class Vector3D implements Cloneable {
      * @return A new vector
      */
     @Nonnull
-    public final Vector3D add(Vector3D vector) {
+    public final Vector3D add(@Nonnull Vector3D vector) {
         return new Vector3D(this.x + vector.x, this.y + vector.y, this.z + vector.z);
     }
     
@@ -147,7 +147,7 @@ public class Vector3D implements Cloneable {
      * @return A new vector representing the cross product
      */
     @Nonnull
-    public final Vector3D crossProduct(Vector3D other) {
+    public final Vector3D crossProduct(@Nonnull Vector3D other) {
         return new Vector3D(
                 (this.y * other.z) - (this.z * other.y),
                 (this.z * other.x) - (this.x * other.z),
@@ -161,7 +161,7 @@ public class Vector3D implements Cloneable {
      * @param other The other vector for which to compute the dot product
      * @return The dot product
      */
-    public final double dotProduct(Vector3D other) {
+    public final double dotProduct(@Nonnull Vector3D other) {
         return (this.x * other.x) + (this.y * other.y) + (this.z * other.z);
     }
     
@@ -172,7 +172,7 @@ public class Vector3D implements Cloneable {
      * @return A new vector representing the midpoint
      */
     @Nonnull
-    public final Vector3D midpoint(Vector3D other) {
+    public final Vector3D midpoint(@Nonnull Vector3D other) {
         return new Vector3D(
                 (this.x + other.x) / 2,
                 (this.y + other.y) / 2,

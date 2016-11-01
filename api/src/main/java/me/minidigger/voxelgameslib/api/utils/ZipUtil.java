@@ -7,6 +7,7 @@ import net.lingala.zip4j.model.ZipParameters;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.annotation.Nonnull;
 
 /**
  * Small util to make working with zips easier
@@ -21,7 +22,8 @@ public class ZipUtil {
      * @return the created zip
      * @throws ZipException if something goes wrong
      */
-    public static ZipFile createZip(File file) throws ZipException {
+    @Nonnull
+    public static ZipFile createZip(@Nonnull File file) throws ZipException {
         ZipFile zip = new ZipFile(new File(file.getParent(), file.getName() + ".zip"));
         ArrayList<File> fileList = new ArrayList<>();
         

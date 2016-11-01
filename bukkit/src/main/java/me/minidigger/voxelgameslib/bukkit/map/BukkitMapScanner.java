@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.bukkit.map;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.exception.MapException;
 import me.minidigger.voxelgameslib.api.map.ChestMarker;
@@ -27,7 +28,7 @@ import org.bukkit.inventory.ItemStack;
 public class BukkitMapScanner extends MapScanner {
     
     @Override
-    public void searchForMarkers(Map map, Vector3D center, int range) {
+    public void searchForMarkers(@Nonnull Map map, @Nonnull Vector3D center, int range) {
         World world = Bukkit.getWorld(map.getWorldName());
         if (world == null) {
             throw new MapException("Could not find world " + map.getWorldName() + ". Is it loaded?");

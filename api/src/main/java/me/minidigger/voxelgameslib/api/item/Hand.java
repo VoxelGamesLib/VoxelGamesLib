@@ -6,5 +6,5 @@ package me.minidigger.voxelgameslib.api.item;
 public enum Hand {
     
     OFFHAND,
-    MAINHAND;
+    MAINHAND
 }

@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.api;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
@@ -57,6 +58,7 @@ public class VoxelGamesLib {
     @Inject
     private VGLEventHandler eventHandler;
     
+    @Nonnull
     private Injector injector;
     
     /**
@@ -64,7 +66,7 @@ public class VoxelGamesLib {
      *
      * @param injector the injector that was used to create this class
      */
-    public void onEnable(Injector injector) {
+    public void onEnable(@Nonnull Injector injector) {
         this.injector = injector;
         
         configHandler.start();
@@ -113,6 +115,7 @@ public class VoxelGamesLib {
     /**
      * @return the injector that was used to create this class
      */
+    @Nonnull
     public Injector getInjector() {
         return injector;
     }
@@ -123,6 +126,7 @@ public class VoxelGamesLib {
      * @param <T> TODO what is this?
      * @return a normal task chain
      */
+    @Nonnull
     public static <T> TaskChain<T> newChain() {
         return taskChainFactory.newChain();
     }
@@ -134,7 +138,8 @@ public class VoxelGamesLib {
      * @param name the name of the new shared chain
      * @return a shared task chain
      */
-    public static <T> TaskChain<T> newSharedChain(String name) {
+    @Nonnull
+    public static <T> TaskChain<T> newSharedChain(@Nonnull String name) {
         return taskChainFactory.newSharedChain(name);
     }
     

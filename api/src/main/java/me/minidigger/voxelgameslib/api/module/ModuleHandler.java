@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
@@ -22,6 +23,7 @@ import lombok.extern.java.Log;
 @Singleton
 public class ModuleHandler implements Handler {
     
+    @Nonnull
     private List<Module> modules = new ArrayList<>();
     
     @Inject

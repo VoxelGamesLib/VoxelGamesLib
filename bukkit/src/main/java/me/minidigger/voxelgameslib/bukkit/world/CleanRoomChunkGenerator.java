@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.world;
 
 import java.util.Random;
+import javax.annotation.Nonnull;
 
 import org.bukkit.World;
 import org.bukkit.generator.ChunkGenerator;
@@ -15,18 +16,21 @@ public class CleanRoomChunkGenerator extends ChunkGenerator {
         return createChunkData(world);
     }
     
+    @Nonnull
     @Override
     public byte[] generate(World world, Random random, int x, int z) {
         return new byte[32768];
     }
     
+    @Nonnull
     @Override
-    public byte[][] generateBlockSections(World world, Random random, int x, int z, BiomeGrid biomes) {
+    public byte[][] generateBlockSections(@Nonnull World world, Random random, int x, int z, BiomeGrid biomes) {
         return new byte[world.getMaxHeight() / 16][];
     }
     
+    @Nonnull
     @Override
-    public short[][] generateExtBlockSections(World world, Random random, int x, int z, BiomeGrid biomes) {
+    public short[][] generateExtBlockSections(@Nonnull World world, Random random, int x, int z, BiomeGrid biomes) {
         return new short[world.getMaxHeight() / 16][];
     }
 }

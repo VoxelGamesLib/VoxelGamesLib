@@ -12,8 +12,11 @@ import me.minidigger.voxelgameslib.api.user.User;
  */
 public class CommandArguments {
     
+    @Nonnull
     private final User sender;
+    @Nonnull
     private final CommandInfo command;
+    @Nonnull
     private final String[] args;
     
     CommandArguments(@Nonnull CommandInfo command, @Nonnull User sender, @Nonnull String[] args) {

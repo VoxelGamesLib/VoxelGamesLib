@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
+import javax.annotation.Nonnull;
 
 /**
  * Small tool to generate the material class. uses data by the awesome
@@ -28,7 +29,7 @@ class GenerateMaterialClass {
     private static final String[] duplicatedNames = {"BED", "WHEAT", "WOODEN_DOOR", "IRON_DOOR", "REEDS", "CAKE", "NETHER_WART", "BREWING_STAND", "CAULDRON",
             "FLOWER_POT", "SKULL", "SPRUCE_DOOR", "BIRCH_DOOR", "JUNGLE_DOOR", "ACACIA_DOOR", "DARK_OAK_DOOR"};
     
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(@Nonnull String[] args) throws IOException, ParseException {
         List<Block> blocks = new ArrayList<>();
         
         // load blocks
@@ -100,10 +101,11 @@ class GenerateMaterialClass {
     
     private static class Block {
         
+        @Nonnull
         final String name;
         final int id;
         
-        Block(String name, int id) {
+        Block(@Nonnull String name, int id) {
             this.name = name;
             this.id = id;
         }

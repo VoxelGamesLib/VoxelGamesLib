@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
 import java.util.Optional;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -34,7 +35,7 @@ public class UserListener implements Listener {
     private VGLEventHandler eventHandler;
     
     @EventHandler
-    public void login(PlayerLoginEvent event) {
+    public void login(@Nonnull PlayerLoginEvent event) {
         UserLoginEvent e = new UserLoginEvent(event.getPlayer().getUniqueId(), event.getPlayer().getName(), event.getPlayer());
         eventHandler.callEvent(e);
         if (e.isCanceled()) {
@@ -43,7 +44,7 @@ public class UserListener implements Listener {
     }
     
     @EventHandler
-    public void asyncLogin(AsyncPlayerPreLoginEvent event) {
+    public void asyncLogin(@Nonnull AsyncPlayerPreLoginEvent event) {
         AsyncUserLoginEvent e = new AsyncUserLoginEvent(event.getUniqueId(), event.getName());
         eventHandler.callEvent(e);
         if (e.isCanceled()) {
@@ -53,7 +54,7 @@ public class UserListener implements Listener {
     }
     
     @EventHandler
-    public void logout(PlayerQuitEvent event) {
+    public void logout(@Nonnull PlayerQuitEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
         if (user.isPresent()) {
             eventHandler.callEvent(new UserLeaveEvent(user.get()));
@@ -63,7 +64,7 @@ public class UserListener implements Listener {
     }
     
     @EventHandler
-    public void join(PlayerJoinEvent event) {
+    public void join(@Nonnull PlayerJoinEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
         if (user.isPresent()) {
             eventHandler.callEvent(new UserJoinEvent(user.get()));

@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.api.map;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
@@ -23,11 +24,13 @@ public class Map {
     private int radius;
     private String displayname;
     private String worldName;
+    @Nonnull
     private List<Marker> markers = new ArrayList<>();
+    @Nonnull
     private List<ChestMarker> chestMarkers = new ArrayList<>();
     private boolean loaded;
     
-    public Map(String displayName, String worldName, String author, List<String> gameModes, Vector3D center, int radius) {
+    public Map(@Nonnull String displayName, @Nonnull String worldName, @Nonnull String author, @Nonnull List<String> gameModes, @Nonnull Vector3D center, int radius) {
         this.displayname = displayName;
         this.worldName = worldName;
         this.author = author;
@@ -37,12 +40,12 @@ public class Map {
     }
     
     //TODO javadoc for Map
-    
-    public Optional<ChestMarker> getChestMarker(String name) {
+    @Nonnull
+    public Optional<ChestMarker> getChestMarker(@Nonnull String name) {
         return chestMarkers.stream().filter(chestMarker -> chestMarker.getData().equalsIgnoreCase(name)).findAny();
     }
     
-    public void printSummery(User sender) {
+    public void printSummery(@Nonnull User sender) {
         Lang.msg(sender, LangKey.WORLD_CREATOR_MAP_SUMMERY, displayname, worldName, author, center, radius, gameModes);
         //TODO print summery of map
     }

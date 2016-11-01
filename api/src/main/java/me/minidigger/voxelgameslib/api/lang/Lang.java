@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.lang;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.api.exception.LangException;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
@@ -12,7 +14,7 @@ public class Lang {
     
     private static LangHandler handler;
     
-    static void setLangHandler(LangHandler handler) {
+    static void setLangHandler(@Nonnull LangHandler handler) {
         Lang.handler = handler;
     }
     
@@ -22,7 +24,8 @@ public class Lang {
      * @param key the lang key that should be translated
      * @return the created component builder
      */
-    public static ComponentBuilder trans(LangKey key) {
+    @Nonnull
+    public static ComponentBuilder trans(@Nonnull LangKey key) {
         return trans(key, handler.getDefaultLocale());
     }
     
@@ -34,7 +37,8 @@ public class Lang {
      * @param args the arguments that should be replaying placeholders
      * @return the created component builder
      */
-    public static ComponentBuilder trans(LangKey key, Object... args) {
+    @Nonnull
+    public static ComponentBuilder trans(@Nonnull LangKey key, @Nonnull Object... args) {
         return trans(key, handler.getDefaultLocale(), args);
     }
     
@@ -46,7 +50,8 @@ public class Lang {
      * @param loc the locale that should be used to translate the key
      * @return the created component builder
      */
-    public static ComponentBuilder trans(LangKey key, Locale loc) {
+    @Nonnull
+    public static ComponentBuilder trans(@Nonnull LangKey key, @Nonnull Locale loc) {
         return trans(key, loc, new Object[0]);
     }
     
@@ -60,7 +65,8 @@ public class Lang {
      * @param args the arguments that should be replacing placeholders
      * @return the created component builder
      */
-    public static ComponentBuilder trans(LangKey key, Locale loc, Object... args) {
+    @Nonnull
+    public static ComponentBuilder trans(@Nonnull LangKey key, @Nonnull Locale loc, @Nonnull Object... args) {
         if (args.length != key.getArgs()) {
             throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
         }
@@ -77,7 +83,7 @@ public class Lang {
      * @param user the user that should receive the message
      * @param key  the lang key that should be translated
      */
-    public static void msg(User user, LangKey key) {
+    public static void msg(@Nonnull User user, @Nonnull LangKey key) {
         user.sendMessage(trans(key).create());
     }
     
@@ -90,7 +96,7 @@ public class Lang {
      * @param key  the lang key that should be translated
      * @param args the args that should be replacing placeholders
      */
-    public static void msg(User user, LangKey key, Object... args) {
+    public static void msg(@Nonnull User user, @Nonnull LangKey key, @Nonnull Object... args) {
         user.sendMessage(trans(key, args).create());
     }
     
@@ -100,7 +106,8 @@ public class Lang {
      * @param key the key to translate
      * @return the translated string
      */
-    public static String string(LangKey key) {
+    @Nonnull
+    public static String string(@Nonnull LangKey key) {
         return string(key, handler.getDefaultLocale());
     }
     
@@ -112,7 +119,8 @@ public class Lang {
      * @param args the args that should be replacing placeholders
      * @return the translated string
      */
-    public static String string(LangKey key, Object... args) {
+    @Nonnull
+    public static String string(@Nonnull LangKey key, @Nonnull Object... args) {
         return string(key, handler.getDefaultLocale(), args);
     }
     
@@ -124,7 +132,8 @@ public class Lang {
      * @param loc the locale that should be used to translate the key
      * @return the translated string
      */
-    public static String string(LangKey key, Locale loc) {
+    @Nonnull
+    public static String string(@Nonnull LangKey key, @Nonnull Locale loc) {
         return string(key, loc, new Object[0]);
     }
     
@@ -138,7 +147,8 @@ public class Lang {
      * @param args the args that should be replacing placeholders
      * @return the translated string
      */
-    public static String string(LangKey key, Locale loc, Object... args) {
+    @Nonnull
+    public static String string(@Nonnull LangKey key, @Nonnull Locale loc, @Nonnull Object... args) {
         if (args.length != key.getArgs()) {
             throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
         }

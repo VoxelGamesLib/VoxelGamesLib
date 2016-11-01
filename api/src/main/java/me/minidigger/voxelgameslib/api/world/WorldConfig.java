@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.world;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.config.Config;
 
@@ -18,6 +19,7 @@ public class WorldConfig extends Config {
     /**
      * @return the default values for this config
      */
+    @Nonnull
     public static WorldConfig getDefault() {
         return new WorldConfig();
     }

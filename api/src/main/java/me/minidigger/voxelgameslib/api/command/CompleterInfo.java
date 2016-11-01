@@ -4,6 +4,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.annotation.Nonnull;
 
 /**
  * Simple annotation to handle tabcompletion for a command<br> Methods which are annotated with this
@@ -20,7 +21,7 @@ public @interface CompleterInfo {
      *
      * @return The name of the command
      */
-    String name();
+    @Nonnull String name();
     
     /**
      * The aliases of the command that this method should be the completer for. Follows the same
@@ -28,5 +29,5 @@ public @interface CompleterInfo {
      *
      * @return The aliases of the command
      */
-    String[] aliases() default {};
+    @Nonnull String[] aliases() default {};
 }

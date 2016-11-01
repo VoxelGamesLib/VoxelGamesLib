@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
@@ -27,6 +28,7 @@ public class VGLEventHandler implements Handler {
     @Inject
     private Injector injector;
     
+    @Nonnull
     private Map<Class<? extends Event>, List<RegisteredListener>> registeredListeners = new ConcurrentHashMap<>();
     
     @Override
@@ -39,7 +41,12 @@ public class VGLEventHandler implements Handler {
         unregisterEvents();
     }
     
-    public void callEvent(Event event) {
+    /**
+     * Calls a event, will execute all registered listeners that are subscribed to this event
+     *
+     * @param event the event to execute
+     */
+    public void callEvent(@Nonnull Event event) {
         registeredListeners.getOrDefault(event.getClass(), new CopyOnWriteArrayList<>()).forEach(listener -> listener.execute(event));
     }
     
@@ -57,7 +64,7 @@ public class VGLEventHandler implements Handler {
      *
      * @param listener the class that  contains listeners that should be registered
      */
-    public void registerEvents(Class listener) {
+    public void registerEvents(@Nonnull Class<?> listener) {
         registerEvents(injector.getInstance(listener));
     }
     
@@ -66,7 +73,7 @@ public class VGLEventHandler implements Handler {
      *
      * @param listener the object that contains listeners that should be registered
      */
-    public void registerEvents(Object listener) {
+    public void registerEvents(@Nonnull Object listener) {
         for (Method executor : listener.getClass().getMethods()) {
             if (!executor.isAnnotationPresent(EventListener.class)) {
                 continue;
@@ -105,7 +112,7 @@ public class VGLEventHandler implements Handler {
      *
      * @param listener the class which listeners should be unregistered
      */
-    public void unregisterEvents(Class listener) {
+    public void unregisterEvents(@Nonnull Class<?> listener) {
         registeredListeners.values().forEach(list -> list.stream().filter(registeredListener -> registeredListener.getExecutor().getDeclaringClass().equals(listener)).forEach(this::unregisterEvents));
     }
     
@@ -114,7 +121,7 @@ public class VGLEventHandler implements Handler {
      *
      * @param listener the listener to unregister
      */
-    public void unregisterEvents(RegisteredListener listener) {
+    public void unregisterEvents(@Nonnull RegisteredListener listener) {
         for (Class<? extends Event> key : registeredListeners.keySet()) {
             List<RegisteredListener> listeners = registeredListeners.get(key);
             if (listeners.contains(listener)) {

@@ -64,21 +64,21 @@ public interface Game extends Tickable {
      *
      * @param user the user that wants to join this game
      */
-    void join(User user);
+    void join(@Nonnull User user);
     
     /**
      * lets a user spectate this game
      *
      * @param user the user which wants to spectate
      */
-    void spectate(User user);
+    void spectate(@Nonnull User user);
     
     /**
      * Lets a user leave this game
      *
      * @param user the user that wants to leave this game
      */
-    void leave(User user);
+    void leave(@Nonnull User user);
     
     /**
      * Checks if that user is playing (not spectating!) this game
@@ -86,7 +86,7 @@ public interface Game extends Tickable {
      * @param user the user to check
      * @return if the user is playing this game
      */
-    boolean isPlaying(User user);
+    boolean isPlaying(@Nonnull User user);
     
     /**
      * Checks if that user is spectating (not playing!) this game
@@ -94,7 +94,7 @@ public interface Game extends Tickable {
      * @param user the user to check
      * @return if the user is spectating this game
      */
-    boolean isSpectating(User user);
+    boolean isSpectating(@Nonnull User user);
     
     /**
      * Creates a new feature class (using guice and stuff)
@@ -104,7 +104,8 @@ public interface Game extends Tickable {
      * @param phase        the phase that the new feature should be attached to
      * @return the created feature instance
      */
-    <T extends Feature> T createFeature(Class<T> featureClass, Phase phase);
+    @Nonnull
+    <T extends Feature> T createFeature(@Nonnull Class<T> featureClass, @Nonnull Phase phase);
     
     /**
      * Creates a new phase class (using guice and stuff)
@@ -113,7 +114,8 @@ public interface Game extends Tickable {
      * @param <T>        the phase
      * @return the created phase instance
      */
-    <T extends Phase> T createPhase(Class<T> phaseClass);
+    @Nonnull
+    <T extends Phase> T createPhase(@Nonnull Class<T> phaseClass);
     
     /**
      * @return the minimum amount of players for this game

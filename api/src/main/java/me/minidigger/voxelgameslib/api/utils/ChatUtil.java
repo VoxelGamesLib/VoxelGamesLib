@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.utils;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 /**
@@ -13,7 +15,7 @@ public class ChatUtil {
      * @param comps the base components to serialize into text
      * @return the readable text
      */
-    public static String toPlainText(BaseComponent... comps) {
+    public static String toPlainText(@Nonnull BaseComponent... comps) {
         StringBuilder sb = new StringBuilder();
         for (BaseComponent comp : comps) {
             sb.append(comp.toPlainText());

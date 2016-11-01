@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.exception.DuplicatePermissionDefinitionException;
 import me.minidigger.voxelgameslib.api.exception.NoSuchRoleException;
@@ -37,7 +38,8 @@ public class RoleHandler implements Handler {
      * @return the permission object that belongs to the given input
      * @throws NoSuchRoleException when a role is not registered
      */
-    public Permission registerPermission(String perm, String role) {
+    @Nonnull
+    public Permission registerPermission(@Nonnull String perm, @Nonnull String role) {
         Optional<Role> r = getRole(role);
         if (!r.isPresent()) {
             throw new NoSuchRoleException(role);
@@ -61,7 +63,8 @@ public class RoleHandler implements Handler {
      * @param perm the permission string to search for
      * @return the optional search result
      */
-    public Optional<Permission> getPermission(String perm) {
+    @Nonnull
+    public Optional<Permission> getPermission(@Nonnull String perm) {
         return knownPermissions.stream().filter(p -> p.getString().equalsIgnoreCase(perm)).findAny();
     }
     
@@ -71,7 +74,8 @@ public class RoleHandler implements Handler {
      * @param role the name of the role to search for
      * @return the optional search result
      */
-    public Optional<Role> getRole(String role) {
+    @Nonnull
+    public Optional<Role> getRole(@Nonnull String role) {
         try {
             return Optional.of(Role.valueOf(role));
         } catch (IllegalArgumentException ex) {

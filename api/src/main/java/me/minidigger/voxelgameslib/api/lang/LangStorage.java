@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.LangException;
@@ -30,11 +32,13 @@ public class LangStorage {
     
     private Locale locale;
     private final Properties messages = new Properties();
+    @Nullable
     private LangStorage parentStorage;
     
     /**
      * @return the local that the keys in this storage are translated with
      */
+    @Nonnull
     public Locale getLocale() {
         return locale;
     }
@@ -44,7 +48,7 @@ public class LangStorage {
      *
      * @param locale the new locale to set
      */
-    public void setLocale(Locale locale) {
+    public void setLocale(@Nonnull Locale locale) {
         this.locale = locale;
         langFile = new File(langFolder, locale.getTag() + ".properties");
     }
@@ -55,7 +59,7 @@ public class LangStorage {
      *
      * @param parentStorage the new parent storage
      */
-    public void setParentStorage(LangStorage parentStorage) {
+    public void setParentStorage(@Nonnull LangStorage parentStorage) {
         this.parentStorage = parentStorage;
     }
     
@@ -127,7 +131,8 @@ public class LangStorage {
      * @return the translation for that key
      * @throws LangException if the parent storage did not return a value translation.
      */
-    public String get(LangKey key) {
+    @Nonnull
+    public String get(@Nonnull LangKey key) {
         String message = messages.getProperty(key.name());
         if (message == null) {
             if (parentStorage != null) {
@@ -145,6 +150,7 @@ public class LangStorage {
     /**
      * @return the file that this storage saves its keys in
      */
+    @Nonnull
     public File getLangFile() {
         return langFile;
     }

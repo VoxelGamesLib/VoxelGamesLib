@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.exception;
 
 import java.io.IOException;
+import javax.annotation.Nonnull;
 
 /**
  * Thrown when something is wrong related to maps.
@@ -10,7 +11,7 @@ public class MapException extends VoxelGameLibException {
     /**
      * @param message the message that explains the issue
      */
-    public MapException(String message) {
+    public MapException(@Nonnull String message) {
         super(message);
     }
     
@@ -20,7 +21,7 @@ public class MapException extends VoxelGameLibException {
      * @param message the message that explains the issue
      * @param ex      the root issue that was thrown
      */
-    public MapException(String message, IOException ex) {
+    public MapException(@Nonnull String message, @Nonnull IOException ex) {
         super(message, ex);
     }
 }

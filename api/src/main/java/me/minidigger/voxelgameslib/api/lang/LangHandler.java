@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.api.lang;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -52,7 +53,7 @@ public class LangHandler implements Handler {
      *
      * @param loc the locale to load
      */
-    public void registerLocale(Locale loc) {
+    public void registerLocale(@Nonnull Locale loc) {
         LangStorage s = voxelGameLib.getInjector().getInstance(LangStorage.class);
         s.setLocale(loc);
         s.setParentStorage(defaultStorage);
@@ -69,6 +70,7 @@ public class LangHandler implements Handler {
     /**
      * @return the default locale used on this server
      */
+    @Nonnull
     public Locale getDefaultLocale() {
         return defaultLocale;
     }
@@ -80,7 +82,8 @@ public class LangHandler implements Handler {
      * @param loc the locale to get the storage from
      * @return the storage for that locale, or the default storage if the locale was not loaded
      */
-    public LangStorage getStorage(Locale loc) {
+    @Nonnull
+    public LangStorage getStorage(@Nonnull Locale loc) {
         return storages.getOrDefault(loc, defaultStorage);
     }
     
@@ -94,6 +97,7 @@ public class LangHandler implements Handler {
     /**
      * @return a set with all installed locales
      */
+    @Nonnull
     public Set<Locale> getInstalledLocales() {
         return storages.keySet();
     }

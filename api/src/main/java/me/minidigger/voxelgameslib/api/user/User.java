@@ -85,7 +85,7 @@ public interface User {
      *
      * @param loc the location to tp to
      */
-    void teleport(Vector3D loc);
+    void teleport(@Nonnull Vector3D loc);
     
     /**
      * teleports the player to a location in a given world
@@ -93,7 +93,7 @@ public interface User {
      * @param world the world to tp to
      * @param loc   the location to tp to
      */
-    void teleport(String world, Vector3D loc);
+    void teleport(@Nonnull String world, @Nonnull Vector3D loc);
     
     /**
      * teleports the player to that world (location is implementation detail, should be spawn if
@@ -101,16 +101,18 @@ public interface User {
      *
      * @param world the world to tp to
      */
-    void teleport(String world);
+    void teleport(@Nonnull String world);
     
     /**
      * @return the location this user is located at in his world
      */
+    @Nonnull
     Vector3D getLocation();
     
     /**
      * @return the world this user is currently playing on
      */
+    @Nonnull
     String getWorld();
     
     /**
@@ -119,7 +121,7 @@ public interface User {
      * @param hand the hand which the item should be held in
      * @param item the item to hold
      */
-    void setItemInHand(Hand hand, Item item);
+    void setItemInHand(@Nonnull Hand hand, @Nonnull Item item);
     
     /**
      * gets the item the user is holding in the specified hand
@@ -127,7 +129,8 @@ public interface User {
      * @param hand the hand which item should be returned
      * @return the item in the specified hand
      */
-    Item getItemInHand(Hand hand);
+    @Nonnull
+    Item getItemInHand(@Nonnull Hand hand);
     
     /**
      * sets a item in the inventory of the user
@@ -135,17 +138,19 @@ public interface User {
      * @param slot the slot to change
      * @param item the new item that should be placed in that slot
      */
-    void setIventory(int slot, Item item);
+    void setIventory(int slot, @Nonnull Item item);
     
     /**
      * @param slot the slot
      * @return the item in the speficied inventory slot
      */
+    @Nonnull
     Item getInventory(int slot);
     
     /**
      * @return the injector that was used to create this user
      */
+    @Nonnull
     Injector getInjector();
     
     /**
@@ -154,5 +159,5 @@ public interface User {
      *
      * @param playerObject the player object to set
      */
-    void setPlayerObject(Object playerObject);
+    void setPlayerObject(@Nonnull Object playerObject);
 }

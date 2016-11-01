@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.exception;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.api.role.Permission;
 
 /**
@@ -11,7 +13,7 @@ public class DuplicatePermissionDefinitionException extends VoxelGameLibExceptio
      * @param permission the already existing permission
      * @param role       the new role
      */
-    public DuplicatePermissionDefinitionException(Permission permission, String role) {
+    public DuplicatePermissionDefinitionException(@Nonnull Permission permission, @Nonnull String role) {
         super("Tried to register overlapping permission " + permission.getString() + ": ord role: " + permission.getRole().getName() + ", new role: " + role);
     }
 }

@@ -38,7 +38,7 @@ public class BukkitCommandHandler extends CommandHandler {
                 Field field = SimplePluginManager.class.getDeclaredField("commandMap");
                 field.setAccessible(true);
                 bukkitCommandMap = (CommandMap) field.get(manager);
-            } catch (IllegalAccessException | NoSuchFieldException e) {
+            } catch (@Nonnull IllegalAccessException | NoSuchFieldException e) {
                 log.severe("Could not get commandMap from the SimplePluginManager, can't register any commands!");
                 e.printStackTrace();
                 return;
@@ -53,7 +53,7 @@ public class BukkitCommandHandler extends CommandHandler {
                 } else {
                     log.severe("Could not get knownCommands from the SimpleCommandMap (returned unexpected object), can't unregister any commands!");
                 }
-            } catch (NoSuchFieldException | IllegalAccessException e) {
+            } catch (@Nonnull NoSuchFieldException | IllegalAccessException e) {
                 log.warning("Could get knownCommands from the SimpleCommandMap, can't unregister any commands!");
                 e.printStackTrace();
             }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
@@ -61,7 +62,8 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @param name the map to search for
      * @return the map, if present
      */
-    public Optional<Map> getMap(String name) {
+    @Nonnull
+    public Optional<Map> getMap(@Nonnull String name) {
         return maps.stream().filter(map -> map.getWorldName().equalsIgnoreCase(name)).findAny();
     }
     
@@ -72,7 +74,8 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @return the loaded map
      * @throws MapException when
      */
-    public Map loadMap(String name) {
+    @Nonnull
+    public Map loadMap(@Nonnull String name) {
         if (!getMap(name).isPresent()) {
             if (!config.maps.contains(name)) {
                 throw new MapException("Unknown map " + name + ". Did you register it into the world config?");
@@ -100,8 +103,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @param map the map that should be loaded
      * @throws WorldException something goes wrong
      */
-    
-    public void loadWorld(Map map) {
+    public void loadWorld(@Nonnull Map map) {
         map.setLoaded(true);
         
         try {
@@ -119,7 +121,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      *
      * @param map the map that should be unloaded.
      */
-    public void unloadWorld(Map map) {
+    public void unloadWorld(@Nonnull Map map) {
         map.setLoaded(false);
         
         FileUtils.delete(new File(worldContainer, map.getWorldName()));
@@ -152,6 +154,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
         
     }
     
+    @Nonnull
     @Override
     public WorldConfig get() {
         return config;
@@ -163,7 +166,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @param name the world to load
      * @throws WorldException if the world is not found or something else goes wrong
      */
-    public abstract void loadLocalWorld(String name);
+    public abstract void loadLocalWorld(@Nonnull String name);
     
     /**
      * Unloads a local world
@@ -171,12 +174,13 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @param name the world to load
      * @throws WorldException if the world is not found or something else goes wrong
      */
-    public abstract void unloadLocalWorld(String name);
+    public abstract void unloadLocalWorld(@Nonnull String name);
     
     /**
      * @return the folder where the playerable worlds are saved in (think about it as a repo for
      * worlds/maps)
      */
+    @Nonnull
     public File getWorldsFolder() {
         return worldsFolder;
     }

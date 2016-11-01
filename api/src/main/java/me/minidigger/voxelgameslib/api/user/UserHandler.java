@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.UserException;
@@ -44,7 +45,7 @@ public class UserHandler implements Handler {
      * @param user the user to add
      * @throws UserException when the player was not logged in
      */
-    public void join(User user) {
+    public void join(@Nonnull User user) {
         if (!hasLoggedIn(user.getUuid())) {
             throw new UserException("User " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
         }
@@ -63,14 +64,12 @@ public class UserHandler implements Handler {
      *
      * @param id the uuid of the user that logged out
      */
-    public void logout(UUID id) {
+    public void logout(@Nonnull UUID id) {
         users.remove(id);
         tempData.remove(id);
         
         Optional<User> user = getUser(id);
-        if (user.isPresent()) {
-            gameHandler.getGames(user.get(), true).forEach(game -> game.leave(user.get()));
-        }
+        user.ifPresent(user1 -> gameHandler.getGames(user1, true).forEach(game -> game.leave(user1)));
     }
     
     /**
@@ -79,7 +78,8 @@ public class UserHandler implements Handler {
      * @param id the uuid of the user
      * @return the user with that uuid, if present
      */
-    public Optional<User> getUser(UUID id) {
+    @Nonnull
+    public Optional<User> getUser(@Nonnull UUID id) {
         return Optional.ofNullable(users.get(id));
     }
     
@@ -88,7 +88,7 @@ public class UserHandler implements Handler {
      *
      * @param uniqueId the id of the user that logged in
      */
-    public void login(UUID uniqueId) {
+    public void login(@Nonnull UUID uniqueId) {
         log.info("Loading data for user " + uniqueId);
         // TODO load roles and stuff from somewhere
         tempData.put(uniqueId, "HEYHO");
@@ -100,7 +100,7 @@ public class UserHandler implements Handler {
      * @param uniqueId the id of the user that should be checked
      * @return true if everything is good, false if the data was not loaded
      */
-    public boolean hasLoggedIn(UUID uniqueId) {
+    public boolean hasLoggedIn(@Nonnull UUID uniqueId) {
         return tempData.containsKey(uniqueId);
     }
 }

@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.event.events.game;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.api.game.Game;
 
 /**
@@ -10,7 +12,7 @@ public class GameStartEvent extends GameEvent {
     /**
      * @param game the game that was started
      */
-    public GameStartEvent(Game game) {
+    public GameStartEvent(@Nonnull Game game) {
         super(game);
     }
 }

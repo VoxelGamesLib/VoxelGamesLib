@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.lang;
 
 import java.util.Optional;
+import javax.annotation.Nonnull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,11 +23,22 @@ public class Locale {
     public static final Locale SWEDISH = new Locale("swedish", "sv");
     public static final Locale TURKISH = new Locale("turkish", "tr");
     
+    /**
+     * @return all known locales
+     */
+    @Nonnull
     public static Locale[] values() {
         return new Locale[]{ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, RUSSIAN, SPANISH, SWEDISH, TURKISH};
     }
     
-    public static Optional<Locale> fromTag(String tag) {
+    /**
+     * Searches for a locale with that tag
+     *
+     * @param tag the tag to search for
+     * @return a optionally found locale
+     */
+    @Nonnull
+    public static Optional<Locale> fromTag(@Nonnull String tag) {
         for (Locale loc : values()) {
             if (loc.getTag().equalsIgnoreCase(tag)) {
                 return Optional.of(loc);
@@ -36,7 +48,14 @@ public class Locale {
         return Optional.empty();
     }
     
-    public static Optional<Locale> fromName(String name) {
+    /**
+     * Searches for a locale with that name
+     *
+     * @param name the name to search for
+     * @return a optionally found locale
+     */
+    @Nonnull
+    public static Optional<Locale> fromName(@Nonnull String name) {
         for (Locale loc : values()) {
             if (loc.getName().equalsIgnoreCase(name)) {
                 return Optional.of(loc);

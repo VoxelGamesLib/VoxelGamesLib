@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import org.jetbrains.annotations.Nullable;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -7,7 +9,9 @@ import javax.annotation.Nonnull;
  */
 public class GameMode {
     
+    @Nonnull
     private final String name;
+    @Nonnull
     private final Class<? extends Game> gameClass;
     
     /**
@@ -38,7 +42,7 @@ public class GameMode {
     }
     
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         
@@ -56,6 +60,7 @@ public class GameMode {
         return result;
     }
     
+    @Nonnull
     @Override
     public String toString() {
         return "GameMode{" +

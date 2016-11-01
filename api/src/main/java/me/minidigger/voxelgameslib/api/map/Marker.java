@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
+import javax.annotation.Nonnull;
+
 import lombok.Data;
 
 /**
@@ -9,7 +11,9 @@ import lombok.Data;
 @Data
 public class Marker {
     
+    @Nonnull
     private final Vector3D loc;
+    @Nonnull
     private final String data;
     
     /**
@@ -18,7 +22,7 @@ public class Marker {
      * @param loc  the location that this marker marks
      * @param data the data of this marker
      */
-    public Marker(Vector3D loc, String data) {
+    public Marker(@Nonnull Vector3D loc, @Nonnull String data) {
         this.loc = loc;
         this.data = data;
     }

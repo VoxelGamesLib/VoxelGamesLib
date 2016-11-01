@@ -86,6 +86,7 @@ public class GameHandler implements Handler {
     /**
      * @return a list with all registered gamemodes
      */
+    @Nonnull
     public List<GameMode> getGameModes() {
         return modes;
     }
@@ -97,7 +98,8 @@ public class GameHandler implements Handler {
      * @param spectate if we should include games where the user spectates
      * @return the games of that users
      */
-    public List<Game> getGames(User user, boolean spectate) {
+    @Nonnull
+    public List<Game> getGames(@Nonnull User user, boolean spectate) {
         Stream<Game> s = games.stream().filter(game -> !game.isPlaying(user));
         if (spectate) {
             s = s.filter(game -> !game.isSpectating(user));

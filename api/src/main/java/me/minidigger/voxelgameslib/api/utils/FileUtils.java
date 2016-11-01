@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.utils;
 
 import java.io.File;
+import javax.annotation.Nonnull;
 
 /**
  * Collection of file related utils
@@ -12,7 +13,7 @@ public class FileUtils {
      *
      * @param f the file to delete
      */
-    public static void delete(File f) {
+    public static void delete(@Nonnull File f) {
         if (f.isDirectory()) {
             File[] files = f.listFiles();
             if (files != null) {

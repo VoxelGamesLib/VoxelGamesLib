@@ -17,7 +17,7 @@ public class CommandUtil {
      * @return The filtered list
      */
     @Nonnull
-    public static List<String> filterTabCompletions(List<String> list, String prefix) {
+    public static List<String> filterTabCompletions(@Nonnull List<String> list, @Nonnull String prefix) {
         return list.stream().filter(s -> s.toLowerCase().startsWith(prefix.toLowerCase())).collect(Collectors.toList());
     }
 }

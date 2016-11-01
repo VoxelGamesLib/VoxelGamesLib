@@ -33,6 +33,7 @@ public class BukkitUser implements User {
     
     private Player player;
     private Role role;
+    @Nonnull
     private Locale locale = Locale.ENGLISH;
     
     @Inject
@@ -43,7 +44,7 @@ public class BukkitUser implements User {
     private Injector injector;
     
     @Override
-    public void setPlayerObject(Object playerObject) {
+    public void setPlayerObject(@Nonnull Object playerObject) {
         this.player = (Player) playerObject;
     }
     
@@ -104,12 +105,12 @@ public class BukkitUser implements User {
     }
     
     @Override
-    public void teleport(Vector3D loc) {
+    public void teleport(@Nonnull Vector3D loc) {
         player.teleport(new Location(player.getWorld(), loc.getX(), loc.getY(), loc.getZ()));
     }
     
     @Override
-    public void teleport(String world, Vector3D loc) {
+    public void teleport(@Nonnull String world, @Nonnull Vector3D loc) {
         World w = Bukkit.getWorld(world);
         if (w != null) {
             player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
@@ -119,7 +120,7 @@ public class BukkitUser implements User {
     }
     
     @Override
-    public void teleport(String world) {
+    public void teleport(@Nonnull String world) {
         World w = Bukkit.getWorld(world);
         if (w != null) {
             Vector3D loc = new Vector3D(w.getSpawnLocation().getX(), w.getSpawnLocation().getY(), w.getSpawnLocation().getZ());
@@ -129,18 +130,20 @@ public class BukkitUser implements User {
         }
     }
     
+    @Nonnull
     @Override
     public Vector3D getLocation() {
         return new Vector3D(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
     }
     
+    @Nonnull
     @Override
     public String getWorld() {
         return player.getWorld().getName();
     }
     
     @Override
-    public void setItemInHand(Hand hand, Item item) {
+    public void setItemInHand(@Nonnull Hand hand, @Nonnull Item item) {
         if (hand == Hand.MAINHAND) {
             player.getInventory().setItemInMainHand(((BukkitItem) item).toItemStack());
         } else {
@@ -148,8 +151,9 @@ public class BukkitUser implements User {
         }
     }
     
+    @Nonnull
     @Override
-    public Item getItemInHand(Hand hand) {
+    public Item getItemInHand(@Nonnull Hand hand) {
         if (hand == Hand.MAINHAND) {
             return BukkitItem.fromItemStack(player.getInventory().getItemInMainHand());
         } else {
@@ -158,15 +162,17 @@ public class BukkitUser implements User {
     }
     
     @Override
-    public void setIventory(int slot, Item item) {
+    public void setIventory(int slot, @Nonnull Item item) {
         player.getInventory().setItem(slot, ((BukkitItem) item).toItemStack());
     }
     
+    @Nonnull
     @Override
     public Item getInventory(int slot) {
         return BukkitItem.fromItemStack(player.getInventory().getItem(slot));
     }
     
+    @Nonnull
     @Override
     public Injector getInjector() {
         return injector;

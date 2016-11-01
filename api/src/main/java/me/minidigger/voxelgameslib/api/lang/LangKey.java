@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.lang;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Martin on 12.10.2016.
  * <p>
@@ -53,10 +55,11 @@ public enum LangKey {
     GAME_PLAYER_JOIN("%s has joined the game", 1),
     GAME_PLAYER_LEAVE("%s has left the game", 1), GAME_GAME_STARTED("Game started", 0);
     
+    @Nonnull
     private final String defaultValue;
     private final int args;
     
-    LangKey(String defaultValue, int args) {
+    LangKey(@Nonnull String defaultValue, int args) {
         this.defaultValue = defaultValue;
         this.args = args;
     }
@@ -64,6 +67,7 @@ public enum LangKey {
     /**
      * @return the default value for this lang key, in english
      */
+    @Nonnull
     public String getDefaultValue() {
         return defaultValue;
     }

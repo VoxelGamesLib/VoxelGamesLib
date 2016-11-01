@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.item;
 
+import javax.annotation.Nonnull;
+
 import me.minidigger.voxelgameslib.api.item.Material;
 
 /**
@@ -7,11 +9,13 @@ import me.minidigger.voxelgameslib.api.item.Material;
  */
 public class BukkitMaterial {
     
-    public static Material fromMaterial(org.bukkit.Material material) {
+    @Nonnull
+    public static Material fromMaterial(@Nonnull org.bukkit.Material material) {
         return Material.fromId(material.getId());
     }
     
-    public static org.bukkit.Material toMaterial(Material material) {
+    @Nonnull
+    public static org.bukkit.Material toMaterial(@Nonnull Material material) {
         for (org.bukkit.Material mat : org.bukkit.Material.values()) {
             if (mat.getId() == material.getId()) {
                 return mat;
