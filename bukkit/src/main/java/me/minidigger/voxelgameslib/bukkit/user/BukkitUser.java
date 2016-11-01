@@ -42,12 +42,9 @@ public class BukkitUser implements User {
     @Inject
     private Injector injector;
     
-    public BukkitUser(Player player) {
-        this.player = player;
-    }
-    
-    public BukkitUser() {
-        
+    @Override
+    public void setPlayerObject(Object playerObject) {
+        this.player = (Player) playerObject;
     }
     
     @Nonnull
@@ -87,7 +84,7 @@ public class BukkitUser implements User {
     
     @Nonnull
     @Override
-    public UUID getUUID() {
+    public UUID getUuid() {
         return player.getUniqueId();
     }
     

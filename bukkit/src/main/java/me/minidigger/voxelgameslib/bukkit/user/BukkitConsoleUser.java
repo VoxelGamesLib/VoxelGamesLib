@@ -19,6 +19,7 @@ import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
 
 /**
@@ -26,10 +27,15 @@ import org.bukkit.command.ConsoleCommandSender;
  */
 public class BukkitConsoleUser implements ConsoleUser {
     
-    private ConsoleCommandSender user;
+    private ConsoleCommandSender user = Bukkit.getConsoleSender();
     
     @Inject
     private Injector injector;
+    
+    @Override
+    public void setPlayerObject(Object playerObject) {
+        // unused
+    }
     
     @Nonnull
     @Override
@@ -68,7 +74,7 @@ public class BukkitConsoleUser implements ConsoleUser {
     
     @Nonnull
     @Override
-    public UUID getUUID() {
+    public UUID getUuid() {
         return UUID.nameUUIDFromBytes("ConsoleUser".getBytes());
     }
     
@@ -100,10 +106,6 @@ public class BukkitConsoleUser implements ConsoleUser {
     @Override
     public Vector3D getLocation() {
         return new Vector3D(0, 0, 0);
-    }
-    
-    public void setUser(ConsoleCommandSender user) {
-        this.user = user;
     }
     
     @Override

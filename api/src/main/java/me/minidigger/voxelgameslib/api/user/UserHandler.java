@@ -45,17 +45,17 @@ public class UserHandler implements Handler {
      * @throws UserException when the player was not logged in
      */
     public void join(User user) {
-        if (!hasLoggedIn(user.getUUID())) {
-            throw new UserException("User " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
+        if (!hasLoggedIn(user.getUuid())) {
+            throw new UserException("User " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
         }
         
-        if (!users.containsKey(user.getUUID())) {
-            users.put(user.getUUID(), user);
+        if (!users.containsKey(user.getUuid())) {
+            users.put(user.getUuid(), user);
         }
         
         //TODO apply loaded data
-        Object temp = tempData.remove(user.getUUID());
-        log.info("Applied data for user " + user.getUUID() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
+        Object temp = tempData.remove(user.getUuid());
+        log.info("Applied data for user " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
     }
     
     /**

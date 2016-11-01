@@ -1,48 +1,77 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
+import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
+import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-/**
- * Created by Martin on 08.10.2016.
- */
+import lombok.extern.java.Log;
+
+@Log
 @Singleton
+@SuppressWarnings("JavaDoc")// event handlers don't need javadoc...
 public class UserListener implements Listener {
     
     @Inject
     private UserHandler handler;
+    @Inject
+    private VGLEventHandler eventHandler;
     
     @EventHandler
-    public void join(PlayerLoginEvent event) {
-        if (!handler.hasLoggedIn(event.getPlayer().getUniqueId())) {
-            // worst case: load data sync
-            handler.login(event.getPlayer().getUniqueId());
-            if (!handler.hasLoggedIn(event.getPlayer().getUniqueId())) {
-                // something went horribly wrong
-                // we don't have a locale here since the data was not loaded :/
-                event.getPlayer().kickPlayer(Lang.string(LangKey.DATA_NOT_LOADED));
-            }
+    public void login(PlayerLoginEvent event) {
+        UserLoginEvent e = new UserLoginEvent(event.getPlayer().getUniqueId(), event.getPlayer().getName(), event.getPlayer());
+        eventHandler.callEvent(e);
+        if (e.isCanceled()) {
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, e.getKickMessage());
         }
-        handler.join(new BukkitUser(event.getPlayer()));
+        // fix user, since we don't have the user via Bukkit.getPlayer(uuid) quite yet
+        
     }
     
     @EventHandler
-    public void load(AsyncPlayerPreLoginEvent event) {
-        handler.login(event.getUniqueId());
+    public void asyncLogin(AsyncPlayerPreLoginEvent event) {
+        AsyncUserLoginEvent e = new AsyncUserLoginEvent(event.getUniqueId(), event.getName());
+        eventHandler.callEvent(e);
+        if (e.isCanceled()) {
+            event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
+            event.setKickMessage(e.getKickMessage());
+        }
     }
     
     @EventHandler
     public void logout(PlayerQuitEvent event) {
-        handler.logout(event.getPlayer().getUniqueId());
+        Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
+        if (user.isPresent()) {
+            eventHandler.callEvent(new UserLeaveEvent(user.get()));
+        } else {
+            log.warning("User " + event.getPlayer().getName() + " left the server without having a user object!");
+        }
+    }
+    
+    @EventHandler
+    public void join(PlayerJoinEvent event) {
+        Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
+        if (user.isPresent()) {
+            eventHandler.callEvent(new UserJoinEvent(user.get()));
+        } else {
+            log.warning("User " + event.getPlayer().getName() + " tried to join the server without having a user object!");
+            event.getPlayer().kickPlayer(Lang.string(LangKey.DATA_NOT_LOADED));
+        }
     }
 }

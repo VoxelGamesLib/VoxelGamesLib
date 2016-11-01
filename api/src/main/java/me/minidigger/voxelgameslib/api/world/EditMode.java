@@ -39,8 +39,8 @@ public class EditMode {
     
     @CommandInfo(name = "editmode.on", perm = "command.editmode.on", role = Role.ADMIN)
     public void on(CommandArguments args) {
-        if (!editMode.contains(args.getSender().getUUID())) {
-            editMode.add(args.getSender().getUUID());
+        if (!editMode.contains(args.getSender().getUuid())) {
+            editMode.add(args.getSender().getUuid());
             Lang.msg(args.getSender(), LangKey.EDITMODE_ENABLED);
         } else {
             Lang.msg(args.getSender(), LangKey.EDITMODE_ALREADY_ENABLED);
@@ -49,8 +49,8 @@ public class EditMode {
     
     @CommandInfo(name = "editmode.off", perm = "command.editmode.off", role = Role.ADMIN)
     public void off(CommandArguments args) {
-        if (editMode.contains(args.getSender().getUUID())) {
-            editMode.remove(args.getSender().getUUID());
+        if (editMode.contains(args.getSender().getUuid())) {
+            editMode.remove(args.getSender().getUuid());
             Lang.msg(args.getSender(), LangKey.EDITMODE_DISABLED);
         } else {
             Lang.msg(args.getSender(), LangKey.EDITMODE_NOT_ENABLED);
@@ -59,7 +59,7 @@ public class EditMode {
     
     @CommandInfo(name = "editmode.skull", perm = "command.editmode.skull", role = Role.ADMIN, min = 1)
     public void skull(CommandArguments args) {
-        if (editMode.contains(args.getSender().getUUID())) {
+        if (editMode.contains(args.getSender().getUuid())) {
             String name = args.getArg(0);
             Item skull = new ItemBuilder(Material.SKULL_ITEM, injector).variation((byte) 3).name(name).tag("SkullOwner", name).build();
             args.getSender().setItemInHand(Hand.MAINHAND, skull);
@@ -70,7 +70,7 @@ public class EditMode {
     
     @CommandInfo(name = "editmode.chest", perm = "command.editmode.chest", role = Role.ADMIN, min = 1)
     public void chest(CommandArguments args) {
-        if (editMode.contains(args.getSender().getUUID())) {
+        if (editMode.contains(args.getSender().getUuid())) {
             String name = args.getArg(0);
             Item chest = new ItemBuilder(Material.CHEST, injector).name(name).build();
             args.getSender().setItemInHand(Hand.MAINHAND, chest);

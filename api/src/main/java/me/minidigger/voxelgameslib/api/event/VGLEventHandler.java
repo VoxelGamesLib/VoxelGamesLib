@@ -22,7 +22,7 @@ import lombok.extern.java.Log;
  */
 @Log
 @Singleton
-public class EventHandler implements Handler {
+public class VGLEventHandler implements Handler {
     
     @Inject
     private Injector injector;

@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
-import me.minidigger.voxelgameslib.api.event.EventHandler;
+import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
@@ -55,7 +55,7 @@ public class VoxelGamesLib {
     @Inject
     private ModuleHandler moduleHandler;
     @Inject
-    private EventHandler eventHandler;
+    private VGLEventHandler eventHandler;
     
     private Injector injector;
     

@@ -64,7 +64,6 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         CommandHandler cmdHandler = injector.getInstance(CommandHandler.class);
         cmdHandler.register(this);
         BukkitConsoleUser sender = new BukkitConsoleUser();
-        sender.setUser(Bukkit.getConsoleSender());
         cmdHandler.executeCommand(sender, "test command");
         
         // config test

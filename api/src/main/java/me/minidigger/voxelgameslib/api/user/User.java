@@ -63,7 +63,7 @@ public interface User {
      * @return a unique identifier for that user.
      */
     @Nonnull
-    UUID getUUID();
+    UUID getUuid();
     
     /**
      * Send a message to this user.
@@ -147,4 +147,12 @@ public interface User {
      * @return the injector that was used to create this user
      */
     Injector getInjector();
+    
+    /**
+     * sets the player object that is provided by the server implementation and used by
+     * implementations of this interface
+     *
+     * @param playerObject the player object to set
+     */
+    void setPlayerObject(Object playerObject);
 }
