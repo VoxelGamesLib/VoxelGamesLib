@@ -18,6 +18,7 @@ public class GameLeaveEvent extends GameEvent {
      */
     public GameLeaveEvent(@Nonnull Game game, @Nonnull User user) {
         super(game);
+        this.user = user;
     }
     
     /**

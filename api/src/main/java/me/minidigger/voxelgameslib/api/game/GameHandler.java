@@ -4,8 +4,6 @@ import com.google.inject.Injector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -100,10 +98,17 @@ public class GameHandler implements Handler {
      */
     @Nonnull
     public List<Game> getGames(@Nonnull User user, boolean spectate) {
-        Stream<Game> s = games.stream().filter(game -> !game.isPlaying(user));
-        if (spectate) {
-            s = s.filter(game -> !game.isSpectating(user));
+        List<Game> result = new ArrayList<>();
+        for (Game game : games) {
+            if (game.isPlaying(user)) {
+                result.add(game);
+                continue;
+            }
+            
+            if (spectate && game.isSpectating(user)) {
+                result.add(game);
+            }
         }
-        return s.collect(Collectors.toList());
+        return result;
     }
 }
