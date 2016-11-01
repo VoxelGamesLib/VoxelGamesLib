@@ -51,7 +51,7 @@ public enum LangKey {
     GAME_INSTALLED_GAMEMODES("Installed gamemodes: %s", 1),
     GAME_UNKNOWN_GAMEMODE("Unknown GameMode %s. Is it installed?", 1),
     GAME_PLAYER_JOIN("%s has joined the game", 1),
-    GAME_PLAYER_LEAVE("%s has left the game", 1);
+    GAME_PLAYER_LEAVE("%s has left the game", 1), GAME_GAME_STARTED("Game started", 0);
     
     private final String defaultValue;
     private final int args;
@@ -61,10 +61,16 @@ public enum LangKey {
         this.args = args;
     }
     
+    /**
+     * @return the default value for this lang key, in english
+     */
     public String getDefaultValue() {
         return defaultValue;
     }
     
+    /**
+     * @return the number of arguments this key supports
+     */
     public int getArgs() {
         return args;
     }

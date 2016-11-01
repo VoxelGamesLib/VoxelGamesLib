@@ -40,8 +40,6 @@ public class UserListener implements Listener {
         if (e.isCanceled()) {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, e.getKickMessage());
         }
-        // fix user, since we don't have the user via Bukkit.getPlayer(uuid) quite yet
-        
     }
     
     @EventHandler

@@ -46,6 +46,7 @@ public class GameCommands {
         }
         Game game = gameHandler.startGame(mode.get());
         game.join(args.getSender());
+        Lang.msg(args.getSender(), LangKey.GAME_GAME_STARTED);
     }
     
     @CommandInfo(name = "game.join", perm = "command.game.join", role = Role.DEFAULT, description = "Joins a game")

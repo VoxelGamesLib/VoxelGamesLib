@@ -7,6 +7,9 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
+import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
+import me.minidigger.voxelgameslib.api.event.events.game.GameLeaveEvent;
 import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
@@ -21,6 +24,8 @@ public abstract class AbstractGame implements Game {
     
     @Inject
     private Injector injector;
+    @Inject
+    private VGLEventHandler eventHandler;
     
     private final GameMode gameMode;
     protected Phase activePhase;
@@ -94,6 +99,7 @@ public abstract class AbstractGame implements Game {
     public void join(User user) {
         if (!isPlaying(user)) {
             players.add(user);
+            eventHandler.callEvent(new GameJoinEvent(this, user));
             broadcastMessage(LangKey.GAME_PLAYER_JOIN, (Object) user.getDisplayName());
         }
     }
@@ -109,6 +115,7 @@ public abstract class AbstractGame implements Game {
     public void leave(User user) {
         players.remove(user);
         spectators.remove(user);
+        eventHandler.callEvent(new GameLeaveEvent(this, user));
         broadcastMessage(LangKey.GAME_PLAYER_LEAVE, (Object) user.getDisplayName());
     }
     

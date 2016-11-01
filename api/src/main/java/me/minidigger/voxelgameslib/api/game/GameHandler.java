@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
+import me.minidigger.voxelgameslib.api.event.events.game.GameStartEvent;
 import me.minidigger.voxelgameslib.api.exception.GameModeNotAvailableException;
 import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
@@ -26,6 +28,8 @@ public class GameHandler implements Handler {
     private TickHandler tickHandler;
     @Inject
     private Injector injector;
+    @Inject
+    private VGLEventHandler eventHandler;
     
     private final List<Game> games = new ArrayList<>();
     private final List<GameMode> modes = new ArrayList<>();
@@ -73,6 +77,9 @@ public class GameHandler implements Handler {
         games.add(game);
         game.initGame();
         tickHandler.registerTickable(game);
+        
+        eventHandler.callEvent(new GameStartEvent(game));
+        
         return game;
     }
     
@@ -91,9 +98,9 @@ public class GameHandler implements Handler {
      * @return the games of that users
      */
     public List<Game> getGames(User user, boolean spectate) {
-        Stream<Game> s = games.stream().filter(game -> game.isPlaying(user));
+        Stream<Game> s = games.stream().filter(game -> !game.isPlaying(user));
         if (spectate) {
-            s = s.filter(game -> game.isSpectating(user));
+            s = s.filter(game -> !game.isSpectating(user));
         }
         return s.collect(Collectors.toList());
     }
