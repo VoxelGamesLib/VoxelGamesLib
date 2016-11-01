@@ -1,8 +1,7 @@
 package me.minidigger.voxelgameslib.api.game;
 
-import org.jetbrains.annotations.Nullable;
-
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A {@link GameMode} is a identifier for the type of a {@link Game}.
