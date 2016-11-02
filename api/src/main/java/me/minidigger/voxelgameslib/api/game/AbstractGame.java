@@ -3,8 +3,12 @@ package me.minidigger.voxelgameslib.api.game;
 import com.google.inject.Injector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
@@ -31,11 +35,15 @@ public abstract class AbstractGame implements Game {
     private final GameMode gameMode;
     protected Phase activePhase;
     
+    private UUID uuid;
+    
     private int minPlayers;
     private int maxPlayers;
     
     private final List<User> players = new ArrayList<>();
     private final List<User> spectators = new ArrayList<>();
+    
+    private Map<String, Object> gameData = new HashMap<>();
     
     /**
      * Constructs a new {@link AbstractGame}
@@ -44,6 +52,16 @@ public abstract class AbstractGame implements Game {
      */
     public AbstractGame(@Nonnull GameMode mode) {
         this.gameMode = mode;
+    }
+    
+    @Override
+    public void setUuid(@Nonnull UUID uuid) {
+        this.uuid = uuid;
+    }
+    
+    @Override
+    public UUID getUuid() {
+        return uuid;
     }
     
     @Override
@@ -173,5 +191,26 @@ public abstract class AbstractGame implements Game {
     @Override
     public int getMinPlayers() {
         return minPlayers;
+    }
+    
+    @Override
+    public List<User> getPlayers() {
+        return players;
+    }
+    
+    @Override
+    public List<User> getSpectators() {
+        return spectators;
+    }
+    
+    @Nullable
+    @Override
+    public Object getGameData(@Nonnull String key) {
+        return gameData.get(key);
+    }
+    
+    @Override
+    public void putGameData(@Nonnull String key, @Nonnull Object data) {
+        gameData.put(key, data);
     }
 }

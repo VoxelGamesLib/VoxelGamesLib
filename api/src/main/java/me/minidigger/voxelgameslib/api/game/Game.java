@@ -1,6 +1,9 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import java.util.List;
+import java.util.UUID;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
@@ -14,6 +17,16 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
  * that is related to that {@link GameMode}: starting, stopping, {@link Phase}s etc.
  */
 public interface Game extends Tickable {
+    
+    /**
+     * @param uuid the uuid for this game
+     */
+    void setUuid(@Nonnull UUID uuid);
+    
+    /**
+     * @return a unique identifier for this game
+     */
+    UUID getUuid();
     
     /**
      * initialises this game and all phases
@@ -136,4 +149,29 @@ public interface Game extends Tickable {
      * @param maxPlayers the maximum amount of players for this game
      */
     void setMaxPlayers(int maxPlayers);
+    
+    /**
+     * @return the list of users that are currently playing this game
+     */
+    List<User> getPlayers();
+    
+    /**
+     * @return the list of users that are currently spectating this game
+     */
+    List<User> getSpectators();
+    
+    /**
+     * Saves a object with a key into the gamedata map
+     *
+     * @param key  the key
+     * @param data the data
+     */
+    void putGameData(@Nonnull String key, @Nonnull Object data);
+    
+    /**
+     * @param key the key to get the data for
+     * @return the game data for that key, may be null
+     */
+    @Nullable
+    Object getGameData(@Nonnull String key);
 }

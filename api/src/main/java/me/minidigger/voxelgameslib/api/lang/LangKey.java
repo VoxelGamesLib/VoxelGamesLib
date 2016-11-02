@@ -53,7 +53,16 @@ public enum LangKey {
     GAME_INSTALLED_GAMEMODES("Installed gamemodes: %s", 1),
     GAME_UNKNOWN_GAMEMODE("Unknown GameMode %s. Is it installed?", 1),
     GAME_PLAYER_JOIN("%s has joined the game", 1),
-    GAME_PLAYER_LEAVE("%s has left the game", 1), GAME_GAME_STARTED("Game started", 0);
+    GAME_PLAYER_LEAVE("%s has left the game", 1),
+    GAME_GAME_STARTED("Game started", 0),
+    
+    VOTE_MESSAGE_TOP("You can now vote for a map!", 0),
+    VOTE_MESSAGE_MAP("#%s: %s by %s", 3),
+    VOTE_MESSAGE_BOT("##############################", 0),
+    VOTE_ALREADY_VOTED("You already voted!", 0),
+    VOTE_SUBMITTED("Vote for map %s submitted", 1),
+    VOTE_UNKNOWN_MAP("Unknown map %s", 1),
+    VOTE_END("Map %s by %s won with %s votes", 3);
     
     @Nonnull
     private final String defaultValue;

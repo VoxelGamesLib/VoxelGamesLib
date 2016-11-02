@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -72,6 +73,7 @@ public class GameHandler implements Handler {
         }
         
         Game game = injector.getInstance(mode.getGameClass());
+        game.setUuid(UUID.randomUUID());
         games.add(game);
         game.initGame();
         tickHandler.registerTickable(game);
