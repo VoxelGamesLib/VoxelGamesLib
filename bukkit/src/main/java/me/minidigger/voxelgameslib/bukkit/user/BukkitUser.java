@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
@@ -41,11 +42,20 @@ public class BukkitUser implements User {
     @Inject
     private GlobalConfig config;
     @Inject
+    private CommandHandler commandHandler;
+    @Inject
     private Injector injector;
     
     @Override
     public void setPlayerObject(@Nonnull Object playerObject) {
         this.player = (Player) playerObject;
+    }
+    
+    @Override
+    public void executeCommand(String cmd) {
+        if (!commandHandler.executeCommand(this, cmd)) {
+            Bukkit.dispatchCommand(player, cmd);
+        }
     }
     
     @Nonnull

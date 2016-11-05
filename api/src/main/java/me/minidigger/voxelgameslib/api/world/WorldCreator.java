@@ -212,8 +212,9 @@ public class WorldCreator {
         }
         
         if (arguments.getArg(0).equalsIgnoreCase("on")) {
-            // TODO implement editing mode
+            arguments.getSender().executeCommand("editmode on");
         } else if (arguments.getArg(0).equalsIgnoreCase("off")) {
+            arguments.getSender().executeCommand("editmode off");
             MapInfo info = new MapInfo(displayName, author, gameModes);
             map = new Map(info, worldName, center, radius);
             map.printSummery(arguments.getSender());

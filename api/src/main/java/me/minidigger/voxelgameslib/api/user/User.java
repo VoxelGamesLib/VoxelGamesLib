@@ -160,4 +160,11 @@ public interface User {
      * @param playerObject the player object to set
      */
     void setPlayerObject(@Nonnull Object playerObject);
+    
+    /**
+     * Lets the player execute a command.
+     *
+     * @param cmd the command string to execute
+     */
+    void executeCommand(String cmd);
 }

@@ -8,6 +8,7 @@ import com.google.inject.Injector;
 import com.google.inject.name.Names;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
@@ -85,6 +86,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     @CommandInfo(name = "test", perm = "command.test", role = Role.DEFAULT)
     public void command(@Nonnull CommandArguments args) {
         args.getSender().sendMessage(new TextComponent("Command send!"));
+        args.getSender().sendMessage(new TextComponent(Arrays.toString(args.getArgs())));
     }
     
     @CommandInfo(name = "chunktest", perm = "command.chunktest", role = Role.ADMIN)

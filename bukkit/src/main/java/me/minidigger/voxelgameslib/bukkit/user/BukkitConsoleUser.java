@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.ItemBuilder;
@@ -30,11 +31,20 @@ public class BukkitConsoleUser implements ConsoleUser {
     private ConsoleCommandSender user = Bukkit.getConsoleSender();
     
     @Inject
+    private CommandHandler commandHandler;
+    @Inject
     private Injector injector;
     
     @Override
     public void setPlayerObject(@Nonnull Object playerObject) {
         // unused
+    }
+    
+    @Override
+    public void executeCommand(String cmd) {
+        if (!commandHandler.executeCommand(this, cmd)) {
+            Bukkit.dispatchCommand(user, cmd);
+        }
     }
     
     @Nonnull
