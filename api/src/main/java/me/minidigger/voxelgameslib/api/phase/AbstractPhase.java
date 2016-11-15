@@ -55,6 +55,7 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void addFeature(@Nonnull Feature feature) {
+        System.out.println("add " + feature.getClass().getSimpleName() + " feature");
         features.add(feature);
     }
     
@@ -83,6 +84,11 @@ public abstract class AbstractPhase implements Phase {
     }
     
     @Override
+    public void init() {
+        System.out.println("init " + getName());
+    }
+    
+    @Override
     public void start() {
         System.out.println("start " + getName());
         features.forEach((feature) -> {
@@ -103,7 +109,7 @@ public abstract class AbstractPhase implements Phase {
             eventHandler.unregisterEvents(feature);
             commandHandler.unregister(feature, true);
         });
-    
+        
         eventHandler.unregisterEvents(this);
         commandHandler.unregister(this, true);
     }

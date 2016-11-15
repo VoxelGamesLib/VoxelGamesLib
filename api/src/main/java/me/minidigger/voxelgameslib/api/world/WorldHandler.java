@@ -25,6 +25,7 @@ import me.minidigger.voxelgameslib.api.exception.MapException;
 import me.minidigger.voxelgameslib.api.exception.WorldException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.map.Map;
+import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.utils.FileUtils;
 
 import lombok.Getter;
@@ -76,7 +77,8 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      */
     @Nonnull
     public Map loadMap(@Nonnull String name) {
-        if (!getMap(name).isPresent()) {
+        Optional<Map> map = getMap(name);
+        if (!map.isPresent()) {
             if (!config.maps.contains(name)) {
                 throw new MapException("Unknown map " + name + ". Did you register it into the world config?");
             }
@@ -90,9 +92,22 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             } catch (IOException e) {
                 throw new MapException("Error while trying to load map config", e);
             }
+        } else {
+            return map.get();
         }
         
         throw new MapException("Could not load map config for map " + name + ". Does it has a map.json?");
+    }
+    
+    /**
+     * Searches for that map info in the world config
+     *
+     * @param name the name of the map info to search
+     * @return the found map info, if present
+     */
+    @Nonnull
+    public Optional<MapInfo> getMapInfo(String name) {
+        return config.maps.stream().filter(mapInfo -> mapInfo.getName().equals(name)).findAny();
     }
     
     /**

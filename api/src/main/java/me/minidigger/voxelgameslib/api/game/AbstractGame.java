@@ -106,6 +106,7 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void endGame() {
+        System.out.println("end game");
         activePhase.stop();
     }
     
