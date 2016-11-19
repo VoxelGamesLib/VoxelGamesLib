@@ -136,7 +136,7 @@ public class BukkitUser implements User {
             Vector3D loc = new Vector3D(w.getSpawnLocation().getX(), w.getSpawnLocation().getY(), w.getSpawnLocation().getZ());
             player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
         } else {
-            log.warning("Tries to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
+            log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
         }
     }
     
