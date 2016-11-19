@@ -2,7 +2,17 @@
   "configVersion": 1,
   "currentVersion": 1,
   "maps": [
-    "highjacked",
-    "highjacked"
+    {
+      "name": "HighJacked",
+      "author": "MiniDigger",
+      "gamemode": [
+        "SurvivalGames"
+      ]
+    },
+    {
+      "name": "Lobby",
+      "author": "MiniDigger",
+      "gamemode": []
+    }
   ]
 }
