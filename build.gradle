@@ -41,6 +41,26 @@ subprojects {
         }
     }
 
+    rebel {
+        alwaysGenerate = true
+        showGenerated = true
+        rootPath = getRootProject().getProjectDir().getAbsolutePath()
+        classpath {
+            resource {
+                directory = "survivalgames/build/classes/main"
+            }
+            resource {
+                directory = "bukkit/build/classes/main"
+            }
+            resource {
+                directory = "api/build/classes/main"
+            }
+            resource {
+                directory = "bungeecord-chat/build/classes/main"
+            }
+        }
+    }
+
     build.dependsOn(generateRebel)
 }
 
