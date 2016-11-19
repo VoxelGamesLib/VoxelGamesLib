@@ -1,6 +1,5 @@
 package me.minidigger.voxelgameslib.api.exception;
 
-import java.io.IOException;
 import javax.annotation.Nonnull;
 
 /**
@@ -21,7 +20,7 @@ public class MapException extends VoxelGameLibException {
      * @param message the message that explains the issue
      * @param ex      the root issue that was thrown
      */
-    public MapException(@Nonnull String message, @Nonnull IOException ex) {
+    public MapException(@Nonnull String message, @Nonnull Exception ex) {
         super(message, ex);
     }
 }

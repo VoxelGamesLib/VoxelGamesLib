@@ -7,14 +7,12 @@ import com.google.inject.name.Named;
 
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.FileHeader;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nonnull;
@@ -79,24 +77,28 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     public Map loadMap(@Nonnull String name) {
         Optional<Map> map = getMap(name);
         if (!map.isPresent()) {
-            if (!config.maps.contains(name)) {
+            if (!getMapInfo(name).isPresent()) {
                 throw new MapException("Unknown map " + name + ". Did you register it into the world config?");
             }
             
             try {
-                for (Path path : FileSystems.newFileSystem(new File(worldsFolder, name + ".zip").toURI(), Collections.emptyMap()).getRootDirectories()) {
-                    if (path.endsWith("map.json")) {
-                        return gson.fromJson(new JsonReader(new FileReader(path.toFile())), Map.class);
+                ZipFile zipFile = new ZipFile(new File(worldsFolder, name + ".zip"));
+                for (FileHeader header : (List<FileHeader>) zipFile.getFileHeaders()) {
+                    if (header.getFileName().endsWith("config.json")) {
+                        InputStream stream = zipFile.getInputStream(header);
+                        Map m = gson.fromJson(new JsonReader(new InputStreamReader(stream)), Map.class);
+                        maps.add(m);
+                        return m;
                     }
                 }
-            } catch (IOException e) {
+                throw new MapException("Could not load map config for map " + name + ". Fileheader was null. Does it has a map.json?");
+                
+            } catch (Exception e) {
                 throw new MapException("Error while trying to load map config", e);
             }
         } else {
             return map.get();
         }
-        
-        throw new MapException("Could not load map config for map " + name + ". Does it has a map.json?");
     }
     
     /**
@@ -107,7 +109,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      */
     @Nonnull
     public Optional<MapInfo> getMapInfo(String name) {
-        return config.maps.stream().filter(mapInfo -> mapInfo.getName().equals(name)).findAny();
+        return config.maps.stream().filter(mapInfo -> mapInfo.getName().equalsIgnoreCase(name)).findAny();
     }
     
     /**

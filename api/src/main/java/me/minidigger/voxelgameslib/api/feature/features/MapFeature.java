@@ -36,6 +36,7 @@ public class MapFeature extends AbstractFeature {
             worldHandler.loadWorld(map);
         } catch (Exception ex) {
             //TODO cancel game
+            ex.printStackTrace();
             getPhase().getGame().broadcastMessage(new TextComponent("YOU ARE ALL DOOMED"));
             getPhase().getGame().endGame();
         }

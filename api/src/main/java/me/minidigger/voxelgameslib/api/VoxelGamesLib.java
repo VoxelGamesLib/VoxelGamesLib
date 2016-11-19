@@ -29,7 +29,7 @@ import co.aikar.taskchain.TaskChainFactory;
  */
 @Singleton
 public class VoxelGamesLib {
-    //TODO fix taskchain
+  
     @Inject
     private static TaskChainFactory taskChainFactory;
     
@@ -142,5 +142,4 @@ public class VoxelGamesLib {
     public static <T> TaskChain<T> newSharedChain(@Nonnull String name) {
         return taskChainFactory.newSharedChain(name);
     }
-    
 }

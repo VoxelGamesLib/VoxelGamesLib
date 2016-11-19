@@ -37,7 +37,7 @@ public class SurvivalGamesGame extends AbstractGame {
         
         activePhase = lobbyPhase;
     
-        Optional<MapInfo> info = worldHandler.getMapInfo("lobby");
+        Optional<MapInfo> info = worldHandler.getMapInfo("Lobby");
         if (info.isPresent()) {
             putGameData("lobbymap", info.get());
         } else {
