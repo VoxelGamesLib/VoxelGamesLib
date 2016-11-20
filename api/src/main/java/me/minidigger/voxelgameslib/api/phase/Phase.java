@@ -68,7 +68,7 @@ public interface Phase extends Tickable {
      * @throws NoSuchFeatureException if this phase doesn't has that feature registered
      */
     @Nonnull
-    Feature getFeature(@Nonnull Class<Feature> clazz);
+    <T extends Feature> T getFeature(@Nonnull Class<T> clazz);
     
     /**
      * @return a list with all {@link Feature}s that are present in this {@link Phase}

@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.GameConstants;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
+import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
 /**
@@ -21,6 +22,9 @@ public class GracePhase extends TimedPhase {
         MapFeature mapFeature = getGame().createFeature(MapFeature.class, this);
         mapFeature.setShouldUnload(false);
         addFeature(mapFeature);
+    
+        SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class,this);
+        addFeature(spawnFeature);
     }
     
     //TODO GracePhase

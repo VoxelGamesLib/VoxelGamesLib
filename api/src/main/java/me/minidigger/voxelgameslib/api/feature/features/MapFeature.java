@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
@@ -83,5 +84,13 @@ public class MapFeature extends AbstractFeature {
      */
     public boolean shouldUnload() {
         return shouldUnload;
+    }
+    
+    /**
+     *
+     * @return the map this phase will be played on
+     */
+    public @Nonnull Map getMap() {
+        return map;
     }
 }

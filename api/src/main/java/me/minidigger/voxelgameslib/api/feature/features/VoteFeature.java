@@ -67,7 +67,7 @@ public class VoteFeature extends AbstractFeature {
         
         //TODO what happens if nobody wins?
         MapInfo winner = availableMaps.get(maxMap);
-        getPhase().getGame().putGameData("map",winner);
+        getPhase().getGame().putGameData("map", winner);
         getPhase().getGame().broadcastMessage(LangKey.VOTE_END, winner.getName(), winner.getAuthor(), max);
     }
     
@@ -78,7 +78,7 @@ public class VoteFeature extends AbstractFeature {
     
     @Override
     public void init() {
-        System.out.println("init vote feature");
+        
     }
     
     /**

@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.GameConstants;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
+import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.feature.features.VoteFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
@@ -24,6 +25,10 @@ public class VotePhase extends TimedPhase {
         mapFeature.setShouldUnload(true);
         mapFeature.setMapGameDataKey("lobbymap");
         addFeature(mapFeature);
+        
+        SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
+        spawnFeature.setInitialSpawn(false);
+        addFeature(spawnFeature);
     }
     
     //TODO vote phase

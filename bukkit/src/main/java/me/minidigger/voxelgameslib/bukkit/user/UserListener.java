@@ -10,10 +10,12 @@ import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserRespawnEvent;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.bukkit.util.LocationUtil;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +23,7 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import lombok.extern.java.Log;
 
@@ -71,6 +74,18 @@ public class UserListener implements Listener {
         } else {
             log.warning("User " + event.getPlayer().getName() + " tried to join the server without having a user object!");
             event.getPlayer().kickPlayer(Lang.string(LangKey.DATA_NOT_LOADED));
+        }
+    }
+    
+    @EventHandler
+    public void respawn(@Nonnull PlayerRespawnEvent event) {
+        Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
+        if (user.isPresent()) {
+            UserRespawnEvent e = new UserRespawnEvent(user.get(), event.getRespawnLocation().getWorld().getName(), LocationUtil.toVector(event.getRespawnLocation()));
+            eventHandler.callEvent(e);
+            event.setRespawnLocation(LocationUtil.toLocation(e.getWorld(), e.getRespawnLocation()));
+        } else {
+            log.warning("User " + event.getPlayer().getName() + " tried to respawn without having a user object!");
         }
     }
 }

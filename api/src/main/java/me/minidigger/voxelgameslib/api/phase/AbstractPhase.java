@@ -67,8 +67,8 @@ public abstract class AbstractPhase implements Phase {
     
     @Nonnull
     @Override
-    public Feature getFeature(@Nonnull Class<Feature> clazz) {
-        return features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
+    public <T extends Feature> T getFeature(@Nonnull Class<T> clazz) {
+        return (T) features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
     
     @Nonnull

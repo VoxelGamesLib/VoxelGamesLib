@@ -13,7 +13,7 @@ public class NoSuchFeatureException extends VoxelGameLibException {
     /**
      * @param clazz the class of the feature that was tried to access
      */
-    public NoSuchFeatureException(@Nonnull Class<Feature> clazz) {
+    public NoSuchFeatureException(@Nonnull Class<? extends Feature> clazz) {
         super("Could not find feature " + clazz.getSimpleName());
     }
     

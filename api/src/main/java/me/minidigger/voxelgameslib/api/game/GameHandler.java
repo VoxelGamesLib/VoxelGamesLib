@@ -77,7 +77,7 @@ public class GameHandler implements Handler {
         games.add(game);
         game.initGame();
         tickHandler.registerTickable(game);
-        
+    
         eventHandler.callEvent(new GameStartEvent(game));
         
         return game;

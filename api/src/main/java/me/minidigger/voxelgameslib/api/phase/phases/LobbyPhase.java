@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
+import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
 
 /**
@@ -22,5 +23,8 @@ public class LobbyPhase extends AbstractPhase {
         mapFeature.setShouldUnload(false);
         mapFeature.setMapGameDataKey("lobbymap");
         addFeature(mapFeature);
+    
+        SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class,this);
+        addFeature(spawnFeature);
     }
 }
