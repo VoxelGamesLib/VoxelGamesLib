@@ -43,4 +43,13 @@ public abstract class TickHandler implements Handler {
         tickables.add(tickable);
         tickable.start();
     }
+    
+    /**
+     * Remove the tickable form the tickloop
+     *
+     * @param tickable the tickable which should no longer receive ticks
+     */
+    public void end(Tickable tickable) {
+        tickables.remove(tickable);
+    }
 }

@@ -18,6 +18,7 @@ import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.phase.Phase;
+import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
@@ -30,6 +31,8 @@ public abstract class AbstractGame implements Game {
     private Injector injector;
     @Inject
     private VGLEventHandler eventHandler;
+    @Inject
+    private TickHandler tickHandler;
     
     @Nonnull
     private final GameMode gameMode;
@@ -83,7 +86,7 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void stop() {
-        // ignore stop from tick handler, we only need to care about that stop if sever shuts down
+        // ignore stop from tick handler, we only need to care about that stop if server shuts down
         // and then we know about it via the game handler and endGame() anyways
     }
     
@@ -106,9 +109,9 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void endGame() {
-        new Throwable().printStackTrace();
         System.out.println("end game");
         activePhase.stop();
+        tickHandler.end(this);
     }
     
     @Nonnull

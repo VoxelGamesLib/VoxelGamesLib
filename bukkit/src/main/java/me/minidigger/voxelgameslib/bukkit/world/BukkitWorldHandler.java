@@ -36,7 +36,8 @@ public class BukkitWorldHandler extends WorldHandler {
         wc.type(WorldType.NORMAL);
         wc.generator(new CleanRoomChunkGenerator());
         wc.generatorSettings("");
-        wc.createWorld();
+        World world = wc.createWorld();
+        world.setAutoSave(false);
     }
     
     @Override
