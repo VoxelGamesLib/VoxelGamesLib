@@ -14,6 +14,14 @@ repositories {
     }
 }
 
+processResources {
+    filesMatching('**/plugin.yml') {
+        filter {
+            it.replace('@version@', project.getVersion())
+        }
+    }
+}
+
 task copyPluginToTestServer(type: Copy) {
     from("${rootProject.projectDir}\\bukkit\\build\\libs\\") {
         include "**/*-all.jar"
