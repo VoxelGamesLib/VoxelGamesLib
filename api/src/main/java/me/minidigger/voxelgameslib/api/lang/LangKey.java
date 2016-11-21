@@ -62,7 +62,8 @@ public enum LangKey {
     VOTE_ALREADY_VOTED("You already voted!", 0),
     VOTE_SUBMITTED("Vote for map %s submitted", 1),
     VOTE_UNKNOWN_MAP("Unknown map %s", 1),
-    VOTE_END("Map %s by %s won with %s votes", 3);
+    VOTE_END("Map %s by %s won with %s votes", 3),
+    VOTE_NO_MAPS_FOUND("Could not find any maps!", 0);
     
     @Nonnull
     private final String defaultValue;

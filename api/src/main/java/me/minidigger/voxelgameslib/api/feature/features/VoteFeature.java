@@ -47,6 +47,11 @@ public class VoteFeature extends AbstractFeature {
             }
         }
         
+        if(availableMaps.size() == 0){
+            getPhase().getGame().broadcastMessage(LangKey.VOTE_NO_MAPS_FOUND);
+            getPhase().getGame().endGame();
+        }
+        
         getPhase().getGame().getPlayers().forEach(this::sendVoteMessage);
     }
     
@@ -65,8 +70,12 @@ public class VoteFeature extends AbstractFeature {
             votes.put(map, old);
         }
         
-        //TODO what happens if nobody wins?
         MapInfo winner = availableMaps.get(maxMap);
+        if (winner == null) {
+            // use first map if nobody won
+            winner = availableMaps.values().iterator().next();
+        }
+        
         getPhase().getGame().putGameData("map", winner);
         getPhase().getGame().broadcastMessage(LangKey.VOTE_END, winner.getName(), winner.getAuthor(), max);
     }
