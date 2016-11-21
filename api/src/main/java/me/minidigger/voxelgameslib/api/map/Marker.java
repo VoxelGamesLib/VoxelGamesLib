@@ -13,6 +13,7 @@ public class Marker {
     
     @Nonnull
     private final Vector3D loc;
+    private final double yaw;
     @Nonnull
     private final String data;
     
@@ -20,10 +21,12 @@ public class Marker {
      * Constructs a new marker
      *
      * @param loc  the location that this marker marks
+     * @param yaw  the yaw for this marker
      * @param data the data of this marker
      */
-    public Marker(@Nonnull Vector3D loc, @Nonnull String data) {
+    public Marker(@Nonnull Vector3D loc, double yaw, @Nonnull String data) {
         this.loc = loc;
+        this.yaw = yaw;
         this.data = data;
     }
 }

@@ -225,6 +225,7 @@ public class CommandHandler implements Handler {
      * registered on this command handler)
      */
     public boolean executeCommand(@Nonnull User sender, @Nonnull String commandLine) {
+        commandLine = commandLine.trim();
         // generate arg array
         String[] temp = commandLine.split(" ");
         String label = temp[0];

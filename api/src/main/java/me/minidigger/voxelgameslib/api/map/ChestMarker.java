@@ -21,7 +21,7 @@ public class ChestMarker extends Marker {
      * @param items the items that ar in that chest
      */
     public ChestMarker(@Nonnull Vector3D loc, @Nonnull String name, @Nonnull Item[] items) {
-        super(loc, name);
+        super(loc, 0.0, name);
         this.items = items;
     }
     

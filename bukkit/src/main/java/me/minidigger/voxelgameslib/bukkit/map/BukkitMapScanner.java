@@ -11,6 +11,7 @@ import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
+import me.minidigger.voxelgameslib.bukkit.util.FaceUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -53,9 +54,13 @@ public class BukkitMapScanner extends MapScanner {
                     if (te.getType() == Material.SKULL) {
                         Skull skull = (Skull) te;
                         if (skull.getSkullType() == SkullType.PLAYER) {
-                            if (skull.getOwner() != null) {
-                                String markerData = skull.getOwner();
-                                markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), markerData));
+                            if (skull.getOwningPlayer() != null) {
+                                String markerData = skull.getOwningPlayer().getName();
+                                if (markerData == null) {
+                                    System.out.println("owning player name null?!");
+                                    markerData = skull.getOwner();
+                                }
+                                markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), FaceUtil.faceToYaw(skull.getRotation()), markerData));
                             } else {
                                 System.out.println("unknown owner");
                             }

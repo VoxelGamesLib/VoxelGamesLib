@@ -155,7 +155,7 @@ public class WorldCreator {
         for (String s : arguments.getArgs()) {
             sb.append(s).append(" ");
         }
-        displayName = sb.toString();
+        displayName = sb.toString().trim();
         
         arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_AUTHOR, arguments.getSender().getLocale(), displayName).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator author ")).create());
         
@@ -173,7 +173,7 @@ public class WorldCreator {
         for (String s : arguments.getArgs()) {
             sb.append(s).append(" ");
         }
-        author = sb.toString();
+        author = sb.toString().trim();
         
         Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_AUTHOR_SET, author);
         for (GameMode mode : gameHandler.getGameModes()) {
