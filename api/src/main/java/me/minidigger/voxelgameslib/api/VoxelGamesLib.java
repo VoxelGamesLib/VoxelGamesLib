@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
@@ -21,9 +23,6 @@ import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
-
-import co.aikar.taskchain.TaskChain;
-import co.aikar.taskchain.TaskChainFactory;
 
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
@@ -145,8 +144,8 @@ public class VoxelGamesLib {
     public static <T> TaskChain<T> newSharedChain(@Nonnull String name) {
         return taskChainFactory.newSharedChain(name);
     }
-    
-    public void doAdditionalStuff() {
+
+    private void doAdditionalStuff() {
         FunCommands funCommands = injector.getInstance(FunCommands.class);
         try {
             funCommands.load();
