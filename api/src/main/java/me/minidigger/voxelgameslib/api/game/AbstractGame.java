@@ -94,7 +94,7 @@ public abstract class AbstractGame implements Game {
     public void initGameFromDefinition(@Nonnull GameDefinition gameDefinition) {
         setMaxPlayers(gameDefinition.getMaxPlayers());
         setMinPlayers(gameDefinition.getMinPlayers());
-        activePhase = gameDefinition.getFirstPhase();
+        activePhase = gameDefinition.getPhases().get(0); //TODO check that this actually works
         gameData = gameDefinition.getGameData();
     }
     
@@ -105,7 +105,13 @@ public abstract class AbstractGame implements Game {
         definition.setGameMode(getGameMode());
         definition.setMaxPlayers(getMaxPlayers());
         definition.setMinPlayers(getMinPlayers());
-        definition.setFirstPhase(activePhase);
+        List<Phase> phases = new ArrayList<>();
+        Phase phase = activePhase;
+        while (phase != null) {
+            phases.add(phase);
+            phase = phase.getNextPhase();
+        }
+        definition.setPhases(phases);
         definition.setGameData(gameData);
         
         return definition;

@@ -32,7 +32,7 @@ public abstract class AbstractPhase implements Phase {
     private boolean allowJoin;
     private boolean allowSpectate;
     
-    private Phase nextPhase;
+    private transient Phase nextPhase;
     
     @Override
     public void setName(@Nonnull String name) {
