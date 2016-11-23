@@ -24,7 +24,7 @@ public class SurvivalGamesGame extends AbstractGame {
     }
     
     @Override
-    public void initGame() {
+    public void initGameFromModule() {
         setMinPlayers(2);
         setMaxPlayers(14);
         
@@ -34,7 +34,7 @@ public class SurvivalGamesGame extends AbstractGame {
         
         lobbyPhase.setNextPhase(votePhase);
         votePhase.setNextPhase(gracePhase);
-        
+    
         activePhase = lobbyPhase;
     
         Optional<MapInfo> info = worldHandler.getMapInfo("Lobby");

@@ -9,7 +9,15 @@ import me.minidigger.voxelgameslib.api.phase.Phase;
  */
 public abstract class AbstractFeature implements Feature {
     
-    private Phase phase;
+    private String name;
+    private transient Phase phase;
+    
+    /**
+     * Sets the name of this feature to the name of the class
+     */
+    public AbstractFeature() {
+        name = getClass().getName();
+    }
     
     @Nonnull
     @Override
@@ -20,5 +28,11 @@ public abstract class AbstractFeature implements Feature {
     @Override
     public void setPhase(@Nonnull Phase phase) {
         this.phase = phase;
+    }
+    
+    @Nonnull
+    @Override
+    public String getName() {
+        return name;
     }
 }

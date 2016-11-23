@@ -1,12 +1,20 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import com.google.gson.Gson;
 import com.google.inject.Injector;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
@@ -17,9 +25,12 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 
+import lombok.extern.java.Log;
+
 /**
  * Handles all {@link Game} instances and all {@link GameMode}s.
  */
+@Log
 @Singleton
 public class GameHandler implements Handler {
     
@@ -29,9 +40,15 @@ public class GameHandler implements Handler {
     private Injector injector;
     @Inject
     private VGLEventHandler eventHandler;
+    @Inject
+    @Named("GameDefinitionFolder")
+    private File gameDefinitionFolder;
+    @Inject
+    private Gson gson;
     
     private final List<Game> games = new ArrayList<>();
     private final List<GameMode> modes = new ArrayList<>();
+    private final List<GameDefinition> gameDefinitions = new ArrayList<>();
     
     @Override
     public void start() {
@@ -47,7 +64,7 @@ public class GameHandler implements Handler {
     
     /**
      * Registers a new {@link GameMode}. Fails silently if that {@link GameMode} is already
-     * registered.
+     * registered.<br>
      *
      * @param mode the new mode to be registered
      */
@@ -75,7 +92,36 @@ public class GameHandler implements Handler {
         Game game = injector.getInstance(mode.getGameClass());
         game.setUuid(UUID.randomUUID());
         games.add(game);
-        game.initGame();
+    
+        Optional<GameDefinition> def = getGameDefinition(mode);
+        if (def.isPresent()) {
+            game.initGameFromDefinition(def.get());
+        } else {
+            game.initGameFromModule();
+        
+            GameDefinition definition = game.saveGameDefinition();
+            File file = new File(gameDefinitionFolder, mode.getName() + ".json");
+            if (!file.exists()) {
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+            
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        
+            try {
+                Writer writer = new FileWriter(file, false);
+                gson.toJson(definition, writer);
+                writer.close();
+            } catch (Exception ex) {
+                log.log(Level.WARNING, "Could not save game definition to file " + file.getAbsolutePath(), ex);
+            }
+        }
+        
         tickHandler.registerTickable(game);
     
         eventHandler.callEvent(new GameStartEvent(game));
@@ -112,5 +158,16 @@ public class GameHandler implements Handler {
             }
         }
         return result;
+    }
+    
+    /**
+     * Gets a game definition based on the game mode
+     *
+     * @param mode the game mode
+     * @return the game definition that matches the game mode, if present
+     */
+    @Nonnull
+    public Optional<GameDefinition> getGameDefinition(GameMode mode) {
+        return gameDefinitions.stream().filter(gameDefinition -> gameDefinition.getGameMode().equals(mode)).findAny();
     }
 }

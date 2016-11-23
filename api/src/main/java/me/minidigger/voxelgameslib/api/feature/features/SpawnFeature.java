@@ -19,8 +19,8 @@ import me.minidigger.voxelgameslib.api.user.User;
  */
 public class SpawnFeature extends AbstractFeature {
     
-    private List<Vector3D> spawns = new ArrayList<>();
-    private Map map;
+    private transient List<Vector3D> spawns = new ArrayList<>();
+    private transient Map map;
     private boolean isRespawn = true;
     private boolean isInitialSpawn = true;
     

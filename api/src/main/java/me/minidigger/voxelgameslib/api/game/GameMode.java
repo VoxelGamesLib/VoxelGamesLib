@@ -11,7 +11,7 @@ public class GameMode {
     @Nonnull
     private final String name;
     @Nonnull
-    private final Class<? extends Game> gameClass;
+    private transient final Class<? extends Game> gameClass;
     
     /**
      * Constructs a new {@link GameMode}

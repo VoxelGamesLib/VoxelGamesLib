@@ -91,6 +91,27 @@ public abstract class AbstractGame implements Game {
     }
     
     @Override
+    public void initGameFromDefinition(@Nonnull GameDefinition gameDefinition) {
+        setMaxPlayers(gameDefinition.getMaxPlayers());
+        setMinPlayers(gameDefinition.getMinPlayers());
+        activePhase = gameDefinition.getFirstPhase();
+        gameData = gameDefinition.getGameData();
+    }
+    
+    @Override
+    @Nonnull
+    public GameDefinition saveGameDefinition() {
+        GameDefinition definition = new GameDefinition();
+        definition.setGameMode(getGameMode());
+        definition.setMaxPlayers(getMaxPlayers());
+        definition.setMinPlayers(getMinPlayers());
+        definition.setFirstPhase(activePhase);
+        definition.setGameData(gameData);
+        
+        return definition;
+    }
+    
+    @Override
     public void tick() {
         activePhase.tick();
     }
@@ -198,11 +219,13 @@ public abstract class AbstractGame implements Game {
         return minPlayers;
     }
     
+    @Nonnull
     @Override
     public List<User> getPlayers() {
         return players;
     }
     
+    @Nonnull
     @Override
     public List<User> getSpectators() {
         return spectators;

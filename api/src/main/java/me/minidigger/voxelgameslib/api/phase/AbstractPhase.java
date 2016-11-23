@@ -20,17 +20,19 @@ import me.minidigger.voxelgameslib.api.role.Role;
 public abstract class AbstractPhase implements Phase {
     
     @Inject
-    private VGLEventHandler eventHandler;
+    private transient VGLEventHandler eventHandler;
     @Inject
-    private CommandHandler commandHandler;
+    private transient CommandHandler commandHandler;
     
     private String name;
-    private Game game;
+    private transient Game game;
     @Nonnull
     private List<Feature> features = new ArrayList<>();
-    private Phase nextPhase;
+    
     private boolean allowJoin;
     private boolean allowSpectate;
+    
+    private Phase nextPhase;
     
     @Override
     public void setName(@Nonnull String name) {

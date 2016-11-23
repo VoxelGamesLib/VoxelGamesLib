@@ -30,4 +30,10 @@ public interface Feature extends Tickable {
      * initialises this feature
      */
     void init();
+    
+    /**
+     * @return the name of this feature
+     */
+    @Nonnull
+    String getName();
 }

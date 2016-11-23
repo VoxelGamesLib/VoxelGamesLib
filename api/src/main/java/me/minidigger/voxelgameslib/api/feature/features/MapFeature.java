@@ -15,9 +15,9 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 public class MapFeature extends AbstractFeature {
     
     @Inject
-    private WorldHandler worldHandler;
+    private transient WorldHandler worldHandler;
     
-    private Map map;
+    private transient Map map;
     private boolean shouldUnload;
     private String mapGameDataKey = "map";
     

@@ -123,6 +123,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(File.class).annotatedWith(Names.named("LangFolder")).toInstance(new File(getDataFolder().getAbsoluteFile(), "lang"));
             bind(File.class).annotatedWith(Names.named("WorldsFolder")).toInstance(new File(getServer().getWorldContainer().getAbsoluteFile(), "worlds"));
             bind(File.class).annotatedWith(Names.named("WorldContainer")).toInstance(getServer().getWorldContainer().getAbsoluteFile());
+            bind(File.class).annotatedWith(Names.named("GameDefinitionFolder")).toInstance(new File(getDataFolder().getAbsoluteFile(), "games"));
             
             requestStaticInjection(VoxelGamesLib.class);
         }

@@ -24,12 +24,12 @@ import me.minidigger.voxelgameslib.api.world.WorldConfig;
 public class VoteFeature extends AbstractFeature {
     
     @Inject
-    private WorldConfig config;
+    private transient WorldConfig config;
     
     private int maxMaps = 3;
     
-    private Map<UUID, Integer> votes = new HashMap<>();
-    private Map<Integer, MapInfo> availableMaps = new HashMap<>();
+    private transient Map<UUID, Integer> votes = new HashMap<>();
+    private transient Map<Integer, MapInfo> availableMaps = new HashMap<>();
     
     @Override
     public void start() {
