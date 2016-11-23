@@ -12,6 +12,7 @@ import me.minidigger.voxelgameslib.api.error.ErrorHandler;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
+import me.minidigger.voxelgameslib.api.fun.FunCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
@@ -29,7 +30,7 @@ import co.aikar.taskchain.TaskChainFactory;
  */
 @Singleton
 public class VoxelGamesLib {
-  
+    
     @Inject
     private static TaskChainFactory taskChainFactory;
     
@@ -84,6 +85,8 @@ public class VoxelGamesLib {
         //load event and command stuff after modules so that modules get a chance to provide
         eventHandler.start();
         commandHandler.start();
+    
+        doAdditionalStuff();
         
         eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }
@@ -141,5 +144,14 @@ public class VoxelGamesLib {
     @Nonnull
     public static <T> TaskChain<T> newSharedChain(@Nonnull String name) {
         return taskChainFactory.newSharedChain(name);
+    }
+    
+    public void doAdditionalStuff() {
+        FunCommands funCommands = injector.getInstance(FunCommands.class);
+        try {
+            funCommands.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
