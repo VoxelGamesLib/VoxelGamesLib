@@ -62,7 +62,7 @@ public interface Game extends Tickable {
      * @param key  the message to be send
      * @param args the arguments for the key
      */
-    void broadcastMessage(@Nonnull LangKey key, Object... args);
+    void broadcastMessage(@Nonnull LangKey key, @Nullable Object... args);
     
     /**
      * Ends the current {@link Phase} and starts the next one.

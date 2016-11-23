@@ -1,4 +1,5 @@
 dependencies {
+    compileOnly "org.bukkit:bukkit:1.11-R0.1-SNAPSHOT"
     compileOnly "org.bukkit:craftbukkit:1.11-R0.1-SNAPSHOT"
     compile "co.aikar:taskchain-bukkit:3.4.3"
 
@@ -8,10 +9,10 @@ dependencies {
 }
 
 repositories {
-    mavenLocal()
     maven {
         url "https://hub.spigotmc.org/nexus/content/groups/public/"
     }
+    mavenLocal()
 }
 
 processResources {
@@ -30,7 +31,7 @@ task copyPluginToTestServer(type: Copy) {
 }
 
 task deleteOldLogFiles(type: Delete) {
-    def cutoff = new Date().minus(1) //24 hrs ago
+    def cutoff = (new Date()) - 1 //24 hrs ago
 
     delete fileTree(dir: 'testserver/logs/')
             .matching { include '*.log' }

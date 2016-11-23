@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.Provides;
 import com.google.inject.name.Names;
 
 import org.bukkit.Bukkit;
@@ -27,8 +28,14 @@ import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
+import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureTypeAdapter;
+import me.minidigger.voxelgameslib.api.game.GameMode;
+import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
+import me.minidigger.voxelgameslib.api.phase.Phase;
+import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
@@ -117,9 +124,9 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
+//            bind(Gson.class).toProvider(getProvider(Gson.class)).asEagerSingleton();
 
             bind(TaskChainFactory.class).toInstance(BukkitTaskChainFactory.create(voxelGamesLibBukkit));
-            bind(Gson.class).toInstance(new GsonBuilder().setPrettyPrinting().create());
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
 
             bind(File.class).annotatedWith(Names.named("ConfigFolder")).toInstance(getDataFolder());
@@ -129,6 +136,16 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(File.class).annotatedWith(Names.named("GameDefinitionFolder")).toInstance(new File(getDataFolder().getAbsoluteFile(), "games"));
 
             requestStaticInjection(VoxelGamesLib.class);
+        }
+
+        @Provides
+        public Gson getGson(Injector injector) {
+            GsonBuilder builder = new GsonBuilder();
+            builder.registerTypeAdapter(Phase.class, injector.getInstance(PhaseTypeAdapter.class));
+            builder.registerTypeAdapter(Feature.class, injector.getInstance(FeatureTypeAdapter.class));
+            builder.registerTypeAdapter(GameMode.class, injector.getInstance(GameModeTypeAdapter.class));
+            builder.setPrettyPrinting();
+            return builder.create();
         }
     }
 }

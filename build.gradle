@@ -18,6 +18,7 @@ subprojects {
     apply plugin: "idea"
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'rebel'
+    apply plugin: 'idea'
 
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
@@ -28,6 +29,13 @@ subprojects {
         mavenCentral()
         maven {
             url "http://ci.emc.gs/nexus/content/repositories/aikar/"
+        }
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
         }
     }
 
@@ -43,7 +51,7 @@ subprojects {
 
     rebel {
         alwaysGenerate = true
-        showGenerated = true
+        showGenerated = false
         rootPath = getRootProject().getProjectDir().getAbsolutePath()
         classpath {
             resource {

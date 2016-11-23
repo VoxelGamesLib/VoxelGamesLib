@@ -1,6 +1,9 @@
 package me.minidigger.voxelgameslib.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Injector;
+import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 import javax.annotation.Nonnull;
@@ -14,11 +17,17 @@ import me.minidigger.voxelgameslib.api.error.ErrorHandler;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
+import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureTypeAdapter;
 import me.minidigger.voxelgameslib.api.fun.FunCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
+import me.minidigger.voxelgameslib.api.game.GameMode;
+import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
+import me.minidigger.voxelgameslib.api.phase.Phase;
+import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
@@ -29,10 +38,10 @@ import me.minidigger.voxelgameslib.api.world.WorldHandler;
  */
 @Singleton
 public class VoxelGamesLib {
-    
+
     @Inject
     private static TaskChainFactory taskChainFactory;
-    
+
     @Inject
     private ConfigHandler configHandler;
     @Inject
@@ -57,10 +66,10 @@ public class VoxelGamesLib {
     private ModuleHandler moduleHandler;
     @Inject
     private VGLEventHandler eventHandler;
-    
+
     @Nonnull
     private Injector injector;
-    
+
     /**
      * Called when the server starts and/or the plugin gets loaded
      *
@@ -68,52 +77,52 @@ public class VoxelGamesLib {
      */
     public void onEnable(@Nonnull Injector injector) {
         this.injector = injector;
-        
+
         configHandler.start();
         langHandler.start();
         tickHandler.start();
-        gameHandler.start();
         userHandler.start();
         roleHandler.start();
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
-        
+
+        gameHandler.start();
         moduleHandler.start();
-        
+
         //load event and command stuff after modules so that modules get a chance to provide
         eventHandler.start();
         commandHandler.start();
-    
+
         doAdditionalStuff();
-        
+
         eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }
-    
+
     /**
      * Called when the server stops and/or the plugin gets disabled
      */
     public void onDisable() {
         eventHandler.callEvent(new VoxelGamesLibDisableEvent());
-        
+
         configHandler.stop();
         langHandler.stop();
         tickHandler.stop();
-        gameHandler.stop();
         userHandler.stop();
         roleHandler.stop();
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
-        
+
+        gameHandler.stop();
         moduleHandler.stop();
-        
+
         eventHandler.stop();
         commandHandler.stop();
-        
+
         injector = null;
     }
-    
+
     /**
      * @return the injector that was used to create this class
      */
@@ -121,7 +130,7 @@ public class VoxelGamesLib {
     public Injector getInjector() {
         return injector;
     }
-    
+
     /**
      * Create a new (normal) chain using the right factory for this server mod
      *
@@ -132,7 +141,7 @@ public class VoxelGamesLib {
     public static <T> TaskChain<T> newChain() {
         return taskChainFactory.newChain();
     }
-    
+
     /**
      * Create a new shared chain using the right factory for this server mod
      *

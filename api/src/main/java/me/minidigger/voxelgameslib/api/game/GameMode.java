@@ -1,18 +1,17 @@
 package me.minidigger.voxelgameslib.api.game;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * A {@link GameMode} is a identifier for the type of a {@link Game}.
  */
 public class GameMode {
-    
+
     @Nonnull
     private final String name;
     @Nonnull
-    private transient final Class<? extends Game> gameClass;
-    
+    private final Class<? extends Game> gameClass;
+
     /**
      * Constructs a new {@link GameMode}
      *
@@ -23,7 +22,7 @@ public class GameMode {
         this.name = name;
         this.gameClass = gameClass;
     }
-    
+
     /**
      * @return the name of this {@link GameMode}
      */
@@ -31,7 +30,7 @@ public class GameMode {
     public String getName() {
         return name;
     }
-    
+
     /**
      * @return the class that implements this {@link GameMode}
      */
@@ -39,26 +38,22 @@ public class GameMode {
     public Class<? extends Game> getGameClass() {
         return gameClass;
     }
-    
+
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        
+
         GameMode gameMode = (GameMode) o;
-        
-        if (name != null ? !name.equals(gameMode.name) : gameMode.name != null) return false;
-        return gameClass != null ? gameClass.equals(gameMode.gameClass) : gameMode.gameClass == null;
-        
+
+        return name.equals(gameMode.name);
     }
-    
+
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (gameClass != null ? gameClass.hashCode() : 0);
-        return result;
+        return name.hashCode();
     }
-    
+
     @Nonnull
     @Override
     public String toString() {
