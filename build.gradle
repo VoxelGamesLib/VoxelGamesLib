@@ -40,7 +40,7 @@ subprojects {
 
     dependencies {
         testCompile "junit.junit:4.12"
-        compileOnly "org.projectlombok:lombok:1.16.10"
+        compileOnly "org.projectlombok:lombok:1.14.8"
     }
 
     shadowJar {

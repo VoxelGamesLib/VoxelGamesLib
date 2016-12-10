@@ -14,9 +14,6 @@ dependencies {
 
     compileOnly project(":annotations")
     apt project(":annotations")
-
-    compileOnly "org.projectlombok:lombok:1.16.10"
-    apt "org.projectlombok:lombok:1.16.10"
 }
 
 repositories {

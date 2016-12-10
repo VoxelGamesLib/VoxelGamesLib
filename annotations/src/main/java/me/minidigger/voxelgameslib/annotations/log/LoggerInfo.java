@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Created by Martin on 10.12.2016.
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoggerInfo {
 

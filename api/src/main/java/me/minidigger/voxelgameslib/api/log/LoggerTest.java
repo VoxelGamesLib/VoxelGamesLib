@@ -5,13 +5,11 @@ import me.minidigger.voxelgameslib.annotations.log.LoggerInfo;
 /**
  * Created by Martin on 10.12.2016.
  */
+@LoggerInfo(test = "test")
 public class LoggerTest {
-
-    @LoggerInfo(test = "test")
-    private Logger logger;
 
     public LoggerTest() {
         System.out.println("logger test");
-        System.out.println("logger = " + logger);
+        System.out.println("logger = " + log);
     }
 }
