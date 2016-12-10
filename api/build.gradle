@@ -1,3 +1,7 @@
+plugins {
+    id "net.ltgt.apt" version "0.9"
+}
+
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.1"
     compile "com.google.inject:guice:4.1.0"
@@ -7,4 +11,14 @@ dependencies {
     compile "co.aikar:taskchain-core:3.4.3"
 
     compile project(":bungeecord-chat")
+
+    compileOnly project(":annotations")
+    apt project(":annotations")
+
+    compileOnly "org.projectlombok:lombok:1.16.10"
+    apt "org.projectlombok:lombok:1.16.10"
+}
+
+repositories {
+
 }

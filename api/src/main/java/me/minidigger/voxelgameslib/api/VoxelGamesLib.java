@@ -1,9 +1,6 @@
 package me.minidigger.voxelgameslib.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Injector;
-import com.google.inject.Provides;
 import com.google.inject.Singleton;
 
 import javax.annotation.Nonnull;
@@ -17,17 +14,12 @@ import me.minidigger.voxelgameslib.api.error.ErrorHandler;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGamesLibDisableEvent;
-import me.minidigger.voxelgameslib.api.feature.Feature;
-import me.minidigger.voxelgameslib.api.feature.FeatureTypeAdapter;
 import me.minidigger.voxelgameslib.api.fun.FunCommands;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
-import me.minidigger.voxelgameslib.api.game.GameMode;
-import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
+import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
-import me.minidigger.voxelgameslib.api.phase.Phase;
-import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
@@ -42,6 +34,8 @@ public class VoxelGamesLib {
     @Inject
     private static TaskChainFactory taskChainFactory;
 
+    @Inject
+    private LoggerHandler loggerHandler;
     @Inject
     private ConfigHandler configHandler;
     @Inject
@@ -78,6 +72,8 @@ public class VoxelGamesLib {
     public void onEnable(@Nonnull Injector injector) {
         this.injector = injector;
 
+        loggerHandler.start();
+
         configHandler.start();
         langHandler.start();
         tickHandler.start();
@@ -104,6 +100,8 @@ public class VoxelGamesLib {
      */
     public void onDisable() {
         eventHandler.callEvent(new VoxelGamesLibDisableEvent());
+
+        loggerHandler.stop();
 
         configHandler.stop();
         langHandler.stop();

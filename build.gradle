@@ -18,7 +18,6 @@ subprojects {
     apply plugin: "idea"
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'rebel'
-    apply plugin: 'idea'
 
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"
@@ -41,6 +40,7 @@ subprojects {
 
     dependencies {
         testCompile "junit.junit:4.12"
+        compileOnly "org.projectlombok:lombok:1.16.10"
     }
 
     shadowJar {
