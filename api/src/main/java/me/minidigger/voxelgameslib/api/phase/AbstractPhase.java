@@ -1,7 +1,9 @@
 package me.minidigger.voxelgameslib.api.phase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -10,9 +12,11 @@ import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
+import me.minidigger.voxelgameslib.api.exception.DependencyGraphException;
 import me.minidigger.voxelgameslib.api.exception.NoSuchFeatureException;
 import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.game.Game;
+import me.minidigger.voxelgameslib.api.graph.Graph;
 import me.minidigger.voxelgameslib.api.role.Role;
 
 /**
@@ -98,8 +102,9 @@ public abstract class AbstractPhase implements Phase {
 
     @Override
     public void start() {
-        System.out.println("start " + getName());
+        checkDependencies();
         features.forEach((feature) -> {
+            System.out.println("start " + feature.getName());
             feature.start();
             eventHandler.registerEvents(feature);
             commandHandler.register(feature);
@@ -113,7 +118,9 @@ public abstract class AbstractPhase implements Phase {
     public void stop() {
         System.out.println("stop " + getName());
         features.forEach((feature) -> {
+            System.out.println("stop " + feature.getName());
             feature.stop();
+            new Throwable().printStackTrace();
             eventHandler.unregisterEvents(feature);
             commandHandler.unregister(feature, true);
         });
@@ -154,5 +161,37 @@ public abstract class AbstractPhase implements Phase {
             System.out.println("skip " + getName());
             getGame().endPhase();
         }
+    }
+
+    private void checkDependencies() {
+        List<Feature> orderedFeatures = new ArrayList<>();
+        System.out.println("before");
+        System.out.println(features);
+        try {
+            Graph<Class> graph = new Graph<>(clazz -> {
+                Optional<Feature> f = features.stream().filter(feature -> feature.getClass().equals(clazz)).findAny();
+                f.ifPresent(orderedFeatures::add);
+            });
+            for (Feature feature : getFeatures()) {
+                for (Class dependency : feature.getDependencies()) {
+                    if (dependency.equals(feature.getClass())) {
+                        System.out.println(feature.getName() + " tried to depend on itself...");
+                        continue;
+                    }
+                    graph.addDependency(feature.getClass(), dependency);
+                }
+            }
+            graph.generateDependencies();
+        } catch (DependencyGraphException ex) {
+            System.out.println("error while trying to generate dependency graph: " + ex.getMessage());
+            ex.printStackTrace();
+            getGame().stop();
+            return;
+        }
+
+        Collections.reverse(orderedFeatures);
+        features = orderedFeatures;
+        System.out.println("after");
+        System.out.println(features);
     }
 }

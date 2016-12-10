@@ -19,6 +19,7 @@ import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.phase.Phase;
+import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
@@ -34,6 +35,8 @@ public abstract class AbstractGame implements Game {
     private VGLEventHandler eventHandler;
     @Inject
     private TickHandler tickHandler;
+    @Inject
+    private Server server;
 
     @Nonnull
     private final GameMode gameMode;
@@ -72,12 +75,14 @@ public abstract class AbstractGame implements Game {
     public void broadcastMessage(@Nonnull BaseComponent... message) {
         players.forEach(u -> u.sendMessage(message));
         spectators.forEach(u -> u.sendMessage(message));
+        server.getConsoleUser().sendMessage(message);
     }
 
     @Override
     public void broadcastMessage(@Nonnull LangKey key, @Nullable Object... args) {
         players.forEach(user -> Lang.msg(user, key, args));
         spectators.forEach(user -> Lang.msg(user, key, args));
+        Lang.msg(server.getConsoleUser(), key, args);
     }
 
     @Override

@@ -13,14 +13,14 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
  * Handles loading and unloading of the map for this phase
  */
 public class MapFeature extends AbstractFeature {
-    
+
     @Inject
     private transient WorldHandler worldHandler;
-    
+
     private transient Map map;
     private boolean shouldUnload;
     private String mapGameDataKey = "map";
-    
+
     @Override
     public void start() {
         Object object = getPhase().getGame().getGameData(mapGameDataKey);
@@ -30,7 +30,7 @@ public class MapFeature extends AbstractFeature {
             getPhase().getGame().endGame();
             return;
         }
-        
+
         try {
             MapInfo mapInfo = (MapInfo) object;
             map = worldHandler.loadMap(mapInfo.getName());
@@ -42,55 +42,61 @@ public class MapFeature extends AbstractFeature {
             getPhase().getGame().endGame();
         }
     }
-    
+
     @Override
     public void stop() {
-        
+
     }
-    
+
     @Override
     public void tick() {
-        
+
     }
-    
+
     @Override
     public void init() {
-        
+
     }
-    
+
+    @Override
+    public Class[] getDependencies() {
+        return new Class[]{SpawnFeature.class};
+    }
+
     /**
      * @return the gamedata key that is used to store the map info for this phase
      */
     public String getMapGameDataKey() {
         return mapGameDataKey;
     }
-    
+
     /**
      * @param mapGameDataKey the gamedata key that is used to store the map info for this phase
      */
     public void setMapGameDataKey(String mapGameDataKey) {
         this.mapGameDataKey = mapGameDataKey;
     }
-    
+
     /**
      * @param shouldUnload if the world should be unloaded after this phase ends
      */
     public void setShouldUnload(boolean shouldUnload) {
         this.shouldUnload = shouldUnload;
     }
-    
+
     /**
      * @return if the world should be unloaded after this phase ends
      */
     public boolean shouldUnload() {
         return shouldUnload;
     }
-    
+
     /**
-     *
      * @return the map this phase will be played on
      */
-    public @Nonnull Map getMap() {
+    public
+    @Nonnull
+    Map getMap() {
         return map;
     }
 }

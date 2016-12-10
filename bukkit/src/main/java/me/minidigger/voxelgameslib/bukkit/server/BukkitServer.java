@@ -12,8 +12,10 @@ import javax.inject.Singleton;
 
 import lombok.extern.java.Log;
 import me.minidigger.voxelgameslib.api.server.AbstractServer;
+import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 
 /**
  * Created by Martin on 23.11.2016.
@@ -21,6 +23,8 @@ import me.minidigger.voxelgameslib.api.user.UserHandler;
 @Log
 @Singleton
 public class BukkitServer extends AbstractServer {
+
+    private ConsoleUser user = new BukkitConsoleUser();
 
     @Inject
     private UserHandler userHandler;
@@ -37,5 +41,10 @@ public class BukkitServer extends AbstractServer {
             }
         }
         return users;
+    }
+
+    @Override
+    public ConsoleUser getConsoleUser() {
+        return user;
     }
 }

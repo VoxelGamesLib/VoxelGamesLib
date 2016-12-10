@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.api.feature.features;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -137,5 +138,10 @@ public class VoteFeature extends AbstractFeature {
                 Lang.msg(args.getSender(), LangKey.VOTE_SUBMITTED, map);
             }
         }
+    }
+
+    @Override
+    public Class[] getDependencies() {
+        return new Class[0];
     }
 }

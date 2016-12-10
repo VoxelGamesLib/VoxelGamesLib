@@ -3,4 +3,3 @@ include 'api'
 include 'bukkit'
 include 'bungeecord-chat'
 include 'survivalgames'
-
