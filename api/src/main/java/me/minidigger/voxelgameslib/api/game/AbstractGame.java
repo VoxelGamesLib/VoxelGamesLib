@@ -176,6 +176,11 @@ public abstract class AbstractGame implements Game {
 
     @Override
     public void join(@Nonnull User user) {
+        if (!getActivePhase().allowJoin()) {
+            spectate(user);
+            return;
+        }
+
         if (!isPlaying(user)) {
             players.add(user);
             eventHandler.callEvent(new GameJoinEvent(this, user));
@@ -185,6 +190,10 @@ public abstract class AbstractGame implements Game {
 
     @Override
     public void spectate(@Nonnull User user) {
+        if (!getActivePhase().allowSpectate()) {
+            Lang.msg(user, LangKey.GAME_CANT_SPECTATE);
+        }
+
         if (!isPlaying(user) && !isSpectating(user)) {
             spectators.add(user);
         }
