@@ -44,7 +44,6 @@ import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
-import me.minidigger.voxelgameslib.bukkit.command.CommandListener;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.server.BukkitServer;
@@ -83,7 +82,6 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
         // register listeners
         this.getServer().getPluginManager().registerEvents(this, this);
-        this.getServer().getPluginManager().registerEvents(injector.getInstance(CommandListener.class), this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
     }
 
@@ -124,7 +122,6 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);
-//            bind(Gson.class).toProvider(getProvider(Gson.class)).asEagerSingleton();
 
             bind(TaskChainFactory.class).toInstance(BukkitTaskChainFactory.create(voxelGamesLibBukkit));
             bind(VoxelGamesLibBukkit.class).toInstance(voxelGamesLibBukkit);
