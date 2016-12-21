@@ -40,10 +40,7 @@ public class CommandHandler implements Handler {
     private Injector injector;
 
     private final Map<String, Pair<Method, Object>> commandMap = new HashMap<>();
-    //private final Map<String, Object> commandExecutors = new HashMap<>();
-
     private final Map<String, Pair<Method, Object>> completerMap = new HashMap<>();
-    // private final Map<String, Object> completerExecutors = new HashMap<>();
 
     @Override
     public void start() {
