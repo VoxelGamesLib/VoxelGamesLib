@@ -88,6 +88,8 @@ public class GameHandler implements Handler {
                 log.log(Level.WARNING, "Could not load game definition " + file.getName(), e);
             }
         }
+
+        log.info("Loaded " + gameDefinitions.size() + " game definitions");
     }
 
     /**

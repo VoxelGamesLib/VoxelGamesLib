@@ -26,6 +26,7 @@ import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
+import me.minidigger.voxelgameslib.api.command.CommandUtil;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.feature.Feature;
@@ -133,6 +134,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(File.class).annotatedWith(Names.named("GameDefinitionFolder")).toInstance(new File(getDataFolder().getAbsoluteFile(), "games"));
 
             requestStaticInjection(VoxelGamesLib.class);
+            requestStaticInjection(CommandUtil.class);
         }
 
         @Provides

@@ -9,7 +9,9 @@ import org.bukkit.plugin.SimplePluginManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -81,6 +83,11 @@ public class BukkitCommandHandler extends CommandHandler {
     protected void registerCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
         super.registerCommand(commandLabel, info, method, object);
 
+        // ignore non root commands
+        if (commandLabel.contains(".")) {
+            return;
+        }
+
         knownCommands.put(commandLabel, new BukkitCommand(commandLabel) {
             @Override
             public boolean execute(CommandSender commandSender, String label, String[] args) {
@@ -103,12 +110,39 @@ public class BukkitCommandHandler extends CommandHandler {
 
                 return true;
             }
+
+            @Override
+            public List<String> tabComplete(CommandSender sender, String label, String[] args) throws IllegalArgumentException {
+                StringBuilder sb = new StringBuilder(label);
+                for (String arg : args) {
+                    sb.append(" ").append(arg);
+                }
+
+                if (sender instanceof Player) {
+                    Player player = (Player) sender;
+                    Optional<User> user = userHandler.getUser(((Player) sender).getUniqueId());
+                    if (user.isPresent()) {
+                        return executeCompleter(user.get(), sb.toString());
+                    } else {
+                        log.warning(player.getDisplayName() + " tried to execute a completer without being a user?!");
+                    }
+                } else {
+                    return executeCompleter(server.getConsoleUser(), sb.toString());
+                }
+
+                return new ArrayList<>();
+            }
         });
     }
 
     @Override
     protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object, boolean remove) {
         super.unregisterCommand(commandLabel, info, method, object, remove);
+
+        // ignore non root commands
+        if (commandLabel.contains(".")) {
+            return;
+        }
 
         knownCommands.remove(commandLabel);
     }

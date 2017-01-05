@@ -7,6 +7,7 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -276,5 +277,73 @@ public class CommandHandler implements Handler {
         return false;
     }
 
-    //TODO tab completion
+    /**
+     * Executes a tab completer
+     *
+     * @param sender      the sender of the tab completion request
+     * @param commandLine the commandline that the user tries to tab complete
+     * @return the resulting list of possible completions
+     */
+    @Nonnull
+    public List<String> executeCompleter(@Nonnull User sender, @Nonnull String commandLine) {
+        commandLine = commandLine.trim().toLowerCase();
+        // generate arg array
+        String[] temp = commandLine.split(" ");
+        String label = temp[0];
+        commandLine = commandLine.replace(label + " ", "");
+        String[] args = commandLine.split(" ");
+
+        // loop through all arguments backwards to find a registered completer
+        for (int i = args.length; i >= 0; i--) {
+            // build completer name
+            StringBuilder buffer = new StringBuilder();
+            buffer.append(label.toLowerCase());
+            for (int x = 0; x < i; x++) {
+                buffer.append(".").append(args[x].toLowerCase());
+            }
+            String cmdLabel = buffer.toString();
+
+            // if completer exists, execute it
+            if (completerMap.containsKey(cmdLabel)) {
+                Pair<Method, Object> command = completerMap.get(cmdLabel);
+                CommandInfo commandInfo = commandMap.get(cmdLabel).getFirst().getAnnotation(CommandInfo.class);
+                try {
+                    if (args[0].equalsIgnoreCase(cmdLabel)) {
+                        // empty argument
+                        //noinspection unchecked
+                        return (List<String>) command.getFirst().invoke(command.getSecond(), new CommandArguments(commandInfo, sender, new String[]{""}));
+                    } else {
+                        // fix arguments
+                        int subCommand = cmdLabel.split(Pattern.quote(".")).length - 1;
+                        String[] newArgs = new String[args.length - subCommand];
+                        System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
+
+                        //noinspection unchecked
+                        return (List<String>) command.getFirst().invoke(command.getSecond(), new CommandArguments(commandInfo, sender, newArgs));
+                    }
+                } catch (@Nonnull IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                return new ArrayList<>();
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    /**
+     * @return the map with all registered commands
+     */
+    @Nonnull
+    public Map<String, Pair<Method, Object>> getCommandMap() {
+        return commandMap;
+    }
+
+    /**
+     * @return the map with all registered completers
+     */
+    @Nonnull
+    public Map<String, Pair<Method, Object>> getCompleterMap() {
+        return completerMap;
+    }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 
@@ -14,6 +15,8 @@ import lombok.extern.java.Log;
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
+import me.minidigger.voxelgameslib.api.command.CommandUtil;
+import me.minidigger.voxelgameslib.api.command.CompleterInfo;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
@@ -54,6 +57,11 @@ public class FunCommands {
 
         String message = taco(arguments.getArg(0));
         server.broadcastMessage(new TextComponent("The server " + message));
+    }
+
+    @CompleterInfo(name = "taco")
+    public List<String> tacoCompleter(CommandArguments arguments) {
+        return CommandUtil.completeWithPlayerNames(arguments.getArg(0));
     }
 
     private String taco(String user) {

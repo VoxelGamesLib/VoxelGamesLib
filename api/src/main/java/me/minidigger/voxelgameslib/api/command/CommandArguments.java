@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.command;
 
 import javax.annotation.Nonnull;
 
+import lombok.ToString;
 import me.minidigger.voxelgameslib.api.user.User;
 
 /**
@@ -10,6 +11,7 @@ import me.minidigger.voxelgameslib.api.user.User;
  * @author MiniDigger
  * @version 1.0.0
  */
+@ToString
 public class CommandArguments {
     
     @Nonnull
