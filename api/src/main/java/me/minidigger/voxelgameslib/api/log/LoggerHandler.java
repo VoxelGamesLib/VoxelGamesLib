@@ -9,14 +9,14 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
  */
 @Singleton
 public class LoggerHandler implements Handler {
-
+    
     @Override
     public void start() {
         new LoggerTest();
     }
-
+    
     @Override
     public void stop() {
-
+    
     }
 }

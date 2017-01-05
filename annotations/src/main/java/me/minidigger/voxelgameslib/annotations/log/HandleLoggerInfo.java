@@ -27,13 +27,13 @@ import static lombok.javac.handlers.JavacHandlerUtil.recursiveSetGeneratedBy;
  */
 @MetaInfServices(JavacAnnotationHandler.class)
 public class HandleLoggerInfo extends JavacAnnotationHandler<LoggerInfo> {
-
+    
     @Override
     public void handle(AnnotationValues<LoggerInfo> annotation, JCTree.JCAnnotation ast, JavacNode annotationNode) {
         System.out.println("handle stuff?!");
         processAnnotation(annotation, annotationNode);
     }
-
+    
     private void processAnnotation(AnnotationValues<?> annotation, JavacNode annotationNode) {
         JavacNode typeNode = annotationNode.up();
         switch (typeNode.getKind()) {
@@ -54,28 +54,28 @@ public class HandleLoggerInfo extends JavacAnnotationHandler<LoggerInfo> {
                 break;
         }
     }
-
+    
     private JCTree.JCFieldAccess selfType(JavacNode typeNode) {
         JavacTreeMaker maker = typeNode.getTreeMaker();
         Name name = ((JCClassDecl) typeNode.get()).name;
         return maker.Select(maker.Ident(name), typeNode.toName("class"));
     }
-
+    
     private boolean createField(JavacNode typeNode, AnnotationValues<?> annotation, JCTree source, String logFieldName) {
         JavacTreeMaker maker = typeNode.getTreeMaker();
-
+        
         // private static final me.minidigger.voxelgameslib.api.log.Logger log = me.minidigger.voxelgameslib.api.log.Logger.getLogger(TargetType.class.getName());
         JCExpression loggerType = chainDotsString(typeNode, "me.minidigger.voxelgameslib.api.log.Logger");
         JCExpression factoryMethod = chainDotsString(typeNode, "me.minidigger.voxelgameslib.api.log.Logger.getLogger");
         JCExpression method = maker.Select(selfType(typeNode), typeNode.toName("getName"));
         JCExpression loggerName = maker.Apply(List.nil(), method, List.nil());
-
+        
         JCMethodInvocation factoryMethodCall = maker.Apply(List.nil(), factoryMethod, List.of(loggerName));
-
+        
         JCVariableDecl fieldDecl = recursiveSetGeneratedBy(maker.VarDef(
                 maker.Modifiers(Flags.PRIVATE | Flags.FINAL | Flags.STATIC),
                 typeNode.toName(logFieldName), loggerType, factoryMethodCall), source, typeNode.getContext());
-
+        
         injectFieldSuppressWarnings(typeNode, fieldDecl);
         return true;
     }

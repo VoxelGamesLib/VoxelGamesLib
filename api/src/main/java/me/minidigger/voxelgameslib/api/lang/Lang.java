@@ -12,13 +12,13 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TranslatableCom
  * Gives quick access to the lang storage and translation and stuff
  */
 public class Lang {
-
+    
     private static LangHandler handler;
-
+    
     static void setLangHandler(@Nonnull LangHandler handler) {
         Lang.handler = handler;
     }
-
+    
     /**
      * Creates an ComponentBuilder based on that LangKey
      *
@@ -29,7 +29,7 @@ public class Lang {
     public static ComponentBuilder trans(@Nonnull LangKey key) {
         return trans(key, handler.getDefaultLocale());
     }
-
+    
     /**
      * Creates an ComponentBuilder based on that LangKey<br>
      * The specified arguments are used to fill out placeholders
@@ -42,7 +42,7 @@ public class Lang {
     public static ComponentBuilder trans(@Nonnull LangKey key, @Nullable Object... args) {
         return trans(key, handler.getDefaultLocale(), args);
     }
-
+    
     /**
      * Creates an ComponentBuilder based on that LangKey<br>
      * Allows to specify a locale that should be used to translate
@@ -55,7 +55,7 @@ public class Lang {
     public static ComponentBuilder trans(@Nonnull LangKey key, @Nonnull Locale loc) {
         return trans(key, loc, new Object[0]);
     }
-
+    
     /**
      * Creates an ComponentBuilder based on that LangKey<br>
      * Allows to specify a locale that should be used to translate<br>
@@ -71,16 +71,16 @@ public class Lang {
         if (args == null) {
             args = new Object[0];
         }
-
+    
         if (args.length != key.getArgs()) {
             throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
         }
-
+    
         LangStorage storage = handler.getStorage(loc);
         String string = storage.get(key);
         return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
     }
-
+    
     /**
      * Sends the user a message that contains the translated version (using his local) of the
      * specified key
@@ -91,7 +91,7 @@ public class Lang {
     public static void msg(@Nonnull User user, @Nonnull LangKey key) {
         user.sendMessage(trans(key).create());
     }
-
+    
     /**
      * Sends the user a message that contains the translated version (using his local) of the
      * specified key<br>
@@ -104,7 +104,7 @@ public class Lang {
     public static void msg(@Nonnull User user, @Nonnull LangKey key, @Nullable Object... args) {
         user.sendMessage(trans(key, args).create());
     }
-
+    
     /**
      * Translates the specified lang key into a string
      *
@@ -115,7 +115,7 @@ public class Lang {
     public static String string(@Nonnull LangKey key) {
         return string(key, handler.getDefaultLocale());
     }
-
+    
     /**
      * Translates the specified lang key into a string<br>
      * The specified arguments are used to fill out placeholders
@@ -128,7 +128,7 @@ public class Lang {
     public static String string(@Nonnull LangKey key, @Nonnull Object... args) {
         return string(key, handler.getDefaultLocale(), args);
     }
-
+    
     /**
      * Translates the specified lang key into a string<br>
      * Allows to specify a locale that should be used to translate
@@ -141,7 +141,7 @@ public class Lang {
     public static String string(@Nonnull LangKey key, @Nonnull Locale loc) {
         return string(key, loc, new Object[0]);
     }
-
+    
     /**
      * Translates the specified lang key into a string<br>
      * Allows to specify a locale that should be used to translate<br>
@@ -157,7 +157,7 @@ public class Lang {
         if (args.length != key.getArgs()) {
             throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
         }
-
+    
         LangStorage storage = handler.getStorage(loc);
         String string = storage.get(key);
         return String.format(string, args);

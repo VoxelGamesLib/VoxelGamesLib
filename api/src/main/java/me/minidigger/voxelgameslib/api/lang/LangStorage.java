@@ -7,13 +7,13 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import lombok.extern.java.Log;
 import me.minidigger.voxelgameslib.api.exception.LangException;
+
+import lombok.extern.java.Log;
 
 /**
  * A lang storage holds all lang keys (and their translations) that are translated into one locale

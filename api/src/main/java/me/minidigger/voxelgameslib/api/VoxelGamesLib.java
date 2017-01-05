@@ -6,8 +6,6 @@ import com.google.inject.Singleton;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
-import co.aikar.taskchain.TaskChain;
-import co.aikar.taskchain.TaskChainFactory;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
@@ -25,15 +23,18 @@ import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
+
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
  */
 @Singleton
 public class VoxelGamesLib {
-
+    
     @Inject
     private static TaskChainFactory taskChainFactory;
-
+    
     @Inject
     private LoggerHandler loggerHandler;
     @Inject
@@ -60,10 +61,10 @@ public class VoxelGamesLib {
     private ModuleHandler moduleHandler;
     @Inject
     private VGLEventHandler eventHandler;
-
+    
     @Nonnull
     private Injector injector;
-
+    
     /**
      * Called when the server starts and/or the plugin gets loaded
      *
@@ -71,9 +72,9 @@ public class VoxelGamesLib {
      */
     public void onEnable(@Nonnull Injector injector) {
         this.injector = injector;
-
+    
         loggerHandler.start();
-
+    
         configHandler.start();
         langHandler.start();
         tickHandler.start();
@@ -82,27 +83,27 @@ public class VoxelGamesLib {
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
-
+    
         gameHandler.start();
         moduleHandler.start();
-
+    
         //load event and command stuff after modules so that modules get a chance to provide
         eventHandler.start();
         commandHandler.start();
-
+    
         doAdditionalStuff();
-
+    
         eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }
-
+    
     /**
      * Called when the server stops and/or the plugin gets disabled
      */
     public void onDisable() {
         eventHandler.callEvent(new VoxelGamesLibDisableEvent());
-
+    
         loggerHandler.stop();
-
+    
         configHandler.stop();
         langHandler.stop();
         tickHandler.stop();
@@ -111,16 +112,16 @@ public class VoxelGamesLib {
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
-
+    
         gameHandler.stop();
         moduleHandler.stop();
-
+    
         eventHandler.stop();
         commandHandler.stop();
-
+    
         injector = null;
     }
-
+    
     /**
      * @return the injector that was used to create this class
      */
@@ -128,7 +129,7 @@ public class VoxelGamesLib {
     public Injector getInjector() {
         return injector;
     }
-
+    
     /**
      * Create a new (normal) chain using the right factory for this server mod
      *
@@ -139,7 +140,7 @@ public class VoxelGamesLib {
     public static <T> TaskChain<T> newChain() {
         return taskChainFactory.newChain();
     }
-
+    
     /**
      * Create a new shared chain using the right factory for this server mod
      *
@@ -151,7 +152,7 @@ public class VoxelGamesLib {
     public static <T> TaskChain<T> newSharedChain(@Nonnull String name) {
         return taskChainFactory.newSharedChain(name);
     }
-
+    
     private void doAdditionalStuff() {
         FunCommands funCommands = injector.getInstance(FunCommands.class);
         try {

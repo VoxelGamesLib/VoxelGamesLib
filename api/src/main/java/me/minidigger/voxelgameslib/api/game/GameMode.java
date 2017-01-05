@@ -6,12 +6,12 @@ import javax.annotation.Nonnull;
  * A {@link GameMode} is a identifier for the type of a {@link Game}.
  */
 public class GameMode {
-
+    
     @Nonnull
     private final String name;
     @Nonnull
     private final Class<? extends Game> gameClass;
-
+    
     /**
      * Constructs a new {@link GameMode}
      *
@@ -22,7 +22,7 @@ public class GameMode {
         this.name = name;
         this.gameClass = gameClass;
     }
-
+    
     /**
      * @return the name of this {@link GameMode}
      */
@@ -30,7 +30,7 @@ public class GameMode {
     public String getName() {
         return name;
     }
-
+    
     /**
      * @return the class that implements this {@link GameMode}
      */
@@ -38,22 +38,22 @@ public class GameMode {
     public Class<? extends Game> getGameClass() {
         return gameClass;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
+        
         GameMode gameMode = (GameMode) o;
-
+        
         return name.equals(gameMode.name);
     }
-
+    
     @Override
     public int hashCode() {
         return name.hashCode();
     }
-
+    
     @Nonnull
     @Override
     public String toString() {

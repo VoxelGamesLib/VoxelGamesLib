@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Pair<S, T> {
-
+    
     S first;
     T second;
 }

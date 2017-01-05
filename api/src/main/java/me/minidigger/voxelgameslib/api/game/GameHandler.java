@@ -14,13 +14,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import lombok.extern.java.Log;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.game.GameStartEvent;
 import me.minidigger.voxelgameslib.api.exception.GameModeNotAvailableException;
@@ -28,6 +26,8 @@ import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
+
+import lombok.extern.java.Log;
 
 /**
  * Handles all {@link Game} instances and all {@link GameMode}s.

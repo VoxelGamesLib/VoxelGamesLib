@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
  * Custom game class with no actuall stuff in it, used to generate custom games via game definitions
  */
 public class CustomGame extends AbstractGame {
-
+    
     /**
      * Constructs a new {@link AbstractGame}
      *
@@ -15,9 +15,9 @@ public class CustomGame extends AbstractGame {
     public CustomGame(@Nonnull GameMode mode) {
         super(mode);
     }
-
+    
     @Override
     public void initGameFromModule() {
-
+    
     }
 }

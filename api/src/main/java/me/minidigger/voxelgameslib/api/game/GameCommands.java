@@ -1,7 +1,6 @@
 package me.minidigger.voxelgameslib.api.game;
 
 import java.util.Optional;
-
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;

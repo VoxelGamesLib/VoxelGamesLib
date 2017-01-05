@@ -21,7 +21,7 @@ public class GameModeTypeAdapter extends TypeAdapter<GameMode> {
         out.name("className").value(value.getGameClass().getName());
         out.endObject();
     }
-
+    
     @Override
     public GameMode read(JsonReader in) throws IOException {
         in.beginObject();

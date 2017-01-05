@@ -23,7 +23,7 @@ public class GracePhase extends TimedPhase {
         mapFeature.setShouldUnload(false);
         addFeature(mapFeature);
     
-        SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class,this);
+        SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         addFeature(spawnFeature);
     }
     

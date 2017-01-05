@@ -33,7 +33,7 @@ public final class Graph<T> {
      * It holds a list of the already evaluated nodes
      */
     private List<GraphNode<T>> evaluatedNodes = new ArrayList<>();
-
+    
     /**
      * The main constructor that has one parameter representing the callback
      * mechanism used by this class to notify when a node gets the evaluation.
@@ -43,7 +43,7 @@ public final class Graph<T> {
     public Graph(NodeValueListener<T> listener) {
         this.listener = listener;
     }
-
+    
     /**
      * Allows adding of new dependencies to the graph. "evalFirstValue" needs to
      * be evaluated before "evalAfterValue"
@@ -69,7 +69,7 @@ public final class Graph<T> {
         firstNode.addGoingOutNode(afterNode);
         afterNode.addComingInNode(firstNode);
     }
-
+    
     /**
      * Creates a graph node of the T generic type
      *
@@ -81,7 +81,7 @@ public final class Graph<T> {
         node.value = value;
         return node;
     }
-
+    
     /**
      * Takes all the nodes and calculates the dependency order for them.
      */
@@ -90,7 +90,7 @@ public final class Graph<T> {
         if (orphanNodes == null) {
             throw new DependencyGraphException("No orphan node found: we got circular dependencies!");
         }
-
+    
         List<GraphNode<T>> nextNodesToDisplay = new ArrayList<>();
         for (GraphNode<T> node : orphanNodes) {
             listener.evaluating(node.value);
@@ -99,7 +99,7 @@ public final class Graph<T> {
         }
         generateDependencies(nextNodesToDisplay);
     }
-
+    
     /**
      * Generates the dependency order of the nodes passed in as parameter
      *
@@ -136,7 +136,7 @@ public final class Graph<T> {
         }
         // here the recursive call ends
     }
-
+    
     /**
      * Checks to see if the passed in node was aready evaluated A node defined
      * as already evaluated means that its incoming nodes were already evaluated
@@ -148,7 +148,7 @@ public final class Graph<T> {
     private boolean isAlreadyEvaluated(GraphNode<T> node) {
         return evaluatedNodes.contains(node);
     }
-
+    
     /**
      * Check to see if all the passed nodes were already evaluated. This could
      * be thought as an and logic between every node evaluation status
@@ -159,7 +159,7 @@ public final class Graph<T> {
     private boolean areAlreadyEvaluated(List<GraphNode<T>> nodes) {
         return evaluatedNodes.containsAll(nodes);
     }
-
+    
     /**
      * These nodes represent the starting nodes. They are firstly evaluated.
      * They have no incoming nodes. The order they are evaluated does not

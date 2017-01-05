@@ -2,8 +2,9 @@ package me.minidigger.voxelgameslib.api.command;
 
 import javax.annotation.Nonnull;
 
-import lombok.ToString;
 import me.minidigger.voxelgameslib.api.user.User;
+
+import lombok.ToString;
 
 /**
  * Holds all information about a command that was excuted by a user

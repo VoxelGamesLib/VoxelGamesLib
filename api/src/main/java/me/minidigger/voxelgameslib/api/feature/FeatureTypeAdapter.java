@@ -11,7 +11,6 @@ import com.google.inject.Injector;
 
 import java.lang.reflect.Type;
 import java.util.logging.Level;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -23,10 +22,10 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class FeatureTypeAdapter implements JsonDeserializer<Feature>, JsonSerializer<Feature> {
-
+    
     @Inject
     private Injector injector;
-
+    
     @Override
     public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
@@ -40,7 +39,7 @@ public class FeatureTypeAdapter implements JsonDeserializer<Feature>, JsonSerial
         }
         return null;
     }
-
+    
     @Override
     public JsonElement serialize(Feature src, Type typeOfSrc, JsonSerializationContext context) {
         return context.serialize(src, src.getClass());
