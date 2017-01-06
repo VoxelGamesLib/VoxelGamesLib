@@ -4,6 +4,7 @@ package me.minidigger.voxelgameslib.api.game;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
@@ -18,6 +19,9 @@ import lombok.extern.java.Log;
 @CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class GameCompleter {
+    
+    @Inject
+    private GameHandler gameHandler;
     
     @CompleterInfo(name = "game")
     public List<String> game(@Nonnull CommandArguments args) {
@@ -36,7 +40,7 @@ public class GameCompleter {
     
     @CompleterInfo(name = "game.start")
     public List<String> start(@Nonnull CommandArguments args) {
-        return new ArrayList<>(); //TODO game.start completer
+        return CommandUtil.filterTabCompletions(args.getArg(0), gameHandler.getGameModes());
     }
     
     @CompleterInfo(name = "game.join")

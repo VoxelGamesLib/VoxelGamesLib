@@ -57,9 +57,6 @@ public class GameMode {
     @Nonnull
     @Override
     public String toString() {
-        return "GameMode{" +
-                "name='" + name + '\'' +
-                ", gameClass=" + gameClass +
-                '}';
+        return name;
     }
 }

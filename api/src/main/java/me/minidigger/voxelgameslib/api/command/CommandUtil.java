@@ -33,6 +33,20 @@ public class CommandUtil {
     }
     
     /**
+     * Filters the list to only include entries that start with the prefix<br>
+     * Object#toString will be called to convert the completions to strings
+     *
+     * @param prefix      The prefix every entry should start with
+     * @param completions the possible completions. Object#toString will be called to convert the
+     *                    completions to strings
+     * @return The filtered list
+     */
+    @Nonnull
+    public static List<String> filterTabCompletions(@Nonnull String prefix, @Nonnull List<?> completions) {
+        return filterTabCompletions(prefix, completions.stream().map(Object::toString).toArray(String[]::new));
+    }
+    
+    /**
      * Creates a list of filtered completions that contain all sub commands of {@code command} and
      * start with {@code prefix}
      *
