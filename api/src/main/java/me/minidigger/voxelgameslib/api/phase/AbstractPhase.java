@@ -121,13 +121,6 @@ public abstract class AbstractPhase implements Phase {
             eventHandler.registerEvents(feature);
             commandHandler.register(feature);
         }
-    
-        features.forEach(feature -> {
-            System.out.println("start " + feature.getName());
-            feature.start();
-            AbstractPhase.this.eventHandler.registerEvents(feature);
-            AbstractPhase.this.commandHandler.register(feature);
-        });
         
         eventHandler.registerEvents(this);
         commandHandler.register(this);
