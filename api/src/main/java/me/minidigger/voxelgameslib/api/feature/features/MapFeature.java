@@ -3,11 +3,11 @@ package me.minidigger.voxelgameslib.api.feature.features;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
-import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 /**
  * Handles loading and unloading of the map for this phase
@@ -25,10 +25,7 @@ public class MapFeature extends AbstractFeature {
     public void start() {
         Object object = getPhase().getGame().getGameData(mapGameDataKey);
         if (object == null || !(object instanceof MapInfo)) {
-            //TODO cancel game
-            getPhase().getGame().broadcastMessage(new TextComponent("YOU ARE ALL DOOMED"));
-            getPhase().getGame().endGame();
-            return;
+            throw new GameStartException(getPhase().getGame().getGameMode(), "No map data was stored!");
         }
         
         try {
@@ -36,10 +33,7 @@ public class MapFeature extends AbstractFeature {
             map = worldHandler.loadMap(mapInfo.getName());
             worldHandler.loadWorld(map);
         } catch (Exception ex) {
-            //TODO cancel game
-            ex.printStackTrace();
-            getPhase().getGame().broadcastMessage(new TextComponent("YOU ARE ALL DOOMED"));
-            getPhase().getGame().endGame();
+            throw new GameStartException(getPhase().getGame().getGameMode(), ex);
         }
     }
     
@@ -60,7 +54,7 @@ public class MapFeature extends AbstractFeature {
     
     @Override
     public Class[] getDependencies() {
-        return new Class[]{SpawnFeature.class};
+        return new Class[0];
     }
     
     /**

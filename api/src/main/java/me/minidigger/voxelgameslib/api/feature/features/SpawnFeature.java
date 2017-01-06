@@ -26,6 +26,7 @@ public class SpawnFeature extends AbstractFeature {
     
     @Override
     public void start() {
+        new Throwable().printStackTrace();
         map = getPhase().getFeature(MapFeature.class).getMap();
         for (Marker marker : map.getMarkers()) {
             if (marker.getData().startsWith("spawn")) {

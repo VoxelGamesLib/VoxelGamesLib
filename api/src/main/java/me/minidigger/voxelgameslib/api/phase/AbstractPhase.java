@@ -38,6 +38,7 @@ public abstract class AbstractPhase implements Phase {
     private boolean allowSpectate;
     
     private transient Phase nextPhase;
+    private transient boolean isRunning;
     
     public AbstractPhase() {
         className = getClass().getName();
@@ -79,6 +80,7 @@ public abstract class AbstractPhase implements Phase {
     @Nonnull
     @Override
     public <T extends Feature> T getFeature(@Nonnull Class<T> clazz) {
+        //noinspection unchecked
         return (T) features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
     
@@ -101,12 +103,30 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void start() {
-        checkDependencies();
-        features.forEach((feature) -> {
+        if (!checkDependencies()) {
+            game.endGame();
+            return;
+        }
+    
+        for (Feature feature : features) {
             System.out.println("start " + feature.getName());
-            feature.start();
+            try {
+                feature.start();
+            } catch (Exception ex) {
+                System.out.println("error while starting " + feature.getName());
+                ex.printStackTrace();
+                game.endGame();
+                return;
+            }
             eventHandler.registerEvents(feature);
             commandHandler.register(feature);
+        }
+    
+        features.forEach(feature -> {
+            System.out.println("start " + feature.getName());
+            feature.start();
+            AbstractPhase.this.eventHandler.registerEvents(feature);
+            AbstractPhase.this.commandHandler.register(feature);
         });
         
         eventHandler.registerEvents(this);
@@ -116,13 +136,18 @@ public abstract class AbstractPhase implements Phase {
     @Override
     public void stop() {
         System.out.println("stop " + getName());
-        features.forEach((feature) -> {
+        for (Feature feature : features) {
             System.out.println("stop " + feature.getName());
-            feature.stop();
-            new Throwable().printStackTrace();
+            try {
+                feature.stop();
+            } catch (Exception ex) {
+                System.out.println("error while stopping " + feature.getName());
+                ex.printStackTrace();
+                return;
+            }
             eventHandler.unregisterEvents(feature);
             commandHandler.unregister(feature, true);
-        });
+        }
         
         eventHandler.unregisterEvents(this);
         commandHandler.unregister(this, true);
@@ -162,10 +187,18 @@ public abstract class AbstractPhase implements Phase {
         }
     }
     
-    private void checkDependencies() {
+    @Override
+    public void setRunning(boolean running) {
+        isRunning = running;
+    }
+    
+    @Override
+    public boolean isRunning() {
+        return isRunning;
+    }
+    
+    private boolean checkDependencies() {
         List<Feature> orderedFeatures = new ArrayList<>();
-        System.out.println("before");
-        System.out.println(features);
         try {
             Graph<Class> graph = new Graph<>(clazz -> {
                 Optional<Feature> f = features.stream().filter(feature -> feature.getClass().equals(clazz)).findAny();
@@ -184,13 +217,12 @@ public abstract class AbstractPhase implements Phase {
         } catch (DependencyGraphException ex) {
             System.out.println("error while trying to generate dependency graph: " + ex.getMessage());
             ex.printStackTrace();
-            getGame().stop();
-            return;
+            return false;
         }
         
         Collections.reverse(orderedFeatures);
         features = orderedFeatures;
-        System.out.println("after");
-        System.out.println(features);
+        
+        return true;
     }
 }

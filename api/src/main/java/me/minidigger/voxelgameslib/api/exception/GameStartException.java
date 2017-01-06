@@ -17,4 +17,12 @@ public class GameStartException extends VoxelGameLibException {
     public GameStartException(@Nonnull GameMode mode, @Nonnull Exception e) {
         super("Error while starting the game " + mode.getName(), e);
     }
+    
+    /**
+     * @param mode    the gamemode that was tried to start
+     * @param message a message that should be displayed
+     */
+    public GameStartException(@Nonnull GameMode mode, @Nonnull String message) {
+        super("Error while starting the game " + mode.getName() + ": " + message);
+    }
 }

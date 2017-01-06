@@ -105,4 +105,16 @@ public interface Phase extends Tickable {
      * @return if new players are allowed to join and spectate while this phase is active
      */
     boolean allowSpectate();
+    
+    /**
+     * sets the status for this phases
+     *
+     * @param running true if the phase should be set to active
+     */
+    void setRunning(boolean running);
+    
+    /**
+     * @return the current status of the phase. true if the phase is active
+     */
+    boolean isRunning();
 }

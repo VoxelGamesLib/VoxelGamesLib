@@ -86,9 +86,14 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void start() {
+        activePhase.setRunning(true);
         activePhase.start();
     }
     
+    /**
+     * @deprecated this method does nothing, use endGame instead ;)
+     */
+    @Deprecated
     @Override
     public void stop() {
         // ignore stop from tick handler, we only need to care about that stop if server shuts down
@@ -145,9 +150,11 @@ public abstract class AbstractGame implements Game {
     @Override
     public void endPhase() {
         if (activePhase.getNextPhase() != null) {
+            activePhase.setRunning(false);
             activePhase.stop();
             activePhase = activePhase.getNextPhase();
             assert activePhase != null;
+            activePhase.setRunning(true);
             activePhase.start();
         } else {
             endGame();
@@ -157,6 +164,7 @@ public abstract class AbstractGame implements Game {
     @Override
     public void endGame() {
         System.out.println("end game");
+        activePhase.setRunning(false);
         activePhase.stop();
         tickHandler.end(this);
     }
