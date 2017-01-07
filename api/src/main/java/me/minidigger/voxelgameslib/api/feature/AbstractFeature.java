@@ -16,7 +16,7 @@ public abstract class AbstractFeature implements Feature {
      * Sets the name of this feature to the name of the class
      */
     public AbstractFeature() {
-        name = getClass().getName();
+        name = getClass().getName().replace(FeatureTypeAdapter.DEFAULT_PATH + ".", "");
     }
     
     @Nonnull

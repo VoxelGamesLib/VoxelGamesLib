@@ -42,7 +42,7 @@ public abstract class AbstractPhase implements Phase {
     private transient boolean isRunning;
     
     public AbstractPhase() {
-        className = getClass().getName();
+        className = getClass().getName().replace(PhaseTypeAdapter.DEFAULT_PATH + ".", "");
     }
     
     @Override

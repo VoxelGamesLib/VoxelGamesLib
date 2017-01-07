@@ -32,6 +32,7 @@ public class GameModeTypeAdapter extends TypeAdapter<GameMode> {
         try {
             clazz = Class.forName(in.nextString());
             in.endObject();
+            //noinspection unchecked
             return new GameMode(name, clazz);
         } catch (ClassNotFoundException e) {
             log.log(Level.WARNING, "Could not deserialized gamemode " + name, e);

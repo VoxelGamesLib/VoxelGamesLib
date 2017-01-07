@@ -23,6 +23,8 @@ import lombok.extern.java.Log;
 @Singleton
 public class FeatureTypeAdapter implements JsonDeserializer<Feature>, JsonSerializer<Feature> {
     
+    public static final String DEFAULT_PATH = "me.minidigger.voxelgameslib.api.feature.features";
+    
     @Inject
     private Injector injector;
     
@@ -30,7 +32,14 @@ public class FeatureTypeAdapter implements JsonDeserializer<Feature>, JsonSerial
     public Feature deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
             JsonObject jsonObject = json.getAsJsonObject();
-            Class clazz = Class.forName(jsonObject.get("name").getAsString());
+    
+            // default path
+            String name = jsonObject.get("name").getAsString();
+            if (!name.contains(".")) {
+                name = DEFAULT_PATH + "." + name;
+            }
+    
+            Class clazz = Class.forName(name);
             Feature feature = context.deserialize(json, clazz);
             injector.injectMembers(feature);
             return feature;
