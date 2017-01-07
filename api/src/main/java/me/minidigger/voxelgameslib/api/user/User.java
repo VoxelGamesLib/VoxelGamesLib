@@ -162,6 +162,11 @@ public interface User {
     void setPlayerObject(@Nonnull Object playerObject);
     
     /**
+     * @return the server implementations object for this user
+     */
+    Object getPlayerObject();
+    
+    /**
      * Lets the player execute a command.
      *
      * @param cmd the command string to execute

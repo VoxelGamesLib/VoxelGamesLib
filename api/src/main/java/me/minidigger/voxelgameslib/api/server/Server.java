@@ -3,6 +3,10 @@ package me.minidigger.voxelgameslib.api.server;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+import me.minidigger.voxelgameslib.api.bossbar.BossBar;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
@@ -37,4 +41,15 @@ public interface Server {
      * @return the console user for this server
      */
     ConsoleUser getConsoleUser();
+    
+    /**
+     * Creates a new (and empty) boss bar, ready to be displayed to players
+     *
+     * @param title     the initial title
+     * @param color     the initial color
+     * @param style     the initial style
+     * @param modifiers optional initial modifier
+     * @return the created boss bar
+     */
+    BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers);
 }

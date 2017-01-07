@@ -52,6 +52,11 @@ public class BukkitUser implements User {
     }
     
     @Override
+    public Object getPlayerObject() {
+        return player;
+    }
+    
+    @Override
     public void executeCommand(String cmd) {
         if (!commandHandler.executeCommand(this, cmd)) {
             Bukkit.dispatchCommand(player, cmd);

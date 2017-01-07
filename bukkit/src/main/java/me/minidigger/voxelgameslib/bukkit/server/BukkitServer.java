@@ -6,13 +6,20 @@ import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import me.minidigger.voxelgameslib.api.bossbar.BossBar;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
+import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.server.AbstractServer;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 
 import lombok.extern.java.Log;
@@ -46,5 +53,17 @@ public class BukkitServer extends AbstractServer {
     @Override
     public ConsoleUser getConsoleUser() {
         return user;
+    }
+    
+    @Override
+    public BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers) {
+        org.bukkit.boss.BossBar bossBar = Bukkit.createBossBar(title, BarColor.valueOf(color.name()),
+                BarStyle.valueOf(style.name().replace("SPILT", "SEGMENTED")));
+        BossBar bar = new BukkitBossBar();
+        bar.setImplObject(bossBar);
+        for (BossBarModifier modifier : modifiers) {
+            bar.addModifier(modifier);
+        }
+        return bar;
     }
 }

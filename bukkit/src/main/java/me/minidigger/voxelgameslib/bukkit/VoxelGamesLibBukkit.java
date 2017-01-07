@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
+import me.minidigger.voxelgameslib.api.bossbar.BossBar;
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
@@ -36,6 +37,7 @@ import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
+import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
@@ -119,6 +121,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(Server.class).to(BukkitServer.class);
+            bind(BossBar.class).to(BukkitBossBar.class);
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
             
             bind(WorldConfig.class).toProvider(WorldHandler.class);
