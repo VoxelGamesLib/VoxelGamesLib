@@ -31,6 +31,8 @@ import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
 import me.minidigger.voxelgameslib.api.role.Role;
+import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
+import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
@@ -47,6 +49,7 @@ import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
 import me.minidigger.voxelgameslib.bukkit.user.UserListener;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorldHandler;
+import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.Bukkit;
@@ -110,6 +113,13 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         VoxelGamesLib.newChain().async(() -> System.out.println("Test")).delay(10, TimeUnit.SECONDS).sync(() -> System.out.println("Test")).execute();
     }
     
+    @CommandInfo(name = "scoreboardtest", perm = "commannd.scoreboardtest", role = Role.ADMIN)
+    public void scoreboardtest(CommandArguments args) {
+        Scoreboard scoreboard = voxelGameLib.getInjector().getInstance(Server.class).createScoreboard("Test");
+        scoreboard.addLine("test", new StringScoreboardLine("Value! " + ChatColor.RED + "COLOR!"));
+        scoreboard.addUser(args.getSender());
+    }
+    
     private class BukkitInjector extends AbstractModule {
         
         @Override
@@ -120,8 +130,8 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(TickHandler.class).to(BukkitTickHandler.class);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
-            bind(Server.class).to(BukkitServer.class);
             bind(BossBar.class).to(BukkitBossBar.class);
+            bind(Server.class).to(BukkitServer.class).asEagerSingleton();
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
             
             bind(WorldConfig.class).toProvider(WorldHandler.class);

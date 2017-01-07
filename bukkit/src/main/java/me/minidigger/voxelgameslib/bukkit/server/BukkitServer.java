@@ -10,11 +10,13 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBar;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
+import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.server.AbstractServer;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
+import me.minidigger.voxelgameslib.bukkit.scoreboard.BukkitScoreboard;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 
 import org.bukkit.Bukkit;
@@ -65,5 +67,13 @@ public class BukkitServer extends AbstractServer {
             bar.addModifier(modifier);
         }
         return bar;
+    }
+    
+    @Override
+    public Scoreboard createScoreboard(String title) {
+        BukkitScoreboard scoreboard = new BukkitScoreboard();
+        scoreboard.setImplObject(Bukkit.getScoreboardManager().getNewScoreboard());
+        scoreboard.setTitle(title);
+        return scoreboard;
     }
 }

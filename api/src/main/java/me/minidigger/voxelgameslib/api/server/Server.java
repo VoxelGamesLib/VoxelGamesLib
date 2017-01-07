@@ -8,6 +8,7 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
+import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
@@ -52,4 +53,12 @@ public interface Server {
      * @return the created boss bar
      */
     BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers);
+    
+    /**
+     * Creates a new (and empty) scoreboard, ready to be displayed to players
+     *
+     * @param title the initial title
+     * @return the created scoreboard
+     */
+    Scoreboard createScoreboard(String title);
 }
