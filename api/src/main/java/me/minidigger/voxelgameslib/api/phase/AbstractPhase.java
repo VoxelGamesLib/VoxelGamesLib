@@ -3,7 +3,8 @@ package me.minidigger.voxelgameslib.api.phase;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -28,7 +29,7 @@ public abstract class AbstractPhase implements Phase {
     @Inject
     private transient CommandHandler commandHandler;
     
-    private transient String name;
+    private String name;
     private transient Game game;
     private String className;
     @Nonnull
@@ -103,11 +104,15 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void start() {
+        System.out.println("start phase " + getName() + ": size " + features.size());
+        if (features.size() == 3) {
+            System.out.println(features.get(0) + " ---- " + features.get(1) + " ---- " + features.get(2));
+            System.out.println(features.get(0).getName() + " ---- " + features.get(1).getName() + " ---- " + features.get(2).getName());
+        }
         if (!checkDependencies()) {
             game.endGame();
             return;
         }
-    
         for (Feature feature : features) {
             System.out.println("start " + feature.getName());
             try {
@@ -128,7 +133,7 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void stop() {
-        System.out.println("stop " + getName());
+        System.out.println("stop phase " + getName());
         for (Feature feature : features) {
             System.out.println("stop " + feature.getName());
             try {
@@ -191,12 +196,12 @@ public abstract class AbstractPhase implements Phase {
     }
     
     private boolean checkDependencies() {
-        List<Feature> orderedFeatures = new ArrayList<>();
+        List<Class> orderedFeatures = new ArrayList<>();
+        List<Class> added = new ArrayList<>();
         try {
-            Graph<Class> graph = new Graph<>(clazz -> {
-                Optional<Feature> f = features.stream().filter(feature -> feature.getClass().equals(clazz)).findAny();
-                f.ifPresent(orderedFeatures::add);
-            });
+            Graph<Class> graph = new Graph<>(orderedFeatures::add);
+    
+            // add all dependencies to the graph
             for (Feature feature : getFeatures()) {
                 for (Class dependency : feature.getDependencies()) {
                     if (dependency.equals(feature.getClass())) {
@@ -204,17 +209,36 @@ public abstract class AbstractPhase implements Phase {
                         continue;
                     }
                     graph.addDependency(feature.getClass(), dependency);
+    
+                    added.add(feature.getClass());
+                    added.add(dependency);
                 }
             }
+    
+            // add features that have no dependency connection to any other feature. they can't be left out alone!
+            for (Feature feature : getFeatures()) {
+                if (!added.contains(feature.getClass())) {
+                    orderedFeatures.add(feature.getClass());
+                }
+            }
+            added.clear();
+    
+            // do the magic!
             graph.generateDependencies();
         } catch (DependencyGraphException ex) {
             System.out.println("error while trying to generate dependency graph: " + ex.getMessage());
             ex.printStackTrace();
             return false;
         }
-        
+    
+        if (features.size() != orderedFeatures.size()) {
+            throw new RuntimeException("WTF HAPPENED HERE?!" + features.size() + " " + orderedFeatures.size());
+        }
+    
+        // reverse order because dependencies need to be run before dependend features
         Collections.reverse(orderedFeatures);
-        features = orderedFeatures;
+        // remap classes to features
+        features = orderedFeatures.stream().map((Function<Class, Feature>) this::getFeature).collect(Collectors.toList());
         
         return true;
     }
