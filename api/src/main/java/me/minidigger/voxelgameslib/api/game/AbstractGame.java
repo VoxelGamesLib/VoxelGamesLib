@@ -171,8 +171,8 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void endGame() {
+        //TODO handle game end better, what about a game end phase?
         System.out.println("end game");
-        new Throwable().printStackTrace();
         activePhase.setRunning(false);
         activePhase.stop();
         tickHandler.end(this);

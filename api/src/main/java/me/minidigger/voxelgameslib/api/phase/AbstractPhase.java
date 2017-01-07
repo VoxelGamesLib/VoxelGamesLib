@@ -104,15 +104,11 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void start() {
-        System.out.println("start phase " + getName() + ": size " + features.size());
-        if (features.size() == 3) {
-            System.out.println(features.get(0) + " ---- " + features.get(1) + " ---- " + features.get(2));
-            System.out.println(features.get(0).getName() + " ---- " + features.get(1).getName() + " ---- " + features.get(2).getName());
-        }
         if (!checkDependencies()) {
             game.endGame();
             return;
         }
+        System.out.println("start phase" + getName());
         for (Feature feature : features) {
             System.out.println("start " + feature.getName());
             try {

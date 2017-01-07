@@ -57,9 +57,9 @@ public enum LangKey {
     GAME_GAME_STARTED("Game started", 0),
     GAME_CANT_SPECTATE("You can't join this game to spectate right now", 0),
     
-    VOTE_MESSAGE_TOP("You can now vote for a map!", 0),
+    VOTE_MESSAGE_TOP("### You can now vote for a map! ###", 0),
     VOTE_MESSAGE_MAP("#%s: %s by %s", 3),
-    VOTE_MESSAGE_BOT("##############################", 0),
+    VOTE_MESSAGE_BOT("###############################", 0),
     VOTE_ALREADY_VOTED("You already voted!", 0),
     VOTE_SUBMITTED("Vote for map %s submitted", 1),
     VOTE_UNKNOWN_MAP("Unknown map %s", 1),

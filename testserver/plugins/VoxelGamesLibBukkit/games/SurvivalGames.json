@@ -1,0 +1,77 @@
+{
+  "gameMode": {
+    "name": "SurvivalGames",
+    "className": "me.minidigger.voxelgames.survivalgames.SurvivalGamesGame"
+  },
+  "minPlayers": 2,
+  "maxPlayers": 14,
+  "phases": [
+    {
+      "name": "LobbyPhase",
+      "className": "LobbyPhase",
+      "features": [
+        {
+          "shouldUnload": false,
+          "mapGameDataKey": "lobbymap",
+          "name": "MapFeature"
+        },
+        {
+          "isRespawn": true,
+          "isInitialSpawn": true,
+          "name": "SpawnFeature"
+        }
+      ],
+      "allowJoin": true,
+      "allowSpectate": false
+    },
+    {
+      "ticks": 1200,
+      "name": "VotePhase",
+      "className": "VotePhase",
+      "features": [
+        {
+          "maxMaps": 3,
+          "name": "VoteFeature"
+        },
+        {
+          "shouldUnload": true,
+          "mapGameDataKey": "lobbymap",
+          "name": "MapFeature"
+        },
+        {
+          "isRespawn": true,
+          "isInitialSpawn": false,
+          "name": "SpawnFeature"
+        }
+      ],
+      "allowJoin": true,
+      "allowSpectate": false
+    },
+    {
+      "ticks": 1200,
+      "name": "GracePhase",
+      "className": "GracePhase",
+      "features": [
+        {
+          "shouldUnload": false,
+          "mapGameDataKey": "map",
+          "name": "MapFeature"
+        },
+        {
+          "isRespawn": true,
+          "isInitialSpawn": true,
+          "name": "SpawnFeature"
+        }
+      ],
+      "allowJoin": false,
+      "allowSpectate": true
+    }
+  ],
+  "gameData": {
+    "lobbymap": {
+      "name": "lobby",
+      "author": "Prom3d",
+      "gamemode": []
+    }
+  }
+}
