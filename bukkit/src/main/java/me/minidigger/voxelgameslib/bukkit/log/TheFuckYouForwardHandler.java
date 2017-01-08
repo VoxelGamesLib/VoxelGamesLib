@@ -12,7 +12,9 @@ import java.util.logging.LogRecord;
  * Created by Martin on 08.01.2017.
  */
 public class TheFuckYouForwardHandler extends ConsoleHandler {
-    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss:SSS");
+    //    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss:SSS");
+    //TODO change vanilla log format to include millis too
+    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss");
     private final PrintStream sout = new PrintStream(new FileOutputStream(FileDescriptor.out));
     
     public void publish(LogRecord record) {

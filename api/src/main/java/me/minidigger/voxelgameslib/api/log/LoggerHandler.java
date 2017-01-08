@@ -89,13 +89,6 @@ public class LoggerHandler implements Handler {
     public void setLevel(Level level) {
         this.level = level;
         Logger.getLogger("me.minidigger").setLevel(level);
-//        for (Enumeration<String> e = LogManager.getLogManager().getLoggerNames(); e.hasMoreElements(); ) {
-//            Logger logger = Logger.getLogger(e.nextElement());
-//            for (java.util.logging.Handler handler : logger.getHandlers()) {
-//                handler.setLevel(level);
-//            }
-//            logger.setLevel(level);
-//        }
         log.info("Level changed to " + level.getName());
     }
     
