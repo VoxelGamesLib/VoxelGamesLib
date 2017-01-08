@@ -11,6 +11,7 @@ import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
@@ -140,7 +141,8 @@ public class VoteFeature extends AbstractFeature {
     }
     
     @Override
-    public Class[] getDependencies() {
+    @SuppressWarnings("unchecked")
+    public Class<? extends Feature>[] getDependencies() {
         return new Class[0];
     }
 }

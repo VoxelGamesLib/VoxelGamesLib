@@ -5,6 +5,7 @@ import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
@@ -56,7 +57,8 @@ public class MapFeature extends AbstractFeature {
     }
     
     @Override
-    public Class[] getDependencies() {
+    @SuppressWarnings("unchecked")
+    public Class<? extends Feature>[] getDependencies() {
         return new Class[0];
     }
     
@@ -91,9 +93,8 @@ public class MapFeature extends AbstractFeature {
     /**
      * @return the map this phase will be played on
      */
-    public
     @Nonnull
-    Map getMap() {
+    public Map getMap() {
         return map;
     }
 }

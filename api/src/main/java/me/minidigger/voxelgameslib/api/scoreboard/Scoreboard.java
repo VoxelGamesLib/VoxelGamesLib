@@ -36,7 +36,7 @@ public interface Scoreboard {
     
     /**
      * adds a new line to this socreboard, named key for easy access.<br>
-     * A new line is always added on the top.<br>
+     * A new line will always be added on the top.<br>
      * if there is a line with that key already, it gets overridden!
      *
      * @param key  the name of this line, for easy access
@@ -44,6 +44,15 @@ public interface Scoreboard {
      * @return the position of the line on the scoreboard
      */
     int addLine(String key, @Nonnull ScoreboardLine line);
+    
+    /**
+     * Adds a new line to this scoreboard. <br>
+     * A new line is will always be added on the top.
+     *
+     * @param line the new line
+     * @return the position of the line on the scoreboard
+     */
+    int addLine(@Nonnull ScoreboardLine line);
     
     /**
      * Removes the line with the given key

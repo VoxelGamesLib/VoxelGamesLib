@@ -114,17 +114,15 @@ public abstract class AbstractGame implements Game {
                 nextPhase = gameDefinition.getPhases().get(i + 1);
             }
             Phase currPhase = gameDefinition.getPhases().get(i);
-            if (nextPhase != null) {
-                System.out.println("set nextphase of " + currPhase.getName() + " to " + nextPhase.getName());
-            } else {
-                System.out.println("set nextphase of " + currPhase.getName() + " to nothing");
-            }
             currPhase.setNextPhase(nextPhase);
             currPhase.setGame(this);
-            // TODO this is not loading all phases and features, future me: go figure out why. for now, lets just add dummy phases and features to make it work
+    
             for (Feature feature : currPhase.getFeatures()) {
                 feature.setPhase(currPhase);
-                System.out.println("phase " + currPhase.getName() + ", feature " + feature.getName());
+            }
+    
+            for (Feature feature : currPhase.getFeatures()) {
+                feature.init();
             }
         }
     }

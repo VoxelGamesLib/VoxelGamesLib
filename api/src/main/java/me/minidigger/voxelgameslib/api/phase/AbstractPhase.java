@@ -40,6 +40,7 @@ public abstract class AbstractPhase implements Phase {
     
     private transient Phase nextPhase;
     private transient boolean isRunning;
+    private transient List<Feature> startedFeatures = new ArrayList<>();
     
     public AbstractPhase() {
         className = getClass().getName().replace(PhaseTypeAdapter.DEFAULT_PATH + ".", "");
@@ -80,8 +81,8 @@ public abstract class AbstractPhase implements Phase {
     
     @Nonnull
     @Override
+    @SuppressWarnings("unchecked")
     public <T extends Feature> T getFeature(@Nonnull Class<T> clazz) {
-        //noinspection unchecked
         return (T) features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
     
@@ -121,6 +122,7 @@ public abstract class AbstractPhase implements Phase {
             }
             eventHandler.registerEvents(feature);
             commandHandler.register(feature);
+            startedFeatures.add(feature);
         }
         
         eventHandler.registerEvents(this);
@@ -130,7 +132,8 @@ public abstract class AbstractPhase implements Phase {
     @Override
     public void stop() {
         System.out.println("stop phase " + getName());
-        for (Feature feature : features) {
+        // only stop features that have been started to avoid errors
+        for (Feature feature : startedFeatures) {
             System.out.println("stop " + feature.getName());
             try {
                 feature.stop();
@@ -142,6 +145,7 @@ public abstract class AbstractPhase implements Phase {
             eventHandler.unregisterEvents(feature);
             commandHandler.unregister(feature, true);
         }
+        startedFeatures.clear();
         
         eventHandler.unregisterEvents(this);
         commandHandler.unregister(this, true);
@@ -192,22 +196,31 @@ public abstract class AbstractPhase implements Phase {
     }
     
     private boolean checkDependencies() {
-        List<Class> orderedFeatures = new ArrayList<>();
-        List<Class> added = new ArrayList<>();
+        //TODO better error handling here, once logging is done
+        List<Class<? extends Feature>> orderedFeatures = new ArrayList<>();
+        List<Class<? extends Feature>> added = new ArrayList<>();
         try {
-            Graph<Class> graph = new Graph<>(orderedFeatures::add);
-    
+            Graph<Class<? extends Feature>> graph = new Graph<>(orderedFeatures::add);
+            
             // add all dependencies to the graph
             for (Feature feature : getFeatures()) {
-                for (Class dependency : feature.getDependencies()) {
+                for (Class<? extends Feature> dependency : feature.getDependencies()) {
                     if (dependency.equals(feature.getClass())) {
                         System.out.println(feature.getName() + " tried to depend on itself...");
                         continue;
                     }
                     graph.addDependency(feature.getClass(), dependency);
-    
+        
                     added.add(feature.getClass());
                     added.add(dependency);
+        
+                    try {
+                        getFeature(dependency);
+                    } catch (NoSuchFeatureException ex) {
+                        System.out.println("could not find dependency " + dependency.getName() + " for feature " +
+                                feature.getClass().getName() + " in phase " + getName());
+                        return false;
+                    }
                 }
             }
     

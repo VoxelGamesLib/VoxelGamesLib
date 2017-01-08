@@ -61,6 +61,12 @@
           "isRespawn": true,
           "isInitialSpawn": true,
           "name": "SpawnFeature"
+        },
+        {
+          "name": "MapInfoFeature"
+        },
+        {
+          "name": "ScoreboardFeature"
         }
       ],
       "allowJoin": false,

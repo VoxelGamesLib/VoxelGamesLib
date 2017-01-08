@@ -18,6 +18,7 @@ public abstract class TimedPhase extends AbstractPhase {
     private int ticks;
     private transient double originalTicks;
     private transient BossBar bossBar;
+    private transient boolean started;
     
     /**
      * Sets the amount of ticks this phase should tick, can be modified after start
@@ -46,13 +47,17 @@ public abstract class TimedPhase extends AbstractPhase {
         
         getGame().getPlayers().forEach(u -> bossBar.addUser(u));
         getGame().getSpectators().forEach(u -> bossBar.addUser(u));
+    
+        started = true;
     }
     
     @Override
     public void stop() {
         super.stop();
-        
-        bossBar.removeAll();
+    
+        if (started) {
+            bossBar.removeAll();
+        }
     }
     
     @Override

@@ -44,7 +44,6 @@ public class BukkitScoreboard extends AbstractScoreboard {
         super.addLine(key, line);
         
         objective.getScore(line.getValue()).setScore(key);
-        System.out.println(objective.getScore(line.getValue()) + "vs" + key);
     }
     
     @Override

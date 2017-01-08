@@ -27,12 +27,18 @@ public abstract class AbstractScoreboard implements Scoreboard {
     }
     
     @Override
-    public int addLine(String key, @Nonnull ScoreboardLine line) {
+    public int addLine(@Nonnull ScoreboardLine line) {
         int pos = nextPos++;
         while (getLine(pos).isPresent()) {
             pos = nextPos++;
         }
         addLine(pos, line);
+        return pos;
+    }
+    
+    @Override
+    public int addLine(String key, @Nonnull ScoreboardLine line) {
+        int pos = addLine(line);
         keys.put(key, pos);
         return pos;
     }
