@@ -71,8 +71,8 @@ public abstract class TimedPhase extends AbstractPhase {
         
         if (ticks <= 0) {
             getGame().endPhase();
+        } else {
+            bossBar.setProgress((ticks / originalTicks));
         }
-    
-        bossBar.setProgress((ticks / originalTicks));
     }
 }
