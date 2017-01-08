@@ -27,6 +27,7 @@ import me.minidigger.voxelgameslib.api.feature.FeatureTypeAdapter;
 import me.minidigger.voxelgameslib.api.game.GameMode;
 import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.item.Item;
+import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
@@ -42,6 +43,7 @@ import me.minidigger.voxelgameslib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
+import me.minidigger.voxelgameslib.bukkit.log.BukkitLogHandler;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.server.BukkitServer;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
@@ -59,7 +61,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
+import lombok.extern.java.Log;
 
+@Log
 @Singleton
 public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     
@@ -84,11 +88,13 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         
         // config test
         GlobalConfig config = injector.getInstance(GlobalConfig.class);
-        System.out.println("loaded config with version " + config.configVersion);
+        log.info("loaded config with version " + config.configVersion);
         
         // register listeners
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
+        
+        getLogger();
     }
     
     @Override
@@ -113,11 +119,16 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         VoxelGamesLib.newChain().async(() -> System.out.println("Test")).delay(10, TimeUnit.SECONDS).sync(() -> System.out.println("Test")).execute();
     }
     
-    @CommandInfo(name = "scoreboardtest", perm = "commannd.scoreboardtest", role = Role.ADMIN)
+    @CommandInfo(name = "scoreboardtest", perm = "command.scoreboardtest", role = Role.ADMIN)
     public void scoreboardtest(CommandArguments args) {
         Scoreboard scoreboard = voxelGameLib.getInjector().getInstance(Server.class).createScoreboard("Test");
         scoreboard.addLine("test", new StringScoreboardLine("Value! " + ChatColor.RED + "COLOR!"));
-        scoreboard.addUser(args.getSender());
+    }
+    
+    @CommandInfo(name = "logtest", perm = "command.logtest", role = Role.ADMIN)
+    public void logtest(CommandArguments arguments) {
+        log.fine("THIS IS A PERFECTLY FINE MESSAGE. I AM NOT GOING INSANE");
+        getLogger().info("test");
     }
     
     private class BukkitInjector extends AbstractModule {
@@ -131,6 +142,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(BossBar.class).to(BukkitBossBar.class);
+            bind(LoggerHandler.class).to(BukkitLogHandler.class).asEagerSingleton();
             bind(Server.class).to(BukkitServer.class).asEagerSingleton();
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
             

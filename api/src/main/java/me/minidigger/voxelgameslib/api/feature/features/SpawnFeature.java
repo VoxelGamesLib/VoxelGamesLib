@@ -39,7 +39,6 @@ public class SpawnFeature extends AbstractFeature {
             }
         }
         if (isInitialSpawn) {
-            System.out.println("initial spawn");
             for (User user : getPhase().getGame().getPlayers()) {
                 user.teleport(map.getWorldName(), getSpawn(user));
             }

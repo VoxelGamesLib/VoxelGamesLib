@@ -37,8 +37,6 @@ public class VoteFeature extends AbstractFeature {
     
     @Override
     public void start() {
-        System.out.println("start vote feature");
-        
         String mode = getPhase().getGame().getGameMode().getName();
         int id = 0;
         for (MapInfo info : config.maps) {
@@ -117,7 +115,6 @@ public class VoteFeature extends AbstractFeature {
     
     @CommandInfo(name = "vote", perm = "command.vote", role = Role.DEFAULT)
     public void vote(@Nonnull CommandArguments args) {
-        System.out.printf("vote");
         if (args.getNumArgs() == 0) {
             sendVoteMessage(args.getSender());
         } else {

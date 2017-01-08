@@ -97,7 +97,7 @@ public class BukkitConsoleUser implements ConsoleUser {
     
     @Override
     public void sendMessage(@Nonnull BaseComponent... message) {
-        user.sendMessage(ChatUtil.toPlainText(message));
+        user.sendMessage("[VoxelGamesLib]" + ChatUtil.toPlainText(message));
     }
     
     @Override

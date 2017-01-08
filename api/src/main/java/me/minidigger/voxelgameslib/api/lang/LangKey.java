@@ -64,7 +64,11 @@ public enum LangKey {
     VOTE_SUBMITTED("Vote for map %s submitted", 1),
     VOTE_UNKNOWN_MAP("Unknown map %s", 1),
     VOTE_END("Map %s by %s won with %s votes", 3),
-    VOTE_NO_MAPS_FOUND("Could not find any maps!", 0);
+    VOTE_NO_MAPS_FOUND("Could not find any maps!", 0),
+    
+    LOG_CURRENT_LEVEL("The current log level is %s", 1),
+    LOG_UNKNOWN_LEVEL("Unknown log level %s", 1),
+    LOG_LEVEL_SET("Log level was set to %s", 1);
     
     @Nonnull
     private final String defaultValue;

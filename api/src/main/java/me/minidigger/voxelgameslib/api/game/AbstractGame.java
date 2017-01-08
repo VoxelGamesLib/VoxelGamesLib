@@ -23,9 +23,12 @@ import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
+import lombok.extern.java.Log;
+
 /**
  * Abstract implementation of a {@link Game}. Handles broadcasting, ticking and user management.
  */
+@Log
 public abstract class AbstractGame implements Game {
     
     @Inject
@@ -161,7 +164,7 @@ public abstract class AbstractGame implements Game {
             activePhase.setRunning(true);
             activePhase.start();
         } else {
-            System.out.println("was last phase, so stop");
+            log.finer("was last phase, so stop");
             new Throwable().printStackTrace();
             endGame();
         }
@@ -170,7 +173,7 @@ public abstract class AbstractGame implements Game {
     @Override
     public void endGame() {
         //TODO handle game end better, what about a game end phase?
-        System.out.println("end game");
+        log.finer("end game");
         activePhase.setRunning(false);
         activePhase.stop();
         tickHandler.end(this);

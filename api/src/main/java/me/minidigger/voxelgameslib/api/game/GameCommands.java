@@ -12,8 +12,11 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.role.Role;
 
+import lombok.extern.java.Log;
+
 @Singleton
 @CommandExecutor
+@Log
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class GameCommands {
     
@@ -51,7 +54,7 @@ public class GameCommands {
             game.join(args.getSender());
             Lang.msg(args.getSender(), LangKey.GAME_GAME_STARTED);
         } else {
-            System.out.println("game could not be started"); // TODO message
+            log.warning("game could not be started"); // TODO message
         }
     }
     

@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.fun;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
 import com.google.gson.stream.JsonReader;
 
 import java.io.InputStreamReader;
@@ -81,13 +82,19 @@ public class FunCommands {
     }
     
     class TacoStuff {
+        @Expose
         String[] templates;
+        @Expose
         Parts parts;
         
         class Parts {
+            @Expose
             String[] type;
+            @Expose
             String[] quality;
+            @Expose
             String[] meat;
+            @Expose
             String[] topping;
         }
     }

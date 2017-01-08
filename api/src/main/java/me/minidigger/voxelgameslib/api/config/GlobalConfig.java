@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.config;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
@@ -12,12 +13,14 @@ import javax.inject.Singleton;
 public class GlobalConfig extends Config {
     
     @Expose
-    public final int configVersion = 3;
+    public final int configVersion = 4;
     @Expose
     public int currentVersion = configVersion;
     
     @Expose
-    public final boolean useRoleSystem = true;
+    public String logLevel = Level.INFO.getName();
+    @Expose
+    public boolean useRoleSystem = true;
     @Expose
     public int anInt = 10;
     @Expose

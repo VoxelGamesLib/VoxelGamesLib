@@ -11,9 +11,6 @@ dependencies {
     compile "co.aikar:taskchain-core:3.4.3"
 
     compile project(":bungeecord-chat")
-
-    compileOnly project(":annotations")
-    //apt project(":annotations")
 }
 
 repositories {

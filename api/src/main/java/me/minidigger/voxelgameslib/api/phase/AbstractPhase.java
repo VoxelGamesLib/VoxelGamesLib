@@ -21,9 +21,12 @@ import me.minidigger.voxelgameslib.api.game.Game;
 import me.minidigger.voxelgameslib.api.graph.Graph;
 import me.minidigger.voxelgameslib.api.role.Role;
 
+import lombok.extern.java.Log;
+
 /**
  * Simple implementation of a {@link Phase}. Implements the necessary {@link Feature}-handling.
  */
+@Log
 public abstract class AbstractPhase implements Phase {
     
     @Expose
@@ -78,7 +81,7 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void addFeature(@Nonnull Feature feature) {
-        System.out.println("add " + feature.getClass().getSimpleName() + " feature");
+        log.finer("add " + feature.getClass().getSimpleName() + " feature");
         features.add(feature);
     }
     
@@ -109,7 +112,7 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void init() {
-        System.out.println("init " + getName());
+        log.finer("init " + getName());
     }
     
     @Override
@@ -118,13 +121,13 @@ public abstract class AbstractPhase implements Phase {
             game.endGame();
             return;
         }
-        System.out.println("start phase" + getName());
+        log.finer("start phase" + getName());
         for (Feature feature : features) {
-            System.out.println("start " + feature.getName());
+            log.finer("start " + feature.getName());
             try {
                 feature.start();
             } catch (Exception ex) {
-                System.out.println("error while starting " + feature.getName());
+                log.severe("error while starting " + feature.getName());
                 ex.printStackTrace();
                 game.endGame();
                 return;
@@ -140,14 +143,14 @@ public abstract class AbstractPhase implements Phase {
     
     @Override
     public void stop() {
-        System.out.println("stop phase " + getName());
+        log.finer("stop phase " + getName());
         // only stop features that have been started to avoid errors
         for (Feature feature : startedFeatures) {
-            System.out.println("stop " + feature.getName());
+            log.finer("stop " + feature.getName());
             try {
                 feature.stop();
             } catch (Exception ex) {
-                System.out.println("error while stopping " + feature.getName());
+                log.severe("error while stopping " + feature.getName());
                 ex.printStackTrace();
                 return;
             }
@@ -189,7 +192,7 @@ public abstract class AbstractPhase implements Phase {
     @CommandInfo(name = "skip", perm = "command.skip", role = Role.MODERATOR)
     public void skip(@Nonnull CommandArguments arguments) {
         if (getGame().isPlaying(arguments.getSender()) || getGame().isSpectating(arguments.getSender())) {
-            System.out.println("skip " + getName());
+            log.finer("skip " + getName());
             getGame().endPhase();
         }
     }
@@ -215,7 +218,7 @@ public abstract class AbstractPhase implements Phase {
             for (Feature feature : getFeatures()) {
                 for (Class<? extends Feature> dependency : feature.getDependencies()) {
                     if (dependency.equals(feature.getClass())) {
-                        System.out.println(feature.getName() + " tried to depend on itself...");
+                        log.severe(feature.getName() + " tried to depend on itself...");
                         continue;
                     }
                     graph.addDependency(feature.getClass(), dependency);
@@ -226,7 +229,7 @@ public abstract class AbstractPhase implements Phase {
                     try {
                         getFeature(dependency);
                     } catch (NoSuchFeatureException ex) {
-                        System.out.println("could not find dependency " + dependency.getName() + " for feature " +
+                        log.severe("could not find dependency " + dependency.getName() + " for feature " +
                                 feature.getClass().getName() + " in phase " + getName());
                         return false;
                     }
@@ -244,7 +247,7 @@ public abstract class AbstractPhase implements Phase {
             // do the magic!
             graph.generateDependencies();
         } catch (DependencyGraphException ex) {
-            System.out.println("error while trying to generate dependency graph: " + ex.getMessage());
+            log.severe("error while trying to generate dependency graph: " + ex.getMessage());
             ex.printStackTrace();
             return false;
         }

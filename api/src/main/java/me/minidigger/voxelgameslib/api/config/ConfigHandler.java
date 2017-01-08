@@ -11,12 +11,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.exception.ConfigException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 
 import lombok.extern.java.Log;
 
@@ -33,6 +35,8 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     
     @Inject
     private Gson gson;
+    @Inject
+    private LoggerHandler logHandler;
     
     private File globalConfigFile;
     private GlobalConfig globalConfig;
@@ -48,9 +52,16 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             log.info("Loading global config");
             globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
             
-            
             if (checkMigrate(globalConfig)) {
                 migrate(globalConfigFile, globalConfig);
+            }
+    
+            // setting of the log level. its placed here since the log handler is loaded before the config
+            try {
+                logHandler.setLevel(Level.parse(globalConfig.logLevel));
+            } catch (IllegalArgumentException ex) {
+                log.warning("Unknown log level " + globalConfig.logLevel + " speficied via config, setting back to INFO");
+                logHandler.setLevel(Level.INFO);
             }
         }
     }

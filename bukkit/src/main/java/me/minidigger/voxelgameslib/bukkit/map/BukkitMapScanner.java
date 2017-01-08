@@ -23,9 +23,12 @@ import org.bukkit.block.Chest;
 import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 
+import lombok.extern.java.Log;
+
 /**
  * Created by Martin on 04.10.2016.
  */
+@Log
 public class BukkitMapScanner extends MapScanner {
     
     @Override
@@ -57,18 +60,17 @@ public class BukkitMapScanner extends MapScanner {
                             if (skull.getOwningPlayer() != null) {
                                 String markerData = skull.getOwningPlayer().getName();
                                 if (markerData == null) {
-                                    System.out.println("owning player name null?!");
+                                    log.warning("owning player name null?!");
                                     markerData = skull.getOwner();
                                 }
                                 markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), FaceUtil.faceToYaw(skull.getRotation()), markerData));
                             } else {
-                                System.out.println("unknown owner");
+                                log.warning("unknown owner");
                             }
                         }
                     } else if (te.getType() == Material.CHEST) {
                         Chest chest = (Chest) te;
                         String name = chest.getBlockInventory().getName();
-                        System.out.println("found chest " + name);
                         BukkitItem[] items = new BukkitItem[chest.getBlockInventory().getStorageContents().length];
                         for (int i = 0; i < items.length; i++) {
                             ItemStack is = chest.getBlockInventory().getItem(i);
