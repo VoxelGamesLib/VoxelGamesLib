@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,10 +22,13 @@ import me.minidigger.voxelgameslib.api.user.User;
  */
 public class SpawnFeature extends AbstractFeature {
     
-    private transient List<Vector3D> spawns = new ArrayList<>();
-    private transient Map map;
+    @Expose
     private boolean isRespawn = true;
+    @Expose
     private boolean isInitialSpawn = true;
+    
+    private List<Vector3D> spawns = new ArrayList<>();
+    private Map map;
     
     @Override
     public void start() {

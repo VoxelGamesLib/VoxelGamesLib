@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase;
 
+import com.google.gson.annotations.Expose;
+
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.bossbar.BossBar;
@@ -12,13 +14,15 @@ import me.minidigger.voxelgameslib.api.server.Server;
  */
 public abstract class TimedPhase extends AbstractPhase {
     
-    @Inject
-    private transient Server server;
-    
+    @Expose
     private int ticks;
-    private transient double originalTicks;
-    private transient BossBar bossBar;
-    private transient boolean started;
+    
+    @Inject
+    private Server server;
+    
+    private double originalTicks;
+    private BossBar bossBar;
+    private boolean started;
     
     /**
      * Sets the amount of ticks this phase should tick, can be modified after start

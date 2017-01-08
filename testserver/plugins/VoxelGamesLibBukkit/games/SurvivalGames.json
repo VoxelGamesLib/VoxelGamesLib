@@ -9,6 +9,8 @@
     {
       "name": "LobbyPhase",
       "className": "LobbyPhase",
+      "allowJoin": true,
+      "allowSpectate": false,
       "features": [
         {
           "shouldUnload": false,
@@ -20,14 +22,14 @@
           "isInitialSpawn": true,
           "name": "SpawnFeature"
         }
-      ],
-      "allowJoin": true,
-      "allowSpectate": false
+      ]
     },
     {
       "ticks": 1200,
       "name": "VotePhase",
       "className": "VotePhase",
+      "allowJoin": true,
+      "allowSpectate": false,
       "features": [
         {
           "maxMaps": 3,
@@ -43,14 +45,14 @@
           "isInitialSpawn": false,
           "name": "SpawnFeature"
         }
-      ],
-      "allowJoin": true,
-      "allowSpectate": false
+      ]
     },
     {
       "ticks": 1200,
       "name": "GracePhase",
       "className": "GracePhase",
+      "allowJoin": false,
+      "allowSpectate": true,
       "features": [
         {
           "shouldUnload": false,
@@ -68,9 +70,7 @@
         {
           "name": "ScoreboardFeature"
         }
-      ],
-      "allowJoin": false,
-      "allowSpectate": true
+      ]
     }
   ],
   "gameData": {

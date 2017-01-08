@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -16,10 +18,12 @@ import me.minidigger.voxelgameslib.api.world.WorldHandler;
 public class MapFeature extends AbstractFeature {
     
     @Inject
-    private transient WorldHandler worldHandler;
+    private WorldHandler worldHandler;
     
-    private transient Map map;
+    private Map map;
+    @Expose
     private boolean shouldUnload;
+    @Expose
     private String mapGameDataKey = "map";
     
     @Override

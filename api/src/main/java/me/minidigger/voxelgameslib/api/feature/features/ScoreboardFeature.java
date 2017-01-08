@@ -15,9 +15,9 @@ import me.minidigger.voxelgameslib.api.server.Server;
 public class ScoreboardFeature extends AbstractFeature {
     
     @Inject
-    private transient Server server;
+    private Server server;
     
-    private transient Scoreboard scoreboard;
+    private Scoreboard scoreboard;
     
     @Override
     public void start() {

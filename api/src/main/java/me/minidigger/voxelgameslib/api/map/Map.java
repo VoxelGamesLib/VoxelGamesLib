@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,12 +17,19 @@ import me.minidigger.voxelgameslib.api.user.User;
  */
 public class Map {
     
+    @Expose
     private MapInfo info;
+    @Expose
     private Vector3D center;
+    @Expose
     private int radius;
+    @Expose
     private String worldName;
+    @Expose
     private List<Marker> markers = new ArrayList<>();
+    @Expose
     private List<ChestMarker> chestMarkers = new ArrayList<>();
+    
     private boolean loaded;
     
     /**

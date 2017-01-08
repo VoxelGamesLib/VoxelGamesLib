@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.world;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -12,8 +14,11 @@ import me.minidigger.voxelgameslib.api.map.MapInfo;
  */
 public class WorldConfig extends Config {
     
+    @Expose
     public final int configVersion = 1;
+    @Expose
     public int currentVersion = configVersion;
+    @Expose
     public final List<MapInfo> maps = new ArrayList<>();
     
     /**

@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.item;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +17,18 @@ import lombok.Data;
 @AllArgsConstructor
 public class Item {
     
+    @Expose
     private Material material;
+    @Expose
     private byte variation;
+    @Expose
     private int amount;
+    @Expose
     private String name;
+    @Expose
     private List<String> lore;
     @Nonnull
+    @Expose
     private Map<String, Object> tags = new HashMap<>();
     
     /**

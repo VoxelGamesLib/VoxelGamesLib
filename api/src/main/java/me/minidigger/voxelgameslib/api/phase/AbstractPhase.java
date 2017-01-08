@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,23 +26,30 @@ import me.minidigger.voxelgameslib.api.role.Role;
  */
 public abstract class AbstractPhase implements Phase {
     
-    @Inject
-    private transient VGLEventHandler eventHandler;
-    @Inject
-    private transient CommandHandler commandHandler;
-    
+    @Expose
     private String name;
-    private transient Game game;
+    @Expose
     private String className;
-    @Nonnull
-    private List<Feature> features = new ArrayList<>();
     
+    @Expose
     private boolean allowJoin;
+    @Expose
     private boolean allowSpectate;
     
-    private transient Phase nextPhase;
-    private transient boolean isRunning;
-    private transient List<Feature> startedFeatures = new ArrayList<>();
+    @Nonnull
+    @Expose
+    private List<Feature> features = new ArrayList<>();
+    
+    @Inject
+    private VGLEventHandler eventHandler;
+    @Inject
+    private CommandHandler commandHandler;
+    
+    private Game game;
+    
+    private Phase nextPhase;
+    private boolean isRunning;
+    private List<Feature> startedFeatures = new ArrayList<>();
     
     public AbstractPhase() {
         className = getClass().getName().replace(PhaseTypeAdapter.DEFAULT_PATH + ".", "");
@@ -210,10 +219,10 @@ public abstract class AbstractPhase implements Phase {
                         continue;
                     }
                     graph.addDependency(feature.getClass(), dependency);
-        
+    
                     added.add(feature.getClass());
                     added.add(dependency);
-        
+    
                     try {
                         getFeature(dependency);
                     } catch (NoSuchFeatureException ex) {

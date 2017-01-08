@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.item.Item;
@@ -11,6 +13,7 @@ import me.minidigger.voxelgameslib.api.item.Item;
 public class ChestMarker extends Marker {
     
     @Nonnull
+    @Expose
     private final Item[] items;
     
     /**

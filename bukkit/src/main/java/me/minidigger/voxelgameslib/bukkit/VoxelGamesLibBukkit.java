@@ -157,6 +157,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             builder.registerTypeAdapter(Feature.class, injector.getInstance(FeatureTypeAdapter.class));
             builder.registerTypeAdapter(GameMode.class, injector.getInstance(GameModeTypeAdapter.class));
             builder.setPrettyPrinting();
+            builder.excludeFieldsWithoutExposeAnnotation();
             return builder.create();
         }
     }

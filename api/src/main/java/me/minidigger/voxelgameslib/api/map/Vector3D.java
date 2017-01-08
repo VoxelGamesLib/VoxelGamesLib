@@ -17,6 +17,8 @@
  */
 package me.minidigger.voxelgameslib.api.map;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,8 +29,11 @@ import javax.annotation.Nullable;
 public class Vector3D implements Cloneable {
     public static final double EPSILON = 1e-6;
     
+    @Expose
     private final double x;
+    @Expose
     private final double y;
+    @Expose
     private final double z;
     
     public Vector3D(double x, double y, double z) {

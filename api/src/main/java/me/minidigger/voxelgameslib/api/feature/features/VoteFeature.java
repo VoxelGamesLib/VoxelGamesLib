@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -24,13 +26,14 @@ import me.minidigger.voxelgameslib.api.world.WorldConfig;
  */
 public class VoteFeature extends AbstractFeature {
     
-    @Inject
-    private transient WorldConfig config;
-    
+    @Expose
     private int maxMaps = 3;
     
-    private transient Map<UUID, Integer> votes = new HashMap<>();
-    private transient Map<Integer, MapInfo> availableMaps = new HashMap<>();
+    @Inject
+    private WorldConfig config;
+    
+    private Map<UUID, Integer> votes = new HashMap<>();
+    private Map<Integer, MapInfo> availableMaps = new HashMap<>();
     
     @Override
     public void start() {

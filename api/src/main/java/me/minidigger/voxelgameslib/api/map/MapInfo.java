@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -8,8 +10,11 @@ import javax.annotation.Nonnull;
  */
 public class MapInfo {
     
+    @Expose
     private String name;
+    @Expose
     private String author;
+    @Expose
     private List<String> gamemode;
     
     /**
