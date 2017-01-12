@@ -42,6 +42,7 @@ import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
+import me.minidigger.voxelgameslib.bukkit.block.BlockListener;
 import me.minidigger.voxelgameslib.bukkit.block.BukkitBlock;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
@@ -96,6 +97,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         // register listeners
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
+        this.getServer().getPluginManager().registerEvents(injector.getInstance(BlockListener.class), this);
         
         getLogger();
     }

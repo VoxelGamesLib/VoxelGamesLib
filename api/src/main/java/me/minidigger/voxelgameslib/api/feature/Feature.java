@@ -40,5 +40,5 @@ public interface Feature extends Tickable {
     /**
      * @return all features this feature depends on
      */
-    Class<? extends Feature>[] getDependencies();
+    Class[] getDependencies();
 }

@@ -10,6 +10,10 @@ public class BlockEvent implements Event {
     
     private Block block;
     
+    protected BlockEvent(Block block) {
+        this.block = block;
+    }
+    
     /**
      * @return the block involved with this event
      */
