@@ -21,6 +21,12 @@
           "isRespawn": true,
           "isInitialSpawn": true,
           "name": "SpawnFeature"
+        },
+        {
+          "name": "NoBlockBreakFeature"
+        },
+        {
+          "name": "NoBlockPlaceFeature"
         }
       ]
     },
@@ -44,6 +50,12 @@
           "isRespawn": true,
           "isInitialSpawn": false,
           "name": "SpawnFeature"
+        },
+        {
+          "name": "NoBlockBreakFeature"
+        },
+        {
+          "name": "NoBlockPlaceFeature"
         }
       ]
     },
@@ -69,6 +81,12 @@
         },
         {
           "name": "ScoreboardFeature"
+        },
+        {
+          "name": "NoBlockBreakFeature"
+        },
+        {
+          "name": "NoBlockPlaceFeature"
         }
       ]
     }

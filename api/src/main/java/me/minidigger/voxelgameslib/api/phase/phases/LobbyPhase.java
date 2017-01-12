@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
+import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
@@ -34,5 +35,8 @@ public class LobbyPhase extends AbstractPhase {
     
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
+    
+        ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
+        addFeature(clearInventoryFeature);
     }
 }

@@ -158,4 +158,9 @@ public class BukkitConsoleUser implements ConsoleUser<ConsoleCommandSender> {
     public Injector getInjector() {
         return injector;
     }
+    
+    @Override
+    public void clearInventory() {
+        // ignore
+    }
 }

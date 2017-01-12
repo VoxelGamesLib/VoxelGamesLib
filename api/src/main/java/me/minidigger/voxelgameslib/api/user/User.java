@@ -160,4 +160,9 @@ public interface User<T> extends ImplementMe<T> {
      * @param cmd the command string to execute
      */
     void executeCommand(String cmd);
+    
+    /**
+     * Clears the inventory of the user
+     */
+    void clearInventory();
 }

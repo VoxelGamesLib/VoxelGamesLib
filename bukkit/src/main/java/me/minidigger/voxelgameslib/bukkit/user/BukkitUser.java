@@ -201,4 +201,9 @@ public class BukkitUser implements User<Player> {
     public Injector getInjector() {
         return injector;
     }
+    
+    @Override
+    public void clearInventory() {
+        player.getInventory().clear();
+    }
 }

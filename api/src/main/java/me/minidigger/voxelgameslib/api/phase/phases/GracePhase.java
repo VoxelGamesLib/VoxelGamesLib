@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.GameConstants;
+import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapInfoFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
@@ -41,6 +42,9 @@ public class GracePhase extends TimedPhase {
     
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
+    
+        ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
+        addFeature(clearInventoryFeature);
     }
     
     //TODO GracePhase
