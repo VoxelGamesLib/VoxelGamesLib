@@ -165,4 +165,16 @@ public interface User<T> extends ImplementMe<T> {
      * Clears the inventory of the user
      */
     void clearInventory();
+    
+    /**
+     * @return the health of the user
+     */
+    double getHealth();
+    
+    /**
+     * damages the user
+     *
+     * @param damage the damage that will be applied
+     */
+    void damage(double damage);
 }

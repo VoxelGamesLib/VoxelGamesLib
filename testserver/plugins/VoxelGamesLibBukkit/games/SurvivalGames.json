@@ -27,6 +27,12 @@
         },
         {
           "name": "NoBlockPlaceFeature"
+        },
+        {
+          "name": "ClearInventoryFeature"
+        },
+        {
+          "name": "NoDamageFeature"
         }
       ]
     },
@@ -56,6 +62,12 @@
         },
         {
           "name": "NoBlockPlaceFeature"
+        },
+        {
+          "name": "ClearInventoryFeature"
+        },
+        {
+          "name": "NoDamageFeature"
         }
       ]
     },
@@ -87,6 +99,12 @@
         },
         {
           "name": "NoBlockPlaceFeature"
+        },
+        {
+          "name": "ClearInventoryFeature"
+        },
+        {
+          "name": "NoDamageFeature"
         }
       ]
     }

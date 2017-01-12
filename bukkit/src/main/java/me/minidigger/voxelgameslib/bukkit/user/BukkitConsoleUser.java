@@ -163,4 +163,14 @@ public class BukkitConsoleUser implements ConsoleUser<ConsoleCommandSender> {
     public void clearInventory() {
         // ignore
     }
+    
+    @Override
+    public double getHealth() {
+        return 9001; // ITS OVER 9000 !!!!
+    }
+    
+    @Override
+    public void damage(double damage) {
+        // can't touch this
+    }
 }

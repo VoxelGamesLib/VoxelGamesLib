@@ -206,4 +206,14 @@ public class BukkitUser implements User<Player> {
     public void clearInventory() {
         player.getInventory().clear();
     }
+    
+    @Override
+    public double getHealth() {
+        return player.getHealth();
+    }
+    
+    @Override
+    public void damage(double damage) {
+        player.damage(damage);
+    }
 }

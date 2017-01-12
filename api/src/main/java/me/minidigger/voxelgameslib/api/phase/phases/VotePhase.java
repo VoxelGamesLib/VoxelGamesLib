@@ -5,6 +5,7 @@ import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
+import me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.feature.features.VoteFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
@@ -41,6 +42,9 @@ public class VotePhase extends TimedPhase {
     
         ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
         addFeature(clearInventoryFeature);
+    
+        NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
+        addFeature(noDamageFeature);
     }
     
     //TODO vote phase

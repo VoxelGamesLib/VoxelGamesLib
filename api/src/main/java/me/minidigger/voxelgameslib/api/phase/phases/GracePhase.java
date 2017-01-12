@@ -6,6 +6,7 @@ import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapInfoFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
+import me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature;
 import me.minidigger.voxelgameslib.api.feature.features.ScoreboardFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
@@ -45,6 +46,9 @@ public class GracePhase extends TimedPhase {
     
         ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
         addFeature(clearInventoryFeature);
+    
+        NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
+        addFeature(noDamageFeature);
     }
     
     //TODO GracePhase
