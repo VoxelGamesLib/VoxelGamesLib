@@ -62,14 +62,14 @@ public class BukkitScoreboard extends AbstractScoreboard {
     @Override
     public void addUser(@Nonnull User user) {
         super.addUser(user);
-        
-        ((Player) user.getPlayerObject()).setScoreboard(scoreboard);
+    
+        ((Player) user.getImplementationType()).setScoreboard(scoreboard);
     }
     
     @Override
     public void removeUser(@Nonnull User user) {
         super.removeUser(user);
-        
-        ((Player) user.getPlayerObject()).setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+    
+        ((Player) user.getImplementationType()).setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
     }
 }

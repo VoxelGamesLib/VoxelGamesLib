@@ -30,7 +30,7 @@ import org.bukkit.entity.Player;
 import lombok.extern.java.Log;
 
 @Log
-public class BukkitUser implements User {
+public class BukkitUser implements User<Player> {
     
     private Player player;
     private Role role;
@@ -47,12 +47,13 @@ public class BukkitUser implements User {
     private Injector injector;
     
     @Override
-    public void setPlayerObject(@Nonnull Object playerObject) {
-        this.player = (Player) playerObject;
+    public void setImplementationType(@Nonnull Player p) {
+        player = p;
     }
     
+    @Nonnull
     @Override
-    public Object getPlayerObject() {
+    public Player getImplementationType() {
         return player;
     }
     
@@ -160,31 +161,39 @@ public class BukkitUser implements User {
     @Override
     public void setItemInHand(@Nonnull Hand hand, @Nonnull Item item) {
         if (hand == Hand.MAINHAND) {
-            player.getInventory().setItemInMainHand(((BukkitItem) item).toItemStack());
+            player.getInventory().setItemInMainHand(((BukkitItem) item).getImplementationType());
         } else {
-            player.getInventory().setItemInOffHand(((BukkitItem) item).toItemStack());
+            player.getInventory().setItemInOffHand(((BukkitItem) item).getImplementationType());
         }
     }
     
     @Nonnull
     @Override
     public Item getItemInHand(@Nonnull Hand hand) {
+        Item item = injector.getInstance(Item.class);
         if (hand == Hand.MAINHAND) {
-            return BukkitItem.fromItemStack(player.getInventory().getItemInMainHand());
+            //noinspection unchecked
+            item.setImplementationType(player.getInventory().getItemInMainHand());
+            return item;
         } else {
-            return BukkitItem.fromItemStack(player.getInventory().getItemInOffHand());
+            //noinspection unchecked
+            item.setImplementationType(player.getInventory().getItemInOffHand());
+            return item;
         }
     }
     
     @Override
     public void setIventory(int slot, @Nonnull Item item) {
-        player.getInventory().setItem(slot, ((BukkitItem) item).toItemStack());
+        player.getInventory().setItem(slot, ((BukkitItem) item).getImplementationType());
     }
     
     @Nonnull
     @Override
     public Item getInventory(int slot) {
-        return BukkitItem.fromItemStack(player.getInventory().getItem(slot));
+        Item item = injector.getInstance(Item.class);
+        //noinspection unchecked
+        item.setImplementationType(player.getInventory().getItem(slot));
+        return item;
     }
     
     @Nonnull

@@ -46,8 +46,8 @@ public abstract class TimedPhase extends AbstractPhase {
         super.start();
         
         originalTicks = ticks;
-        
-        bossBar = server.createBossBar(getName(), BossBarColor.BLUE, BossBarStyle.SPILT_20);
+    
+        bossBar = server.createBossBar(getName(), BossBarColor.BLUE, BossBarStyle.SPLIT_20);
         
         getGame().getPlayers().forEach(u -> bossBar.addUser(u));
         getGame().getSpectators().forEach(u -> bossBar.addUser(u));

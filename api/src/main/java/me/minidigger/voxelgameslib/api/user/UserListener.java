@@ -43,7 +43,8 @@ public class UserListener {
         }
         
         User user = injector.getInstance(User.class);
-        user.setPlayerObject(event.getPlayerObject());
+        //noinspection unchecked
+        user.setImplementationType(event.getPlayerObject());
         handler.join(user);
     }
     

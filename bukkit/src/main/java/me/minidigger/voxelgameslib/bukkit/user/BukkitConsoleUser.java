@@ -2,8 +2,6 @@ package me.minidigger.voxelgameslib.bukkit.user;
 
 import com.google.inject.Injector;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -28,7 +26,7 @@ import org.bukkit.command.ConsoleCommandSender;
 /**
  * Created by Martin on 02.10.2016.
  */
-public class BukkitConsoleUser implements ConsoleUser {
+public class BukkitConsoleUser implements ConsoleUser<ConsoleCommandSender> {
     
     private ConsoleCommandSender user = Bukkit.getConsoleSender();
     
@@ -38,13 +36,14 @@ public class BukkitConsoleUser implements ConsoleUser {
     private Injector injector;
     
     @Override
-    public void setPlayerObject(@Nonnull Object playerObject) {
-        // unused
+    public void setImplementationType(@Nonnull ConsoleCommandSender consoleCommandSender) {
+        user = consoleCommandSender;
     }
     
+    @Nonnull
     @Override
-    public Object getPlayerObject() {
-        throw new NotImplementedException();
+    public ConsoleCommandSender getImplementationType() {
+        return user;
     }
     
     @Override

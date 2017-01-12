@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.bossbar;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.bossbar.AbstractBossBar;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
@@ -8,22 +9,32 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.user.User;
 
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
-import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
 /**
  * Created by Martin on 07.01.2017.
  */
-public class BukkitBossBar extends AbstractBossBar {
+public class BukkitBossBar extends AbstractBossBar<BossBar> {
+    
+    @Inject
+    private BossBarStyleConverter bossBarStyleConverter;
+    @Inject
+    private BossBarFlagConverter bossBarFlagConverter;
+    @Inject
+    private BossBarColorConverter bossBarColorConverter;
     
     private org.bukkit.boss.BossBar bukkitBar;
     
     @Override
-    public void setImplObject(@Nonnull Object object) {
-        bukkitBar = (BossBar) object;
+    public void setImplementationType(@Nonnull BossBar bossBar) {
+        bukkitBar = bossBar;
+    }
+    
+    @Nonnull
+    @Override
+    public BossBar getImplementationType() {
+        return bukkitBar;
     }
     
     @Nonnull
@@ -40,38 +51,38 @@ public class BukkitBossBar extends AbstractBossBar {
     @Nonnull
     @Override
     public BossBarColor getColor() {
-        return BossBarColor.valueOf(bukkitBar.getColor().name());
+        return bossBarColorConverter.toVGL(bukkitBar.getColor());
     }
     
     @Override
     public void setColor(@Nonnull BossBarColor color) {
-        bukkitBar.setColor(BarColor.valueOf(color.name()));
+        bukkitBar.setColor(bossBarColorConverter.fromVGL(color));
     }
     
     @Nonnull
     @Override
     public BossBarStyle getStyle() {
-        return BossBarStyle.valueOf(bukkitBar.getStyle().name().replace("SEGMENTED", "SPLIT"));
+        return bossBarStyleConverter.toVGL(bukkitBar.getStyle());
     }
     
     @Override
     public void setStyle(@Nonnull BossBarStyle style) {
-        bukkitBar.setStyle(BarStyle.valueOf(style.name().replace("SPLIT", "SEGMENTED")));
+        bukkitBar.setStyle(bossBarStyleConverter.fromVGL(style));
     }
     
     @Override
     public void removeModifier(@Nonnull BossBarModifier modifier) {
-        bukkitBar.removeFlag(BarFlag.valueOf(modifier.name()));
+        bukkitBar.removeFlag(bossBarFlagConverter.fromVGL(modifier));
     }
     
     @Override
     public void addModifier(@Nonnull BossBarModifier modifier) {
-        bukkitBar.addFlag(BarFlag.valueOf(modifier.name()));
+        bukkitBar.addFlag(bossBarFlagConverter.fromVGL(modifier));
     }
     
     @Override
     public boolean hasModifier(@Nonnull BossBarModifier modifier) {
-        return bukkitBar.hasFlag(BarFlag.valueOf(modifier.name()));
+        return bukkitBar.hasFlag(bossBarFlagConverter.fromVGL(modifier));
     }
     
     @Override
@@ -87,13 +98,13 @@ public class BukkitBossBar extends AbstractBossBar {
     @Override
     public void addUser(@Nonnull User user) {
         super.addUser(user);
-        bukkitBar.addPlayer((Player) user.getPlayerObject());
+        bukkitBar.addPlayer((Player) user.getImplementationType());
     }
     
     @Override
     public void removeUser(@Nonnull User user) {
         super.removeUser(user);
-        bukkitBar.removePlayer((Player) user.getPlayerObject());
+        bukkitBar.removePlayer((Player) user.getImplementationType());
     }
     
     @Override

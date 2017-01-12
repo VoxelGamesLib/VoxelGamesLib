@@ -3,12 +3,13 @@ package me.minidigger.voxelgameslib.api.bossbar;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+import me.minidigger.voxelgameslib.api.ImplementMe;
 import me.minidigger.voxelgameslib.api.user.User;
 
 /**
  * Represents the boss bar, that can be displayed to a number of players.
  */
-public interface BossBar {
+public interface BossBar<T> extends ImplementMe<T> {
     
     /**
      * Returns the title of this boss bar
@@ -135,12 +136,5 @@ public interface BossBar {
      * @return visible status
      */
     boolean isVisible();
-    
-    /**
-     * sets the servers implementation object
-     *
-     * @param object the implementation object
-     */
-    void setImplObject(@Nonnull Object object);
     
 }
