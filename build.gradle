@@ -29,6 +29,9 @@ subprojects {
         maven {
             url "http://ci.emc.gs/nexus/content/repositories/aikar/"
         }
+        maven {
+            url "https://jcenter.bintray.com/"
+        }
     }
 
     idea {
