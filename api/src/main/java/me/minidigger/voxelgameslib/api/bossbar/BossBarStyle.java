@@ -11,17 +11,17 @@ public enum BossBarStyle {
     /**
      * Splits the boss bar into 6 segments
      */
-    SPILT_6,
+    SPLIT_6,
     /**
      * Splits the boss bar into 10 segments
      */
-    SPILT_10,
+    SPLIT_10,
     /**
      * Splits the boss bar into 12 segments
      */
-    SPILT_12,
+    SPLIT_12,
     /**
      * Splits the boss bar into 20 segments
      */
-    SPILT_20,
+    SPLIT_20,
 }

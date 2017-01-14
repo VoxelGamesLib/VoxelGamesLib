@@ -1,16 +1,19 @@
 package me.minidigger.voxelgameslib.bukkit.map;
 
+import com.google.inject.Injector;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.MapException;
+import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.map.ChestMarker;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
-import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.bukkit.util.FaceUtil;
 
 import org.bukkit.Bukkit;
@@ -23,10 +26,16 @@ import org.bukkit.block.Chest;
 import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 
+import lombok.extern.java.Log;
+
 /**
  * Created by Martin on 04.10.2016.
  */
+@Log
 public class BukkitMapScanner extends MapScanner {
+    
+    @Inject
+    private Injector injector;
     
     @Override
     public void searchForMarkers(@Nonnull Map map, @Nonnull Vector3D center, int range) {
@@ -57,25 +66,29 @@ public class BukkitMapScanner extends MapScanner {
                             if (skull.getOwningPlayer() != null) {
                                 String markerData = skull.getOwningPlayer().getName();
                                 if (markerData == null) {
-                                    System.out.println("owning player name null?!");
+                                    log.warning("owning player name null?!");
                                     markerData = skull.getOwner();
                                 }
                                 markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), FaceUtil.faceToYaw(skull.getRotation()), markerData));
                             } else {
-                                System.out.println("unknown owner");
+                                log.warning("unknown owner");
                             }
                         }
                     } else if (te.getType() == Material.CHEST) {
                         Chest chest = (Chest) te;
                         String name = chest.getBlockInventory().getName();
-                        System.out.println("found chest " + name);
-                        BukkitItem[] items = new BukkitItem[chest.getBlockInventory().getStorageContents().length];
+                        Item[] items = new Item[chest.getBlockInventory().getStorageContents().length];
                         for (int i = 0; i < items.length; i++) {
                             ItemStack is = chest.getBlockInventory().getItem(i);
+                            Item item = injector.getInstance(Item.class);
                             if (is == null) {
-                                items[i] = BukkitItem.fromItemStack(new ItemStack(Material.AIR));
+                                //noinspection unchecked
+                                item.setImplementationType(new ItemStack(Material.AIR));
+                                items[i] = item;
                             } else {
-                                items[i] = BukkitItem.fromItemStack(is);
+                                //noinspection unchecked
+                                item.setImplementationType(is);
+                                items[i] = item;
                             }
                         }
                         chestMarkers.add(new ChestMarker(new Vector3D(chest.getX(), chest.getY(), chest.getZ()), name, items));

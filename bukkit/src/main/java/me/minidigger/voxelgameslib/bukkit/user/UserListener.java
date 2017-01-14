@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserDamageEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
@@ -15,10 +16,13 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
-import me.minidigger.voxelgameslib.bukkit.util.LocationUtil;
+import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -36,6 +40,8 @@ public class UserListener implements Listener {
     private UserHandler handler;
     @Inject
     private VGLEventHandler eventHandler;
+    @Inject
+    private VectorConverter vectorConverter;
     
     @EventHandler
     public void login(@Nonnull PlayerLoginEvent event) {
@@ -81,11 +87,27 @@ public class UserListener implements Listener {
     public void respawn(@Nonnull PlayerRespawnEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
         if (user.isPresent()) {
-            UserRespawnEvent e = new UserRespawnEvent(user.get(), event.getRespawnLocation().getWorld().getName(), LocationUtil.toVector(event.getRespawnLocation()));
+            UserRespawnEvent e = new UserRespawnEvent(user.get(), event.getRespawnLocation().getWorld().getName(), vectorConverter.toVGL(event.getRespawnLocation().toVector()));
             eventHandler.callEvent(e);
-            event.setRespawnLocation(LocationUtil.toLocation(e.getWorld(), e.getRespawnLocation()));
+            event.setRespawnLocation(vectorConverter.fromVGL(e.getRespawnLocation()).toLocation(Bukkit.getWorld(e.getWorld())));
         } else {
             log.warning("User " + event.getPlayer().getName() + " tried to respawn without having a user object!");
+        }
+    }
+    
+    @EventHandler
+    public void onDamage(@Nonnull EntityDamageEvent event) {
+        if (event.getEntityType() != EntityType.PLAYER) {
+            return;
+        }
+        
+        Optional<User> user = handler.getUser(event.getEntity().getUniqueId());
+        if (user.isPresent()) {
+            UserDamageEvent e = new UserDamageEvent(user.get());
+            eventHandler.callEvent(e);
+            event.setCancelled(e.isCanceled());
+        } else {
+            log.warning("User " + event.getEntity().getName() + " tried to be damaged without having a user object!");
         }
     }
 }

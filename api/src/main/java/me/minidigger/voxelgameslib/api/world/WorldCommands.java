@@ -66,7 +66,6 @@ public class WorldCommands {
         Optional<Map> o = handler.getMap(args.getArg(0));
         if (o.isPresent()) {
             Map map = o.get();
-            System.out.println("teleporting to " + map.getWorldName() + ", " + map.getCenter());
             args.getSender().teleport(map.getWorldName(), map.getCenter());
         } else {
             args.getSender().teleport(args.getArg(0));

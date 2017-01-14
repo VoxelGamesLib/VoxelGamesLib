@@ -1,7 +1,13 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.GameConstants;
+import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
+import me.minidigger.voxelgameslib.api.feature.features.MapInfoFeature;
+import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
+import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
+import me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature;
+import me.minidigger.voxelgameslib.api.feature.features.ScoreboardFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
 
@@ -25,6 +31,24 @@ public class GracePhase extends TimedPhase {
     
         SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         addFeature(spawnFeature);
+    
+        MapInfoFeature mapInfoFeature = getGame().createFeature(MapInfoFeature.class, this);
+        addFeature(mapInfoFeature);
+    
+        ScoreboardFeature scoreboardFeature = getGame().createFeature(ScoreboardFeature.class, this);
+        addFeature(scoreboardFeature);
+    
+        NoBlockBreakFeature noBlockBreakFeature = getGame().createFeature(NoBlockBreakFeature.class, this);
+        addFeature(noBlockBreakFeature);
+    
+        NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
+        addFeature(noBlockPlaceFeature);
+    
+        ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
+        addFeature(clearInventoryFeature);
+    
+        NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
+        addFeature(noDamageFeature);
     }
     
     //TODO GracePhase

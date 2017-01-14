@@ -5,8 +5,10 @@ import javax.annotation.Nullable;
 
 import me.minidigger.voxelgameslib.api.exception.LangException;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.utils.ChatUtil;
+import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
+import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
-import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TranslatableComponent;
 
 /**
  * Gives quick access to the lang storage and translation and stuff
@@ -72,13 +74,34 @@ public class Lang {
             args = new Object[0];
         }
     
-        if (args.length != key.getArgs()) {
-            throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
-        }
+        return parseFormat(string(key, loc, args));
+    }
     
-        LangStorage storage = handler.getStorage(loc);
-        String string = storage.get(key);
-        return new ComponentBuilder(new TranslatableComponent(string, args).toPlainText());
+    /**
+     * Parses a string into a component builder.<br>
+     * Takes care of {color} variables
+     *
+     * @param string the input string
+     * @return the outputted and properly filled component builder
+     */
+    @Nonnull
+    public static ComponentBuilder parseFormat(@Nonnull String string) {
+        ComponentBuilder componentBuilder = new ComponentBuilder("");
+        String[] tokens = string.split("\\{|}");
+        ChatColor savedColor = ChatColor.WHITE;
+        outer:
+        for (String token : tokens) {
+            for (ChatColor color : ChatColor.values()) {
+                if (color.name().equalsIgnoreCase(token)) {
+                    savedColor = color;
+                    continue outer;
+                }
+            }
+            componentBuilder.append(token);
+            componentBuilder.color(savedColor);
+        }
+        
+        return componentBuilder;
     }
     
     /**
@@ -154,12 +177,28 @@ public class Lang {
      */
     @Nonnull
     public static String string(@Nonnull LangKey key, @Nonnull Locale loc, @Nonnull Object... args) {
-        if (args.length != key.getArgs()) {
-            throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs());
+        if (args.length != key.getArgs().length) {
+            throw new LangException("Wrong arguments for LangKey " + key.name() + ": entered " + args.length + ", expected " + key.getArgs().length);
         }
     
         LangStorage storage = handler.getStorage(loc);
         String string = storage.get(key);
+    
+        for (int i = 0; i < args.length; i++) {
+            String replacement;
+            if (args[i] instanceof String) {
+                replacement = (String) args[i];
+            } else if (args[i] instanceof BaseComponent) {
+                replacement = ChatUtil.toPlainText((BaseComponent) args[i]);
+            } else if (args[i] instanceof BaseComponent[]) {
+                replacement = ChatUtil.toPlainText((BaseComponent[]) args[i]);
+            } else {
+                replacement = String.valueOf(args[i]);
+            }
+        
+            string = string.replace("{" + key.getArgs()[i] + "}", replacement);
+        }
+        
         return String.format(string, args);
     }
 }

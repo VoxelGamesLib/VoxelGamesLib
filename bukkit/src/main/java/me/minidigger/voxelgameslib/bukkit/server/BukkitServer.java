@@ -10,16 +10,18 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBar;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
+import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.server.AbstractServer;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarColorConverter;
+import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarStyleConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
+import me.minidigger.voxelgameslib.bukkit.scoreboard.BukkitScoreboard;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 
 import org.bukkit.Bukkit;
-import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 
 import lombok.extern.java.Log;
@@ -35,6 +37,10 @@ public class BukkitServer extends AbstractServer {
     
     @Inject
     private UserHandler userHandler;
+    @Inject
+    private BossBarColorConverter bossBarColorConverter;
+    @Inject
+    private BossBarStyleConverter bossBarStyleConverter;
     
     @Override
     public List<User> getOnlineUsers() {
@@ -57,13 +63,22 @@ public class BukkitServer extends AbstractServer {
     
     @Override
     public BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers) {
-        org.bukkit.boss.BossBar bossBar = Bukkit.createBossBar(title, BarColor.valueOf(color.name()),
-                BarStyle.valueOf(style.name().replace("SPILT", "SEGMENTED")));
+        org.bukkit.boss.BossBar bossBar = Bukkit.createBossBar(title, bossBarColorConverter.fromVGL(color),
+                bossBarStyleConverter.fromVGL(style));
         BossBar bar = new BukkitBossBar();
-        bar.setImplObject(bossBar);
+        //noinspection unchecked
+        bar.setImplementationType(bossBar);
         for (BossBarModifier modifier : modifiers) {
             bar.addModifier(modifier);
         }
         return bar;
+    }
+    
+    @Override
+    public Scoreboard createScoreboard(String title) {
+        BukkitScoreboard scoreboard = new BukkitScoreboard();
+        scoreboard.setImplObject(Bukkit.getScoreboardManager().getNewScoreboard());
+        scoreboard.setTitle(title);
+        return scoreboard;
     }
 }

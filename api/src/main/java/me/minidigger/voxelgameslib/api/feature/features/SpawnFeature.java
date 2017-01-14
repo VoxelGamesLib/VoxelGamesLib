@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,6 +11,7 @@ import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserRespawnEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
@@ -19,10 +22,13 @@ import me.minidigger.voxelgameslib.api.user.User;
  */
 public class SpawnFeature extends AbstractFeature {
     
-    private transient List<Vector3D> spawns = new ArrayList<>();
-    private transient Map map;
+    @Expose
     private boolean isRespawn = true;
+    @Expose
     private boolean isInitialSpawn = true;
+    
+    private List<Vector3D> spawns = new ArrayList<>();
+    private Map map;
     
     @Override
     public void start() {
@@ -33,7 +39,6 @@ public class SpawnFeature extends AbstractFeature {
             }
         }
         if (isInitialSpawn) {
-            System.out.println("initial spawn");
             for (User user : getPhase().getGame().getPlayers()) {
                 user.teleport(map.getWorldName(), getSpawn(user));
             }
@@ -83,7 +88,8 @@ public class SpawnFeature extends AbstractFeature {
     }
     
     @Override
-    public Class[] getDependencies() {
+    @SuppressWarnings("unchecked")
+    public Class<? extends Feature>[] getDependencies() {
         return new Class[]{MapFeature.class};
     }
     

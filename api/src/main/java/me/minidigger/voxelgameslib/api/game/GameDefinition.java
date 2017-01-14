@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nonnull;
@@ -11,13 +13,19 @@ import me.minidigger.voxelgameslib.api.phase.Phase;
  */
 public class GameDefinition {
     
+    @Expose
     private GameMode gameMode;
     
+    @Expose
     private int minPlayers;
+    
+    @Expose
     private int maxPlayers;
     
+    @Expose
     private List<Phase> phases;
     
+    @Expose
     private Map<String, Object> gameData;
     
     /**

@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.phase;
 
+import com.google.gson.annotations.Expose;
+
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.bossbar.BossBar;
@@ -12,12 +14,15 @@ import me.minidigger.voxelgameslib.api.server.Server;
  */
 public abstract class TimedPhase extends AbstractPhase {
     
-    @Inject
-    private transient Server server;
-    
+    @Expose
     private int ticks;
-    private transient double originalTicks;
-    private transient BossBar bossBar;
+    
+    @Inject
+    private Server server;
+    
+    private double originalTicks;
+    private BossBar bossBar;
+    private boolean started;
     
     /**
      * Sets the amount of ticks this phase should tick, can be modified after start
@@ -41,18 +46,22 @@ public abstract class TimedPhase extends AbstractPhase {
         super.start();
         
         originalTicks = ticks;
-        
-        bossBar = server.createBossBar(getName(), BossBarColor.BLUE, BossBarStyle.SPILT_20);
+    
+        bossBar = server.createBossBar(getName(), BossBarColor.BLUE, BossBarStyle.SPLIT_20);
         
         getGame().getPlayers().forEach(u -> bossBar.addUser(u));
         getGame().getSpectators().forEach(u -> bossBar.addUser(u));
+    
+        started = true;
     }
     
     @Override
     public void stop() {
         super.stop();
-        
-        bossBar.removeAll();
+    
+        if (started) {
+            bossBar.removeAll();
+        }
     }
     
     @Override
@@ -62,8 +71,8 @@ public abstract class TimedPhase extends AbstractPhase {
         
         if (ticks <= 0) {
             getGame().endPhase();
+        } else {
+            bossBar.setProgress((ticks / originalTicks));
         }
-    
-        bossBar.setProgress((ticks / originalTicks));
     }
 }

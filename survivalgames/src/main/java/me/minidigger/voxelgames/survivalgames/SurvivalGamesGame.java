@@ -33,9 +33,11 @@ public class SurvivalGamesGame extends AbstractGame {
         LobbyPhase lobbyPhase = createPhase(LobbyPhase.class);
         VotePhase votePhase = createPhase(VotePhase.class);
         GracePhase gracePhase = createPhase(GracePhase.class);
+        SurvivalGamesPhase survivalGamesPhase = createPhase(SurvivalGamesPhase.class);
         
         lobbyPhase.setNextPhase(votePhase);
         votePhase.setNextPhase(gracePhase);
+        gracePhase.setNextPhase(survivalGamesPhase);
     
         activePhase = lobbyPhase;
     
@@ -50,6 +52,7 @@ public class SurvivalGamesGame extends AbstractGame {
     }
     
     private void loadMap() {
+        // TODO this doesn't respect if a user changed the lobby in the config
         Optional<MapInfo> info = worldHandler.getMapInfo("Lobby");
         if (info.isPresent()) {
             putGameData("lobbymap", info.get());

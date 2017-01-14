@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +13,7 @@ import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
@@ -23,18 +26,17 @@ import me.minidigger.voxelgameslib.api.world.WorldConfig;
  */
 public class VoteFeature extends AbstractFeature {
     
-    @Inject
-    private transient WorldConfig config;
-    
+    @Expose
     private int maxMaps = 3;
     
-    private transient Map<UUID, Integer> votes = new HashMap<>();
-    private transient Map<Integer, MapInfo> availableMaps = new HashMap<>();
+    @Inject
+    private WorldConfig config;
+    
+    private Map<UUID, Integer> votes = new HashMap<>();
+    private Map<Integer, MapInfo> availableMaps = new HashMap<>();
     
     @Override
     public void start() {
-        System.out.println("start vote feature");
-        
         String mode = getPhase().getGame().getGameMode().getName();
         int id = 0;
         for (MapInfo info : config.maps) {
@@ -113,7 +115,6 @@ public class VoteFeature extends AbstractFeature {
     
     @CommandInfo(name = "vote", perm = "command.vote", role = Role.DEFAULT)
     public void vote(@Nonnull CommandArguments args) {
-        System.out.printf("vote");
         if (args.getNumArgs() == 0) {
             sendVoteMessage(args.getSender());
         } else {
@@ -140,7 +141,8 @@ public class VoteFeature extends AbstractFeature {
     }
     
     @Override
-    public Class[] getDependencies() {
+    @SuppressWarnings("unchecked")
+    public Class<? extends Feature>[] getDependencies() {
         return new Class[0];
     }
 }

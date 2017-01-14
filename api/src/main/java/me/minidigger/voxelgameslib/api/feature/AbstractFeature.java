@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.phase.Phase;
@@ -9,8 +11,10 @@ import me.minidigger.voxelgameslib.api.phase.Phase;
  */
 public abstract class AbstractFeature implements Feature {
     
+    @Expose
     private String name;
-    private transient Phase phase;
+    
+    private Phase phase;
     
     /**
      * Sets the name of this feature to the name of the class

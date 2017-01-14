@@ -6,7 +6,6 @@
 
 This will be a large-scaled, fully modular minigames api for many minecraft server platforms. the plan is currently to support both bukkit (including spigot and paper) and sponge. Other may follow (PE anyone?!)
 
-## Contributing
+## Contributing and Building
 
-Currently there is not much to write here. If you want to help me develop this, get in touch with me (admin@minidigger.me)  
-This project uses a modified version of the google java style which can we found in the VoxelGamesLib.xml file in the root of the repo.
+Take a look at the ![Contributing Guidelines](https://github.com/MiniDigger/VoxelGamesLib/blob/master/CONTRIBUTING.md)

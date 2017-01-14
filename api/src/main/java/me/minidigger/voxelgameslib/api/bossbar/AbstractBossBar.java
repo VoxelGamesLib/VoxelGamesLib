@@ -9,7 +9,7 @@ import me.minidigger.voxelgameslib.api.user.User;
 /**
  * Implements some basic boss bar stuff like user handling
  */
-public abstract class AbstractBossBar implements BossBar {
+public abstract class AbstractBossBar<T> implements BossBar<T> {
     
     private List<User> users = new ArrayList<>();
     

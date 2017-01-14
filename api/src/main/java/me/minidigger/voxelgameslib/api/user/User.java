@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 
+import me.minidigger.voxelgameslib.api.ImplementMe;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.lang.Locale;
@@ -17,7 +18,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
  * A Users represents an abstract player of the game. There are implementations for every server mod
  * available.<br>
  */
-public interface User {
+public interface User<T> extends ImplementMe<T> {
     
     /**
      * @return the {@link Role} the user is assigned to
@@ -154,22 +155,26 @@ public interface User {
     Injector getInjector();
     
     /**
-     * sets the player object that is provided by the server implementation and used by
-     * implementations of this interface
-     *
-     * @param playerObject the player object to set
-     */
-    void setPlayerObject(@Nonnull Object playerObject);
-    
-    /**
-     * @return the server implementations object for this user
-     */
-    Object getPlayerObject();
-    
-    /**
      * Lets the player execute a command.
      *
      * @param cmd the command string to execute
      */
     void executeCommand(String cmd);
+    
+    /**
+     * Clears the inventory of the user
+     */
+    void clearInventory();
+    
+    /**
+     * @return the health of the user
+     */
+    double getHealth();
+    
+    /**
+     * damages the user
+     *
+     * @param damage the damage that will be applied
+     */
+    void damage(double damage);
 }

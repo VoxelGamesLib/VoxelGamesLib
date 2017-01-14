@@ -23,9 +23,12 @@ import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
+import lombok.extern.java.Log;
+
 /**
  * Abstract implementation of a {@link Game}. Handles broadcasting, ticking and user management.
  */
+@Log
 public abstract class AbstractGame implements Game {
     
     @Inject
@@ -114,17 +117,15 @@ public abstract class AbstractGame implements Game {
                 nextPhase = gameDefinition.getPhases().get(i + 1);
             }
             Phase currPhase = gameDefinition.getPhases().get(i);
-            if (nextPhase != null) {
-                System.out.println("set nextphase of " + currPhase.getName() + " to " + nextPhase.getName());
-            } else {
-                System.out.println("set nextphase of " + currPhase.getName() + " to nothing");
-            }
             currPhase.setNextPhase(nextPhase);
             currPhase.setGame(this);
-            // TODO this is not loading all phases and features, future me: go figure out why. for now, lets just add dummy phases and features to make it work
+    
             for (Feature feature : currPhase.getFeatures()) {
                 feature.setPhase(currPhase);
-                System.out.println("phase " + currPhase.getName() + ", feature " + feature.getName());
+            }
+    
+            for (Feature feature : currPhase.getFeatures()) {
+                feature.init();
             }
         }
     }
@@ -163,7 +164,7 @@ public abstract class AbstractGame implements Game {
             activePhase.setRunning(true);
             activePhase.start();
         } else {
-            System.out.println("was last phase, so stop");
+            log.finer("was last phase, so stop");
             new Throwable().printStackTrace();
             endGame();
         }
@@ -171,8 +172,8 @@ public abstract class AbstractGame implements Game {
     
     @Override
     public void endGame() {
-        System.out.println("end game");
-        new Throwable().printStackTrace();
+        //TODO handle game end better, what about a game end phase?
+        log.finer("end game");
         activePhase.setRunning(false);
         activePhase.stop();
         tickHandler.end(this);

@@ -2,11 +2,12 @@ package me.minidigger.voxelgameslib.api.lang;
 
 import com.google.inject.name.Named;
 
+import nu.studer.java.util.OrderedProperties;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Properties;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class LangStorage {
     private File langFile;
     
     private Locale locale;
-    private final Properties messages = new Properties();
+    private final OrderedProperties messages = new OrderedProperties();
     @Nullable
     private LangStorage parentStorage;
     
@@ -89,7 +90,7 @@ public class LangStorage {
     public int processNewValues() {
         int counter = 0;
         for (LangKey key : LangKey.values()) {
-            if (!messages.containsKey(key.name())) {
+            if (!messages.containsProperty(key.name())) {
                 counter++;
                 messages.setProperty(key.name(), key.getDefaultValue());
             }

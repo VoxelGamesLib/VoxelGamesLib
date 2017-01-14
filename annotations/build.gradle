@@ -1,7 +1,0 @@
-group 'me.minidigger.voxelgameslib'
-
-
-dependencies {
-    compile "org.kohsuke.metainf-services:metainf-services:1.1"
-    compile files("${System.properties['java.home']}/../lib/tools.jar")
-}

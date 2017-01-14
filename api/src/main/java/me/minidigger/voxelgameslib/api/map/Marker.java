@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.map;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 
 import lombok.Data;
@@ -12,9 +14,12 @@ import lombok.Data;
 public class Marker {
     
     @Nonnull
+    @Expose
     private final Vector3D loc;
+    @Expose
     private final double yaw;
     @Nonnull
+    @Expose
     private final String data;
     
     /**
