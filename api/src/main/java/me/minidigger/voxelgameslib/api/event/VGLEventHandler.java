@@ -24,23 +24,23 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class VGLEventHandler implements Handler {
-    
+
     @Inject
     private Injector injector;
-    
+
     @Nonnull
     private Map<Class<? extends Event>, List<RegisteredListener>> registeredListeners = new ConcurrentHashMap<>();
-    
+
     @Override
     public void start() {
         registerEvents();
     }
-    
+
     @Override
     public void stop() {
         unregisterEvents();
     }
-    
+
     /**
      * Calls a event, will execute all registered listeners that are subscribed to this event
      *
@@ -49,16 +49,16 @@ public class VGLEventHandler implements Handler {
     public void callEvent(@Nonnull Event event) {
         registeredListeners.getOrDefault(event.getClass(), new CopyOnWriteArrayList<>()).forEach(listener -> listener.execute(event));
     }
-    
+
     /**
      * Searches the classpath for events to register. registers every event
      */
     public void registerEvents() {
         Set<Class<?>> listeners = new Reflections().getTypesAnnotatedWith(EventListener.class);
-        
+
         listeners.forEach(this::registerEvents);
     }
-    
+
     /**
      * registers all events in that class (and creates a new instance using guice)
      *
@@ -67,7 +67,7 @@ public class VGLEventHandler implements Handler {
     public void registerEvents(@Nonnull Class<?> listener) {
         registerEvents(injector.getInstance(listener));
     }
-    
+
     /**
      * registers all events in that object
      *
@@ -90,7 +90,7 @@ public class VGLEventHandler implements Handler {
             RegisteredListener registeredListener = new RegisteredListener(listener, executor);
             @SuppressWarnings("unchecked")
             Class<? extends Event> event = (Class<? extends Event>) executor.getParameterTypes()[0];
-            
+
             List<RegisteredListener> list = registeredListeners.get(event);
             if (list == null) {
                 list = new CopyOnWriteArrayList<>();
@@ -99,14 +99,14 @@ public class VGLEventHandler implements Handler {
             registeredListeners.put(event, list);
         }
     }
-    
+
     /**
      * Unregisteres all registered listeners
      */
     public void unregisterEvents() {
         registeredListeners.values().forEach(list -> list.forEach(this::unregisterEvents));
     }
-    
+
     /**
      * unregisters all events for that class
      *
@@ -115,7 +115,7 @@ public class VGLEventHandler implements Handler {
     public void unregisterEvents(@Nonnull Class<?> listener) {
         registeredListeners.values().forEach(list -> list.stream().filter(registeredListener -> registeredListener.getExecutor().getDeclaringClass().equals(listener)).forEach(this::unregisterEvents));
     }
-    
+
     /**
      * unregisters one listener
      *
@@ -130,7 +130,7 @@ public class VGLEventHandler implements Handler {
             }
         }
     }
-    
+
     /**
      * unregisters the listener instance
      *

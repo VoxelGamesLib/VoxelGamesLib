@@ -33,29 +33,29 @@ import lombok.extern.java.Log;
  */
 @Log
 public class BukkitMapScanner extends MapScanner {
-    
+
     @Inject
     private Injector injector;
-    
+
     @Override
     public void searchForMarkers(@Nonnull Map map, @Nonnull Vector3D center, int range) {
         World world = Bukkit.getWorld(map.getWorldName());
         if (world == null) {
             throw new MapException("Could not find world " + map.getWorldName() + ". Is it loaded?");
         }
-        
+
         List<Marker> markers = new ArrayList<>();
         List<ChestMarker> chestMarkers = new ArrayList<>();
-        
+
         int startX = (int) center.getX();
         int startY = (int) center.getZ();
-        
+
         int minX = Math.min(startX - range, startX + range);
         int minZ = Math.min(startY - range, startY + range);
-        
+
         int maxX = Math.max(startX - range, startX + range);
         int maxZ = Math.max(startY - range, startY + range);
-        
+
         for (int x = minX; x <= maxX; x += 16) {
             for (int z = minZ; z <= maxZ; z += 16) {
                 Chunk chunk = world.getChunkAt(x >> 4, z >> 4);
@@ -96,7 +96,7 @@ public class BukkitMapScanner extends MapScanner {
                 }
             }
         }
-        
+
         map.setMarkers(markers);
         map.setChestMarkers(chestMarkers);
     }

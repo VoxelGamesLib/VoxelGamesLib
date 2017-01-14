@@ -10,27 +10,27 @@ import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
  * Created by Martin on 14.01.2017.
  */
 public class SurvivalGamesPhase extends AbstractPhase {
-    
+
     @Override
     public void init() {
         setName("SurvivalGamesPhase");
         super.init();
         setAllowJoin(false);
         setAllowSpectate(true);
-        
+
         MapFeature mapFeature = getGame().createFeature(MapFeature.class, this);
         mapFeature.setShouldUnload(true);
         addFeature(mapFeature);
-        
+
         SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         addFeature(spawnFeature);
-        
+
         NoBlockBreakFeature noBlockBreakFeature = getGame().createFeature(NoBlockBreakFeature.class, this);
         addFeature(noBlockBreakFeature);
-        
+
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
     }
-    
+
     //TODO survial games phase
 }

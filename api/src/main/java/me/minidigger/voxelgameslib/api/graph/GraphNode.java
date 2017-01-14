@@ -10,11 +10,11 @@ import java.util.List;
  * @author nicolae caralicea
  */
 final class GraphNode<T> {
-    
+
     T value;
     private List<GraphNode<T>> comingInNodes;
     private List<GraphNode<T>> goingOutNodes;
-    
+
     /**
      * Adds an incoming node to the current node
      *
@@ -26,7 +26,7 @@ final class GraphNode<T> {
         }
         comingInNodes.add(node);
     }
-    
+
     /**
      * Adds an outgoing node from the current node
      *
@@ -38,7 +38,7 @@ final class GraphNode<T> {
         }
         goingOutNodes.add(node);
     }
-    
+
     /**
      * Provides all the coming in nodes
      *
@@ -47,7 +47,7 @@ final class GraphNode<T> {
     List<GraphNode<T>> getComingInNodes() {
         return comingInNodes;
     }
-    
+
     /**
      * Provides all the going out nodes
      *

@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
  * primsmarinejs guys. go check them out here https://github.com/PrismarineJS/minecraft-data/
  */
 public enum Material {
-    
+
     AIR(0),
     STONE(1),
     GRASS(2),
@@ -427,20 +427,20 @@ public enum Material {
     RECORD_WARD(2265),
     RECORD_11(2266),
     RECORD_WAIT(2267);
-    
+
     private int id;
-    
+
     Material(int id) {
         this.id = id;
     }
-    
+
     /**
      * @return the id of the item
      */
     public int getId() {
         return id;
     }
-    
+
     /**
      * Gets a Material based on the id
      *

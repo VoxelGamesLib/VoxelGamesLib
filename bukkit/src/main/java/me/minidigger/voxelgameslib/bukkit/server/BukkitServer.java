@@ -32,16 +32,16 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class BukkitServer extends AbstractServer {
-    
+
     private ConsoleUser user = new BukkitConsoleUser();
-    
+
     @Inject
     private UserHandler userHandler;
     @Inject
     private BossBarColorConverter bossBarColorConverter;
     @Inject
     private BossBarStyleConverter bossBarStyleConverter;
-    
+
     @Override
     public List<User> getOnlineUsers() {
         List<User> users = new ArrayList<>();
@@ -55,12 +55,12 @@ public class BukkitServer extends AbstractServer {
         }
         return users;
     }
-    
+
     @Override
     public ConsoleUser getConsoleUser() {
         return user;
     }
-    
+
     @Override
     public BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers) {
         org.bukkit.boss.BossBar bossBar = Bukkit.createBossBar(title, bossBarColorConverter.fromVGL(color),
@@ -73,7 +73,7 @@ public class BukkitServer extends AbstractServer {
         }
         return bar;
     }
-    
+
     @Override
     public Scoreboard createScoreboard(String title) {
         BukkitScoreboard scoreboard = new BukkitScoreboard();

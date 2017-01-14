@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
  * Used for problems related to scoreboards
  */
 public class ScoreboardException extends VoxelGameLibException {
-    
+
     /**
      * Used for problems related to scoreboards
      *

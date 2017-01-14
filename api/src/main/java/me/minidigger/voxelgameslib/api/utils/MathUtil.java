@@ -4,7 +4,7 @@ package me.minidigger.voxelgameslib.api.utils;
  * Util for math related stuff
  */
 public class MathUtil {
-    
+
     /**
      * calculates & returns the inverse of a modulo n, both of which should be positive.  If the
      * inverse does not exist, 0 is returned.
@@ -23,7 +23,7 @@ public class MathUtil {
         if (v < 0) v = (v + n) % n;
         return v;
     }
-    
+
     /**
      * Wraps the angle to be between -180 and 180 degrees
      *

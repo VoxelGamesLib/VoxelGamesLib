@@ -31,12 +31,12 @@ import lombok.extern.java.Log;
 
 @Log
 public class BukkitUser implements User<Player> {
-    
+
     private Player player;
     private Role role;
     @Nonnull
     private Locale locale = Locale.ENGLISH;
-    
+
     @Inject
     private RoleHandler roleHandler;
     @Inject
@@ -45,72 +45,72 @@ public class BukkitUser implements User<Player> {
     private CommandHandler commandHandler;
     @Inject
     private Injector injector;
-    
+
     @Override
     public void setImplementationType(@Nonnull Player p) {
         player = p;
     }
-    
+
     @Nonnull
     @Override
     public Player getImplementationType() {
         return player;
     }
-    
+
     @Override
     public void executeCommand(String cmd) {
         if (!commandHandler.executeCommand(this, cmd)) {
             Bukkit.dispatchCommand(player, cmd);
         }
     }
-    
+
     @Nonnull
     @Override
     public Role getRole() {
         return role;
     }
-    
+
     @Nonnull
     @Override
     public Locale getLocale() {
         return locale;
     }
-    
+
     @Override
     public void setLocale(@Nonnull Locale locale) {
         this.locale = locale;
     }
-    
+
     @Nonnull
     @Override
     public BaseComponent[] getPrefix() {
         return new ComponentBuilder("PREFIX").create();
     }
-    
+
     @Nonnull
     @Override
     public BaseComponent[] getSuffix() {
         return new ComponentBuilder("SUFFIX").create();
     }
-    
+
     @Nonnull
     @Override
     public BaseComponent[] getDisplayName() {
         return new ComponentBuilder(player.getDisplayName()).create();
     }
-    
+
     @Nonnull
     @Override
     public UUID getUuid() {
         return player.getUniqueId();
     }
-    
+
     @Override
     public void sendMessage(@Nonnull BaseComponent... message) {
         //TODO this is so ugly...
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + ComponentSerializer.toString(message));
     }
-    
+
     @Override
     public boolean hasPermission(@Nonnull Permission perm) {
         if (config.useRoleSystem) {
@@ -119,12 +119,12 @@ public class BukkitUser implements User<Player> {
             return player.hasPermission(perm.getString());
         }
     }
-    
+
     @Override
     public void teleport(@Nonnull Vector3D loc) {
         player.teleport(new Location(player.getWorld(), loc.getX(), loc.getY(), loc.getZ()));
     }
-    
+
     @Override
     public void teleport(@Nonnull String world, @Nonnull Vector3D loc) {
         World w = Bukkit.getWorld(world);
@@ -134,7 +134,7 @@ public class BukkitUser implements User<Player> {
             log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
         }
     }
-    
+
     @Override
     public void teleport(@Nonnull String world) {
         World w = Bukkit.getWorld(world);
@@ -145,19 +145,19 @@ public class BukkitUser implements User<Player> {
             log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
         }
     }
-    
+
     @Nonnull
     @Override
     public Vector3D getLocation() {
         return new Vector3D(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
     }
-    
+
     @Nonnull
     @Override
     public String getWorld() {
         return player.getWorld().getName();
     }
-    
+
     @Override
     public void setItemInHand(@Nonnull Hand hand, @Nonnull Item item) {
         if (hand == Hand.MAINHAND) {
@@ -166,7 +166,7 @@ public class BukkitUser implements User<Player> {
             player.getInventory().setItemInOffHand(((BukkitItem) item).getImplementationType());
         }
     }
-    
+
     @Nonnull
     @Override
     public Item getItemInHand(@Nonnull Hand hand) {
@@ -181,12 +181,12 @@ public class BukkitUser implements User<Player> {
             return item;
         }
     }
-    
+
     @Override
     public void setIventory(int slot, @Nonnull Item item) {
         player.getInventory().setItem(slot, ((BukkitItem) item).getImplementationType());
     }
-    
+
     @Nonnull
     @Override
     public Item getInventory(int slot) {
@@ -195,23 +195,23 @@ public class BukkitUser implements User<Player> {
         item.setImplementationType(player.getInventory().getItem(slot));
         return item;
     }
-    
+
     @Nonnull
     @Override
     public Injector getInjector() {
         return injector;
     }
-    
+
     @Override
     public void clearInventory() {
         player.getInventory().clear();
     }
-    
+
     @Override
     public double getHealth() {
         return player.getHealth();
     }
-    
+
     @Override
     public void damage(double damage) {
         player.damage(damage);

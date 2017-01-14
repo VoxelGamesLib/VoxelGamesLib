@@ -11,7 +11,7 @@ import lombok.extern.java.Log;
  */
 @Log
 public abstract class MapScanner {
-    
+
     /**
      * Scans a map for markers
      *
@@ -19,9 +19,9 @@ public abstract class MapScanner {
      */
     public void scan(@Nonnull Map map) {
         searchForMarkers(map, map.getCenter(), map.getRadius());
-        
+
         List<Marker> errored = new ArrayList<>();
-        
+
         map.getMarkers().stream().filter(marker -> marker.getData().startsWith("chest:")).forEach(marker -> {
             String name = marker.getData().replace("chest:", "");
             if (!map.getChestMarker(name).isPresent()) {
@@ -29,19 +29,19 @@ public abstract class MapScanner {
                 errored.add(marker);
             }
         });
-        
+
         map.getMarkers().removeAll(errored);
-        
+
         List<ChestMarker> errored2 = new ArrayList<>();
-        
+
         map.getChestMarkers().stream().filter(marker -> marker.getData().startsWith("container.chest")).forEach(marker -> {
             log.warning("Found unnamed chest at " + marker.getLoc().toString());
             errored2.add(marker);
         });
-        
+
         map.getChestMarkers().removeAll(errored2);
     }
-    
+
     /**
      * Searches the map for "markers". Most of the time these are implemented as tile entities
      * (skulls)

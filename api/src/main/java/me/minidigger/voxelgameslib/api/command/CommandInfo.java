@@ -15,7 +15,7 @@ import me.minidigger.voxelgameslib.api.role.Role;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandInfo {
-    
+
     /**
      * The name of the command. Can be a root level command or a sub command. Command levels are
      * seperated using a '.'<br> Examples:<br> <code> command.subcommand<br> command<br>
@@ -25,7 +25,7 @@ public @interface CommandInfo {
      */
     @Nonnull
     String name();
-    
+
     /**
      * The permission node a player needs to have attached for him to be able to execute this
      * command<br>
@@ -34,13 +34,13 @@ public @interface CommandInfo {
      */
     @Nonnull
     String perm();
-    
+
     /**
      * @return The min role this command requires to be executed.
      */
     @Nonnull
     Role role();
-    
+
     /**
      * The aliases for this command. The aliases follow the same naming convention listed in {@link
      * #name()}
@@ -49,7 +49,7 @@ public @interface CommandInfo {
      */
     @Nonnull
     String[] aliases() default {};
-    
+
     /**
      * Whether or not the console should be able to execute this command. By default, this returrns
      * true.<br> If possible, every command should be able to be executed by the console, only if
@@ -58,7 +58,7 @@ public @interface CommandInfo {
      * @return Whether or not the console should be able to execute this command.
      */
     boolean allowConsole() default true;
-    
+
     /**
      * The usage info gets printed if the sender failed to enter the correct arguments. < command>
      * will be replaced with the used command label
@@ -67,7 +67,7 @@ public @interface CommandInfo {
      */
     @Nonnull
     String usage() default "";
-    
+
     /**
      * The description is used for the help command. It should be a small one liner to explain what
      * this (sub)command does.
@@ -76,12 +76,12 @@ public @interface CommandInfo {
      */
     @Nonnull
     String description() default "";
-    
+
     /**
      * @return the minimum amount of arguments required for this command, -1 for disabled (default).
      */
     int min() default -1;
-    
+
     /**
      * @return the maximum amount of arguments required for this command, -1 for disabled (default)
      */

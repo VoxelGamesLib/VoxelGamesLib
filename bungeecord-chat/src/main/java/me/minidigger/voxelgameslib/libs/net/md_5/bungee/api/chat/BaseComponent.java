@@ -15,10 +15,10 @@ import lombok.ToString;
 @ToString(exclude = "parent")
 @NoArgsConstructor
 public abstract class BaseComponent {
-    
+
     @Setter(AccessLevel.NONE)
     BaseComponent parent;
-    
+
     /**
      * The color of this component and any child components (unless overridden)
      */
@@ -54,13 +54,13 @@ public abstract class BaseComponent {
      */
     @Getter
     private String insertion;
-    
+
     /**
      * Appended components that inherit this component's formatting and events
      */
     @Getter
     private List<BaseComponent> extra;
-    
+
     /**
      * The action to preform when this component (and child components) are
      * clicked
@@ -73,7 +73,7 @@ public abstract class BaseComponent {
      */
     @Getter
     private HoverEvent hoverEvent;
-    
+
     BaseComponent(BaseComponent old) {
         setColor(old.getColorRaw());
         setBold(old.isBoldRaw());
@@ -90,14 +90,14 @@ public abstract class BaseComponent {
             }
         }
     }
-    
+
     /**
      * Clones the BaseComponent and returns the clone.
      *
      * @return The duplicate of this BaseComponent
      */
     public abstract BaseComponent duplicate();
-    
+
     /**
      * Converts the components to a string that uses the old formatting codes
      * ({@link ChatColor#COLOR_CHAR}
@@ -112,7 +112,7 @@ public abstract class BaseComponent {
         }
         return builder.toString();
     }
-    
+
     /**
      * Converts the components into a string without any formatting
      *
@@ -126,7 +126,7 @@ public abstract class BaseComponent {
         }
         return builder.toString();
     }
-    
+
     /**
      * Returns the color of this component. This uses the parent's color if this
      * component doesn't have one. {@link ChatColor#WHITE}
@@ -143,7 +143,7 @@ public abstract class BaseComponent {
         }
         return color;
     }
-    
+
     /**
      * Returns the color of this component without checking the parents color.
      * May return null
@@ -153,7 +153,7 @@ public abstract class BaseComponent {
     public ChatColor getColorRaw() {
         return color;
     }
-    
+
     /**
      * Returns whether this component is bold. This uses the parent's setting if
      * this component hasn't been set. false is returned if none of the parent
@@ -167,7 +167,7 @@ public abstract class BaseComponent {
         }
         return bold;
     }
-    
+
     /**
      * Returns whether this component is bold without checking the parents
      * setting. May return null
@@ -177,7 +177,7 @@ public abstract class BaseComponent {
     public Boolean isBoldRaw() {
         return bold;
     }
-    
+
     /**
      * Returns whether this component is italic. This uses the parent's setting
      * if this component hasn't been set. false is returned if none of the
@@ -191,7 +191,7 @@ public abstract class BaseComponent {
         }
         return italic;
     }
-    
+
     /**
      * Returns whether this component is italic without checking the parents
      * setting. May return null
@@ -201,7 +201,7 @@ public abstract class BaseComponent {
     public Boolean isItalicRaw() {
         return italic;
     }
-    
+
     /**
      * Returns whether this component is underlined. This uses the parent's
      * setting if this component hasn't been set. false is returned if none of
@@ -215,7 +215,7 @@ public abstract class BaseComponent {
         }
         return underlined;
     }
-    
+
     /**
      * Returns whether this component is underlined without checking the parents
      * setting. May return null
@@ -225,7 +225,7 @@ public abstract class BaseComponent {
     public Boolean isUnderlinedRaw() {
         return underlined;
     }
-    
+
     /**
      * Returns whether this component is strikethrough. This uses the parent's
      * setting if this component hasn't been set. false is returned if none of
@@ -239,7 +239,7 @@ public abstract class BaseComponent {
         }
         return strikethrough;
     }
-    
+
     /**
      * Returns whether this component is strikethrough without checking the
      * parents setting. May return null
@@ -249,7 +249,7 @@ public abstract class BaseComponent {
     public Boolean isStrikethroughRaw() {
         return strikethrough;
     }
-    
+
     /**
      * Returns whether this component is obfuscated. This uses the parent's
      * setting if this component hasn't been set. false is returned if none of
@@ -263,7 +263,7 @@ public abstract class BaseComponent {
         }
         return obfuscated;
     }
-    
+
     /**
      * Returns whether this component is obfuscated without checking the parents
      * setting. May return null
@@ -273,14 +273,14 @@ public abstract class BaseComponent {
     public Boolean isObfuscatedRaw() {
         return obfuscated;
     }
-    
+
     public void setExtra(List<BaseComponent> components) {
         for (BaseComponent component : components) {
             component.parent = this;
         }
         extra = components;
     }
-    
+
     /**
      * Appends a text element to the component. The text will inherit this
      * component's formatting
@@ -290,7 +290,7 @@ public abstract class BaseComponent {
     public void addExtra(String text) {
         addExtra(new TextComponent(text));
     }
-    
+
     /**
      * Appends a component to the component. The text will inherit this
      * component's formatting
@@ -304,7 +304,7 @@ public abstract class BaseComponent {
         component.parent = this;
         extra.add(component);
     }
-    
+
     /**
      * Returns whether the component has any formatting or events applied to it
      *
@@ -316,7 +316,7 @@ public abstract class BaseComponent {
                 || strikethrough != null || obfuscated != null
                 || hoverEvent != null || clickEvent != null;
     }
-    
+
     /**
      * Converts the component into a string without any formatting
      *
@@ -327,7 +327,7 @@ public abstract class BaseComponent {
         toPlainText(builder);
         return builder.toString();
     }
-    
+
     void toPlainText(StringBuilder builder) {
         if (extra != null) {
             for (BaseComponent e : extra) {
@@ -335,7 +335,7 @@ public abstract class BaseComponent {
             }
         }
     }
-    
+
     /**
      * Converts the component to a string that uses the old formatting codes
      * ({@link ChatColor#COLOR_CHAR}
@@ -347,7 +347,7 @@ public abstract class BaseComponent {
         toLegacyText(builder);
         return builder.toString();
     }
-    
+
     void toLegacyText(StringBuilder builder) {
         if (extra != null) {
             for (BaseComponent e : extra) {

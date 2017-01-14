@@ -34,30 +34,30 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class CommandHandler implements Handler {
-    
+
     @Inject
     private RoleHandler roleHandler;
     @Inject
     private Injector injector;
-    
+
     private final Map<String, Pair<Method, Object>> commandMap = new HashMap<>();
     private final Map<String, Pair<Method, Object>> completerMap = new HashMap<>();
-    
+
     @Override
     public void start() {
         registerCommands();
     }
-    
+
     @Override
     public void stop() {
         // unregister all whats left
         commandMap.values().forEach(c -> unregister(c.getSecond(), false));
         completerMap.values().forEach(c -> unregister(c.getSecond(), false));
-        
+
         commandMap.clear();
         completerMap.clear();
     }
-    
+
     /**
      * Registers all commands in the classpath
      */
@@ -65,7 +65,7 @@ public class CommandHandler implements Handler {
         Set<Class<?>> excutors = new Reflections().getTypesAnnotatedWith(CommandExecutor.class);
         excutors.forEach(aClass -> register(injector.getInstance(aClass)));
     }
-    
+
     /**
      * Registers all commands (and completers) in that class.
      *
@@ -76,29 +76,29 @@ public class CommandHandler implements Handler {
         for (Method method : object.getClass().getMethods()) {
             if (method.isAnnotationPresent(CommandInfo.class)) {
                 CommandInfo commandInfo = method.getAnnotation(CommandInfo.class);
-    
+
                 if (method.getParameterCount() != 1 || !method.getParameterTypes()[0].equals(CommandArguments.class)) {
                     log.warning("Could not register command " + method.getName() + " in class " + object.getClass().getName() + ": Method may only have a single CommandArguments parameter!");
                     continue;
                 }
-    
+
                 registerCommand(commandInfo.name(), commandInfo, method, object);
                 for (String alias : commandInfo.aliases()) {
                     registerCommand(alias, commandInfo, method, object);
                 }
             } else if (method.isAnnotationPresent(CompleterInfo.class)) {
                 CompleterInfo completerInfo = method.getAnnotation(CompleterInfo.class);
-    
+
                 if (method.getParameterCount() != 1 || !method.getParameterTypes()[0].equals(CommandArguments.class)) {
                     log.warning("Could not register completer " + method.getName() + " in class " + object.getClass().getName() + ": Method may only have a single CommandArguments parameter!");
                     continue;
                 }
-    
+
                 if (method.getReturnType() != List.class) {
                     log.warning("Could not register completer " + method.getName() + " in class " + object.getClass().getName() + ": Method needs to return a List!");
                     continue;
                 }
-    
+
                 registerCompleter(completerInfo.name(), completerInfo, method, object);
                 for (String alias : completerInfo.aliases()) {
                     registerCompleter(alias, completerInfo, method, object);
@@ -106,7 +106,7 @@ public class CommandHandler implements Handler {
             }
         }
     }
-    
+
     /**
      * Called when a command was registered. May need to be overridden by implementations. <br>
      * <b>Super always needs to be called!</b><br>
@@ -120,7 +120,7 @@ public class CommandHandler implements Handler {
     protected void registerCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
         commandMap.put(commandLabel, new Pair<>(method, object));
     }
-    
+
     /**
      * Called when a completer was registered. May need to be overridden by implementations. <br>
      * <b>Super always needs to be called!</b><br>
@@ -134,7 +134,7 @@ public class CommandHandler implements Handler {
     protected void registerCompleter(@Nonnull String commandLabel, @Nonnull CompleterInfo info, @Nonnull Method method, @Nonnull Object object) {
         completerMap.put(commandLabel, new Pair<>(method, object));
     }
-    
+
     /**
      * Unregisters all commands (and completers) in that class.
      *
@@ -147,29 +147,29 @@ public class CommandHandler implements Handler {
         for (Method method : object.getClass().getMethods()) {
             if (method.isAnnotationPresent(CommandInfo.class)) {
                 CommandInfo commandInfo = method.getAnnotation(CommandInfo.class);
-    
+
                 if (method.getParameterCount() != 1 || !method.getParameterTypes()[0].equals(CommandArguments.class)) {
                     log.warning("Could not unregister command " + method.getName() + " in class " + object.getClass().getName() + ": Method may only have a single CommandArguments parameter!");
                     continue;
                 }
-    
+
                 unregisterCommand(commandInfo.name(), commandInfo, method, object, remove);
                 for (String alias : commandInfo.aliases()) {
                     unregisterCommand(alias, commandInfo, method, object, remove);
                 }
             } else if (method.isAnnotationPresent(CompleterInfo.class)) {
                 CompleterInfo completerInfo = method.getAnnotation(CompleterInfo.class);
-    
+
                 if (method.getParameterCount() != 1 || !method.getParameterTypes()[0].equals(CommandArguments.class)) {
                     log.warning("Could not unregister completer " + method.getName() + " in class " + object.getClass().getName() + ": Method may only have a single CommandArguments parameter!");
                     continue;
                 }
-    
+
                 if (method.getReturnType() != List.class) {
                     log.warning("Could not unregister completer " + method.getName() + " in class " + object.getClass().getName() + ": Method needs to return a List!");
                     continue;
                 }
-    
+
                 unregisterCompleter(completerInfo.name(), completerInfo, method, object, remove);
                 for (String alias : completerInfo.aliases()) {
                     unregisterCompleter(alias, completerInfo, method, object, remove);
@@ -177,7 +177,7 @@ public class CommandHandler implements Handler {
             }
         }
     }
-    
+
     /**
      * Called when a command was unregistered. May need to be overridden by implementations. <br>
      * <b>Super always needs to be called!</b><br>
@@ -194,7 +194,7 @@ public class CommandHandler implements Handler {
             commandMap.remove(commandLabel);
         }
     }
-    
+
     /**
      * Called when a completer was unregistered. May need to be overridden by implementations. <br>
      * <b>Super always needs to be called!</b><br>
@@ -211,7 +211,7 @@ public class CommandHandler implements Handler {
             completerMap.remove(commandLabel);
         }
     }
-    
+
     /**
      * Executes a command.
      *
@@ -227,7 +227,7 @@ public class CommandHandler implements Handler {
         String label = temp[0];
         commandLine = commandLine.replace(label + " ", "");
         String[] args = commandLine.split(" ");
-    
+
         // loop through all arguments backwards to find a registered command
         for (int i = args.length; i >= 0; i--) {
             // build command name
@@ -237,7 +237,7 @@ public class CommandHandler implements Handler {
                 buffer.append(".").append(args[x].toLowerCase());
             }
             String cmdLabel = buffer.toString();
-    
+
             // if command exists, execute it
             if (commandMap.containsKey(cmdLabel)) {
                 Pair<Method, Object> command = commandMap.get(cmdLabel);
@@ -256,19 +256,19 @@ public class CommandHandler implements Handler {
                     int subCommand = cmdLabel.split(Pattern.quote(".")).length - 1;
                     String[] newArgs = new String[args.length - subCommand];
                     System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
-    
+
                     if (commandInfo.min() != -1 && newArgs.length < commandInfo.min()) {
-                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.min(), newArgs.length);
+                        Lang.msg(sender, LangKey.COMMAND_TOO_FEW_ARGUMENTS, commandInfo.min(), newArgs.length);
                         // TODO send usage
                         return true;
                     }
-    
+
                     if (commandInfo.max() != -1 && newArgs.length > commandInfo.max()) {
-                        Lang.msg(sender, LangKey.COMMAND_TO_FEW_ARGUMENTS, commandInfo.max(), newArgs.length);
+                        Lang.msg(sender, LangKey.COMMAND_TOO_FEW_ARGUMENTS, commandInfo.max(), newArgs.length);
                         // TODO send usage
                         return true;
                     }
-    
+
                     command.getFirst().invoke(command.getSecond(), new CommandArguments(commandInfo, sender, newArgs));
                 } catch (@Nonnull IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
                     e.printStackTrace();
@@ -276,10 +276,10 @@ public class CommandHandler implements Handler {
                 return true;
             }
         }
-    
+
         return false;
     }
-    
+
     /**
      * Executes a tab completer
      *
@@ -295,7 +295,7 @@ public class CommandHandler implements Handler {
         String label = temp[0];
         commandLine = commandLine.replace(label + " ", "");
         String[] args = commandLine.split(" ");
-    
+
         // loop through all arguments backwards to find a registered completer
         for (int i = args.length; i >= 0; i--) {
             // build completer name
@@ -305,7 +305,7 @@ public class CommandHandler implements Handler {
                 buffer.append(".").append(args[x].toLowerCase());
             }
             String cmdLabel = buffer.toString();
-    
+
             // if completer exists, execute it
             if (completerMap.containsKey(cmdLabel)) {
                 Pair<Method, Object> command = completerMap.get(cmdLabel);
@@ -320,7 +320,7 @@ public class CommandHandler implements Handler {
                         int subCommand = cmdLabel.split(Pattern.quote(".")).length - 1;
                         String[] newArgs = new String[args.length - subCommand];
                         System.arraycopy(args, subCommand, newArgs, 0, args.length - subCommand);
-    
+
                         //noinspection unchecked
                         return (List<String>) command.getFirst().invoke(command.getSecond(), new CommandArguments(commandInfo, sender, newArgs));
                     }
@@ -330,10 +330,10 @@ public class CommandHandler implements Handler {
                 return new ArrayList<>();
             }
         }
-    
+
         return new ArrayList<>();
     }
-    
+
     /**
      * @return the map with all registered commands
      */
@@ -341,7 +341,7 @@ public class CommandHandler implements Handler {
     public Map<String, Pair<Method, Object>> getCommandMap() {
         return commandMap;
     }
-    
+
     /**
      * @return the map with all registered completers
      */

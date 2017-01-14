@@ -18,19 +18,19 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
  * Provides some general api features
  */
 public interface Server {
-    
+
     /**
      * @return a list with all online users
      */
     List<User> getOnlineUsers();
-    
+
     /**
      * Sends a message to every {@link me.minidigger.voxelgameslib.api.user.User} on this server.
      *
      * @param message the message to be send
      */
     void broadcastMessage(@Nonnull BaseComponent... message);
-    
+
     /**
      * Sends a message to every {@link me.minidigger.voxelgameslib.api.user.User} on this server.
      *
@@ -38,7 +38,7 @@ public interface Server {
      * @param args the arguments for the key
      */
     void broadcastMessage(@Nonnull LangKey key, Object... args);
-    
+
     /**
      * Sends a message to every user that has the specified role
      *
@@ -47,7 +47,7 @@ public interface Server {
      * @return the number of ppl that got the message
      */
     int broadcastMessage(@Nonnull Role role, @Nonnull BaseComponent... message);
-    
+
     /**
      * Sends a message to every user that has the specified role
      *
@@ -57,12 +57,12 @@ public interface Server {
      * @return the number of ppl that got the message
      */
     int broadcastMessage(@Nonnull Role role, @Nonnull LangKey key, Object... args);
-    
+
     /**
      * @return the console user for this server
      */
     ConsoleUser getConsoleUser();
-    
+
     /**
      * Creates a new (and empty) boss bar, ready to be displayed to players
      *
@@ -73,7 +73,7 @@ public interface Server {
      * @return the created boss bar
      */
     BossBar createBossBar(String title, BossBarColor color, BossBarStyle style, BossBarModifier... modifiers);
-    
+
     /**
      * Creates a new (and empty) scoreboard, ready to be displayed to players
      *
@@ -81,5 +81,5 @@ public interface Server {
      * @return the created scoreboard
      */
     Scoreboard createScoreboard(String title);
-    
+
 }

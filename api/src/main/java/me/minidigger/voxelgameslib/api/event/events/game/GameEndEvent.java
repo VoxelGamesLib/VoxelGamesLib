@@ -10,10 +10,10 @@ import me.minidigger.voxelgameslib.api.user.User;
  * Called when a game is done.
  */
 public class GameEndEvent extends GameEvent {
-    
+
     private List<User> winners;
     private boolean wasAborted;
-    
+
     /**
      * @param game       the game that ended
      * @param winners    the winners. can be 0, 1 or many
@@ -24,7 +24,7 @@ public class GameEndEvent extends GameEvent {
         this.winners = winners;
         this.wasAborted = wasAborted;
     }
-    
+
     /**
      * @return the winners. can be 0, 1 or many
      */
@@ -32,7 +32,7 @@ public class GameEndEvent extends GameEvent {
     public List<User> getWinners() {
         return winners;
     }
-    
+
     /**
      * @return if the game was aborted (server shutdown, all players leave, by command)
      */

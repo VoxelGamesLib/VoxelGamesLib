@@ -16,7 +16,7 @@ public class BossBarColorConverter implements Converter<BossBarColor, BarColor> 
     public BarColor fromVGL(BossBarColor bossBarColor) {
         return BarColor.valueOf(bossBarColor.name());
     }
-    
+
     @Override
     public BossBarColor toVGL(BarColor barColor) {
         return BossBarColor.valueOf(barColor.name());

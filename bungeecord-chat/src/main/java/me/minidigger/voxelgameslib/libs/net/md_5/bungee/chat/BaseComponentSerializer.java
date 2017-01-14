@@ -14,7 +14,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ClickEvent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.HoverEvent;
 
 public class BaseComponentSerializer {
-    
+
     protected void deserialize(JsonObject object, BaseComponent component, JsonDeserializationContext context) {
         if (object.has("color")) {
             component.setColor(ChatColor.valueOf(object.get("color").getAsString().toUpperCase()));
@@ -40,7 +40,7 @@ public class BaseComponentSerializer {
         if (object.has("extra")) {
             component.setExtra(Arrays.asList(context.<BaseComponent[]>deserialize(object.get("extra"), BaseComponent[].class)));
         }
-        
+
         //Events
         if (object.has("clickEvent")) {
             JsonObject event = object.getAsJsonObject("clickEvent");
@@ -62,7 +62,7 @@ public class BaseComponentSerializer {
             component.setHoverEvent(new HoverEvent(HoverEvent.Action.valueOf(event.get("action").getAsString().toUpperCase()), res));
         }
     }
-    
+
     protected void serialize(JsonObject object, BaseComponent component, JsonSerializationContext context) {
         boolean first = false;
         if (ComponentSerializer.serializedComponents.get() == null) {
@@ -93,11 +93,11 @@ public class BaseComponentSerializer {
             if (component.getInsertion() != null) {
                 object.addProperty("insertion", component.getInsertion());
             }
-            
+
             if (component.getExtra() != null) {
                 object.add("extra", context.serialize(component.getExtra()));
             }
-            
+
             //Events
             if (component.getClickEvent() != null) {
                 JsonObject clickEvent = new JsonObject();

@@ -11,30 +11,30 @@ import me.minidigger.voxelgameslib.api.feature.Feature;
 public class NoBlockBreakFeature extends AbstractFeature {
     @Override
     public void start() {
-    
+
     }
-    
+
     @Override
     public void stop() {
-    
+
     }
-    
+
     @Override
     public void tick() {
-    
+
     }
-    
+
     @Override
     public void init() {
-    
+
     }
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public Class<? extends Feature>[] getDependencies() {
         return new Class[0];
     }
-    
+
     @EventListener
     @SuppressWarnings("JavaDoc")
     public void onBlockBreak(BlockBreakEvent event) {

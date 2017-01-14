@@ -7,8 +7,8 @@ package me.minidigger.voxelgameslib.api.convert;
  * @param <T> the implementation type
  */
 public interface Converter<V, T> {
-    
+
     T fromVGL(V v);
-    
+
     V toVGL(T t);
 }

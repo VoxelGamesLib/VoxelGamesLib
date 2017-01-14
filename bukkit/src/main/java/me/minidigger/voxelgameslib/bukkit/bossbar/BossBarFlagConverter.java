@@ -16,7 +16,7 @@ public class BossBarFlagConverter implements Converter<BossBarModifier, BarFlag>
     public BarFlag fromVGL(BossBarModifier bossBarModifier) {
         return BarFlag.valueOf(bossBarModifier.name());
     }
-    
+
     @Override
     public BossBarModifier toVGL(BarFlag barFlag) {
         return BossBarModifier.valueOf(barFlag.name());

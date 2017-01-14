@@ -6,14 +6,14 @@ import javax.annotation.Nonnull;
  * Thrown when something is wrong related to maps.
  */
 public class MapException extends VoxelGameLibException {
-    
+
     /**
      * @param message the message that explains the issue
      */
     public MapException(@Nonnull String message) {
         super(message);
     }
-    
+
     /**
      * Used for IO related exceptions
      *

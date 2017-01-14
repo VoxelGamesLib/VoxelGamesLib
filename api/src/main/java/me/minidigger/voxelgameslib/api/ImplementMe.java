@@ -8,13 +8,13 @@ import javax.annotation.Nonnull;
  * @param <T> the implementation type
  */
 public interface ImplementMe<T> {
-    
+
     /**
      * @return the object that is wrapped by this class
      */
     @Nonnull
     T getImplementationType();
-    
+
     /**
      * sets the object that will be wrapped by this class
      *

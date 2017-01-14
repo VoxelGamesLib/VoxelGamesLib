@@ -16,7 +16,7 @@ public class BossBarStyleConverter implements Converter<BossBarStyle, BarStyle> 
     public BarStyle fromVGL(BossBarStyle bossBarStyle) {
         return BarStyle.valueOf(bossBarStyle.name().replace("SPLIT", "SEGMENTED"));
     }
-    
+
     @Override
     public BossBarStyle toVGL(BarStyle barStyle) {
         return BossBarStyle.valueOf(barStyle.name().replace("SEGMENTED", "SPLIT"));

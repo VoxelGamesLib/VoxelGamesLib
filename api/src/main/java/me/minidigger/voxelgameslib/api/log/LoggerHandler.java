@@ -29,14 +29,14 @@ import lombok.extern.java.Log;
 @Singleton
 @CommandExecutor
 public class LoggerHandler implements Handler {
-    
+
     @Inject
     private Server server;
-    
+
     private LogHandler handler;
     private Logger logger;
     private Level level = Level.INFO;
-    
+
     @Override
     public void start() {
         logger = Logger.getLogger("me.minidigger.voxelgameslib");
@@ -53,26 +53,26 @@ public class LoggerHandler implements Handler {
             }
         };
         logger.addHandler(handler);
-    
+
         log.info("Logging activated.");
     }
-    
+
     @SuppressWarnings("JavaDoc")
     @CommandInfo(name = "log", perm = "command.log", role = Role.ADMIN)
     public void logcommand(CommandArguments arguments) {
         if (arguments.getNumArgs() == 0) {
-            Lang.msg(arguments.getSender(), LangKey.LOG_CURRENT_LEVEL, logger.getLevel().getName());
+            Lang.msg(arguments.getSender(), LangKey.LOG_LEVEL_CURRENT, logger.getLevel().getName());
             return;
         }
-        
+
         try {
             setLevel(Level.parse(arguments.getArg(0)));
             Lang.msg(arguments.getSender(), LangKey.LOG_LEVEL_SET, arguments.getArg(0));
         } catch (IllegalArgumentException ex) {
-            Lang.msg(arguments.getSender(), LangKey.LOG_UNKNOWN_LEVEL, arguments.getArg(0));
+            Lang.msg(arguments.getSender(), LangKey.LOG_LEVEL_UNKNOWN, arguments.getArg(0));
         }
     }
-    
+
     @SuppressWarnings("JavaDoc")
     @CompleterInfo(name = "log")
     public List<String> logcompleter(CommandArguments arguments) {
@@ -80,7 +80,7 @@ public class LoggerHandler implements Handler {
                 Level.FINE.getName(), Level.FINER.getName(), Level.FINEST.getName(), Level.INFO.getName()
                 , Level.OFF.getName(), Level.WARNING.getName(), Level.SEVERE.getName());
     }
-    
+
     /**
      * Changes the log level of the logger for the framework
      *
@@ -91,28 +91,28 @@ public class LoggerHandler implements Handler {
         Logger.getLogger("me.minidigger").setLevel(level);
         log.info("Level changed to " + level.getName());
     }
-    
-    
+
+
     @Override
     public void stop() {
         Logger.getLogger("").removeHandler(handler);
     }
-    
+
     public Level getLevel() {
         return level;
     }
-    
+
     // used to make the code look more clean
     private abstract class LogHandler extends java.util.logging.Handler {
-        
+
         @Override
         public void flush() {
-        
+
         }
-        
+
         @Override
         public void close() throws SecurityException {
-        
+
         }
     }
 }

@@ -25,16 +25,16 @@ import me.minidigger.voxelgameslib.api.world.WorldConfig;
  * Simple feature that lets ppl vote on maps
  */
 public class VoteFeature extends AbstractFeature {
-    
+
     @Expose
     private int maxMaps = 3;
-    
+
     @Inject
     private WorldConfig config;
-    
+
     private Map<UUID, Integer> votes = new HashMap<>();
     private Map<Integer, MapInfo> availableMaps = new HashMap<>();
-    
+
     @Override
     public void start() {
         String mode = getPhase().getGame().getGameMode().getName();
@@ -43,20 +43,20 @@ public class VoteFeature extends AbstractFeature {
             if (info.getGamemodes().contains(mode)) {
                 availableMaps.put(id++, info);
             }
-            
+
             if (id == maxMaps - 1) {
                 break;
             }
         }
-    
+
         if (availableMaps.size() == 0) {
             getPhase().getGame().broadcastMessage(LangKey.VOTE_NO_MAPS_FOUND);
             getPhase().getGame().endGame();
         }
-        
+
         getPhase().getGame().getPlayers().forEach(this::sendVoteMessage);
     }
-    
+
     @Override
     public void stop() {
         Map<Integer, Integer> votes = new HashMap<>();
@@ -71,27 +71,27 @@ public class VoteFeature extends AbstractFeature {
             }
             votes.put(map, old);
         }
-        
+
         MapInfo winner = availableMaps.get(maxMap);
         if (winner == null) {
             // use first map if nobody won
             winner = availableMaps.values().iterator().next();
         }
-        
+
         getPhase().getGame().putGameData("map", winner);
         getPhase().getGame().broadcastMessage(LangKey.VOTE_END, winner.getName(), winner.getAuthor(), max);
     }
-    
+
     @Override
     public void tick() {
-        
+
     }
-    
+
     @Override
     public void init() {
-        
+
     }
-    
+
     /**
      * Sends the vote message to that user
      *
@@ -105,14 +105,14 @@ public class VoteFeature extends AbstractFeature {
         }
         Lang.msg(user, LangKey.VOTE_MESSAGE_BOT);
     }
-    
+
     @EventListener
     public void onJoin(@Nonnull GameJoinEvent event) {
         if (event.getGame().getUuid().equals(getPhase().getGame().getUuid())) {
             sendVoteMessage(event.getUser());
         }
     }
-    
+
     @CommandInfo(name = "vote", perm = "command.vote", role = Role.DEFAULT)
     public void vote(@Nonnull CommandArguments args) {
         if (args.getNumArgs() == 0) {
@@ -125,21 +125,21 @@ public class VoteFeature extends AbstractFeature {
                 try {
                     map = Integer.parseInt(args.getArg(0));
                 } catch (NumberFormatException ex) {
-                    Lang.msg(args.getSender(), LangKey.GENERAL_NOT_A_NUMBER, args.getArg(0));
+                    Lang.msg(args.getSender(), LangKey.GENERAL_INVALID_NUMBER, args.getArg(0));
                     return;
                 }
-                
+
                 if (availableMaps.get(map) == null) {
                     Lang.msg(args.getSender(), LangKey.VOTE_UNKNOWN_MAP, map);
                     return;
                 }
-                
+
                 votes.put(args.getSender().getUuid(), map);
                 Lang.msg(args.getSender(), LangKey.VOTE_SUBMITTED, map);
             }
         }
     }
-    
+
     @Override
     @SuppressWarnings("unchecked")
     public Class<? extends Feature>[] getDependencies() {

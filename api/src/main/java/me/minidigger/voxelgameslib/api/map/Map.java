@@ -16,7 +16,7 @@ import me.minidigger.voxelgameslib.api.user.User;
  * world.
  */
 public class Map {
-    
+
     @Expose
     private MapInfo info;
     @Expose
@@ -29,9 +29,9 @@ public class Map {
     private List<Marker> markers = new ArrayList<>();
     @Expose
     private List<ChestMarker> chestMarkers = new ArrayList<>();
-    
+
     private boolean loaded;
-    
+
     /**
      * @param mapInfo   the map info for this map
      * @param worldName the name of the world
@@ -44,7 +44,7 @@ public class Map {
         this.center = center;
         this.radius = radius;
     }
-    
+
     /**
      * Gets a chestmarker that have the name as data
      *
@@ -55,107 +55,107 @@ public class Map {
     public Optional<ChestMarker> getChestMarker(@Nonnull String name) {
         return chestMarkers.stream().filter(chestMarker -> chestMarker.getData().equalsIgnoreCase(name)).findAny();
     }
-    
+
     /**
      * Prints a nice summary of this map
      */
     public void printSummery(@Nonnull User sender) {
-        Lang.msg(sender, LangKey.WORLD_CREATOR_MAP_SUMMERY, info.getName(), worldName, info.getAuthor(), center, radius, info.getGamemodes());
+        Lang.msg(sender, LangKey.WORLD_CREATOR_MAP_SUMMARY, info.getName(), worldName, info.getAuthor(), center, radius, info.getGamemodes());
         //TODO print summery of map
     }
-    
+
     /**
      * @return the info of this map
      */
     public MapInfo getInfo() {
         return info;
     }
-    
+
     /**
      * @param info the info to set
      */
     public void setInfo(MapInfo info) {
         this.info = info;
     }
-    
+
     /**
      * @return the center of this map
      */
     public Vector3D getCenter() {
         return center;
     }
-    
+
     /**
      * @param center the center to set
      */
     public void setCenter(Vector3D center) {
         this.center = center;
     }
-    
+
     /**
      * @return the radius of this map
      */
     public int getRadius() {
         return radius;
     }
-    
+
     /**
      * @param radius the radius to set
      */
     public void setRadius(int radius) {
         this.radius = radius;
     }
-    
+
     /**
      * @return the worldname of this map
      */
     public String getWorldName() {
         return worldName;
     }
-    
+
     /**
      * @param worldName the worldname to set
      */
     public void setWorldName(String worldName) {
         this.worldName = worldName;
     }
-    
+
     /**
      * @return the list of markers for this map
      */
     public List<Marker> getMarkers() {
         return markers;
     }
-    
+
     /**
      * @param markers the list of markers to set
      */
     public void setMarkers(List<Marker> markers) {
         this.markers = markers;
-        
+
     }
-    
+
     /**
      * @return the list of chest markers for this map
      */
     public List<ChestMarker> getChestMarkers() {
         return chestMarkers;
     }
-    
+
     /**
      * @param chestMarkers the chestmarkers to set
      */
     public void setChestMarkers(List<ChestMarker> chestMarkers) {
         this.chestMarkers = chestMarkers;
     }
-    
+
     /**
      * @return if this map is loaded
      */
     public boolean isLoaded() {
         return loaded;
     }
-    
+
     /**
      * @param loaded if this map is loaded
      */

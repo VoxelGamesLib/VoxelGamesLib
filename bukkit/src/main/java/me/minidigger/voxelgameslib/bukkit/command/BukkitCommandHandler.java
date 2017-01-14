@@ -30,16 +30,16 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class BukkitCommandHandler extends CommandHandler {
-    
+
     @Inject
     private VoxelGamesLibBukkit plugin;
     @Inject
     private UserHandler userHandler;
     @Inject
     private Server server;
-    
+
     private Map<String, org.bukkit.command.Command> knownCommands;
-    
+
     @Override
     public void start() {
         // hook bukkits shit
@@ -55,7 +55,7 @@ public class BukkitCommandHandler extends CommandHandler {
                 e.printStackTrace();
                 return;
             }
-    
+
             try {
                 Field knownCommandField = SimpleCommandMap.class.getDeclaredField("knownCommands");
                 knownCommandField.setAccessible(true);
@@ -69,25 +69,25 @@ public class BukkitCommandHandler extends CommandHandler {
                 log.warning("Could get knownCommands from the SimpleCommandMap, can't unregister any commands!");
                 e.printStackTrace();
             }
-    
+
         } else {
             // should never occur
             throw new IllegalArgumentException("Specified plugin has no SimplePluginManager?!");
         }
-        
+
         // registers all commands
         super.start();
     }
-    
+
     @Override
     protected void registerCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
         super.registerCommand(commandLabel, info, method, object);
-        
+
         // ignore non root commands
         if (commandLabel.contains(".")) {
             return;
         }
-        
+
         knownCommands.put(commandLabel, new BukkitCommand(commandLabel) {
             @Override
             public boolean execute(CommandSender commandSender, String label, String[] args) {
@@ -95,7 +95,7 @@ public class BukkitCommandHandler extends CommandHandler {
                 for (String arg : args) {
                     sb.append(" ").append(arg);
                 }
-    
+
                 if (commandSender instanceof Player) {
                     Player player = (Player) commandSender;
                     Optional<User> user = userHandler.getUser(((Player) commandSender).getUniqueId());
@@ -107,17 +107,17 @@ public class BukkitCommandHandler extends CommandHandler {
                 } else {
                     executeCommand(server.getConsoleUser(), sb.toString());
                 }
-    
+
                 return true;
             }
-            
+
             @Override
             public List<String> tabComplete(CommandSender sender, String label, String[] args) throws IllegalArgumentException {
                 StringBuilder sb = new StringBuilder(label);
                 for (String arg : args) {
                     sb.append(" ").append(arg);
                 }
-                
+
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
                     Optional<User> user = userHandler.getUser(((Player) sender).getUniqueId());
@@ -129,21 +129,21 @@ public class BukkitCommandHandler extends CommandHandler {
                 } else {
                     return executeCompleter(server.getConsoleUser(), sb.toString());
                 }
-                
+
                 return new ArrayList<>();
             }
         });
     }
-    
+
     @Override
     protected void unregisterCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object, boolean remove) {
         super.unregisterCommand(commandLabel, info, method, object, remove);
-        
+
         // ignore non root commands
         if (commandLabel.contains(".")) {
             return;
         }
-        
+
         knownCommands.remove(commandLabel);
     }
 }

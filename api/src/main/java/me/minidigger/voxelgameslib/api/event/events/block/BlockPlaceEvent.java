@@ -8,10 +8,10 @@ import me.minidigger.voxelgameslib.api.user.User;
  * Called when a user places a block
  */
 public class BlockPlaceEvent extends BlockEvent implements Cancelable {
-    
+
     private User user;
     private boolean canceled;
-    
+
     /**
      * Constructs a new block place event
      *
@@ -22,19 +22,19 @@ public class BlockPlaceEvent extends BlockEvent implements Cancelable {
         super(block);
         this.user = user;
     }
-    
+
     /**
      * @return the user that placed the block
      */
     public User getUser() {
         return user;
     }
-    
+
     @Override
     public void setCanceled(boolean canceled) {
         this.canceled = canceled;
     }
-    
+
     @Override
     public boolean isCanceled() {
         return canceled;

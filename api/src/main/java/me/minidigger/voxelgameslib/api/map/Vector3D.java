@@ -28,20 +28,20 @@ import javax.annotation.Nullable;
  */
 public class Vector3D implements Cloneable {
     public static final double EPSILON = 1e-6;
-    
+
     @Expose
     private final double x;
     @Expose
     private final double y;
     @Expose
     private final double z;
-    
+
     public Vector3D(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -52,7 +52,7 @@ public class Vector3D implements Cloneable {
         // We don't need to call super.clone() because the method is final.
         return new Vector3D(x, y, z);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -65,7 +65,7 @@ public class Vector3D implements Cloneable {
         a *= (Double.doubleToRawLongBits(this.z) >> 32) ^ Double.doubleToRawLongBits(this.z);
         return a;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -74,7 +74,7 @@ public class Vector3D implements Cloneable {
     public final String toString() {
         return "V" + x + "," + y + "," + z + ";";
     }
-    
+
     /**
      * Tries to generate a string from a vector. The string should be in the format
      * defined by {@link Vector3D#toString()}
@@ -97,19 +97,19 @@ public class Vector3D implements Cloneable {
             return null;
         }
     }
-    
+
     public final double getX() {
         return x;
     }
-    
+
     public final double getY() {
         return y;
     }
-    
+
     public final double getZ() {
         return z;
     }
-    
+
     /**
      * Adds values to this vector
      *
@@ -122,7 +122,7 @@ public class Vector3D implements Cloneable {
     public final Vector3D add(double x, double y, double z) {
         return new Vector3D(this.x + x, this.y + y, this.z + z);
     }
-    
+
     /**
      * Performs vector addition
      *
@@ -133,7 +133,7 @@ public class Vector3D implements Cloneable {
     public final Vector3D add(@Nonnull Vector3D vector) {
         return new Vector3D(this.x + vector.x, this.y + vector.y, this.z + vector.z);
     }
-    
+
     /**
      * Performs scalar multiplication on this vector
      *
@@ -144,7 +144,7 @@ public class Vector3D implements Cloneable {
     public final Vector3D multiply(double amount) {
         return new Vector3D(x * amount, y * amount, z * amount);
     }
-    
+
     /**
      * Computes the cross product of two vectors
      *
@@ -159,7 +159,7 @@ public class Vector3D implements Cloneable {
                 (this.x * other.y) - (this.y * other.x)
         );
     }
-    
+
     /**
      * Computes the dot product of two vectors
      *
@@ -169,7 +169,7 @@ public class Vector3D implements Cloneable {
     public final double dotProduct(@Nonnull Vector3D other) {
         return (this.x * other.x) + (this.y * other.y) + (this.z * other.z);
     }
-    
+
     /**
      * Computes the midpoint between two vectors
      *
@@ -184,7 +184,7 @@ public class Vector3D implements Cloneable {
                 (this.z + other.z) / 2
         );
     }
-    
+
     /**
      * Gets the magnitude of this vector
      *
@@ -193,7 +193,7 @@ public class Vector3D implements Cloneable {
     public final double length() {
         return Math.sqrt((x * x) + (y * y) + (z * z));
     }
-    
+
     /**
      * Gets the square of the magnitude of this vector. If at all possible,
      * use this instead of {@link Vector3D#length()} as this is significantly
@@ -204,7 +204,7 @@ public class Vector3D implements Cloneable {
     public final double lengthSquared() {
         return (x * x) + (y * y) + (z * z);
     }
-    
+
     /**
      * Determines whether this vector is aligned to a block.
      *

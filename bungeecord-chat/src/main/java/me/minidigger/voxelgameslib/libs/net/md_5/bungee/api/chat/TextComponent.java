@@ -15,9 +15,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class TextComponent extends BaseComponent {
-    
+
     private static final Pattern url = Pattern.compile("^(?:(https?)://)?([-\\w_\\.]{2,}\\.[a-z]{2,4})(/\\S*)?$");
-    
+
     /**
      * Converts the old formatting system that used
      * {@link ChatColor#COLOR_CHAR} into the new json based
@@ -31,7 +31,7 @@ public class TextComponent extends BaseComponent {
         StringBuilder builder = new StringBuilder();
         TextComponent component = new TextComponent();
         Matcher matcher = url.matcher(message);
-        
+
         for (int i = 0; i < message.length(); i++) {
             char c = message.charAt(i);
             if (c == ChatColor.COLOR_CHAR) {
@@ -81,7 +81,7 @@ public class TextComponent extends BaseComponent {
                 pos = message.length();
             }
             if (matcher.region(i, pos).find()) { //Web link handling
-                
+
                 if (builder.length() > 0) {
                     TextComponent old = component;
                     component = new TextComponent(old);
@@ -89,7 +89,7 @@ public class TextComponent extends BaseComponent {
                     builder = new StringBuilder();
                     components.add(old);
                 }
-                
+
                 TextComponent old = component;
                 component = new TextComponent(old);
                 String urlString = message.substring(i, pos);
@@ -107,27 +107,27 @@ public class TextComponent extends BaseComponent {
             component.setText(builder.toString());
             components.add(component);
         }
-        
+
         // The client will crash if the array is empty
         if (components.isEmpty()) {
             components.add(new TextComponent(""));
         }
-        
+
         return components.toArray(new BaseComponent[components.size()]);
     }
-    
+
     /**
      * The text of the component that will be displayed to the client
      */
     private String text;
-    
+
     /**
      * Creates a TextComponent with blank text.
      */
     public TextComponent() {
         this.text = "";
     }
-    
+
     /**
      * Creates a TextComponent with formatting and text from the passed
      * component
@@ -138,7 +138,7 @@ public class TextComponent extends BaseComponent {
         super(textComponent);
         setText(textComponent.getText());
     }
-    
+
     /**
      * Creates a TextComponent with blank text and the extras set to the passed
      * array
@@ -149,7 +149,7 @@ public class TextComponent extends BaseComponent {
         setText("");
         setExtra(new ArrayList<BaseComponent>(Arrays.asList(extras)));
     }
-    
+
     /**
      * Creates a duplicate of this TextComponent.
      *
@@ -159,13 +159,13 @@ public class TextComponent extends BaseComponent {
     public BaseComponent duplicate() {
         return new TextComponent(this);
     }
-    
+
     @Override
     protected void toPlainText(StringBuilder builder) {
         builder.append(text);
         super.toPlainText(builder);
     }
-    
+
     @Override
     protected void toLegacyText(StringBuilder builder) {
         builder.append(getColor());
@@ -187,7 +187,7 @@ public class TextComponent extends BaseComponent {
         builder.append(text);
         super.toLegacyText(builder);
     }
-    
+
     @Override
     public String toString() {
         return String.format("TextComponent{text=%s, %s}", text, super.toString());

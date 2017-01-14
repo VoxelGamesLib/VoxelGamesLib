@@ -21,21 +21,21 @@ import lombok.extern.java.Log;
  */
 @Log
 public class LangStorage {
-    
+
     @Inject
     @Named("LangFolder")
     private File langFolder;
-    
+
     @Inject
     private LangHandler handler;
-    
+
     private File langFile;
-    
+
     private Locale locale;
     private final OrderedProperties messages = new OrderedProperties();
     @Nullable
     private LangStorage parentStorage;
-    
+
     /**
      * @return the local that the keys in this storage are translated with
      */
@@ -43,7 +43,7 @@ public class LangStorage {
     public Locale getLocale() {
         return locale;
     }
-    
+
     /**
      * sets the locale (and with that, the lang file) for this storage
      *
@@ -53,7 +53,7 @@ public class LangStorage {
         this.locale = locale;
         langFile = new File(langFolder, locale.getTag() + ".properties");
     }
-    
+
     /**
      * sets the parent storage for this storage. the parent storage is used to get keys that are not
      * translated in this storage.
@@ -63,7 +63,7 @@ public class LangStorage {
     public void setParentStorage(@Nonnull LangStorage parentStorage) {
         this.parentStorage = parentStorage;
     }
-    
+
     /**
      * Saves the default values for the local that this storage is using to the lang file.
      */
@@ -71,7 +71,7 @@ public class LangStorage {
         if (!langFolder.exists()) {
             langFolder.mkdirs();
         }
-        
+
         for (LangKey key : LangKey.values()) {
             messages.setProperty(key.name(), key.getDefaultValue());
         }
@@ -81,7 +81,7 @@ public class LangStorage {
             throw new LangException("Error while saving default lang values to " + langFile.getAbsolutePath(), e);
         }
     }
-    
+
     /**
      * Adds new values to the lang file, if there where any new added with a update.
      *
@@ -95,7 +95,7 @@ public class LangStorage {
                 messages.setProperty(key.name(), key.getDefaultValue());
             }
         }
-        
+
         if (counter > 0) {
             try {
                 messages.store(new FileWriter(langFile), "This is a command. I don't really know what this is supposed to do, but lets see!\nLets throw in\nsome newlines!");
@@ -103,10 +103,10 @@ public class LangStorage {
                 throw new LangException("Error while saving default lang values to " + langFile.getAbsolutePath(), e);
             }
         }
-        
+
         return counter;
     }
-    
+
     /**
      * Tries to load the messages from the langFolder
      *
@@ -123,7 +123,7 @@ public class LangStorage {
             throw new LangException("Could not find lang file for locale" + locale, e);
         }
     }
-    
+
     /**
      * Gets the value for a key. it this storage does not have a translation for that key, the
      * parent storage is used.
@@ -140,14 +140,14 @@ public class LangStorage {
                 message = parentStorage.get(key);
             }
         }
-        
+
         if (message == null) {
             throw new LangException("Could not find value for lang key " + key.name()); //TODO do we want to return the default value here?
         }
-        
+
         return message;
     }
-    
+
     /**
      * @return the file that this storage saves its keys in
      */

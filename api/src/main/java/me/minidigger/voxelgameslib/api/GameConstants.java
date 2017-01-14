@@ -5,8 +5,8 @@ package me.minidigger.voxelgameslib.api;
  * to to actually expose those to guice
  */
 public class GameConstants {
-    
+
     //TODO do we need to let modules change those?
-    
+
     public static int TPS = 20;
 }

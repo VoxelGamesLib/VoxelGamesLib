@@ -6,9 +6,9 @@ import java.util.UUID;
  * Called after the async login event.
  */
 public class UserLoginEvent extends AsyncUserLoginEvent {
-    
+
     private Object playerObject;
-    
+
     /**
      * @param id           the uuid of the player who is attempting to join
      * @param name         the of the user
@@ -18,7 +18,7 @@ public class UserLoginEvent extends AsyncUserLoginEvent {
         super(id, name);
         this.playerObject = playerObject;
     }
-    
+
     /**
      * @return the server implementation's player object
      */

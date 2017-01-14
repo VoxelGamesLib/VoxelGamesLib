@@ -7,9 +7,9 @@ import me.minidigger.voxelgameslib.api.user.User;
  * Called when a user is damaged
  */
 public class UserDamageEvent extends UserEvent implements Cancelable {
-    
+
     private boolean canceled;
-    
+
     /**
      * Constructs a user damage event
      *
@@ -18,12 +18,12 @@ public class UserDamageEvent extends UserEvent implements Cancelable {
     public UserDamageEvent(User user) {
         super(user);
     }
-    
+
     @Override
     public void setCanceled(boolean canceled) {
         this.canceled = canceled;
     }
-    
+
     @Override
     public boolean isCanceled() {
         return canceled;

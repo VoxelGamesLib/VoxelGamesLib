@@ -10,7 +10,7 @@ import lombok.Getter;
  * Simplistic enumeration of all supported color values for chat.
  */
 public enum ChatColor {
-    
+
     /**
      * Represents black.
      */
@@ -123,13 +123,13 @@ public enum ChatColor {
     private final String toString;
     @Getter
     private final String name;
-    
+
     static {
         for (ChatColor colour : values()) {
             BY_CHAR.put(colour.code, colour);
         }
     }
-    
+
     ChatColor(char code, String name) {
         this.code = code;
         this.name = name;
@@ -138,12 +138,12 @@ public enum ChatColor {
                         COLOR_CHAR, code
                 });
     }
-    
+
     @Override
     public String toString() {
         return toString;
     }
-    
+
     /**
      * Strips the given message of all color codes
      *
@@ -154,10 +154,10 @@ public enum ChatColor {
         if (input == null) {
             return null;
         }
-        
+
         return STRIP_COLOR_PATTERN.matcher(input).replaceAll("");
     }
-    
+
     public static String translateAlternateColorCodes(char altColorChar, String textToTranslate) {
         char[] b = textToTranslate.toCharArray();
         for (int i = 0; i < b.length - 1; i++) {
@@ -168,7 +168,7 @@ public enum ChatColor {
         }
         return new String(b);
     }
-    
+
     /**
      * Get the colour represented by the specified code.
      *

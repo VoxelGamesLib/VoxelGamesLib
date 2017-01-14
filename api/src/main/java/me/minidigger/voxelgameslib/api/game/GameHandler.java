@@ -151,7 +151,7 @@ public class GameHandler implements Handler {
                 log.log(Level.WARNING, "Could not save game definition to file " + file.getAbsolutePath(), ex);
             }
         }
-    
+
         // registering calles start
         tickHandler.registerTickable(game);
 

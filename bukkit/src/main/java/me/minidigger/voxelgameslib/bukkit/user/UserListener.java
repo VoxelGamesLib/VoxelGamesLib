@@ -35,14 +35,14 @@ import lombok.extern.java.Log;
 @Singleton
 @SuppressWarnings("JavaDoc")// event handlers don't need javadoc...
 public class UserListener implements Listener {
-    
+
     @Inject
     private UserHandler handler;
     @Inject
     private VGLEventHandler eventHandler;
     @Inject
     private VectorConverter vectorConverter;
-    
+
     @EventHandler
     public void login(@Nonnull PlayerLoginEvent event) {
         UserLoginEvent e = new UserLoginEvent(event.getPlayer().getUniqueId(), event.getPlayer().getName(), event.getPlayer());
@@ -51,7 +51,7 @@ public class UserListener implements Listener {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, e.getKickMessage());
         }
     }
-    
+
     @EventHandler
     public void asyncLogin(@Nonnull AsyncPlayerPreLoginEvent event) {
         AsyncUserLoginEvent e = new AsyncUserLoginEvent(event.getUniqueId(), event.getName());
@@ -61,7 +61,7 @@ public class UserListener implements Listener {
             event.setKickMessage(e.getKickMessage());
         }
     }
-    
+
     @EventHandler
     public void logout(@Nonnull PlayerQuitEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
@@ -71,7 +71,7 @@ public class UserListener implements Listener {
             log.warning("User " + event.getPlayer().getName() + " left the server without having a user object!");
         }
     }
-    
+
     @EventHandler
     public void join(@Nonnull PlayerJoinEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
@@ -82,7 +82,7 @@ public class UserListener implements Listener {
             event.getPlayer().kickPlayer(Lang.string(LangKey.DATA_NOT_LOADED));
         }
     }
-    
+
     @EventHandler
     public void respawn(@Nonnull PlayerRespawnEvent event) {
         Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
@@ -94,13 +94,13 @@ public class UserListener implements Listener {
             log.warning("User " + event.getPlayer().getName() + " tried to respawn without having a user object!");
         }
     }
-    
+
     @EventHandler
     public void onDamage(@Nonnull EntityDamageEvent event) {
         if (event.getEntityType() != EntityType.PLAYER) {
             return;
         }
-        
+
         Optional<User> user = handler.getUser(event.getEntity().getUniqueId());
         if (user.isPresent()) {
             UserDamageEvent e = new UserDamageEvent(user.get());

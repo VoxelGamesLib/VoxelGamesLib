@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class Marker {
-    
+
     @Nonnull
     @Expose
     private final Vector3D loc;
@@ -21,7 +21,7 @@ public class Marker {
     @Nonnull
     @Expose
     private final String data;
-    
+
     /**
      * Constructs a new marker
      *

@@ -20,10 +20,10 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class TranslatableComponent extends BaseComponent {
-    
+
     private final ResourceBundle locales = ResourceBundle.getBundle("mojang-translations/en_US");
     private final Pattern format = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
-    
+
     /**
      * The key into the Minecraft locale files to use for the translation. The
      * text depends on the client's locale setting. The console is always en_US
@@ -33,7 +33,7 @@ public class TranslatableComponent extends BaseComponent {
      * The components to substitute into the translation
      */
     private List<BaseComponent> with;
-    
+
     /**
      * Creates a translatable component from the original to clone it.
      *
@@ -42,7 +42,7 @@ public class TranslatableComponent extends BaseComponent {
     public TranslatableComponent(TranslatableComponent original) {
         super(original);
         setTranslate(original.getTranslate());
-        
+
         if (original.getWith() != null) {
             List<BaseComponent> temp = new ArrayList<BaseComponent>();
             for (BaseComponent baseComponent : original.getWith()) {
@@ -51,7 +51,7 @@ public class TranslatableComponent extends BaseComponent {
             setWith(temp);
         }
     }
-    
+
     /**
      * Creates a translatable component with the passed substitutions
      *
@@ -77,7 +77,7 @@ public class TranslatableComponent extends BaseComponent {
         }
         setWith(temp);
     }
-    
+
     /**
      * Creates a duplicate of this TranslatableComponent.
      *
@@ -87,7 +87,7 @@ public class TranslatableComponent extends BaseComponent {
     public BaseComponent duplicate() {
         return new TranslatableComponent(this);
     }
-    
+
     /**
      * Sets the translation substitutions to be used in this component. Removes
      * any previously set substitutions
@@ -100,7 +100,7 @@ public class TranslatableComponent extends BaseComponent {
         }
         with = components;
     }
-    
+
     /**
      * Adds a text substitution to the component. The text will inherit this
      * component's formatting
@@ -110,7 +110,7 @@ public class TranslatableComponent extends BaseComponent {
     public void addWith(String text) {
         addWith(new TextComponent(text));
     }
-    
+
     /**
      * Adds a component substitution to the component. The text will inherit
      * this component's formatting
@@ -124,7 +124,7 @@ public class TranslatableComponent extends BaseComponent {
         component.parent = this;
         with.add(component);
     }
-    
+
     @Override
     protected void toPlainText(StringBuilder builder) {
         String trans;
@@ -133,7 +133,7 @@ public class TranslatableComponent extends BaseComponent {
         } catch (MissingResourceException ex) {
             trans = translate;
         }
-        
+
         Matcher matcher = format.matcher(trans);
         int position = 0;
         int i = 0;
@@ -143,7 +143,7 @@ public class TranslatableComponent extends BaseComponent {
                 builder.append(trans.substring(position, pos));
             }
             position = matcher.end();
-            
+
             String formatCode = matcher.group(2);
             switch (formatCode.charAt(0)) {
                 case 's':
@@ -159,10 +159,10 @@ public class TranslatableComponent extends BaseComponent {
         if (trans.length() != position) {
             builder.append(trans.substring(position, trans.length()));
         }
-        
+
         super.toPlainText(builder);
     }
-    
+
     @Override
     protected void toLegacyText(StringBuilder builder) {
         String trans;
@@ -171,7 +171,7 @@ public class TranslatableComponent extends BaseComponent {
         } catch (MissingResourceException e) {
             trans = translate;
         }
-        
+
         Matcher matcher = format.matcher(trans);
         int position = 0;
         int i = 0;
@@ -182,7 +182,7 @@ public class TranslatableComponent extends BaseComponent {
                 builder.append(trans.substring(position, pos));
             }
             position = matcher.end();
-            
+
             String formatCode = matcher.group(2);
             switch (formatCode.charAt(0)) {
                 case 's':
@@ -202,7 +202,7 @@ public class TranslatableComponent extends BaseComponent {
         }
         super.toLegacyText(builder);
     }
-    
+
     private void addFormat(StringBuilder builder) {
         builder.append(getColor());
         if (isBold()) {

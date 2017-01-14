@@ -14,7 +14,7 @@ import me.minidigger.voxelgameslib.api.phase.TimedPhase;
  * Can be used to vote on the next gamemode or the next map.
  */
 public class VotePhase extends TimedPhase {
-    
+
     @Override
     public void init() {
         setName("VotePhase");
@@ -22,30 +22,30 @@ public class VotePhase extends TimedPhase {
         setAllowJoin(true);
         setAllowSpectate(false);
         setTicks(60 * GameConstants.TPS);
-        
+
         addFeature(getGame().createFeature(VoteFeature.class, this));
-        
+
         MapFeature mapFeature = getGame().createFeature(MapFeature.class, this);
         mapFeature.setShouldUnload(true);
         mapFeature.setMapGameDataKey("lobbymap");
         addFeature(mapFeature);
-        
+
         SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         spawnFeature.setInitialSpawn(false);
         addFeature(spawnFeature);
-    
+
         NoBlockBreakFeature noBlockBreakFeature = getGame().createFeature(NoBlockBreakFeature.class, this);
         addFeature(noBlockBreakFeature);
-    
+
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
-    
+
         ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
         addFeature(clearInventoryFeature);
-    
+
         NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
         addFeature(noDamageFeature);
     }
-    
+
     //TODO vote phase
 }

@@ -19,14 +19,14 @@ import org.bukkit.event.Listener;
 @Singleton
 @SuppressWarnings("JavaDoc")
 public class BlockListener implements Listener {
-    
+
     @Inject
     private VGLEventHandler eventHandler;
     @Inject
     private UserHandler userHandler;
     @Inject
     private Injector injector;
-    
+
     @EventHandler
     @SuppressWarnings("JavaDoc")
     public void onBlockPlace(org.bukkit.event.block.BlockPlaceEvent event) {
@@ -40,7 +40,7 @@ public class BlockListener implements Listener {
             event.setCancelled(e.isCanceled());
         }
     }
-    
+
     @EventHandler
     @SuppressWarnings("JavaDoc")
     public void onBlockBreak(org.bukkit.event.block.BlockBreakEvent event) {

@@ -17,40 +17,40 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
  * Created by Martin on 26.10.2016.
  */
 public class SurvivalGamesGame extends AbstractGame {
-    
+
     @Inject
     private WorldHandler worldHandler;
-    
+
     public SurvivalGamesGame() {
         super(SurvivalGamesModule.GAMEMODE);
     }
-    
+
     @Override
     public void initGameFromModule() {
         setMinPlayers(2);
         setMaxPlayers(14);
-        
+
         LobbyPhase lobbyPhase = createPhase(LobbyPhase.class);
         VotePhase votePhase = createPhase(VotePhase.class);
         GracePhase gracePhase = createPhase(GracePhase.class);
         SurvivalGamesPhase survivalGamesPhase = createPhase(SurvivalGamesPhase.class);
-        
+
         lobbyPhase.setNextPhase(votePhase);
         votePhase.setNextPhase(gracePhase);
         gracePhase.setNextPhase(survivalGamesPhase);
-    
+
         activePhase = lobbyPhase;
-    
+
         loadMap();
     }
-    
+
     @Override
     public void initGameFromDefinition(@Nonnull GameDefinition gameDefinition) {
         super.initGameFromDefinition(gameDefinition);
-        
+
         loadMap();
     }
-    
+
     private void loadMap() {
         // TODO this doesn't respect if a user changed the lobby in the config
         Optional<MapInfo> info = worldHandler.getMapInfo("Lobby");

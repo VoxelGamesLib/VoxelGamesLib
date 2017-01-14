@@ -17,10 +17,10 @@ import me.minidigger.voxelgameslib.api.role.Role;
 @CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class LangCommands {
-    
+
     @Inject
     private LangHandler langHandler;
-    
+
     @CommandInfo(name = "lang", perm = "command.lang", role = Role.DEFAULT)
     public void lang(@Nonnull CommandArguments args) {
         StringBuilder sb = new StringBuilder();
@@ -28,9 +28,9 @@ public class LangCommands {
             sb.append(loc.getName()).append(" ");
         }
         Lang.msg(args.getSender(), LangKey.LANG_INSTALLED, sb.toString());
-        Lang.msg(args.getSender(), LangKey.LANG_USING, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_CURRENT, args.getSender().getLocale().getName());
     }
-    
+
     @CommandInfo(name = "lang.set", perm = "command.lang.set", role = Role.DEFAULT, min = 1)
     public void set(@Nonnull CommandArguments args) {
         Optional<Locale> loc = Locale.fromTag(args.getArg(0));
@@ -39,6 +39,6 @@ public class LangCommands {
             return;
         }
         args.getSender().setLocale(loc.get());
-        Lang.msg(args.getSender(), LangKey.LANG_SET, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_UPDATE, args.getSender().getLocale().getName());
     }
 }

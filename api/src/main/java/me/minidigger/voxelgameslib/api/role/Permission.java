@@ -7,17 +7,17 @@ import javax.annotation.Nonnull;
  * role or manually via the string.
  */
 public class Permission {
-    
+
     @Nonnull
     private final String string;
     @Nonnull
     private final Role role;
-    
+
     Permission(@Nonnull String string, @Nonnull Role role) {
         this.string = string;
         this.role = role;
     }
-    
+
     /**
      * @return the string representation of this permission
      */
@@ -25,7 +25,7 @@ public class Permission {
     public String getString() {
         return string;
     }
-    
+
     /**
      * @return the role that has this permission by default
      */

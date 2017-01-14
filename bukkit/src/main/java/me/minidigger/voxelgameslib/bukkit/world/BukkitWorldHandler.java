@@ -14,20 +14,20 @@ import org.bukkit.WorldType;
  * Created by Martin on 07.10.2016.
  */
 public class BukkitWorldHandler extends WorldHandler {
-    
+
     @Override
     public void loadWorld(@Nonnull Map map) {
         super.loadWorld(map);
-        
+
         loadLocalWorld(map.getWorldName());
     }
-    
+
     @Override
     public void unloadWorld(@Nonnull Map map) {
         unloadLocalWorld(map.getWorldName());
         super.unloadWorld(map);
     }
-    
+
     @Override
     public void loadLocalWorld(@Nonnull String name) {
         WorldCreator wc = new WorldCreator(name);
@@ -39,7 +39,7 @@ public class BukkitWorldHandler extends WorldHandler {
         World world = wc.createWorld();
         world.setAutoSave(false);
     }
-    
+
     @Override
     public void unloadLocalWorld(@Nonnull String name) {
         Bukkit.unloadWorld(name, false);

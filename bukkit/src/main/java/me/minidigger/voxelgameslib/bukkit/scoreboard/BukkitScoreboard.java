@@ -17,35 +17,35 @@ import org.bukkit.scoreboard.Scoreboard;
  * Created by Martin on 07.01.2017.
  */
 public class BukkitScoreboard extends AbstractScoreboard {
-    
+
     private Scoreboard scoreboard;
     private Objective objective;
-    
+
     @Override
     public void setImplObject(Object object) {
         scoreboard = (Scoreboard) object;
         objective = scoreboard.registerNewObjective("VoxelGamesLib", "dummy");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
     }
-    
+
     @Nonnull
     @Override
     public String getTitle() {
         return objective.getDisplayName();
     }
-    
+
     @Override
     public void setTitle(@Nonnull String title) {
         objective.setDisplayName(title);
     }
-    
+
     @Override
     public void addLine(int key, @Nonnull ScoreboardLine line) {
         super.addLine(key, line);
-        
+
         objective.getScore(line.getValue()).setScore(key);
     }
-    
+
     @Override
     public void removeLine(int key) {
         Optional<ScoreboardLine> line = getLine(key);
@@ -53,23 +53,23 @@ public class BukkitScoreboard extends AbstractScoreboard {
             super.removeLine(key);
             return;
         }
-        
+
         scoreboard.resetScores(line.get().getValue());
-        
+
         super.removeLine(key);
     }
-    
+
     @Override
     public void addUser(@Nonnull User user) {
         super.addUser(user);
-    
+
         ((Player) user.getImplementationType()).setScoreboard(scoreboard);
     }
-    
+
     @Override
     public void removeUser(@Nonnull User user) {
         super.removeUser(user);
-    
+
         ((Player) user.getImplementationType()).setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
     }
 }

@@ -29,14 +29,14 @@ import lombok.extern.java.Log;
 @Singleton
 @CommandExecutor
 public class FunCommands {
-    
+
     @Inject
     private Gson gson;
     @Inject
     private Server server;
-    
+
     private TacoStuff tacoStuff;
-    
+
     /**
      * Loads our precious data
      */
@@ -48,23 +48,23 @@ public class FunCommands {
             log.log(Level.WARNING, "Could not load tacos!", ex);
         }
     }
-    
+
     @CommandInfo(name = "taco", perm = "command.taco", role = Role.PREMIUM, min = 1, usage = "Sends a user a nice taco")
     public void taco(CommandArguments arguments) {
         if (tacoStuff == null) {
             arguments.getSender().sendMessage(new TextComponent("No tacos loaded :("));
             return;
         }
-        
+
         String message = taco(arguments.getArg(0));
         server.broadcastMessage(new TextComponent("The server " + message));
     }
-    
+
     @CompleterInfo(name = "taco")
     public List<String> tacoCompleter(CommandArguments arguments) {
         return CommandUtil.completeWithPlayerNames(arguments.getArg(0));
     }
-    
+
     private String taco(String user) {
         String message = tacoStuff.templates[0];
         message = message.replace("{user}", user);
@@ -76,17 +76,17 @@ public class FunCommands {
         message = message.replaceFirst("\\{topping}", getRandom(tacoStuff.parts.topping));
         return message;
     }
-    
+
     private String getRandom(String[] arr) {
         return arr[ThreadLocalRandom.current().nextInt(arr.length)];
     }
-    
+
     class TacoStuff {
         @Expose
         String[] templates;
         @Expose
         Parts parts;
-        
+
         class Parts {
             @Expose
             String[] type;

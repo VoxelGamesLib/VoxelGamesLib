@@ -17,19 +17,19 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
  */
 @Singleton
 public class RoleHandler implements Handler {
-    
+
     private final List<Permission> knownPermissions = new ArrayList<>();
-    
+
     @Override
     public void start() {
-        
+
     }
-    
+
     @Override
     public void stop() {
         knownPermissions.clear();
     }
-    
+
     /**
      * Tries to register a new permission object. will return existing one instead of duplicating.
      *
@@ -44,19 +44,19 @@ public class RoleHandler implements Handler {
         if (!r.isPresent()) {
             throw new NoSuchRoleException(role);
         }
-        
+
         Optional<Permission> opt = getPermission(perm);
         if (opt.isPresent()) {
             if (!opt.get().getRole().getName().equalsIgnoreCase(role)) {
                 throw new DuplicatePermissionDefinitionException(opt.get(), role);
             }
         }
-        
+
         Permission p = new Permission(perm, r.get());
         knownPermissions.add(p);
         return p;
     }
-    
+
     /**
      * Searches for a permission object with that permission string
      *
@@ -67,7 +67,7 @@ public class RoleHandler implements Handler {
     public Optional<Permission> getPermission(@Nonnull String perm) {
         return knownPermissions.stream().filter(p -> p.getString().equalsIgnoreCase(perm)).findAny();
     }
-    
+
     /**
      * Searches for a role with that name
      *

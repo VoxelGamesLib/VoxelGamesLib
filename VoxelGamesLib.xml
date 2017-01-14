@@ -1,4 +1,4 @@
-<code_scheme name="VoxelGamesLib">
+<code_scheme name="VoxelGamesLib (1)">
     <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99"/>
     <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99"/>
     <option name="IMPORT_LAYOUT_TABLE">
@@ -297,9 +297,4 @@
     <ADDITIONAL_INDENT_OPTIONS fileType="yml">
         <option name="INDENT_SIZE" value="2"/>
     </ADDITIONAL_INDENT_OPTIONS>
-    <codeStyleSettings language="JAVA">
-        <indentOptions>
-            <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true"/>
-        </indentOptions>
-    </codeStyleSettings>
 </code_scheme>

@@ -8,7 +8,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 public final class ClickEvent {
-    
+
     /**
      * The type of action to perform on click
      */
@@ -19,9 +19,9 @@ public final class ClickEvent {
      * @see Action
      */
     private final String value;
-    
+
     public enum Action {
-        
+
         /**
          * Open a url at the path given by
          * {@link ClickEvent#value}

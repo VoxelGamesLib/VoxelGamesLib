@@ -11,17 +11,17 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
  */
 @Singleton
 public class MapHandler implements Handler {
-    
+
     @Nonnull
     private HashMap<String, ChestMarker> chests = new HashMap<>();
-    
+
     @Override
     public void start() {
-        
+
     }
-    
+
     @Override
     public void stop() {
-        
+
     }
 }

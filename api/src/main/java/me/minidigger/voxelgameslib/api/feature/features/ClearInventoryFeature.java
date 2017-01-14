@@ -14,27 +14,27 @@ public class ClearInventoryFeature extends AbstractFeature {
     public void start() {
         getPhase().getGame().getPlayers().forEach(User::clearInventory);
     }
-    
+
     @Override
     public void stop() {
-    
+
     }
-    
+
     @Override
     public void tick() {
-    
+
     }
-    
+
     @Override
     public void init() {
-    
+
     }
-    
+
     @Override
     public Class[] getDependencies() {
         return new Class[0];
     }
-    
+
     @EventListener
     @SuppressWarnings("JavaDoc")
     public void onJoin(GameJoinEvent event) {

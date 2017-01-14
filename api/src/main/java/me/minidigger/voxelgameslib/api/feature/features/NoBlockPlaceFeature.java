@@ -10,29 +10,29 @@ import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 public class NoBlockPlaceFeature extends AbstractFeature {
     @Override
     public void start() {
-    
+
     }
-    
+
     @Override
     public void stop() {
-    
+
     }
-    
+
     @Override
     public void tick() {
-    
+
     }
-    
+
     @Override
     public void init() {
-    
+
     }
-    
+
     @Override
     public Class[] getDependencies() {
         return new Class[0];
     }
-    
+
     @EventListener
     @SuppressWarnings("JavaDoc")
     public void onBlockBreak(BlockPlaceEvent event) {

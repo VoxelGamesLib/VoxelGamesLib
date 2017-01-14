@@ -24,10 +24,10 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
  * </p>
  */
 public class ComponentBuilder {
-    
+
     private TextComponent current;
     private final List<BaseComponent> parts = new ArrayList<BaseComponent>();
-    
+
     /**
      * Creates a ComponentBuilder from the other given ComponentBuilder to clone
      * it.
@@ -40,7 +40,7 @@ public class ComponentBuilder {
             parts.add(baseComponent.duplicate());
         }
     }
-    
+
     /**
      * Creates a ComponentBuilder with the given text as the first part.
      *
@@ -49,7 +49,7 @@ public class ComponentBuilder {
     public ComponentBuilder(String text) {
         current = new TextComponent(text);
     }
-    
+
     /**
      * Appends the text to the builder and makes it the current target for
      * formatting. The text will have all the formatting from the previous part.
@@ -60,7 +60,7 @@ public class ComponentBuilder {
     public ComponentBuilder append(String text) {
         return append(text, FormatRetention.ALL);
     }
-    
+
     /**
      * Appends the text to the builder and makes it the current target for
      * formatting. You can specify the amount of formatting retained.
@@ -71,14 +71,14 @@ public class ComponentBuilder {
      */
     public ComponentBuilder append(String text, FormatRetention retention) {
         parts.add(current);
-        
+
         current = new TextComponent(current);
         current.setText(text);
         retain(retention);
-        
+
         return this;
     }
-    
+
     /**
      * Sets the color of the current part.
      *
@@ -89,7 +89,7 @@ public class ComponentBuilder {
         current.setColor(color);
         return this;
     }
-    
+
     /**
      * Sets whether the current part is bold.
      *
@@ -100,7 +100,7 @@ public class ComponentBuilder {
         current.setBold(bold);
         return this;
     }
-    
+
     /**
      * Sets whether the current part is italic.
      *
@@ -111,7 +111,7 @@ public class ComponentBuilder {
         current.setItalic(italic);
         return this;
     }
-    
+
     /**
      * Sets whether the current part is underlined.
      *
@@ -122,7 +122,7 @@ public class ComponentBuilder {
         current.setUnderlined(underlined);
         return this;
     }
-    
+
     /**
      * Sets whether the current part is strikethrough.
      *
@@ -133,7 +133,7 @@ public class ComponentBuilder {
         current.setStrikethrough(strikethrough);
         return this;
     }
-    
+
     /**
      * Sets whether the current part is obfuscated.
      *
@@ -144,7 +144,7 @@ public class ComponentBuilder {
         current.setObfuscated(obfuscated);
         return this;
     }
-    
+
     /**
      * Sets the insertion text for the current part.
      *
@@ -155,7 +155,7 @@ public class ComponentBuilder {
         current.setInsertion(insertion);
         return this;
     }
-    
+
     /**
      * Sets the click event for the current part.
      *
@@ -166,7 +166,7 @@ public class ComponentBuilder {
         current.setClickEvent(clickEvent);
         return this;
     }
-    
+
     /**
      * Sets the hover event for the current part.
      *
@@ -177,7 +177,7 @@ public class ComponentBuilder {
         current.setHoverEvent(hoverEvent);
         return this;
     }
-    
+
     /**
      * Sets the current part back to normal settings. Only text is kept.
      *
@@ -186,7 +186,7 @@ public class ComponentBuilder {
     public ComponentBuilder reset() {
         return retain(FormatRetention.NONE);
     }
-    
+
     /**
      * Retains only the specified formatting. Text is not modified.
      *
@@ -195,7 +195,7 @@ public class ComponentBuilder {
      */
     public ComponentBuilder retain(FormatRetention retention) {
         BaseComponent previous = current;
-        
+
         switch (retention) {
             case NONE:
                 current = new TextComponent(current.getText());
@@ -216,7 +216,7 @@ public class ComponentBuilder {
         }
         return this;
     }
-    
+
     /**
      * Returns the components needed to display the message created by this
      * builder.
@@ -228,9 +228,9 @@ public class ComponentBuilder {
         result[parts.size()] = current;
         return result;
     }
-    
+
     public enum FormatRetention {
-        
+
         /**
          * Specify that we do not want to retain anything from the previous
          * component.

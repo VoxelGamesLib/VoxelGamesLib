@@ -12,12 +12,12 @@ import org.bukkit.util.Vector;
  */
 @Singleton
 public class VectorConverter implements Converter<Vector3D, Vector> {
-    
+
     @Override
     public Vector fromVGL(Vector3D vector3D) {
         return new Vector(vector3D.getX(), vector3D.getY(), vector3D.getZ());
     }
-    
+
     @Override
     public Vector3D toVGL(Vector vector) {
         return new Vector3D(vector.getX(), vector.getY(), vector.getZ());

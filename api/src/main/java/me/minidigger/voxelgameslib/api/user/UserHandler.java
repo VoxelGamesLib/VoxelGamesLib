@@ -20,25 +20,25 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class UserHandler implements Handler {
-    
+
     @Inject
     private GameHandler gameHandler;
-    
+
     private Map<UUID, User> users;
     private Map<UUID, Object> tempData;
-    
+
     @Override
     public void start() {
         users = new HashMap<>();
         tempData = new ConcurrentHashMap<>();
     }
-    
+
     @Override
     public void stop() {
         users.clear();
         tempData.clear();
     }
-    
+
     /**
      * Adds a users, if not already added
      *
@@ -49,16 +49,16 @@ public class UserHandler implements Handler {
         if (!hasLoggedIn(user.getUuid())) {
             throw new UserException("User " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
         }
-        
+
         if (!users.containsKey(user.getUuid())) {
             users.put(user.getUuid(), user);
         }
-        
+
         //TODO apply loaded data
         Object temp = tempData.remove(user.getUuid());
         log.info("Applied data for user " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
     }
-    
+
     /**
      * Handles logout. All other handlers should try to handle logout here!
      *
@@ -67,11 +67,11 @@ public class UserHandler implements Handler {
     public void logout(@Nonnull UUID id) {
         users.remove(id);
         tempData.remove(id);
-        
+
         Optional<User> user = getUser(id);
         user.ifPresent(user1 -> gameHandler.getGames(user1, true).forEach(game -> game.leave(user1)));
     }
-    
+
     /**
      * searches for a user with that uuid
      *
@@ -82,7 +82,7 @@ public class UserHandler implements Handler {
     public Optional<User> getUser(@Nonnull UUID id) {
         return Optional.ofNullable(users.get(id));
     }
-    
+
     /**
      * Called when a user logs in. used to load all kind of stuff. Should only be called async!
      *
@@ -93,7 +93,7 @@ public class UserHandler implements Handler {
         // TODO load roles and stuff from somewhere
         tempData.put(uniqueId, "HEYHO");
     }
-    
+
     /**
      * Checks if a user has logged in (if the data was loaded successfully)
      *

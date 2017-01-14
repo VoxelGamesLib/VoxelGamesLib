@@ -28,93 +28,93 @@ import lombok.extern.java.Log;
  */
 @Log
 public abstract class AbstractPhase implements Phase {
-    
+
     @Expose
     private String name;
     @Expose
     private String className;
-    
+
     @Expose
     private boolean allowJoin;
     @Expose
     private boolean allowSpectate;
-    
+
     @Nonnull
     @Expose
     private List<Feature> features = new ArrayList<>();
-    
+
     @Inject
     private VGLEventHandler eventHandler;
     @Inject
     private CommandHandler commandHandler;
-    
+
     private Game game;
-    
+
     private Phase nextPhase;
     private boolean isRunning;
     private List<Feature> startedFeatures = new ArrayList<>();
-    
+
     public AbstractPhase() {
         className = getClass().getName().replace(PhaseTypeAdapter.DEFAULT_PATH + ".", "");
     }
-    
+
     @Override
     public void setName(@Nonnull String name) {
         this.name = name;
     }
-    
+
     @Nonnull
     @Override
     public String getName() {
         return name;
     }
-    
+
     @Override
     public void setNextPhase(Phase nextPhase) {
         this.nextPhase = nextPhase;
     }
-    
+
     @Override
     public void setGame(@Nonnull Game game) {
         this.game = game;
     }
-    
+
     @Override
     public void addFeature(@Nonnull Feature feature) {
         log.finer("add " + feature.getClass().getSimpleName() + " feature");
         features.add(feature);
     }
-    
+
     @Nonnull
     @Override
     public Game getGame() {
         return game;
     }
-    
+
     @Nonnull
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Feature> T getFeature(@Nonnull Class<T> clazz) {
         return (T) features.stream().filter(f -> f.getClass().equals(clazz)).findFirst().orElseThrow(() -> new NoSuchFeatureException(clazz));
     }
-    
+
     @Nonnull
     @Override
     public List<Feature> getFeatures() {
         return features;
     }
-    
+
     @Nonnull
     @Override
     public Phase getNextPhase() {
         return nextPhase;
     }
-    
+
     @Override
     public void init() {
         log.finer("init " + getName());
     }
-    
+
     @Override
     public void start() {
         if (!checkDependencies()) {
@@ -136,11 +136,11 @@ public abstract class AbstractPhase implements Phase {
             commandHandler.register(feature);
             startedFeatures.add(feature);
         }
-        
+
         eventHandler.registerEvents(this);
         commandHandler.register(this);
     }
-    
+
     @Override
     public void stop() {
         log.finer("stop phase " + getName());
@@ -158,36 +158,36 @@ public abstract class AbstractPhase implements Phase {
             commandHandler.unregister(feature, true);
         }
         startedFeatures.clear();
-        
+
         eventHandler.unregisterEvents(this);
         commandHandler.unregister(this, true);
     }
-    
+
     @Override
     public void tick() {
         features.forEach(Feature::tick);
     }
-    
+
     @Override
     public boolean allowJoin() {
         return allowJoin;
     }
-    
+
     @Override
     public void setAllowJoin(boolean allowJoin) {
         this.allowJoin = allowJoin;
     }
-    
+
     @Override
     public boolean allowSpectate() {
         return allowSpectate;
     }
-    
+
     @Override
     public void setAllowSpectate(boolean allowSpectate) {
         this.allowSpectate = allowSpectate;
     }
-    
+
     @SuppressWarnings("JavaDoc")
     @CommandInfo(name = "skip", perm = "command.skip", role = Role.MODERATOR)
     public void skip(@Nonnull CommandArguments arguments) {
@@ -196,24 +196,24 @@ public abstract class AbstractPhase implements Phase {
             getGame().endPhase();
         }
     }
-    
+
     @Override
     public void setRunning(boolean running) {
         isRunning = running;
     }
-    
+
     @Override
     public boolean isRunning() {
         return isRunning;
     }
-    
+
     private boolean checkDependencies() {
         //TODO better error handling here, once logging is done
         List<Class<? extends Feature>> orderedFeatures = new ArrayList<>();
         List<Class<? extends Feature>> added = new ArrayList<>();
         try {
             Graph<Class<? extends Feature>> graph = new Graph<>(orderedFeatures::add);
-            
+
             // add all dependencies to the graph
             for (Feature feature : getFeatures()) {
                 for (Class<? extends Feature> dependency : feature.getDependencies()) {
@@ -222,10 +222,10 @@ public abstract class AbstractPhase implements Phase {
                         continue;
                     }
                     graph.addDependency(feature.getClass(), dependency);
-    
+
                     added.add(feature.getClass());
                     added.add(dependency);
-    
+
                     try {
                         getFeature(dependency);
                     } catch (NoSuchFeatureException ex) {
@@ -235,7 +235,7 @@ public abstract class AbstractPhase implements Phase {
                     }
                 }
             }
-    
+
             // add features that have no dependency connection to any other feature. they can't be left out alone!
             for (Feature feature : getFeatures()) {
                 if (!added.contains(feature.getClass())) {
@@ -243,7 +243,7 @@ public abstract class AbstractPhase implements Phase {
                 }
             }
             added.clear();
-    
+
             // do the magic!
             graph.generateDependencies();
         } catch (DependencyGraphException ex) {
@@ -251,16 +251,16 @@ public abstract class AbstractPhase implements Phase {
             ex.printStackTrace();
             return false;
         }
-    
+
         if (features.size() != orderedFeatures.size()) {
             throw new RuntimeException("WTF HAPPENED HERE?!" + features.size() + " " + orderedFeatures.size());
         }
-    
+
         // reverse order because dependencies need to be run before dependend features
         Collections.reverse(orderedFeatures);
         // remap classes to features
         features = orderedFeatures.stream().map((Function<Class, Feature>) this::getFeature).collect(Collectors.toList());
-        
+
         return true;
     }
 }

@@ -13,33 +13,33 @@ import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
  * while they wait for more players to join.
  */
 public class LobbyPhase extends AbstractPhase {
-    
+
     //TODO lobby phase
-    
+
     @Override
     public void init() {
         setName("LobbyPhase");
         super.init();
         setAllowJoin(true);
         setAllowSpectate(false);
-        
+
         MapFeature mapFeature = getGame().createFeature(MapFeature.class, this);
         mapFeature.setShouldUnload(false);
         mapFeature.setMapGameDataKey("lobbymap");
         addFeature(mapFeature);
-    
+
         SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         addFeature(spawnFeature);
-    
+
         NoBlockBreakFeature noBlockBreakFeature = getGame().createFeature(NoBlockBreakFeature.class, this);
         addFeature(noBlockBreakFeature);
-    
+
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
-    
+
         ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
         addFeature(clearInventoryFeature);
-    
+
         NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
         addFeature(noDamageFeature);
     }

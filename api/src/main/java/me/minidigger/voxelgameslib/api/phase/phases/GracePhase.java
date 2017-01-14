@@ -16,7 +16,7 @@ import me.minidigger.voxelgameslib.api.phase.TimedPhase;
  * to run away, hide or collect stuff.
  */
 public class GracePhase extends TimedPhase {
-    
+
     @Override
     public void init() {
         setName("GracePhase");
@@ -24,32 +24,32 @@ public class GracePhase extends TimedPhase {
         setAllowJoin(false);
         setAllowSpectate(true);
         setTicks(60 * GameConstants.TPS);
-        
+
         MapFeature mapFeature = getGame().createFeature(MapFeature.class, this);
         mapFeature.setShouldUnload(false);
         addFeature(mapFeature);
-    
+
         SpawnFeature spawnFeature = getGame().createFeature(SpawnFeature.class, this);
         addFeature(spawnFeature);
-    
+
         MapInfoFeature mapInfoFeature = getGame().createFeature(MapInfoFeature.class, this);
         addFeature(mapInfoFeature);
-    
+
         ScoreboardFeature scoreboardFeature = getGame().createFeature(ScoreboardFeature.class, this);
         addFeature(scoreboardFeature);
-    
+
         NoBlockBreakFeature noBlockBreakFeature = getGame().createFeature(NoBlockBreakFeature.class, this);
         addFeature(noBlockBreakFeature);
-    
+
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
-    
+
         ClearInventoryFeature clearInventoryFeature = getGame().createFeature(ClearInventoryFeature.class, this);
         addFeature(clearInventoryFeature);
-    
+
         NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
         addFeature(noDamageFeature);
     }
-    
+
     //TODO GracePhase
 }

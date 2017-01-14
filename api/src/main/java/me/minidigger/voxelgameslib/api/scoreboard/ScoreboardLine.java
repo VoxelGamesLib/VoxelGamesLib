@@ -5,6 +5,6 @@ package me.minidigger.voxelgameslib.api.scoreboard;
  */
 public interface ScoreboardLine {
     String getValue();
-    
+
     //TODO properly implement scoreboard lines
 }

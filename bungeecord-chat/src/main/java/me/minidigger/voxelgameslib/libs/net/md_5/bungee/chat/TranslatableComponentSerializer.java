@@ -15,7 +15,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TranslatableComponent;
 
 public class TranslatableComponentSerializer extends BaseComponentSerializer implements JsonSerializer<TranslatableComponent>, JsonDeserializer<TranslatableComponent> {
-    
+
     public TranslatableComponent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         TranslatableComponent component = new TranslatableComponent();
         JsonObject object = json.getAsJsonObject();
@@ -26,7 +26,7 @@ public class TranslatableComponentSerializer extends BaseComponentSerializer imp
         }
         return component;
     }
-    
+
     public JsonElement serialize(TranslatableComponent src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         serialize(object, src, context);

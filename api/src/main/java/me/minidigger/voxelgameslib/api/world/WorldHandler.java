@@ -34,27 +34,27 @@ import lombok.extern.java.Log;
  */
 @Log
 public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
-    
+
     @Inject
     @Named("WorldsFolder")
     private File worldsFolder;
-    
+
     @Getter
     @Inject
     @Named("WorldContainer")
     private File worldContainer;
-    
+
     @Inject
     private ConfigHandler configHandler;
-    
+
     @Inject
     private Gson gson;
-    
+
     private WorldConfig config;
     private File configFile;
-    
+
     private final List<Map> maps = new ArrayList<>();
-    
+
     /**
      * Gets a map from a list of loaded maps
      *
@@ -65,7 +65,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     public Optional<Map> getMap(@Nonnull String name) {
         return maps.stream().filter(map -> map.getWorldName().equalsIgnoreCase(name)).findAny();
     }
-    
+
     /**
      * Tries to load the map data for a name
      *
@@ -80,7 +80,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             if (!getMapInfo(name).isPresent()) {
                 throw new MapException("Unknown map " + name + ". Did you register it into the world config?");
             }
-            
+
             try {
                 ZipFile zipFile = new ZipFile(new File(worldsFolder, name + ".zip"));
                 for (FileHeader header : (List<FileHeader>) zipFile.getFileHeaders()) {
@@ -92,7 +92,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
                     }
                 }
                 throw new MapException("Could not load map config for map " + name + ". Fileheader was null. Does it has a map.json?");
-                
+
             } catch (Exception e) {
                 throw new MapException("Error while trying to load map config", e);
             }
@@ -100,7 +100,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             return map.get();
         }
     }
-    
+
     /**
      * Searches for that map info in the world config
      *
@@ -111,7 +111,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     public Optional<MapInfo> getMapInfo(String name) {
         return config.maps.stream().filter(mapInfo -> mapInfo.getName().equalsIgnoreCase(name)).findAny();
     }
-    
+
     /**
      * Loads a world. Needs to copy the file from the repo, unzip it and let the implementation load
      * it <br><b>Always needs to call super! Super needs to be called first (because it copies the
@@ -122,7 +122,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      */
     public void loadWorld(@Nonnull Map map) {
         map.setLoaded(true);
-        
+
         try {
             ZipFile zip = new ZipFile(new File(worldsFolder, map.getWorldName() + ".zip"));
             zip.extractAll(new File(worldContainer, map.getWorldName()).getAbsolutePath());
@@ -130,7 +130,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             throw new WorldException("Could not unzip world " + map.getWorldName() + ".", e);
         }
     }
-    
+
     /**
      * Unloads a world. Needs to lets the implementation unload the world and delete the folder
      * <br><b>Always needs to call super! Super needs to be called last (because it deletes the
@@ -140,10 +140,10 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      */
     public void unloadWorld(@Nonnull Map map) {
         map.setLoaded(false);
-        
+
         FileUtils.delete(new File(worldContainer, map.getWorldName()));
     }
-    
+
     @Override
     public void start() {
         configFile = new File(worldsFolder, "worlds.json");
@@ -151,7 +151,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
             log.warning("Could not find worlds folder " + worldsFolder.getAbsolutePath() + ". Creating...");
             worldsFolder.mkdirs();
         }
-        
+
         if (!configFile.exists()) {
             log.warning("Did not found world config, saving default");
             config = WorldConfig.getDefault();
@@ -159,24 +159,24 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
         } else {
             log.info("Loading world config");
             config = configHandler.loadConfig(configFile, WorldConfig.class);
-            
+
             if (configHandler.checkMigrate(config)) {
                 configHandler.migrate(configFile, config);
             }
         }
     }
-    
+
     @Override
     public void stop() {
-        
+
     }
-    
+
     @Nonnull
     @Override
     public WorldConfig get() {
         return config;
     }
-    
+
     /**
      * Loads a local world
      *
@@ -184,7 +184,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @throws WorldException if the world is not found or something else goes wrong
      */
     public abstract void loadLocalWorld(@Nonnull String name);
-    
+
     /**
      * Unloads a local world
      *
@@ -192,7 +192,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
      * @throws WorldException if the world is not found or something else goes wrong
      */
     public abstract void unloadLocalWorld(@Nonnull String name);
-    
+
     /**
      * @return the folder where the playerable worlds are saved in (think about it as a repo for
      * worlds/maps)
@@ -201,7 +201,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
     public File getWorldsFolder() {
         return worldsFolder;
     }
-    
+
     /**
      * saves the worldconfig
      */

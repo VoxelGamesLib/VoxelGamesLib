@@ -19,7 +19,7 @@ public class MaterialConverter implements Converter<Material, org.bukkit.Materia
         }
         throw new IllegalArgumentException("No material for id " + material.getId() + "(" + material.name() + ")");
     }
-    
+
     @Override
     public Material toVGL(org.bukkit.Material material) {
         return Material.fromId(material.getId());

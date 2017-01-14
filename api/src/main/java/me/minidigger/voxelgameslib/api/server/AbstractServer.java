@@ -12,7 +12,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
  * Abstract implementation of a few basic functions of the server interface
  */
 public abstract class AbstractServer implements Server {
-    
+
     @Override
     public void broadcastMessage(@Nonnull LangKey key, Object... args) {
         for (User user : getOnlineUsers()) {
@@ -20,7 +20,7 @@ public abstract class AbstractServer implements Server {
         }
         Lang.msg(getConsoleUser(), key, args);
     }
-    
+
     @Override
     public void broadcastMessage(@Nonnull BaseComponent... message) {
         for (User user : getOnlineUsers()) {
@@ -28,7 +28,7 @@ public abstract class AbstractServer implements Server {
         }
         getConsoleUser().sendMessage(message);
     }
-    
+
     @Override
     public int broadcastMessage(@Nonnull Role role, @Nonnull LangKey key, Object... args) {
         int i = 0;
@@ -40,7 +40,7 @@ public abstract class AbstractServer implements Server {
         }
         return i;
     }
-    
+
     @Override
     public int broadcastMessage(@Nonnull Role role, @Nonnull BaseComponent... message) {
         int i = 0;

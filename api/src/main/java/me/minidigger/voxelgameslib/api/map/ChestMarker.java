@@ -11,11 +11,11 @@ import me.minidigger.voxelgameslib.api.item.Item;
  * it is used to save kits or layout for chest locations in the map
  */
 public class ChestMarker extends Marker {
-    
+
     @Nonnull
     @Expose
     private final Item[] items;
-    
+
     /**
      * constructs a new chest marker
      *
@@ -27,7 +27,7 @@ public class ChestMarker extends Marker {
         super(loc, 0.0, name);
         this.items = items;
     }
-    
+
     /**
      * @return the items that are in this chest
      */

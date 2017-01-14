@@ -15,7 +15,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 public class TextComponentSerializer extends BaseComponentSerializer implements JsonSerializer<TextComponent>, JsonDeserializer<TextComponent> {
-    
+
     public TextComponent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         TextComponent component = new TextComponent();
         JsonObject object = json.getAsJsonObject();
@@ -23,7 +23,7 @@ public class TextComponentSerializer extends BaseComponentSerializer implements 
         component.setText(object.get("text").getAsString());
         return component;
     }
-    
+
     public JsonElement serialize(TextComponent src, Type typeOfSrc, JsonSerializationContext context) {
         List<BaseComponent> extra = src.getExtra();
         JsonObject object = new JsonObject();

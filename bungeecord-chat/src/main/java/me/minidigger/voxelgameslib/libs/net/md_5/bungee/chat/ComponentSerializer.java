@@ -16,15 +16,15 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TranslatableComponent;
 
 public class ComponentSerializer implements JsonDeserializer<BaseComponent> {
-    
+
     private final static Gson gson = new GsonBuilder().
             registerTypeAdapter(BaseComponent.class, new ComponentSerializer()).
             registerTypeAdapter(TextComponent.class, new TextComponentSerializer()).
             registerTypeAdapter(TranslatableComponent.class, new TranslatableComponentSerializer()).
             create();
-    
+
     public final static ThreadLocal<HashSet<BaseComponent>> serializedComponents = new ThreadLocal<HashSet<BaseComponent>>();
-    
+
     public static BaseComponent[] parse(String json) {
         if (json.startsWith("[")) { //Array
             return gson.fromJson(json, BaseComponent[].class);
@@ -34,15 +34,15 @@ public class ComponentSerializer implements JsonDeserializer<BaseComponent> {
                         gson.fromJson(json, BaseComponent.class)
                 };
     }
-    
+
     public static String toString(BaseComponent component) {
         return gson.toJson(component);
     }
-    
+
     public static String toString(BaseComponent... components) {
         return gson.toJson(new TextComponent(components));
     }
-    
+
     public BaseComponent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         if (json.isJsonPrimitive()) {
             return new TextComponent(json.getAsString());

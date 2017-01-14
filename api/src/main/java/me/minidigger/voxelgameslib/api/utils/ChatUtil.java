@@ -8,7 +8,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
  * Small util for chat related stuff
  */
 public class ChatUtil {
-    
+
     /**
      * Serialises a array of base components into a single string (by calling #toPlainText on them)
      *

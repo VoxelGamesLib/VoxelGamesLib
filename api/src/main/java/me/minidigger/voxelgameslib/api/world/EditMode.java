@@ -27,18 +27,18 @@ import me.minidigger.voxelgameslib.api.role.Role;
 @CommandExecutor
 @SuppressWarnings("JavaDoc") // commands don't need javadoc, go read the command's descriptions
 public class EditMode {
-    
+
     @Inject
     private Injector injector;
-    
+
     @Nonnull
     private List<UUID> editMode = new ArrayList<>();
-    
+
     @CommandInfo(name = "editmode", perm = "command.editmode", role = Role.ADMIN)
     public void editmode(@Nonnull CommandArguments args) {
         //TODO info about edit mode
     }
-    
+
     @CommandInfo(name = "editmode.on", perm = "command.editmode.on", role = Role.ADMIN)
     public void on(@Nonnull CommandArguments args) {
         if (!editMode.contains(args.getSender().getUuid())) {
@@ -48,7 +48,7 @@ public class EditMode {
             Lang.msg(args.getSender(), LangKey.EDITMODE_ALREADY_ENABLED);
         }
     }
-    
+
     @CommandInfo(name = "editmode.off", perm = "command.editmode.off", role = Role.ADMIN)
     public void off(@Nonnull CommandArguments args) {
         if (editMode.contains(args.getSender().getUuid())) {
@@ -58,7 +58,7 @@ public class EditMode {
             Lang.msg(args.getSender(), LangKey.EDITMODE_NOT_ENABLED);
         }
     }
-    
+
     @CommandInfo(name = "editmode.skull", perm = "command.editmode.skull", role = Role.ADMIN, min = 1)
     public void skull(@Nonnull CommandArguments args) {
         if (editMode.contains(args.getSender().getUuid())) {
@@ -69,7 +69,7 @@ public class EditMode {
             Lang.msg(args.getSender(), LangKey.EDITMODE_NOT_ENABLED);
         }
     }
-    
+
     @CommandInfo(name = "editmode.chest", perm = "command.editmode.chest", role = Role.ADMIN, min = 1)
     public void chest(@Nonnull CommandArguments args) {
         if (editMode.contains(args.getSender().getUuid())) {

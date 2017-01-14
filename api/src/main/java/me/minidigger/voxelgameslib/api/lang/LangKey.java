@@ -49,8 +49,8 @@ public enum LangKey {
     VOTE_SUBMITTED("Vote for map {map} submitted", "map"),
     VOTE_UNKNOWN_MAP("Unknown map {map}", "map"),
 
-    WORLD_CREATOR_AUTHOR_SET("Author set to {author}. Select the gamemodes this map should be played on.", "author"),
     WORLD_CREATOR_DONE("Done creating the world! Restart the game to be able to play the map."),
+    WORLD_CREATOR_AUTHOR_SET("Author set to {author}. Select the gamemodes this map should be played on.", "author"),
     WORLD_CREATOR_DONE_QUERY("Click here if you are done."),
     WORLD_CREATOR_EDIT_MODE_ON("Click here to enter map editing mode"),
     WORLD_CREATOR_EDIT_MODE_OFF("Click here when you are done"),
@@ -70,9 +70,11 @@ public enum LangKey {
 
     WORLD_UNKNOWN_MAP("Could not find a map called {map} :/", "map");
 
+    @Nonnull
+    private final String defaultValue;
 
-    private final @Nonnull String defaultValue;
-    private final @Nonnull String[] args;
+    @Nonnull
+    private final String[] args;
 
 
     LangKey(@Nonnull String defaultValue, @Nonnull String... args) {

@@ -16,17 +16,17 @@ public class TheFuckYouForwardHandler extends ConsoleHandler {
     //TODO change vanilla log format to include millis too
     private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss");
     private final PrintStream sout = new PrintStream(new FileOutputStream(FileDescriptor.out));
-    
+
     public void publish(LogRecord record) {
         StringBuilder sb = new StringBuilder();
         sb.append("[").append(hourFormat.format(new Date(record.getMillis()))).append(" ").append(record.getLevel().getName()).append("]: ");
         sb.append(record.getMessage());
         sout.println(sb.toString());
     }
-    
+
     public void flush() {
     }
-    
+
     public void close() throws SecurityException {
     }
 }

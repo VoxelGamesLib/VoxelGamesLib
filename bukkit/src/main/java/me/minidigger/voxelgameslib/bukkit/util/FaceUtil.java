@@ -11,11 +11,11 @@ import org.bukkit.block.BlockFace;
  * Small util for BlockFace <-> yaw conversation <br> https://github.com/bergerkiller/BKCommonLib/blob/master/src/main/java/com/bergerkiller/bukkit/common/utils/FaceUtil.java
  */
 public class FaceUtil {
-    
+
     public static final BlockFace[] AXIS = new BlockFace[4];
     public static final BlockFace[] RADIAL = {BlockFace.WEST, BlockFace.NORTH_WEST, BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST, BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST};
     private static final EnumMap<BlockFace, Integer> notches = new EnumMap<>(BlockFace.class);
-    
+
     static {
         for (int i = 0; i < RADIAL.length; i++) {
             notches.put(RADIAL[i], i);
@@ -24,7 +24,7 @@ public class FaceUtil {
             AXIS[i] = RADIAL[i << 1];
         }
     }
-    
+
     /**
      * Gets the Notch integer representation of a BlockFace<br>
      * <b>These are the horizontal faces, which exclude up and down</b>
@@ -36,7 +36,7 @@ public class FaceUtil {
         Integer notch = notches.get(face);
         return notch == null ? 0 : notch;
     }
-    
+
     /**
      * Gets the angle from a horizontal Block Face
      *
@@ -46,7 +46,7 @@ public class FaceUtil {
     public static int faceToYaw(@Nonnull BlockFace face) {
         return MathUtil.wrapAngle(45 * faceToNotch(face));
     }
-    
+
     /**
      * Gets the horizontal Block Face from a given yaw angle<br>
      * This includes the NORTH_WEST faces
@@ -58,7 +58,7 @@ public class FaceUtil {
     public static BlockFace yawToFace(float yaw) {
         return yawToFace(yaw, true);
     }
-    
+
     /**
      * Gets the horizontal Block Face from a given yaw angle
      *

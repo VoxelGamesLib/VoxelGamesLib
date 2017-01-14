@@ -5,17 +5,17 @@ package me.minidigger.voxelgameslib.api.tick;
  * 1/20 second (20 ticks per second)
  */
 public interface Tickable {
-    
+
     /**
      * called before the first tick
      */
     void start();
-    
+
     /**
      * called when it stops ticking
      */
     void stop();
-    
+
     /**
      * called on every tick
      */

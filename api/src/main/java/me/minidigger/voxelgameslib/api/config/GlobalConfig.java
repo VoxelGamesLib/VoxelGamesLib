@@ -11,12 +11,12 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class GlobalConfig extends Config {
-    
+
     @Expose
     public final int configVersion = 4;
     @Expose
     public int currentVersion = configVersion;
-    
+
     @Expose
     public String logLevel = Level.INFO.getName();
     @Expose
@@ -27,7 +27,7 @@ public class GlobalConfig extends Config {
     public double aDouble = 10;
     @Expose
     public double anotherDouble = 10.1020;
-    
+
     /**
      * @return the default config, with all default settings
      */
@@ -35,17 +35,17 @@ public class GlobalConfig extends Config {
     public static GlobalConfig getDefault() {
         return new GlobalConfig();
     }
-    
+
     @Override
     public int getConfigVersion() {
         return configVersion;
     }
-    
+
     @Override
     public int getCurrentVersion() {
         return currentVersion;
     }
-    
+
     @Override
     public void setCurrentVersion(int currentVersion) {
         this.currentVersion = currentVersion;

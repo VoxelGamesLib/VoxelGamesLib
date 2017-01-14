@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  * Small util to make working with zips easier
  */
 public class ZipUtil {
-    
+
     /**
      * Creates a zip from all files and folders in the specified folder. DOES NOT INCLUDE THE FOLDER
      * ITSELF!
@@ -26,16 +26,16 @@ public class ZipUtil {
     public static ZipFile createZip(@Nonnull File file) throws ZipException {
         ZipFile zip = new ZipFile(new File(file.getParent(), file.getName() + ".zip"));
         ArrayList<File> fileList = new ArrayList<>();
-        
+
         File[] files = file.listFiles();
         if (files == null) {
             return zip;
         }
-        
+
         Arrays.stream(files).forEach(fileList::add);
-        
+
         zip.createZipFile(fileList, new ZipParameters());
-        
+
         return zip;
     }
 }

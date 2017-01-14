@@ -28,19 +28,19 @@ import lombok.extern.java.Log;
 @Log
 @Singleton
 public class ConfigHandler implements Handler, Provider<GlobalConfig> {
-    
+
     @Inject
     @Named("ConfigFolder")
     private File configFolder;
-    
+
     @Inject
     private Gson gson;
     @Inject
     private LoggerHandler logHandler;
-    
+
     private File globalConfigFile;
     private GlobalConfig globalConfig;
-    
+
     @Override
     public void start() {
         globalConfigFile = new File(configFolder, "config.json");
@@ -51,11 +51,11 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
         } else {
             log.info("Loading global config");
             globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
-            
+
             if (checkMigrate(globalConfig)) {
                 migrate(globalConfigFile, globalConfig);
             }
-    
+
             // setting of the log level. its placed here since the log handler is loaded before the config
             try {
                 logHandler.setLevel(Level.parse(globalConfig.logLevel));
@@ -65,7 +65,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             }
         }
     }
-    
+
     /**
      * Checks if the config needs to be migrated
      *
@@ -75,7 +75,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
     public boolean checkMigrate(@Nonnull Config config) {
         return config.getConfigVersion() != config.getCurrentVersion();
     }
-    
+
     /**
      * Migrates the config to a new config version.
      *
@@ -92,17 +92,17 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
         } catch (IOException e) {
             throw new ConfigException("Error while migrating config", e);
         }
-        
+
         config.setCurrentVersion(config.getConfigVersion());
         saveConfig(configFile, config);
         log.info("Done migrating");
     }
-    
+
     @Override
     public void stop() {
-        
+
     }
-    
+
     /**
      * (Re)Loads the config
      *
@@ -120,7 +120,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             throw new ConfigException("Error while loading config", e);
         }
     }
-    
+
     /**
      * saves the config
      *
@@ -140,7 +140,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
                 throw new ConfigException("Error while creating config file. Does that server has rw-rights to '" + configFile.getAbsolutePath() + "'?", e);
             }
         }
-        
+
         try {
             Writer writer = new FileWriter(configFile, false);
             gson.toJson(config, writer);
@@ -149,7 +149,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             throw new ConfigException("Error while saving config", e);
         }
     }
-    
+
     @Override
     public GlobalConfig get() {
         return globalConfig;

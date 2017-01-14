@@ -13,9 +13,9 @@ import javax.annotation.Nonnull;
  * Call to create items, as a chainable builder.
  */
 public class ItemBuilder {
-    
+
     private Item item;
-    
+
     /**
      * Starts creating a new item
      *
@@ -26,7 +26,7 @@ public class ItemBuilder {
         item = injector.getInstance(Item.class);
         item.setMaterial(material);
     }
-    
+
     /**
      * Modifies an existing item
      *
@@ -35,7 +35,7 @@ public class ItemBuilder {
     public ItemBuilder(@Nonnull Item item) {
         this.item = item;
     }
-    
+
     /**
      * sets the material
      *
@@ -47,7 +47,7 @@ public class ItemBuilder {
         item.setMaterial(material);
         return this;
     }
-    
+
     /**
      * Sets the variation (for some server mods, data value) for this item.
      *
@@ -59,7 +59,7 @@ public class ItemBuilder {
         item.setVariation(variation);
         return this;
     }
-    
+
     /**
      * sets the amount
      *
@@ -71,7 +71,7 @@ public class ItemBuilder {
         item.setAmount(amount);
         return this;
     }
-    
+
     /**
      * sets the (display) name
      *
@@ -83,7 +83,7 @@ public class ItemBuilder {
         item.setName(name);
         return this;
     }
-    
+
     /**
      * adds a new line to the lore, creates the lore if there was no line added yet
      *
@@ -100,7 +100,7 @@ public class ItemBuilder {
         item.setLore(loreList);
         return this;
     }
-    
+
     /**
      * Adds multiple lines to the lore, creates the lore if there was no line added yet
      *
@@ -117,7 +117,7 @@ public class ItemBuilder {
         item.setLore(loreList);
         return this;
     }
-    
+
     /**
      * Clears the lore of this item
      *
@@ -128,7 +128,7 @@ public class ItemBuilder {
         item.setLore(new ArrayList<>());
         return this;
     }
-    
+
     /**
      * Addeds a tag to this item. a tag is a NBT tag for most server mods.
      *
@@ -146,7 +146,7 @@ public class ItemBuilder {
         item.setTags(tags);
         return this;
     }
-    
+
     /**
      * Clears all tags for this item
      *
@@ -157,7 +157,7 @@ public class ItemBuilder {
         item.setTags(new HashMap<>());
         return this;
     }
-    
+
     /**
      * @return the constructed item
      */

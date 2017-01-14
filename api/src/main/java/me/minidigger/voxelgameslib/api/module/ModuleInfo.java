@@ -12,12 +12,12 @@ import javax.annotation.Nonnull;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModuleInfo {
-    
+
     @Nonnull String name();
-    
+
     @Nonnull String[] authors();
-    
+
     @Nonnull String version();
-    
+
     //TODO module info javadoc
 }

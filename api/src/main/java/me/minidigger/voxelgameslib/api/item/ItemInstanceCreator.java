@@ -12,10 +12,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class ItemInstanceCreator implements InstanceCreator<Item> {
-    
+
     @Inject
     private Injector injector;
-    
+
     @Override
     public Item createInstance(Type type) {
         return injector.getInstance(Item.class);
