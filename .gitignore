@@ -20,7 +20,6 @@ hs_err_pid*
 /testserver/usercache.json
 *.iml
 */dependency-reduced-pom.xml
-testserver/plugins/VoxelGamesLibBukkit/lang/
 */target/
 */build/
 .gradle
