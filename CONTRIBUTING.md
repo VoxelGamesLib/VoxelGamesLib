@@ -11,6 +11,9 @@ Anyone can help, you don't need to be a developer. If you don't know how to writ
 All messages that will reach players can be translated into every language you desire.  
 I don't speak many languages (only english and german) so I need your help for that. 
 If you translated the messages for your servers, submit your translation as a Pull Request (or if you don't know how to do that, just create a new issue) so I (with the help of others and gtranslate) can validate the translations and add them as default so everyone can use them.  
+You can use {colors} in the messages and other variables. You can see which variables are available for each key [here](/api/src/main/java/me/minidigger/voxelgameslib/api/lang/LangKey.java#L12)
+You can fine the most up to date lang file [here](/testserver/plugins/VoxelGamesLibBukkit/lang/en.properties)  
+
 In the future I plan to setup a service that makes translation very easy, like crowdin for example, but I will wait for that till there is actual demand.
 
 ### Feature/Gamemode Requests
