@@ -15,6 +15,7 @@ import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
+import me.minidigger.voxelgameslib.api.user.GameMode;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
@@ -45,6 +46,8 @@ public class BukkitUser implements User<Player> {
     private CommandHandler commandHandler;
     @Inject
     private Injector injector;
+    @Inject
+    private GameModeConverter gameModeConverter;
 
     @Override
     public void setImplementationType(@Nonnull Player p) {
@@ -215,5 +218,30 @@ public class BukkitUser implements User<Player> {
     @Override
     public void damage(double damage) {
         player.damage(damage);
+    }
+
+    @Override
+    public void setHealth(double health) {
+        player.setHealth(health);
+    }
+
+    @Override
+    public double getHunger() {
+        return player.getFoodLevel();
+    }
+
+    @Override
+    public void setHunger(double hunger) {
+        player.setHealth(hunger);
+    }
+
+    @Override
+    public GameMode getGameMode() {
+        return gameModeConverter.toVGL(player.getGameMode());
+    }
+
+    @Override
+    public void setGameMode(GameMode mode) {
+        player.setGameMode(gameModeConverter.fromVGL(mode));
     }
 }

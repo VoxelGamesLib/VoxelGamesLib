@@ -1,12 +1,15 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
+import me.minidigger.voxelgameslib.api.feature.features.GameModeFeature;
+import me.minidigger.voxelgameslib.api.feature.features.HealFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
+import me.minidigger.voxelgameslib.api.user.GameMode;
 
 /**
  * The lobby phase is the phase that part before the game starts. players can do cool activities
@@ -42,5 +45,12 @@ public class LobbyPhase extends AbstractPhase {
 
         NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
         addFeature(noDamageFeature);
+
+        HealFeature healFeature = getGame().createFeature(HealFeature.class, this);
+        addFeature(healFeature);
+
+        GameModeFeature gameModeFeature = getGame().createFeature(GameModeFeature.class, this);
+        gameModeFeature.setGameMode(GameMode.SURVIVAL);
+        addFeature(gameModeFeature);
     }
 }

@@ -16,6 +16,7 @@ import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
+import me.minidigger.voxelgameslib.api.user.GameMode;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
@@ -172,5 +173,30 @@ public class BukkitConsoleUser implements ConsoleUser<ConsoleCommandSender> {
     @Override
     public void damage(double damage) {
         // can't touch this
+    }
+
+    @Override
+    public void setHealth(double health) {
+        // ignore
+    }
+
+    @Override
+    public double getHunger() {
+        return 0;
+    }
+
+    @Override
+    public void setHunger(double hunger) {
+        // ignore
+    }
+
+    @Override
+    public void setGameMode(GameMode mode) {
+        // ignore
+    }
+
+    @Override
+    public GameMode getGameMode() {
+        return GameMode.CREATIVE;
     }
 }

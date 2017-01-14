@@ -177,4 +177,35 @@ public interface User<T> extends ImplementMe<T> {
      * @param damage the damage that will be applied
      */
     void damage(double damage);
+
+    /**
+     * sets the heal of the user to the given value
+     *
+     * @param health the new health value
+     */
+    void setHealth(double health);
+
+    /**
+     * @return the hunger level of the user
+     */
+    double getHunger();
+
+    /**
+     * changes the hunger level of the user
+     *
+     * @param hunger the new hunger level for the user
+     */
+    void setHunger(double hunger);
+
+    /**
+     * sets a new gamemode for the user
+     *
+     * @param mode the new mode
+     */
+    void setGameMode(GameMode mode);
+
+    /**
+     * @return the gamemode the player is in
+     */
+    GameMode getGameMode();
 }

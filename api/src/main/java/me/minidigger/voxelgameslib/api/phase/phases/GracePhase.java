@@ -2,6 +2,8 @@ package me.minidigger.voxelgameslib.api.phase.phases;
 
 import me.minidigger.voxelgameslib.api.GameConstants;
 import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
+import me.minidigger.voxelgameslib.api.feature.features.GameModeFeature;
+import me.minidigger.voxelgameslib.api.feature.features.HealFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapInfoFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
@@ -10,6 +12,7 @@ import me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature;
 import me.minidigger.voxelgameslib.api.feature.features.ScoreboardFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.TimedPhase;
+import me.minidigger.voxelgameslib.api.user.GameMode;
 
 /**
  * The grace phase is the phase before the real action starts. pvp is disabled, players are expected
@@ -49,7 +52,12 @@ public class GracePhase extends TimedPhase {
 
         NoDamageFeature noDamageFeature = getGame().createFeature(NoDamageFeature.class, this);
         addFeature(noDamageFeature);
-    }
 
-    //TODO GracePhase
+        HealFeature healFeature = getGame().createFeature(HealFeature.class, this);
+        addFeature(healFeature);
+
+        GameModeFeature gameModeFeature = getGame().createFeature(GameModeFeature.class, this);
+        gameModeFeature.setGameMode(GameMode.SURVIVAL);
+        addFeature(gameModeFeature);
+    }
 }

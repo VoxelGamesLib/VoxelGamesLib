@@ -1,10 +1,12 @@
 package me.minidigger.voxelgames.survivalgames;
 
+import me.minidigger.voxelgameslib.api.feature.features.GameModeFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature;
 import me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature;
 import me.minidigger.voxelgameslib.api.feature.features.SpawnFeature;
 import me.minidigger.voxelgameslib.api.phase.AbstractPhase;
+import me.minidigger.voxelgameslib.api.user.GameMode;
 
 /**
  * Created by Martin on 14.01.2017.
@@ -30,6 +32,10 @@ public class SurvivalGamesPhase extends AbstractPhase {
 
         NoBlockPlaceFeature noBlockPlaceFeature = getGame().createFeature(NoBlockPlaceFeature.class, this);
         addFeature(noBlockPlaceFeature);
+
+        GameModeFeature gameModeFeature = getGame().createFeature(GameModeFeature.class, this);
+        gameModeFeature.setGameMode(GameMode.SURVIVAL);
+        addFeature(gameModeFeature);
     }
 
     //TODO survial games phase

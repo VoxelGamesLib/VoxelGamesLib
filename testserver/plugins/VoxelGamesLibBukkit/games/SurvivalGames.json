@@ -33,6 +33,15 @@
         },
         {
           "name": "NoDamageFeature"
+        },
+        {
+          "heal": true,
+          "feed": true,
+          "name": "HealFeature"
+        },
+        {
+          "mode": "SURVIVAL",
+          "name": "GameModeFeature"
         }
       ]
     },
@@ -68,6 +77,15 @@
         },
         {
           "name": "NoDamageFeature"
+        },
+        {
+          "heal": true,
+          "feed": true,
+          "name": "HealFeature"
+        },
+        {
+          "mode": "SURVIVAL",
+          "name": "GameModeFeature"
         }
       ]
     },
@@ -105,6 +123,43 @@
         },
         {
           "name": "NoDamageFeature"
+        },
+        {
+          "heal": true,
+          "feed": true,
+          "name": "HealFeature"
+        },
+        {
+          "mode": "SURVIVAL",
+          "name": "GameModeFeature"
+        }
+      ]
+    },
+    {
+      "name": "SurvivalGamesPhase",
+      "className": "me.minidigger.voxelgames.survivalgames.SurvivalGamesPhase",
+      "allowJoin": false,
+      "allowSpectate": true,
+      "features": [
+        {
+          "shouldUnload": true,
+          "mapGameDataKey": "map",
+          "name": "MapFeature"
+        },
+        {
+          "isRespawn": true,
+          "isInitialSpawn": true,
+          "name": "SpawnFeature"
+        },
+        {
+          "name": "NoBlockBreakFeature"
+        },
+        {
+          "name": "NoBlockPlaceFeature"
+        },
+        {
+          "mode": "SURVIVAL",
+          "name": "GameModeFeature"
         }
       ]
     }
