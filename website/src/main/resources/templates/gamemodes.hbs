@@ -1,0 +1,45 @@
+{{# partial "page"}}
+    <div class="new-block type-10 scroll-to-block" data-id="team">
+        <div class="container">
+            <div class="row page-tagline">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2 class="title">gamemodes</h2>
+                    <div class="description">VoxelGamesLib offers many different gamemodes and it
+                        even allows you to define your own modes.<br>
+                        You can find a list with all gamemodes that are currently included below
+                    </div>
+                </div>
+            </div>
+
+            <div class="row team-inline-entry">
+                {{# each gamemodes }}
+                    <div class="col-sm-4">
+                        <div class="paddings-container">
+                            <div class="image-wrapper">
+                                <div class="image-socials-box">
+                                    <div class="vertical-align">
+                                        {{# each icons}}
+                                            <a href="{{ link }}"><i class="fa {{ icon }} fa-fw"
+                                                                    style="color: black"></i></a>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <img class="thumbnail-image" src="{{ image }}"
+                                     height="493" width="370" alt=""/>
+                            </div>
+                            <div class="name">{{ name }}</div>
+                            <div class="position">{{ sub }}</div>
+                            <div class="description">{{ description }}</div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+{{/partial}}
+
+{{# partial "title"}}
+    GameModes | VoxelGamesLib
+{{/partial}}
+
+{{>base.hbs}}
