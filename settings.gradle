@@ -4,4 +4,5 @@ include 'bukkit'
 include 'bungeecord-chat'
 include 'survivalgames'
 include 'website'
+include 'website-tools'
 

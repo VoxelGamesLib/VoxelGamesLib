@@ -26,8 +26,4 @@ public class GameMode {
     private String description;
     @Expose
     private String slug;
-    @Expose
-    private String githubUrl;
-    @Expose
-    private String githubIssues;
 }

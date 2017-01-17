@@ -1,4 +1,4 @@
-package me.minidigger.voxelgames.survivalgames;
+package me.minidigger.voxelgameslib.survivalgames;
 
 import me.minidigger.voxelgameslib.api.feature.features.GameModeFeature;
 import me.minidigger.voxelgameslib.api.feature.features.MapFeature;

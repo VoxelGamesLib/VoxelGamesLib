@@ -1,16 +1,22 @@
 package me.minidigger.voxelgameslib.api.game;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import lombok.extern.java.Log;
 
 /**
  * A {@link GameMode} is a identifier for the type of a {@link Game}.
  */
+@Log
 public class GameMode {
 
     @Nonnull
     private final String name;
     @Nonnull
     private final Class<? extends Game> gameClass;
+    @Nullable
+    private GameInfo info;
 
     /**
      * Constructs a new {@link GameMode}
@@ -21,6 +27,12 @@ public class GameMode {
     public GameMode(@Nonnull String name, @Nonnull Class<? extends Game> gameClass) {
         this.name = name;
         this.gameClass = gameClass;
+        GameInfo[] infos = gameClass.getAnnotationsByType(GameInfo.class);
+        if (infos.length > 0) {
+            info = infos[0];
+        } else {
+            log.warning("Did not found a game info annotation for class " + gameClass.getName());
+        }
     }
 
     /**

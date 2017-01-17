@@ -1,4 +1,4 @@
-package me.minidigger.voxelgames.survivalgames;
+package me.minidigger.voxelgameslib.survivalgames;
 
 import java.util.Optional;
 import javax.annotation.Nonnull;
@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.game.AbstractGame;
 import me.minidigger.voxelgameslib.api.game.GameDefinition;
+import me.minidigger.voxelgameslib.api.game.GameInfo;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.phase.phases.GracePhase;
 import me.minidigger.voxelgameslib.api.phase.phases.LobbyPhase;
@@ -16,6 +17,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 /**
  * Created by Martin on 26.10.2016.
  */
+@GameInfo(name = "SurvivalGames", author = "MiniDigger", version = "v1.0", description = "SurvivalGamesDescription")
 public class SurvivalGamesGame extends AbstractGame {
 
     @Inject

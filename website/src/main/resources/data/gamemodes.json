@@ -6,7 +6,7 @@
         "icon": "fa-github"
       },
       {
-        "link": "/gamemodes/survival-games",
+        "link": "/gamemodes/survivalgames",
         "icon": "fa-book"
       },
       {
@@ -16,33 +16,8 @@
     ],
     "image": "img/content/Home-2/team-1.jpg",
     "name": "SurvivalGames",
-    "sub": "",
-    "description": "SurvivalGames Description",
-    "slug": "survival-games",
-    "githubUrl": "#",
-    "githubIssues": "#"
-  },
-  {
-    "icons": [
-      {
-        "link": "#",
-        "icon": "fa-github"
-      },
-      {
-        "link": "/gamemodes/sky-wars",
-        "icon": "fa-book"
-      },
-      {
-        "link": "#",
-        "icon": "fa-bug"
-      }
-    ],
-    "image": "img/content/Home-2/team-1.jpg",
-    "name": "SkyWars",
-    "sub": "",
-    "description": "Skywars Description",
-    "slug": "sky-wars",
-    "githubUrl": "#",
-    "githubIssues": "#"
+    "sub": "v1.0 by MiniDigger",
+    "description": "SurvivalGamesDescription",
+    "slug": "survivalgames"
   }
 ]

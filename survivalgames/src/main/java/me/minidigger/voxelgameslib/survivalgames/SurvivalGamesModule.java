@@ -1,4 +1,4 @@
-package me.minidigger.voxelgames.survivalgames;
+package me.minidigger.voxelgameslib.survivalgames;
 
 import com.google.inject.Singleton;
 

@@ -1,16 +1,26 @@
-package me.minidigger.voxelgameslib.api.command;
+package me.minidigger.voxelgameslib.api.game;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.inject.Scope;
 
 /**
- * Marker annotation to mark command handler classes
+ * Annotation to identify games and collection additional data
  */
+@Scope
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CommandExecutor {
+public @interface GameInfo {
+
+    String name();
+
+    String author();
+
+    String version();
+
+    String description();
 }

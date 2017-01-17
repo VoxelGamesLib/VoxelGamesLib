@@ -5,7 +5,7 @@ dependencies {
 
     compile project(path: ":api", configuration: 'shadow')
 
-    compile project(":survivalgames")
+    compile project(path: ":survivalgames", configuration: 'shadow')
 }
 
 repositories {
