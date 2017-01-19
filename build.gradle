@@ -4,7 +4,9 @@ defaultTasks "build"
 
 buildscript {
     repositories {
-        jcenter()
+        maven {
+            url "https://jcenter.bintray.com/"
+        }
         mavenCentral()
     }
     dependencies {
