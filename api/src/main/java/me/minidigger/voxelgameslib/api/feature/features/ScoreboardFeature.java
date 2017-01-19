@@ -6,12 +6,12 @@ import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.server.Server;
 
-/**
- * Handles the scoreboard for all other features
- */
+@FeatureInfo(name = "ScoreboardFeature", author = "MiniDigger", version = "1.0",
+        description = "Handles the scoreboard for all other features")
 public class ScoreboardFeature extends AbstractFeature {
 
     @Inject

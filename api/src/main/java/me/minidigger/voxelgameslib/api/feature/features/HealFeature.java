@@ -5,11 +5,11 @@ import com.google.gson.annotations.Expose;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.user.User;
 
-/**
- * Small feature that heals and feeds players on join
- */
+@FeatureInfo(name = "HealFeature", author = "MiniDigger", version = "1.0",
+        description = "Small feature that heals and feeds players on join")
 public class HealFeature extends AbstractFeature {
 
     @Expose

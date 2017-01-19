@@ -5,11 +5,11 @@ import com.google.gson.annotations.Expose;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.user.GameMode;
 
-/**
- * Created by Martin on 14.01.2017.
- */
+@FeatureInfo(name = "GameModeFeature", author = "MiniDigger", version = "1.0",
+        description = "Simple feature that changes the gamemode of all players in the phase")
 public class GameModeFeature extends AbstractFeature {
 
     @Expose

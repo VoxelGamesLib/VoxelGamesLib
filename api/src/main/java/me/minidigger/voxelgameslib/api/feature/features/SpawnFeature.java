@@ -12,14 +12,14 @@ import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserRespawnEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.user.User;
 
-/**
- * Handles (re)spawning
- */
+@FeatureInfo(name = "SpawnFeature", author = "MiniDigger", version = "1.0",
+        description = "Handles (re)spawning")
 public class SpawnFeature extends AbstractFeature {
 
     @Expose

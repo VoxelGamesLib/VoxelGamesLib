@@ -37,15 +37,15 @@ public class GenerateGameModes {
     private static void doStuffWith(Class<?> clazz) {
         GameInfo gameInfo = clazz.getAnnotation(GameInfo.class);
 
-        System.out.println("name: " + gameInfo.name() + " author: " + gameInfo.author() + " version: " + gameInfo.version() + " description: " + gameInfo.description());
-
         List<Icon> icons = new ArrayList<>();
         icons.add(new Icon("#", "fa-github"));//TODO github url
         icons.add(new Icon("/gamemodes/" + slugify.slugify(gameInfo.name()), "fa-book"));
         icons.add(new Icon("#", "fa-bug"));//TODO issues url
 
         //TODO image url
-        gameModes.add(new GameMode(icons, "img/content/Home-2/team-1.jpg", gameInfo.name(),
-                gameInfo.version() + " by " + gameInfo.author(), gameInfo.description(), slugify.slugify(gameInfo.name())));
+        GameMode gameMode = new GameMode(icons, "img/content/Home-2/team-1.jpg", gameInfo.name(),
+                gameInfo.version() + " by " + gameInfo.author(), gameInfo.description(), slugify.slugify(gameInfo.name()));
+        System.out.println(gameMode);
+        gameModes.add(gameMode);
     }
 }

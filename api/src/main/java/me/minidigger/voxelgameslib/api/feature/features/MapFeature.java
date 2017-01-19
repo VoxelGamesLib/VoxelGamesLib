@@ -8,13 +8,13 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
-/**
- * Handles loading and unloading of the map for this phase
- */
+@FeatureInfo(name = "MapFeature", author = "MiniDigger", version = "1.0",
+        description = "Handles loading and unloading of the map for this phase")
 public class MapFeature extends AbstractFeature {
 
     @Inject

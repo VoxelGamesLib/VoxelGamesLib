@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import me.minidigger.voxelgameslib.website.model.Feature;
 import me.minidigger.voxelgameslib.website.model.GameMode;
 
 import spark.ModelAndView;
@@ -26,6 +27,7 @@ import static spark.Spark.staticFiles;
 public class Main {
 
     private static List<GameMode> gameModes;
+    private static List<Feature> features;
     private static boolean themeChooser = false;
 
     public static void main(String[] args) {
@@ -46,6 +48,13 @@ public class Main {
             model.put("themeChooser", themeChooser);
             model.put("gamemodes", gameModes);
             return new ModelAndView(model, "gamemodes.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        get("/features", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("themeChooser", themeChooser);
+            model.put("features", features);
+            return new ModelAndView(model, "features.hbs");
         }, new HandlebarsTemplateEngine());
 
         notFound((req, res) -> {
@@ -85,5 +94,7 @@ public class Main {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         //noinspection unchecked
         gameModes = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/gamemodes.json")), List.class);
+        //noinspection unchecked
+        features = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/features.json")), List.class);
     }
 }

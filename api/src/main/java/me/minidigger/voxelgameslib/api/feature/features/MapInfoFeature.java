@@ -2,14 +2,14 @@ package me.minidigger.voxelgameslib.api.feature.features;
 
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
 
-/**
- * Displays some information about the current map in the scoreboard of the phase
- */
+@FeatureInfo(name = "MapInfoFeature", author = "MiniDigger", version = "1.0",
+        description = "Displays some information about the current map in the scoreboard of the phase")
 public class MapInfoFeature extends AbstractFeature {
 
     @Override

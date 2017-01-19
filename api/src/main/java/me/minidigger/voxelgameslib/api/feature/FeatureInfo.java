@@ -1,4 +1,4 @@
-package me.minidigger.voxelgameslib.api.game;
+package me.minidigger.voxelgameslib.api.feature;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -7,30 +7,30 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to identify games and collection additional data
+ * Small annotation to add info to features that might be used in documentation
  */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GameInfo {
+public @interface FeatureInfo {
 
     /**
-     * @return the name of the game
+     * @return the name of the feature
      */
     String name();
 
     /**
-     * @return the author of the game
+     * @return the author of the feature
      */
     String author();
 
     /**
-     * @return the version of the game
+     * @return the version of the feature
      */
     String version();
 
     /**
-     * @return a short description of the game
+     * @return the description of the feature
      */
     String description();
 }

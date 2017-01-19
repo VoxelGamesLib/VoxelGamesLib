@@ -3,10 +3,10 @@ package me.minidigger.voxelgameslib.api.feature.features;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.block.BlockPlaceEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 
-/**
- * Small feature that blocks block placement
- */
+@FeatureInfo(name = "NoBlockPlaceFeature", author = "MiniDigger", version = "1.0",
+        description = "Small feature that blocks block placing if active")
 public class NoBlockPlaceFeature extends AbstractFeature {
     @Override
     public void start() {

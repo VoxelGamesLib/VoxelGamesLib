@@ -4,10 +4,10 @@ import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.block.BlockBreakEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 
-/**
- * Small feature that blocks block breaking if active
- */
+@FeatureInfo(name = "NoBlockBreakFeature", author = "MiniDigger", version = "1.0",
+        description = "Small feature that blocks block breaking if active")
 public class NoBlockBreakFeature extends AbstractFeature {
     @Override
     public void start() {

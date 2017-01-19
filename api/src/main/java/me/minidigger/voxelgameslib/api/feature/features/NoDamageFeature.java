@@ -3,10 +3,10 @@ package me.minidigger.voxelgameslib.api.feature.features;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.user.UserDamageEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 
-/**
- * Small feature that disables any damage
- */
+@FeatureInfo(name = "NoDamageFeature", author = "MiniDigger", version = "1.0",
+        description = "Small feature that disables any damage")
 public class NoDamageFeature extends AbstractFeature {
     @Override
     public void start() {

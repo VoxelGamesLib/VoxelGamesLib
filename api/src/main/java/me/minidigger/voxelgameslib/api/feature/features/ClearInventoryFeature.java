@@ -3,12 +3,11 @@ package me.minidigger.voxelgameslib.api.feature.features;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.user.User;
 
-/**
- * Simple feature that clears the inventory of all players when the game starts (or a new player
- * joins)
- */
+@FeatureInfo(name = "ClearInventoryFeature", author = "MiniDigger", version = "1.0",
+        description = "Simple feature that clears the inventory of all players when the game starts (or a new player joins)")
 public class ClearInventoryFeature extends AbstractFeature {
     @Override
     public void start() {

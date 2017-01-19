@@ -14,6 +14,7 @@ import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.map.MapInfo;
@@ -21,9 +22,8 @@ import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 
-/**
- * Simple feature that lets ppl vote on maps
- */
+@FeatureInfo(name = "VoteFeature", author = "MiniDigger", version = "1.0",
+        description = "Simple feature that lets ppl vote on maps")
 public class VoteFeature extends AbstractFeature {
 
     @Expose
