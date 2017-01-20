@@ -57,7 +57,7 @@ public class Main {
 
         loadData();
 
-        get("/index", (req, res) -> {
+        get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("themeChooser", themeChooser);
             return new ModelAndView(model, "index.hbs");
