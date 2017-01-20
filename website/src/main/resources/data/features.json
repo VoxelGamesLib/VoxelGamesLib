@@ -1,0 +1,130 @@
+[
+  {
+    "name": "HealFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.HealFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Small feature that heals and feeds players on join",
+    "dependencies": [],
+    "params": [
+      "heal",
+      "feed"
+    ],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-healfeature"
+  },
+  {
+    "name": "NoBlockBreakFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.NoBlockBreakFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Small feature that blocks block breaking if active",
+    "dependencies": [],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-noblockbreakfeature"
+  },
+  {
+    "name": "NoDamageFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.NoDamageFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Small feature that disables any damage",
+    "dependencies": [],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-nodamagefeature"
+  },
+  {
+    "name": "NoBlockPlaceFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.NoBlockPlaceFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Small feature that blocks block placing if active",
+    "dependencies": [],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-noblockplacefeature"
+  },
+  {
+    "name": "ClearInventoryFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Simple feature that clears the inventory of all players when the game starts (or a new player joins)",
+    "dependencies": [],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-clearinventoryfeature"
+  },
+  {
+    "name": "ScoreboardFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.ScoreboardFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Handles the scoreboard for all other features",
+    "dependencies": [],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-scoreboardfeature"
+  },
+  {
+    "name": "MapFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.MapFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Handles loading and unloading of the map for this phase",
+    "dependencies": [],
+    "params": [
+      "shouldUnload",
+      "mapGameDataKey"
+    ],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-mapfeature"
+  },
+  {
+    "name": "MapInfoFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.MapInfoFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Displays some information about the current map in the scoreboard of the phase",
+    "dependencies": [
+      "me.minidigger.voxelgameslib.api.feature.features.MapFeature",
+      "me.minidigger.voxelgameslib.api.feature.features.ScoreboardFeature"
+    ],
+    "params": [],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-mapinfofeature"
+  },
+  {
+    "name": "GameModeFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.GameModeFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Simple feature that changes the gamemode of all players in the phase",
+    "dependencies": [],
+    "params": [
+      "mode"
+    ],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-gamemodefeature"
+  },
+  {
+    "name": "VoteFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.VoteFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Simple feature that lets ppl vote on maps",
+    "dependencies": [],
+    "params": [
+      "maxMaps"
+    ],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-votefeature"
+  },
+  {
+    "name": "SpawnFeature",
+    "fullName": "me.minidigger.voxelgameslib.api.feature.features.SpawnFeature",
+    "author": "MiniDigger",
+    "version": "1.0",
+    "description": "Handles (re)spawning",
+    "dependencies": [
+      "me.minidigger.voxelgameslib.api.feature.features.MapFeature"
+    ],
+    "params": [
+      "isRespawn",
+      "isInitialSpawn"
+    ],
+    "slug": "me-minidigger-voxelgameslib-api-feature-features-spawnfeature"
+  }
+]

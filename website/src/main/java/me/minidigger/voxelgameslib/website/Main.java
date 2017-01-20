@@ -29,11 +29,18 @@ public class Main {
     private static List<GameMode> gameModes;
     private static List<Feature> features;
     private static boolean themeChooser = false;
+    private static boolean localhost = true;
 
     public static void main(String[] args) {
         // to serve images, styles etc
-        staticFiles.location("/public");
-        staticFiles.expireTime(TimeUnit.MINUTES.toSeconds(10));
+        if (localhost) {
+            String projectDir = System.getProperty("user.dir");
+            String staticDir = "/src/main/resources/public";
+            staticFiles.externalLocation(projectDir + staticDir);
+        } else {
+            staticFiles.location("/public");
+            staticFiles.expireTime(TimeUnit.MINUTES.toSeconds(10));
+        }
 
         loadData();
 
