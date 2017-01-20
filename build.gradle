@@ -2,7 +2,7 @@ group = "me.minidigger.voxelgameslib"
 
 defaultTasks "build"
 
-buildscript {
+buildscript {<---- break something ;D
     repositories {
         maven {
             url "https://jcenter.bintray.com/"
