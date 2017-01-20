@@ -1,5 +1,5 @@
 group 'me.minidigger.voxelgameslib'
-version 'unspecified'
+version '1.0.0'
 
 apply plugin: 'java'
 
@@ -17,5 +17,15 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.7.21'
     compile 'com.github.slugify:slugify:2.1.7'
     compile 'com.google.code.gson:gson:2.8.0'
+}
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'me.minidigger.voxelgameslib.website.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

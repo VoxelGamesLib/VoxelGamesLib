@@ -33,7 +33,7 @@ public class Main {
 
     private static List<GameMode> gameModes;
     private static List<Feature> features;
-    private static boolean themeChooser = true;
+    private static boolean themeChooser = false;
     private static boolean localhost = true;
     private static TemplateLoader templateLoader;
 
@@ -52,7 +52,7 @@ public class Main {
             staticFiles.location("/public");
             staticFiles.expireTime(TimeUnit.MINUTES.toSeconds(10));
 
-            templateLoader = new ClassPathTemplateLoader("/");
+            templateLoader = new ClassPathTemplateLoader("/templates/");
         }
 
         loadData();
