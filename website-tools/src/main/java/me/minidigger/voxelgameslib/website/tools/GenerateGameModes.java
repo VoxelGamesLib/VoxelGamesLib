@@ -32,7 +32,8 @@ public class GenerateGameModes {
 
         gameModes.sort(Comparator.comparing(GameMode::getSlug));
 
-        FileWriter fileWriter = new FileWriter(new File("Z:\\Dev\\spigot-intellij\\VoxelGamesLib\\website\\src\\main\\resources\\data\\gamemodes.json"));
+        File outFile = new File(new File(System.getProperty("user.dir")).getParent(), "website/src/main/resources/data/gamemodes.json");
+        FileWriter fileWriter = new FileWriter(outFile);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(gameModes, fileWriter);
         fileWriter.close();

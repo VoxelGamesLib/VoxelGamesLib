@@ -31,7 +31,8 @@ public class GenerateFeatures {
 
         features.sort(Comparator.comparing(Feature::getSlug));
 
-        FileWriter fileWriter = new FileWriter(new File("Z:\\Dev\\spigot-intellij\\VoxelGamesLib\\website\\src\\main\\resources\\data\\features.json"));
+        File outFile = new File(new File(System.getProperty("user.dir")).getParent(), "website/src/main/resources/data/features.json");
+        FileWriter fileWriter = new FileWriter(outFile);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(features, fileWriter);
         fileWriter.close();
