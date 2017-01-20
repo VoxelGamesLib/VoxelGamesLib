@@ -17,7 +17,7 @@
     "description": "Simple feature that changes the gamemode of all players in the phase",
     "dependencies": [],
     "params": [
-      "mode"
+      "mode (me.minidigger.voxelgameslib.api.user.GameMode)"
     ],
     "slug": "me-minidigger-voxelgameslib-api-feature-features-gamemodefeature"
   },
@@ -29,8 +29,8 @@
     "description": "Small feature that heals and feeds players on join",
     "dependencies": [],
     "params": [
-      "heal",
-      "feed"
+      "heal (boolean)",
+      "feed (boolean)"
     ],
     "slug": "me-minidigger-voxelgameslib-api-feature-features-healfeature"
   },
@@ -42,8 +42,8 @@
     "description": "Handles loading and unloading of the map for this phase",
     "dependencies": [],
     "params": [
-      "shouldUnload",
-      "mapGameDataKey"
+      "shouldUnload (boolean)",
+      "mapGameDataKey (java.lang.String)"
     ],
     "slug": "me-minidigger-voxelgameslib-api-feature-features-mapfeature"
   },
@@ -110,8 +110,8 @@
       "me.minidigger.voxelgameslib.api.feature.features.MapFeature"
     ],
     "params": [
-      "isRespawn",
-      "isInitialSpawn"
+      "isRespawn (boolean)",
+      "isInitialSpawn (boolean)"
     ],
     "slug": "me-minidigger-voxelgameslib-api-feature-features-spawnfeature"
   },
@@ -123,7 +123,7 @@
     "description": "Simple feature that lets ppl vote on maps",
     "dependencies": [],
     "params": [
-      "maxMaps"
+      "maxMaps (int)"
     ],
     "slug": "me-minidigger-voxelgameslib-api-feature-features-votefeature"
   }

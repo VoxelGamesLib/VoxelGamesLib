@@ -55,7 +55,7 @@ public class GenerateFeatures {
         List<String> params = new ArrayList<>();
         for (Field field : clazz.getDeclaredFields()) {
             if (field.isAnnotationPresent(Expose.class)) {
-                params.add(field.getName());
+                params.add(field.getName() + " (" + field.getType().getName() + ")");
             }
         }
 
