@@ -1,4 +1,4 @@
-# VoxelGamesLib [![Build Status](http://ci.minidigger.me/buildStatus/icon?job=VoxelGamesLib&build=2)](http://ci.minidigger.me/job/VoxelGamesLib/2/)
+# VoxelGamesLib [![Build Status](http://ci.minidigger.me/job/VoxelGamesLib/22/badge/icon)](http://ci.minidigger.me/job/VoxelGamesLib/22/)
 
 ###### Multi-platform, fully-featured, data-driven, abstract and expendable minecraft minigames framework
 
@@ -8,4 +8,4 @@ This will be a large-scaled, fully modular minigames api for many minecraft serv
 
 ## Contributing and Building
 
-Take a look at the ![Contributing Guidelines](https://github.com/MiniDigger/VoxelGamesLib/blob/master/CONTRIBUTING.md)
+Take a look at the [Contributing Guidelines](https://github.com/MiniDigger/VoxelGamesLib/blob/master/CONTRIBUTING.md)
