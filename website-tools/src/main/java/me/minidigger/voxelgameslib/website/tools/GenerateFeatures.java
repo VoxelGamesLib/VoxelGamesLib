@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import me.minidigger.voxelgameslib.api.feature.FeatureInfo;
@@ -27,6 +28,9 @@ public class GenerateFeatures {
 
     public static void main(String[] args) throws Exception {
         new Reflections().getTypesAnnotatedWith(FeatureInfo.class).forEach(GenerateFeatures::doStuffWith);
+
+        features.sort(Comparator.comparing(Feature::getSlug));
+
         FileWriter fileWriter = new FileWriter(new File("Z:\\Dev\\spigot-intellij\\VoxelGamesLib\\website\\src\\main\\resources\\data\\features.json"));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(features, fileWriter);

@@ -10,6 +10,7 @@ import org.reflections.Reflections;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.inject.Singleton;
 
@@ -28,6 +29,9 @@ public class GenerateGameModes {
 
     public static void main(String[] args) throws Exception {
         new Reflections().getTypesAnnotatedWith(GameInfo.class).forEach(GenerateGameModes::doStuffWith);
+
+        gameModes.sort(Comparator.comparing(GameMode::getSlug));
+
         FileWriter fileWriter = new FileWriter(new File("Z:\\Dev\\spigot-intellij\\VoxelGamesLib\\website\\src\\main\\resources\\data\\gamemodes.json"));
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         gson.toJson(gameModes, fileWriter);
