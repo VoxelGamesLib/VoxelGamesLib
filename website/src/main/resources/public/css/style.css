@@ -3828,14 +3828,18 @@ blockquote *:before {
 }
 
 .accordeon .entry .title {
-    font-size: 12px;
+    color: black;
+/ / mod: make it black again font-size: 13 px;
+/ / mod: 12 px - > 13 px
     color: #222;
     line-height: 16px;
     padding: 17px 25px 15px 45px;
     position: relative;
-    text-transform: uppercase;
+    text-transform: none;
+/ / mod: uppercase - > none
     font-family: 'bold';
-    position: relative;
+    font-weight: 700;
+/ / mod: make it bold again
     cursor: pointer;
 }
 
@@ -3867,6 +3871,55 @@ blockquote *:before {
     -ms-transform: rotate(-180deg);
     top: 19px;
 }
+
+/** mod: start sub title stuff **/
+.soft-shadow {
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.15);
+    margin-bottom: 15px;
+}
+
+.accordeon .entry .title .subtitle {
+    font-size: 12px;
+    color: #a3a3a3;
+    line-height: 16px;
+    padding: 0px;
+    position: relative;
+    text-transform: none;
+    cursor: pointer;
+    font-family: 'regular';
+    font-weight: 500;
+}
+
+.accordeon .entry .title:hover .subtitle {
+    color: #fbc011;
+}
+
+.accordeon .entry.active .title .subtitle {
+    color: #fff;
+}
+
+.accordeon .entry.active .title .subtitle:hover {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.accordeon .entry .title .subtitle span {
+    position: absolute;
+    left: 25px;
+    top: 17px;
+    font-size: 13px;
+    color: #fbc011;
+}
+
+.accordeon .entry.active .title .subtitle span {
+    color: rgba(255, 255, 255, 0.8);
+    transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    top: 19px;
+}
+
+/** mod: end sub title stuff **/
 
 .accordeon .entry .text {
     font-size: 14px;
@@ -7316,6 +7369,9 @@ body[data-theme="theme-8"] .button.black {
     -ms-transition: none;
 }
 
+/** start mod **/
+.accordeon .entry .title .subtitle,
+    /** end mod **/
 .button:after, .footer-bottom .footer-linck a, .footer-bottom .media-icon a, .banner-tabs .entry span, .banner-tabs .entry span:before, .new-block.type-10 .paddings-container .image-wrapper img, .new-block.type-10 .image-socials-box a, .new-block.type-10 .image-socials-box a img, .testimonials-slider .swiper-arrow, .blog-entry .title, .new-block.type-18 .tabs-switch, .sorting-menu a, .accordeon .entry, .accordeon .entry .title, .accordeon .entry .title span, .default-arrow, .default-arrow span, .blog-post .title, .popular-post-entry .content .title, .tags-container a, .arrow-button, .blog-post .thumbnails .entry, .share-post a, .posts-navigation .title, .small-button, .sorting-item .tagline, .gallery-popup .close-popup, .screen-preview-popup .close-popup, .paginator ul li a, .categories-wrapper .entry, .latest-comment-entry .title a, .comment-content .name .reply, .gallery-popup .close-popup span, .screen-preview-popup .close-popup span, .sorting-item .tagline .title, .sorting-item .tagline .description, .button, .widget-entry .social-icons a, .styled-form .submit-wrapper, .teaser-copyright .copyright a, .back-to-top {
     -moz-transition: all 0.15s ease-out;
     -o-transition: all 0.15s ease-out;

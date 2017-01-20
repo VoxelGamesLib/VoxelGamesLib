@@ -28,7 +28,7 @@ public class Main {
 
     private static List<GameMode> gameModes;
     private static List<Feature> features;
-    private static boolean themeChooser = false;
+    private static boolean themeChooser = true;
     private static boolean localhost = true;
 
     public static void main(String[] args) {

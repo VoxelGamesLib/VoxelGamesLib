@@ -12,35 +12,37 @@
                 <div class="clear"></div>
                 <div data-wow-delay="0.3s" class="accordeon">
                     {{# each features }}
-                        <div class="entry">
-                            <div class="title">
+                        <div class="soft-shadow">
+                            <div class="entry">
+                                <div class="title">
                                 <span class="glyphicon glyphicon-chevron-right"
                                       aria-hidden="true"></span>
-                                {{ name }}
-                                <div style="font-size: 10px">
-                                    ({{ fullName }})
+                                    {{ name }}
+                                    <div class="subtitle">
+                                        ({{ fullName }})
+                                    </div>
+                                    <!-- todo, needs to be inline, should take ::active into consideration too -->
                                 </div>
-                                <!-- todo, needs to be inline, should take ::active into consideration too -->
-                            </div>
-                            <div style="display: none;" class="text">
-                                {{ version }} by {{ author }} <br>
-                                {{description }}<br><br>
-                                <h4>Dependencies</h4>
-                                <!-- todo fix list style -->
-                                <div class="typography-article">
-                                    <ul class="list-style-3">
-                                        {{# each dependencies }}
-                                            <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                                <h4>Params: </h4>
-                                <div class=" typography-article">
-                                    <ul class="list-style-3">
-                                        {{# each params }}
-                                            <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
-                                        {{/each}}
-                                    </ul>
+                                <div style="display: none;" class="text">
+                                    {{ version }} by {{ author }} <br>
+                                    {{description }}<br><br>
+                                    <h4>Dependencies</h4>
+                                    <!-- todo fix list style -->
+                                    <div class="typography-article">
+                                        <ul class="list-style-3">
+                                            {{# each dependencies }}
+                                                <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                    <h4>Params: </h4>
+                                    <div class=" typography-article">
+                                        <ul class="list-style-3">
+                                            {{# each params }}
+                                                <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
