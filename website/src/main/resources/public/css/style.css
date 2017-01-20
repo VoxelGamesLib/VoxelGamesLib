@@ -3828,18 +3828,15 @@ blockquote *:before {
 }
 
 .accordeon .entry .title {
-    color: black;
-/ / mod: make it black again font-size: 13 px;
-/ / mod: 12 px - > 13 px
+    /* mod: 12 px - > 15 px*/
+    font-size: 15px;
     color: #222;
     line-height: 16px;
     padding: 17px 25px 15px 45px;
     position: relative;
+    /* mod: uppercase - > none */
     text-transform: none;
-/ / mod: uppercase - > none
     font-family: 'bold';
-    font-weight: 700;
-/ / mod: make it bold again
     cursor: pointer;
 }
 
@@ -3871,6 +3868,14 @@ blockquote *:before {
     -ms-transform: rotate(-180deg);
     top: 19px;
 }
+
+/** mod: make titles in accordeon text a bit nicer **/
+.accordeon .entry .text h2 {
+    font-weight: 700;
+    font-size: 17px;
+}
+
+/** mod: end **/
 
 /** mod: start sub title stuff **/
 .soft-shadow {
@@ -3924,7 +3929,7 @@ blockquote *:before {
 .accordeon .entry .text {
     font-size: 14px;
     line-height: 24px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 1); /** mod: 0.8 -> 1 **/
     padding: 12px 25px;
     display: none;
 }
@@ -5993,6 +5998,19 @@ blockquote *:before {
     top: 14px;
     background: #fbc011;
 }
+
+/** mod: make list-style-3 visible with colored backgroud **/
+.typography-article ul.list-style-3.with-a-bit-less-color li:before {
+    width: 7px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    content: "";
+    top: 14px;
+    background: rgba(255, 255, 255, 1);
+}
+
+/** mod: end **/
 
 .typography-article ul.list-style-3 li:after {
     display: none;

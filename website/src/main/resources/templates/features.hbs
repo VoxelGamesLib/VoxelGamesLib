@@ -26,20 +26,20 @@
                                 <div style="display: none;" class="text">
                                     {{ version }} by {{ author }} <br>
                                     {{description }}<br><br>
-                                    <h4>Dependencies</h4>
+                                    <h2>Dependencies</h2>
                                     <!-- todo fix list style -->
-                                    <div class="typography-article">
-                                        <ul class="list-style-3">
+                                    <div class=" typography-article" style="margin-bottom: 10px">
+                                        <ul class="list-style-3 with-a-bit-less-color">
                                             {{# each dependencies }}
-                                                <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
+                                                <li style="color: rgba(255, 255, 255, 1);">{{this }}  </li>
                                             {{/each}}
                                         </ul>
                                     </div>
-                                    <h4>Params: </h4>
-                                    <div class=" typography-article">
-                                        <ul class="list-style-3">
+                                    <h2>Params</h2>
+                                    <div class=" typography-article" style="margin-bottom: 10px">
+                                        <ul class="list-style-3 with-a-bit-less-color">
                                             {{# each params }}
-                                                <li style="color: rgba(255, 255, 255, 0.8);">{{this }}  </li>
+                                                <li style="color: rgba(255, 255, 255, 1);">{{this }}  </li>
                                             {{/each}}
                                         </ul>
                                     </div>
