@@ -1,0 +1,98 @@
+<div class="new-block type-14 scroll-to-block" data-id="contribute" style="padding-top: 20px">
+    <div class="container">
+        <div class="widget-entry">
+            <div class="row page-tagline">
+                <div class="col-md-6 col-md-offset-3">
+                    <h2 class="title">contribute</h2>
+                    <div class="description">
+                        you want to make this project even better?<br>
+                        there are multiple way how you can get involved
+                    </div>
+                </div>
+            </div>
+            <div class="tabs-switch-container">
+                <div class="tabs-switch-wrapper items-2">
+                    <div class="tabs-switch" style="padding-top: 0;  height: 70px;">
+                        <div class="cell-view">users</div>
+                    </div>
+                    <div class="tabs-switch active" style="padding-top: 0; height: 70px;">
+                        <div class="cell-view">developers</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="widget-tab-wrapper">
+                    <div class="tabs-entry" style="display: none;">
+                        <div class="typography-article small-font">
+                            <div class="row tabs-switch-container">
+                                <div class="col-md-3">
+                                    <div class="tabs-limit-container">
+                                        {{# each contributingEntries }}
+                                            {{# if dev }}{{else}}
+                                                <div class="tabs-switch">
+                                                    <img src="img/theme-1/icon18.png"
+                                                         alt=""><span>{{ title }}</span>
+                                                </div>
+                                            {{/if}}
+                                        {{/each}}
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    {{# each contributingEntries }}
+                                        {{# if dev }}{{else}}
+                                            <div class="row tabs-entry">
+                                                <div class="col-sm-4">
+                                                    <div class="cell-view">
+                                                        <div class="tabs-title">{{ title }}</div>
+                                                        <div class="tabs-text">
+                                                            {{ content }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{/if}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabs-entry" style="display: block;">
+                        <div class="typography-article small-font">
+                            <div class="row tabs-switch-container">
+                                <div class="col-md-3">
+                                    <div class="tabs-limit-container">
+                                        {{# each contributingEntries }}
+                                            {{# if dev }}
+                                                <div class="tabs-switch">
+                                                    <img src="img/theme-1/icon18.png"
+                                                         alt=""><span>{{ title }}</span>
+                                                </div>
+                                            {{/if}}
+                                        {{/each}}
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    {{# each contributingEntries }}
+                                        {{# if developer }}
+                                            <div class="row tabs-entry">
+                                                <div class="col-sm-4">
+                                                    <div class="cell-view">
+                                                        <div class="tabs-title">{{ title }}</div>
+                                                        <div class="tabs-text">
+                                                            {{ content }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {{/if}}
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

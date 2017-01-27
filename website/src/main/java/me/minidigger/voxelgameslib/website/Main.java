@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import me.minidigger.voxelgameslib.website.model.ContributingEntry;
 import me.minidigger.voxelgameslib.website.model.Feature;
 import me.minidigger.voxelgameslib.website.model.GameMode;
 
@@ -33,6 +34,8 @@ public class Main {
 
     private static List<GameMode> gameModes;
     private static List<Feature> features;
+    private static List<ContributingEntry> contributingEntries;
+
     private static boolean themeChooser = false;
     private static boolean localhost = true;
     private static TemplateLoader templateLoader;
@@ -42,10 +45,10 @@ public class Main {
         if (localhost) {
             String projectDir = System.getProperty("user.dir");
 
-            String staticDir = "/src/main/resources/public";
+            String staticDir = "/website/src/main/resources/public";
             staticFiles.externalLocation(projectDir + staticDir);
 
-            String templateDir = "/src/main/resources/templates";
+            String templateDir = "/website/src/main/resources/templates";
             String templateRoot = new File(projectDir + templateDir).getPath();
             templateLoader = new FileTemplateLoader(templateRoot);
         } else {
@@ -60,6 +63,7 @@ public class Main {
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("themeChooser", themeChooser);
+            model.put("contributingEntries", contributingEntries);
             return new ModelAndView(model, "index.hbs");
         }, new MaTemplateEngine(templateLoader));
 
@@ -116,5 +120,7 @@ public class Main {
         gameModes = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/gamemodes.json")), List.class);
         //noinspection unchecked
         features = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/features.json")), List.class);
+        //noinspection unchecked
+        contributingEntries = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/contributingEntries.json")), List.class);
     }
 }

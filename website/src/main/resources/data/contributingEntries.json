@@ -1,0 +1,56 @@
+[
+  {
+    "icon": "bug",
+    "title": "translations",
+    "content": "translations",
+    "dev": false
+  },
+  {
+    "icon": "bug",
+    "title": "feature/gamemode requests",
+    "content": "feature/gamemode requests",
+    "dev": false
+  },
+  {
+    "icon": "bug",
+    "title": "bug reports",
+    "content": "bug reports",
+    "dev": false
+  },
+  {
+    "icon": "bug",
+    "title": "compiling",
+    "content": "compiling",
+    "dev": true
+  },
+  {
+    "icon": "bug",
+    "title": "contributing code",
+    "content": "contributing code",
+    "dev": true
+  },
+  {
+    "icon": "bug",
+    "title": "new gamemode",
+    "content": "new gamemode",
+    "dev": true
+  },
+  {
+    "icon": "bug",
+    "title": "new phase",
+    "content": "new phase",
+    "dev": true
+  },
+  {
+    "icon": "bug",
+    "title": "new feature",
+    "content": "new feature",
+    "dev": true
+  },
+  {
+    "icon": "bug",
+    "title": "new servermod",
+    "content": "new servermod",
+    "dev": true
+  }
+]
