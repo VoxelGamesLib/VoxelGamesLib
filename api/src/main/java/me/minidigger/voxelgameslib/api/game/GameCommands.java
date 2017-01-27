@@ -30,7 +30,11 @@ public class GameCommands {
 
     @CommandInfo(name = "game.list", perm = "command.game.list", role = Role.DEFAULT, description = "Shows currently running games")
     public void gameList(@Nonnull CommandArguments args) {
-        // todo game list command
+        Lang.msg(args.getSender(), LangKey.GAME_GAMELIST_HEADER);
+        for (Game game : gameHandler.getGames()) {
+            Lang.msg(args.getSender(), LangKey.GAME_GAMELIST_ENTRY, game.getUuid().toString().split("-")[0], game.getGameMode().getName(), game.getActivePhase().getName(), game.getPlayers().size(), game.getSpectators().size());
+        }
+        Lang.msg(args.getSender(), LangKey.GAME_GAMELIST_FOOTER);
     }
 
     @CommandInfo(name = "game.listmodes", perm = "command.game.listmodes", role = Role.DEFAULT, description = "Shows currently installed gamemodes")

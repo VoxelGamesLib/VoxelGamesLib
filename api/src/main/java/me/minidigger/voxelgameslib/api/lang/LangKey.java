@@ -28,6 +28,10 @@ public enum LangKey {
     GAME_CANT_SPECTATE("You can't join this game to spectate right now"),
     GAME_GAME_STARTED("Game started"),
 
+    GAME_GAMELIST_HEADER("{gold}##### Currently running games ####"),
+    GAME_GAMELIST_ENTRY("{aqua}# {yellow}{uuid} {aqua}- {yellow}{mode} {aqua}in phase {yellow}{phase} {aqua}with {yellow}{players}({spectators}) {aqua}players", "uuid", "mode", "phase", "players", "spectators"),
+    GAME_GAMELIST_FOOTER("{gold}###############################"),
+
     GENERAL_INVALID_ARGUMENT("u w00t m8? {arg} is not an accepted argument!", "arg"),
     GENERAL_INVALID_NUMBER("{num} is not a valid number!", "num"),
 

@@ -192,6 +192,14 @@ public class GameHandler implements Handler {
     }
 
     /**
+     * @return a list with all currently running games
+     */
+    @Nonnull
+    public List<Game> getGames() {
+        return games;
+    }
+
+    /**
      * Gets a game definition based on the game mode
      *
      * @param mode the game mode
