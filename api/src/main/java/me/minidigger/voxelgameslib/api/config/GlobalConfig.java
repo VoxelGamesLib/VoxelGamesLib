@@ -2,9 +2,13 @@ package me.minidigger.voxelgameslib.api.config;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
+
+import me.minidigger.voxelgameslib.api.lang.Locale;
+import me.minidigger.voxelgameslib.api.utils.CollectionUtil;
 
 /**
  * The config defines all configuration values (and the default values)
@@ -13,7 +17,7 @@ import javax.inject.Singleton;
 public class GlobalConfig extends Config {
 
     @Expose
-    public final int configVersion = 4;
+    public final int configVersion = 5;
     @Expose
     public int currentVersion = configVersion;
 
@@ -22,11 +26,7 @@ public class GlobalConfig extends Config {
     @Expose
     public boolean useRoleSystem = true;
     @Expose
-    public int anInt = 10;
-    @Expose
-    public double aDouble = 10;
-    @Expose
-    public double anotherDouble = 10.1020;
+    public List<String> availableLanguages = CollectionUtil.toStringList(Locale.values(), Locale::getTag);
 
     /**
      * @return the default config, with all default settings

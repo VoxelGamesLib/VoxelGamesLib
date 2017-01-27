@@ -35,6 +35,7 @@ public enum LangKey {
     LANG_INSTALLED("The following languages are installed and available on this server: {langs}", "langs"),
     LANG_UNKNOWN("Unknown language {lang}! Use /lang to see which languages are available!", "lang"),
     LANG_UPDATE("You are now receiving messages in {lang}!", "lang"),
+    LANG_NOT_ENABLED("However, {lang} is not enabled on this server. Ask the admins very kindly to enable it!", "lang"),
 
     LOG_LEVEL_CURRENT("{yellow}The current log level is {level}", "level"),
     LOG_LEVEL_SET("{green}Log level was set to {level}", "level"),

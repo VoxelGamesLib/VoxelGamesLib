@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
+import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.role.Role;
 
 /**
@@ -20,13 +21,16 @@ public class LangCommands {
 
     @Inject
     private LangHandler langHandler;
+    @Inject
+    private GlobalConfig globalConfig;
 
     @CommandInfo(name = "lang", perm = "command.lang", role = Role.DEFAULT)
     public void lang(@Nonnull CommandArguments args) {
         StringBuilder sb = new StringBuilder();
         for (Locale loc : langHandler.getInstalledLocales()) {
-            sb.append(loc.getName()).append(" ");
+            sb.append(loc.getTag()).append(" (").append(loc.getName()).append("), ");
         }
+        sb.setLength(sb.length() - 1);
         Lang.msg(args.getSender(), LangKey.LANG_INSTALLED, sb.toString());
         Lang.msg(args.getSender(), LangKey.LANG_CURRENT, args.getSender().getLocale().getName());
     }
@@ -35,10 +39,16 @@ public class LangCommands {
     public void set(@Nonnull CommandArguments args) {
         Optional<Locale> loc = Locale.fromTag(args.getArg(0));
         if (!loc.isPresent()) {
-            Lang.msg(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));
-            return;
+            loc = Locale.fromName(args.getArg(0));
+            if (!loc.isPresent()) {
+                Lang.msg(args.getSender(), LangKey.LANG_UNKNOWN, args.getArg(0));
+                return;
+            }
         }
         args.getSender().setLocale(loc.get());
-        Lang.msg(args.getSender(), LangKey.LANG_UPDATE, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_UPDATE, loc.get().getName());
+        if (!langHandler.getInstalledLocales().contains(loc.get())) {
+            Lang.msg(args.getSender(), LangKey.LANG_NOT_ENABLED, loc.get().getName());
+        }
     }
 }

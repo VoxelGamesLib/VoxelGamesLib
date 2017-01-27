@@ -135,13 +135,13 @@ public class LangStorage {
     @Nonnull
     public String get(@Nonnull LangKey key) {
         String message = messages.getProperty(key.name());
-        if (message == null) {
+        if (message == null || message.length() < 2) {
             if (parentStorage != null) {
                 message = parentStorage.get(key);
             }
         }
 
-        if (message == null) {
+        if (message == null || message.length() < 2) {
             throw new LangException("Could not find value for lang key " + key.name()); //TODO do we want to return the default value here?
         }
 

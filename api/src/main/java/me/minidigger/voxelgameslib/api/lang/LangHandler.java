@@ -2,12 +2,14 @@ package me.minidigger.voxelgameslib.api.lang;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
+import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 
 import lombok.extern.java.Log;
@@ -39,8 +41,14 @@ public class LangHandler implements Handler {
             log.info("Migrated lang file " + defaultStorage.getLangFile().getAbsolutePath() + ": Added " + counter + " new keys!");
         }
 
-        registerLocale(Locale.ENGLISH);
-        registerLocale(Locale.GERMAN);
+        for (String tag : voxelGameLib.getInjector().getInstance(GlobalConfig.class).availableLanguages) {
+            Optional<Locale> opt = Locale.fromTag(tag);
+            if (opt.isPresent()) {
+                registerLocale(opt.get());
+            } else {
+                log.warning("Unknown lang tag " + tag);
+            }
+        }
     }
 
     @Override

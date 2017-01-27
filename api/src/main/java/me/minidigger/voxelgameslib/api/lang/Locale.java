@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Created by Martin on 09.10.2016.
+ * Represents a language a player can select to get all messages in that language
  */
 @Data
 @AllArgsConstructor
@@ -22,13 +22,15 @@ public class Locale {
     public static final Locale SPANISH = new Locale("spanish", "es");
     public static final Locale SWEDISH = new Locale("swedish", "sv");
     public static final Locale TURKISH = new Locale("turkish", "tr");
+    public static final Locale DUTCH = new Locale("dutch", "nl");
+    public static final Locale BRAZILIAN_PORTUGESE = new Locale("brazilian portuguese", "pt-br");
 
     /**
      * @return all known locales
      */
     @Nonnull
     public static Locale[] values() {
-        return new Locale[]{ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, RUSSIAN, SPANISH, SWEDISH, TURKISH};
+        return new Locale[]{ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, RUSSIAN, SPANISH, SWEDISH, TURKISH, DUTCH, BRAZILIAN_PORTUGESE};
     }
 
     /**
