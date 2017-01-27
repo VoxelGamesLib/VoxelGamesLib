@@ -1,7 +1,7 @@
 {
   "gameMode": {
     "name": "SurvivalGames",
-    "className": "me.minidigger.voxelgames.survivalgames.SurvivalGamesGame"
+    "className": "me.minidigger.voxelgameslib.survivalgames.SurvivalGamesGame"
   },
   "minPlayers": 2,
   "maxPlayers": 14,
@@ -137,7 +137,7 @@
     },
     {
       "name": "SurvivalGamesPhase",
-      "className": "me.minidigger.voxelgames.survivalgames.SurvivalGamesPhase",
+      "className": "me.minidigger.voxelgameslib.survivalgames.SurvivalGamesPhase",
       "allowJoin": false,
       "allowSpectate": true,
       "features": [
