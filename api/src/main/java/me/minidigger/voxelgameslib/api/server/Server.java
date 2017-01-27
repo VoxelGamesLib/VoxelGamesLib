@@ -8,10 +8,12 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
+import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.utils.Pair;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 /**
@@ -82,4 +84,8 @@ public interface Server {
      */
     Scoreboard createScoreboard(String title);
 
+    /**
+     * @return the current spawn point for this server
+     */
+    Pair<String, Vector3D> getSpawn();
 }

@@ -8,10 +8,12 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
+import me.minidigger.voxelgameslib.api.server.Server;
 
 @Singleton
 @EventListener
@@ -22,6 +24,8 @@ public class UserListener {
     private UserHandler handler;
     @Inject
     private Injector injector;
+    @Inject
+    private Server server;
 
     @EventListener
     public void onAsyncLogin(@Nonnull AsyncUserLoginEvent event) {
@@ -46,6 +50,12 @@ public class UserListener {
         //noinspection unchecked
         user.setImplementationType(event.getPlayerObject());
         handler.join(user);
+    }
+
+    @EventListener
+    public void onJoin(@Nonnull UserJoinEvent event) {
+        // tp to spawn
+        event.getUser().teleport(server.getSpawn().getFirst(), server.getSpawn().getSecond());
     }
 
     @EventListener

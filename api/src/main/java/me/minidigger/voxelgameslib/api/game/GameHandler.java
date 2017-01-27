@@ -209,4 +209,14 @@ public class GameHandler implements Handler {
     public Optional<GameDefinition> getGameDefinition(GameMode mode) {
         return gameDefinitions.stream().filter(gameDefinition -> gameDefinition.getGameMode().equals(mode)).findAny();
     }
+
+
+    /**
+     * Removes a game because it was ended
+     *
+     * @param game the game to remove
+     */
+    public void removeGame(Game game) {
+        games.remove(game);
+    }
 }

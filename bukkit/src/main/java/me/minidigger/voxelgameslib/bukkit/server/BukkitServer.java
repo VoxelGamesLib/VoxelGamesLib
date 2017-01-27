@@ -10,18 +10,22 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBar;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
+import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.server.AbstractServer;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.api.utils.Pair;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarColorConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarStyleConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.scoreboard.BukkitScoreboard;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
+import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import lombok.extern.java.Log;
@@ -41,6 +45,8 @@ public class BukkitServer extends AbstractServer {
     private BossBarColorConverter bossBarColorConverter;
     @Inject
     private BossBarStyleConverter bossBarStyleConverter;
+    @Inject
+    private VectorConverter vectorConverter;
 
     @Override
     public List<User> getOnlineUsers() {
@@ -80,5 +86,11 @@ public class BukkitServer extends AbstractServer {
         scoreboard.setImplObject(Bukkit.getScoreboardManager().getNewScoreboard());
         scoreboard.setTitle(title);
         return scoreboard;
+    }
+
+    @Override
+    public Pair<String, Vector3D> getSpawn() {
+        Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
+        return new Pair<>(spawn.getWorld().getName(), vectorConverter.toVGL(spawn.toVector()));
     }
 }

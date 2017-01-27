@@ -27,6 +27,7 @@ public enum LangKey {
     GAME_PLAYER_LEAVE("{name} has left the game", "name"),
     GAME_CANT_SPECTATE("You can't join this game to spectate right now"),
     GAME_GAME_STARTED("Game started"),
+    GAME_END("{aqua}Game ended"),
 
     GAME_GAMELIST_HEADER("{gold}##### Currently running games ####"),
     GAME_GAMELIST_ENTRY("{aqua}# {yellow}{uuid} {aqua}- {yellow}{mode} {aqua}in phase {yellow}{phase} {aqua}with {yellow}{players}({spectators}) {aqua}players", "uuid", "mode", "phase", "players", "spectators"),

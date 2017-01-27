@@ -39,6 +39,8 @@ public abstract class AbstractGame implements Game {
     private TickHandler tickHandler;
     @Inject
     private Server server;
+    @Inject
+    private GameHandler gameHandler;
 
     @Nonnull
     private final GameMode gameMode;
@@ -164,8 +166,6 @@ public abstract class AbstractGame implements Game {
             activePhase.setRunning(true);
             activePhase.start();
         } else {
-            log.finer("was last phase, so stop");
-            new Throwable().printStackTrace();
             endGame();
         }
     }
@@ -174,9 +174,20 @@ public abstract class AbstractGame implements Game {
     public void endGame() {
         //TODO handle game end better, what about a game end phase?
         log.finer("end game");
+
+        broadcastMessage(LangKey.GAME_END);
+
+        while (players.size() != 0) {
+            leave(players.get(0));
+        }
+        while (spectators.size() != 0) {
+            leave(spectators.get(0));
+        }
+
         activePhase.setRunning(false);
         activePhase.stop();
         tickHandler.end(this);
+        gameHandler.removeGame(this);
     }
 
     @Nonnull
@@ -222,6 +233,8 @@ public abstract class AbstractGame implements Game {
         spectators.remove(user);
         eventHandler.callEvent(new GameLeaveEvent(this, user));
         broadcastMessage(LangKey.GAME_PLAYER_LEAVE, (Object) user.getDisplayName());
+        // tp to spawn
+        user.teleport(server.getSpawn().getFirst(), server.getSpawn().getSecond());
     }
 
     @Override
