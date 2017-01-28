@@ -44,7 +44,7 @@ subprojects {
     }
 
     dependencies {
-        testCompile "junit.junit:4.12"
+        testCompile "junit:junit:4.11"
         compileOnly "org.projectlombok:lombok:1.14.8"
     }
 
@@ -74,7 +74,20 @@ subprojects {
         }
     }
 
+    test {
+        reports.html.enabled = false
+        filter {
+            includeTestsMatching "*Test"
+        }
+    }
+
     build.dependsOn(generateRebel)
+}
+
+task testReport(type: TestReport) {
+    println "test report exported to $buildDir/reports/allTests"
+    destinationDir = file("$buildDir/reports/allTests")
+    reportOn subprojects*.test
 }
 
 println """

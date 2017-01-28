@@ -8,4 +8,5 @@ dependencies {
     compile 'nu.studer:java-ordered-properties:1.0.1'
 
     compile project(":bungeecord-chat")
+    compile project(":jskill")
 }

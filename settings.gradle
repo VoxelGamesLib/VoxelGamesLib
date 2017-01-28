@@ -5,4 +5,6 @@ include 'bungeecord-chat'
 include 'survivalgames'
 include 'website'
 include 'website-tools'
+include 'jskill'
+include 'jskill'
 

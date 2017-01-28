@@ -1,0 +1,14 @@
+group 'me.minidigger.voxelgameslib'
+version 'unspecified'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.ejml:simple:0.28'
+}
