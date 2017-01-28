@@ -27,9 +27,9 @@ public class OneVsOneFeature extends AbstractFeature {
     public void start() {
         DuelFeature duelFeature = getPhase().getFeature(DuelFeature.class);
         log.info(ChatUtil.toPlainText(duelFeature.getOne().getDisplayName()) + "[" +
-                duelFeature.getOne().getRating(getPhase().getGame().getGameMode()).getConservativeRating() + "] duels "
+                duelFeature.getOne().getRating(getPhase().getGame().getGameMode()).getMean() + "] duels "
                 + ChatUtil.toPlainText(duelFeature.getTwo().getDisplayName()) + "[" +
-                duelFeature.getTwo().getRating(getPhase().getGame().getGameMode()).getConservativeRating() + "]");
+                duelFeature.getTwo().getRating(getPhase().getGame().getGameMode()).getMean() + "]");
 
         // TODO better items, lol
         for (User user : new User[]{duelFeature.getOne(), duelFeature.getTwo()}) {
