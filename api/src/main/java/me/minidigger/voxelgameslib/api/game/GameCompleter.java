@@ -45,7 +45,7 @@ public class GameCompleter {
 
     @CompleterInfo(name = "game.join")
     public List<String> join(@Nonnull CommandArguments args) {
-        return new ArrayList<>(); //TODO game.join completer
+        return CommandUtil.filterTabCompletions(args.getArg(0), gameHandler.getGameModes());
     }
 
     @CompleterInfo(name = "game.leave")
