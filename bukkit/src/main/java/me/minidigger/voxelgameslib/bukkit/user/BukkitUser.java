@@ -1,22 +1,17 @@
 package me.minidigger.voxelgameslib.bukkit.user;
 
-import com.google.inject.Injector;
-
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
-import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
-import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Permission;
-import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
+import me.minidigger.voxelgameslib.api.user.AbstractUser;
 import me.minidigger.voxelgameslib.api.user.GameMode;
-import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
@@ -31,21 +26,14 @@ import org.bukkit.entity.Player;
 import lombok.extern.java.Log;
 
 @Log
-public class BukkitUser implements User<Player> {
+public class BukkitUser extends AbstractUser<Player> {
 
     private Player player;
-    private Role role;
-    @Nonnull
-    private Locale locale = Locale.ENGLISH;
 
     @Inject
     private RoleHandler roleHandler;
     @Inject
-    private GlobalConfig config;
-    @Inject
     private CommandHandler commandHandler;
-    @Inject
-    private Injector injector;
     @Inject
     private GameModeConverter gameModeConverter;
 
@@ -69,35 +57,6 @@ public class BukkitUser implements User<Player> {
 
     @Nonnull
     @Override
-    public Role getRole() {
-        return role;
-    }
-
-    @Nonnull
-    @Override
-    public Locale getLocale() {
-        return locale;
-    }
-
-    @Override
-    public void setLocale(@Nonnull Locale locale) {
-        this.locale = locale;
-    }
-
-    @Nonnull
-    @Override
-    public BaseComponent[] getPrefix() {
-        return new ComponentBuilder("PREFIX").create();
-    }
-
-    @Nonnull
-    @Override
-    public BaseComponent[] getSuffix() {
-        return new ComponentBuilder("SUFFIX").create();
-    }
-
-    @Nonnull
-    @Override
     public BaseComponent[] getDisplayName() {
         return new ComponentBuilder(player.getDisplayName()).create();
     }
@@ -116,11 +75,7 @@ public class BukkitUser implements User<Player> {
 
     @Override
     public boolean hasPermission(@Nonnull Permission perm) {
-        if (config.useRoleSystem) {
-            return role.hasPermission(perm);
-        } else {
-            return player.hasPermission(perm.getString());
-        }
+        return super.hasPermission(perm) || player.hasPermission(perm.getString());
     }
 
     @Override
@@ -173,7 +128,7 @@ public class BukkitUser implements User<Player> {
     @Nonnull
     @Override
     public Item getItemInHand(@Nonnull Hand hand) {
-        Item item = injector.getInstance(Item.class);
+        Item item = getInjector().getInstance(Item.class);
         if (hand == Hand.MAINHAND) {
             //noinspection unchecked
             item.setImplementationType(player.getInventory().getItemInMainHand());
@@ -193,16 +148,10 @@ public class BukkitUser implements User<Player> {
     @Nonnull
     @Override
     public Item getInventory(int slot) {
-        Item item = injector.getInstance(Item.class);
+        Item item = getInjector().getInstance(Item.class);
         //noinspection unchecked
         item.setImplementationType(player.getInventory().getItem(slot));
         return item;
-    }
-
-    @Nonnull
-    @Override
-    public Injector getInjector() {
-        return injector;
     }
 
     @Override

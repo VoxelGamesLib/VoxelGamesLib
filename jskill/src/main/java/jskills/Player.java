@@ -70,10 +70,12 @@ public class Player<T> implements IPlayer, ISupportPartialPlay, ISupportPartialU
         return id;
     }
 
+    @Override
     public double getPartialPlayPercentage() {
         return partialPlayPercentage;
     }
 
+    @Override
     public double getPartialUpdatePercentage() {
         return partialUpdatePercentage;
     }

@@ -14,11 +14,15 @@ import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
+import jskills.IPlayer;
+import jskills.ISupportPartialPlay;
+import jskills.ISupportPartialUpdate;
+
 /**
  * A Users represents an abstract player of the game. There are implementations for every server mod
  * available.<br>
  */
-public interface User<T> extends ImplementMe<T> {
+public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, ISupportPartialUpdate {
 
     /**
      * @return the {@link Role} the user is assigned to
