@@ -11,10 +11,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.elo.EloHandler;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.game.GameLeaveEvent;
+import me.minidigger.voxelgameslib.api.exception.NoSuchFeatureException;
 import me.minidigger.voxelgameslib.api.feature.Feature;
+import me.minidigger.voxelgameslib.api.feature.features.DuelFeature;
+import me.minidigger.voxelgameslib.api.feature.features.TeamFeature;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.phase.Phase;
@@ -41,6 +45,8 @@ public abstract class AbstractGame implements Game {
     private Server server;
     @Inject
     private GameHandler gameHandler;
+    @Inject
+    private EloHandler eloHandler;
 
     @Nonnull
     private final GameMode gameMode;
@@ -172,8 +178,10 @@ public abstract class AbstractGame implements Game {
 
     @Override
     public void endGame() {
-        //TODO handle game end better, what about a game end phase?
         log.finer("end game");
+
+        handleElo();
+        //TODO handle stats
 
         broadcastMessage(LangKey.GAME_END);
 
@@ -188,6 +196,29 @@ public abstract class AbstractGame implements Game {
         activePhase.stop();
         tickHandler.end(this);
         gameHandler.removeGame(this);
+    }
+
+    private void handleElo() {
+        boolean handled = false;
+        try {
+            TeamFeature teamFeature = getActivePhase().getFeature(TeamFeature.class);
+            eloHandler.handleGameEnd(this, teamFeature);
+            handled = true;
+        } catch (NoSuchFeatureException ignored) {
+        }
+
+        if (!handled) {
+            try {
+                DuelFeature duelFeature = getActivePhase().getFeature(DuelFeature.class);
+                eloHandler.handleGameEnd(this, duelFeature);
+                handled = true;
+            } catch (NoSuchFeatureException ignored) {
+            }
+        }
+
+        if (!handled) {
+            eloHandler.handleGameEnd(this);
+        }
     }
 
     @Nonnull

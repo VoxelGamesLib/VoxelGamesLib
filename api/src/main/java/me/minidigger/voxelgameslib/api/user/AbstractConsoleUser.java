@@ -2,6 +2,8 @@ package me.minidigger.voxelgameslib.api.user;
 
 import com.google.inject.Injector;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -16,6 +18,9 @@ import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
+
+import jskills.GameRatingInfo;
+import jskills.Rating;
 
 /**
  * Abstract implementation of the console user interface that deals with most stuff
@@ -163,12 +168,14 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
         // ignore
     }
 
+    @Nonnull
     @Override
     public GameMode getGameMode() {
         return GameMode.CREATIVE;
     }
 
 
+    /* elo stuff */
     @Override
     public double getPartialPlayPercentage() {
         return 1.0;
@@ -177,5 +184,21 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     @Override
     public double getPartialUpdatePercentage() {
         return 1.0;
+    }
+
+
+    @Override
+    public Rating getRating(me.minidigger.voxelgameslib.api.game.GameMode mode) {
+        return GameRatingInfo.getDefaultGameInfo().getDefaultRating();
+    }
+
+    @Override
+    public void saveRating(me.minidigger.voxelgameslib.api.game.GameMode mode, Rating rating) {
+        // ignore
+    }
+
+    @Override
+    public Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> getRatings() {
+        return new HashMap<>();
     }
 }

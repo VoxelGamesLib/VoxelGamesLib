@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.PairwiseComparison;
@@ -28,7 +28,7 @@ public abstract class TwoPlayerEloCalculator extends SkillCalculator {
     }
 
     @Override
-    public Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo,
+    public Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo,
                                                     Collection<ITeam> teams, int... teamRanks) {
         validateTeamCountAndPlayersCountPerTeam(teams);
         List<ITeam> teamsl = RankSorter.sort(teams, teamRanks);
@@ -49,7 +49,7 @@ public abstract class TwoPlayerEloCalculator extends SkillCalculator {
         return result;
     }
 
-    protected EloRating calculateNewRating(GameInfo gameInfo,
+    protected EloRating calculateNewRating(GameRatingInfo gameInfo,
                                            double selfRating, double opponentRating,
                                            PairwiseComparison selfToOpponentComparison) {
         double expectedProbability = getPlayerWinProbability(gameInfo, selfRating, opponentRating);
@@ -74,10 +74,10 @@ public abstract class TwoPlayerEloCalculator extends SkillCalculator {
         }
     }
 
-    protected abstract double getPlayerWinProbability(GameInfo gameInfo, double playerRating, double opponentRating);
+    protected abstract double getPlayerWinProbability(GameRatingInfo gameInfo, double playerRating, double opponentRating);
 
     @Override
-    public double calculateMatchQuality(GameInfo gameInfo,
+    public double calculateMatchQuality(GameRatingInfo gameInfo,
                                         Collection<ITeam> teams) {
         validateTeamCountAndPlayersCountPerTeam(teams);
 

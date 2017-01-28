@@ -1,8 +1,11 @@
 package me.minidigger.voxelgameslib.api.game;
 
+import com.google.gson.annotations.Expose;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import jskills.GameRatingInfo;
 import lombok.extern.java.Log;
 
 /**
@@ -12,11 +15,17 @@ import lombok.extern.java.Log;
 public class GameMode {
 
     @Nonnull
+    @Expose
     private final String name;
     @Nonnull
     private final Class<? extends Game> gameClass;
+    @Expose
+    private final String className;
     @Nullable
     private GameInfo info;
+
+    @Expose
+    private GameRatingInfo ratingInfo;
 
     /**
      * Constructs a new {@link GameMode}
@@ -27,6 +36,7 @@ public class GameMode {
     public GameMode(@Nonnull String name, @Nonnull Class<? extends Game> gameClass) {
         this.name = name;
         this.gameClass = gameClass;
+        className = gameClass.getName();
         GameInfo[] infos = gameClass.getAnnotationsByType(GameInfo.class);
         if (infos.length > 0) {
             info = infos[0];
@@ -49,6 +59,13 @@ public class GameMode {
     @Nonnull
     public Class<? extends Game> getGameClass() {
         return gameClass;
+    }
+
+    /**
+     * @return the game ratings info that contains all info for doing stuff with elo
+     */
+    public GameRatingInfo getRatingInfo() {
+        return ratingInfo;
     }
 
     @Override

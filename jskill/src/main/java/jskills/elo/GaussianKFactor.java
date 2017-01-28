@@ -1,6 +1,6 @@
 package jskills.elo;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 
 public class GaussianKFactor extends KFactor {
     // From paper
@@ -10,7 +10,7 @@ public class GaussianKFactor extends KFactor {
         super(StableDynamicsKFactor);
     }
 
-    public GaussianKFactor(GameInfo gameInfo, double latestGameWeightingFactor) {
+    public GaussianKFactor(GameRatingInfo gameInfo, double latestGameWeightingFactor) {
         super(latestGameWeightingFactor * gameInfo.getBeta()
                 * Math.sqrt(Math.PI));
     }

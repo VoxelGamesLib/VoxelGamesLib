@@ -28,7 +28,7 @@ public class TrueSkillCalculator {
      *                  (e.g. 1, 2, 2)
      * @return All the players and their new ratings.
      */
-    public static Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo, Collection<ITeam> teams, int... teamRanks) {
+    public static Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo, Collection<ITeam> teams, int... teamRanks) {
         // Just punt the work to the full implementation
         return calculator.calculateNewRatings(gameInfo, teams, teamRanks);
     }
@@ -40,7 +40,7 @@ public class TrueSkillCalculator {
      * @param teams    A mapping of team players and their ratings.
      * @return The match quality as a percentage (between 0.0 and 1.0).
      */
-    public static double calculateMatchQuality(GameInfo gameInfo, Collection<ITeam> teams) {
+    public static double calculateMatchQuality(GameRatingInfo gameInfo, Collection<ITeam> teams) {
         // Just punt the work to the full implementation
         return calculator.calculateMatchQuality(gameInfo, teams);
     }

@@ -3,7 +3,7 @@ package jskills.trueskill;
 import java.util.Collection;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.Player;
@@ -81,7 +81,7 @@ public class TrueSkillCalculatorTests {
     private static void TwoPlayerTestNotDrawn(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -101,7 +101,7 @@ public class TrueSkillCalculatorTests {
     private static void TwoPlayerTestDrawn(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -122,7 +122,7 @@ public class TrueSkillCalculatorTests {
         // Inspired by a real bug :-)
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
-        GameInfo gameInfo = new GameInfo(1200.0, 1200.0 / 3.0, 200.0, 1200.0 / 300.0, 0.03);
+        GameRatingInfo gameInfo = new GameRatingInfo(1200.0, 1200.0 / 3.0, 200.0, 1200.0 / 300.0, 0.03);
 
         Team team1 = new Team(player1, new Rating(1301.0007, 42.9232));
         Team team2 = new Team(player2, new Rating(1188.7560, 42.5570));
@@ -139,7 +139,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnOneMassiveUpsetDrawTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team().addPlayer(player1, gameInfo.getDefaultRating());
 
@@ -168,7 +168,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating())
@@ -199,7 +199,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating())
@@ -230,7 +230,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, new Rating(15, 8))
@@ -261,7 +261,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, new Rating(20, 8))
@@ -294,7 +294,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player3 = new Player<Integer>(3);
         Player<Integer> player4 = new Player<Integer>(4);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating())
@@ -336,7 +336,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnTwoSimpleTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating());
@@ -364,7 +364,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnTwoSomewhatBalanced(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, new Rating(40, 6));
@@ -392,7 +392,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnThreeSimpleTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating());
@@ -423,7 +423,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnTwoDrawTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating());
@@ -451,7 +451,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnThreeDrawTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating());
@@ -482,7 +482,7 @@ public class TrueSkillCalculatorTests {
     private static void OneOnSevenSimpleTest(SkillCalculator calculator) {
         Player<Integer> player1 = new Player<Integer>(1);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, gameInfo.getDefaultRating());
@@ -540,7 +540,7 @@ public class TrueSkillCalculatorTests {
                 .addPlayer(player4, new Rating(30, 4))
                 .addPlayer(player5, new Rating(31, 3));
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Collection<ITeam> teams = Team.concat(team1, team2);
         Map<IPlayer, Rating> newRatingsWinLoseExpected = calculator.calculateNewRatings(gameInfo, teams, 1, 2);
@@ -576,7 +576,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team()
                 .addPlayer(player1, new Rating(40, 4))
@@ -621,7 +621,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
         Player<Integer> player3 = new Player<Integer>(3);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -647,7 +647,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);
         Player<Integer> player3 = new Player<Integer>(3);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -674,7 +674,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player2 = new Player<Integer>(2);
         Player<Integer> player3 = new Player<Integer>(3);
         Player<Integer> player4 = new Player<Integer>(4);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -705,7 +705,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player3 = new Player<Integer>(3);
         Player<Integer> player4 = new Player<Integer>(4);
         Player<Integer> player5 = new Player<Integer>(5);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -744,7 +744,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player6 = new Player<Integer>(6);
         Player<Integer> player7 = new Player<Integer>(7);
         Player<Integer> player8 = new Player<Integer>(8);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -795,7 +795,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player6 = new Player<Integer>(6);
         Player<Integer> player7 = new Player<Integer>(7);
         Player<Integer> player8 = new Player<Integer>(8);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, new Rating(10, 8));
         Team team2 = new Team(player2, new Rating(15, 7));
@@ -854,7 +854,7 @@ public class TrueSkillCalculatorTests {
         Player<Integer> player14 = new Player<Integer>(14);
         Player<Integer> player15 = new Player<Integer>(15);
         Player<Integer> player16 = new Player<Integer>(16);
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Team team1 = new Team(player1, gameInfo.getDefaultRating());
         Team team2 = new Team(player2, gameInfo.getDefaultRating());
@@ -936,7 +936,7 @@ public class TrueSkillCalculatorTests {
 //------------------------------------------------------------------------------
 
     private static void OneOnTwoBalancedPartialPlay(SkillCalculator calculator) {
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Player<Integer> p1 = new Player<Integer>(1);
         Team team1 = new Team(p1, gameInfo.getDefaultRating());

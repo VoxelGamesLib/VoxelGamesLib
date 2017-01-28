@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.Guard;
 import jskills.IPlayer;
 import jskills.ITeam;
@@ -33,7 +33,7 @@ public class TwoTeamTrueSkillCalculator extends SkillCalculator {
     }
 
     @Override
-    public Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo, Collection<ITeam> teams, int... teamRanks) {
+    public Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo, Collection<ITeam> teams, int... teamRanks) {
 
         Guard.argumentNotNull(gameInfo, "gameInfo");
         validateTeamCountAndPlayersCountPerTeam(teams);
@@ -62,7 +62,7 @@ public class TwoTeamTrueSkillCalculator extends SkillCalculator {
         return results;
     }
 
-    private static void updatePlayerRatings(GameInfo gameInfo,
+    private static void updatePlayerRatings(GameRatingInfo gameInfo,
                                             Map<IPlayer, Rating> newPlayerRatings,
                                             ITeam selfTeam,
                                             ITeam otherTeam,
@@ -132,7 +132,7 @@ public class TwoTeamTrueSkillCalculator extends SkillCalculator {
     }
 
     @Override
-    public double calculateMatchQuality(GameInfo gameInfo, Collection<ITeam> teams) {
+    public double calculateMatchQuality(GameRatingInfo gameInfo, Collection<ITeam> teams) {
 
         Guard.argumentNotNull(gameInfo, "gameInfo");
         validateTeamCountAndPlayersCountPerTeam(teams);

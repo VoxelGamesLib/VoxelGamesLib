@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.Collection;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.Player;
@@ -21,7 +21,7 @@ public class DuellingEloTest {
     public void twoOnTwoDuellingTest() {
         DuellingEloCalculator calculator = new DuellingEloCalculator(new GaussianEloCalculator());
 
-        GameInfo gameInfo = GameInfo.getDefaultGameInfo();
+        GameRatingInfo gameInfo = GameRatingInfo.getDefaultGameInfo();
 
         Player<Integer> player1 = new Player<Integer>(1);
         Player<Integer> player2 = new Player<Integer>(2);

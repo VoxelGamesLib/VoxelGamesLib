@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.config.ConfigHandler;
+import me.minidigger.voxelgameslib.api.elo.EloHandler;
 import me.minidigger.voxelgameslib.api.error.ErrorHandler;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.VoxelGameLibEnableEvent;
@@ -19,6 +20,7 @@ import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
+import me.minidigger.voxelgameslib.api.team.TeamHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
@@ -61,6 +63,10 @@ public class VoxelGamesLib {
     private ModuleHandler moduleHandler;
     @Inject
     private VGLEventHandler eventHandler;
+    @Inject
+    private EloHandler eloHandler;
+    @Inject
+    private TeamHandler teamHandler;
 
     @Nonnull
     private Injector injector;
@@ -83,6 +89,8 @@ public class VoxelGamesLib {
         errorHandler.start();
         mapHandler.start();
         worldHandler.start();
+        teamHandler.start();
+        eloHandler.start();
 
         gameHandler.start();
         moduleHandler.start();
@@ -112,6 +120,8 @@ public class VoxelGamesLib {
         errorHandler.stop();
         mapHandler.stop();
         worldHandler.stop();
+        teamHandler.stop();
+        eloHandler.stop();
 
         gameHandler.stop();
         moduleHandler.stop();

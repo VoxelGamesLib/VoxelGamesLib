@@ -1,9 +1,11 @@
 package jskills;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * Parameters about the game for calculating the TrueSkill.
  */
-public class GameInfo {
+public class GameRatingInfo {
 
     private static final double defaultInitialMean = 25.0;
     private static final double defaultBeta = defaultInitialMean / 6.0;
@@ -11,14 +13,19 @@ public class GameInfo {
     private static final double defaultDynamicsFactor = defaultInitialMean / 300.0;
     private static final double defaultInitialStandardDeviation = defaultInitialMean / 3.0;
 
+    @Expose
     private double initialMean;
+    @Expose
     private double initialStandardDeviation;
+    @Expose
     private double beta;
+    @Expose
     private double dynamicsFactor;
+    @Expose
     private double drawProbability;
 
-    public GameInfo(double initialMean, double initialStandardDeviation,
-                    double beta, double dynamicFactor, double drawProbability) {
+    public GameRatingInfo(double initialMean, double initialStandardDeviation,
+                          double beta, double dynamicFactor, double drawProbability) {
         this.initialMean = initialMean;
         this.initialStandardDeviation = initialStandardDeviation;
         this.beta = beta;
@@ -26,9 +33,9 @@ public class GameInfo {
         this.drawProbability = drawProbability;
     }
 
-    public static GameInfo getDefaultGameInfo() {
+    public static GameRatingInfo getDefaultGameInfo() {
         // We return a fresh copy since we have public setters that can mutate state
-        return new GameInfo(defaultInitialMean,
+        return new GameRatingInfo(defaultInitialMean,
                 defaultInitialStandardDeviation,
                 defaultBeta,
                 defaultDynamicsFactor,
@@ -64,7 +71,7 @@ public class GameInfo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GameInfo gameInfo = (GameInfo) o;
+        GameRatingInfo gameInfo = (GameRatingInfo) o;
 
         if (Double.compare(gameInfo.getInitialMean(), getInitialMean()) != 0) return false;
         if (Double.compare(gameInfo.getInitialStandardDeviation(), getInitialStandardDeviation()) != 0)

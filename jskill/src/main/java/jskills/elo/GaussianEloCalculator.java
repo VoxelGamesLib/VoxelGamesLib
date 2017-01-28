@@ -1,6 +1,6 @@
 package jskills.elo;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.numerics.GaussianDistribution;
 
 public class GaussianEloCalculator extends TwoPlayerEloCalculator {
@@ -12,7 +12,7 @@ public class GaussianEloCalculator extends TwoPlayerEloCalculator {
     }
 
     @Override
-    protected double getPlayerWinProbability(GameInfo gameInfo,
+    protected double getPlayerWinProbability(GameRatingInfo gameInfo,
                                              double playerRating, double opponentRating) {
         double ratingDifference = playerRating - opponentRating;
 

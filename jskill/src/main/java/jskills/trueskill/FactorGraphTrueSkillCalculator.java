@@ -8,7 +8,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.Guard;
 import jskills.IPlayer;
 import jskills.ITeam;
@@ -31,7 +31,7 @@ public class FactorGraphTrueSkillCalculator extends SkillCalculator {
     }
 
     @Override
-    public Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo,
+    public Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo,
                                                     Collection<ITeam> teams,
                                                     int... teamRanks) {
         Guard.argumentNotNull(gameInfo, "gameInfo");
@@ -50,7 +50,7 @@ public class FactorGraphTrueSkillCalculator extends SkillCalculator {
     }
 
     @Override
-    public double calculateMatchQuality(GameInfo gameInfo, Collection<ITeam> teams) {
+    public double calculateMatchQuality(GameRatingInfo gameInfo, Collection<ITeam> teams) {
         // We need to create the A matrix which is the player team assignments.
         List<ITeam> teamAssignmentsList = new ArrayList<>(teams);
         SimpleMatrix skillsMatrix = GetPlayerCovarianceMatrix(teamAssignmentsList);

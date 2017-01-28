@@ -3,7 +3,7 @@ package jskills.elo;
 import java.util.Collection;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.PairwiseComparison;
@@ -29,7 +29,7 @@ public class EloAssert {
                 new Team(player1, new EloRating(player1BeforeRating)),
                 new Team(player2, new EloRating(player2BeforeRating)));
 
-        GameInfo chessGameInfo = new GameInfo(1200, 0, 200, 0, 0);
+        GameRatingInfo chessGameInfo = new GameRatingInfo(1200, 0, 200, 0, 0);
 
         Map<IPlayer, Rating> result = calculator.calculateNewRatings(chessGameInfo, teams,
                 player1Result.equals(PairwiseComparison.WIN) ? new int[]{1, 2} :

@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
     compile 'org.ejml:simple:0.28'
+    compile 'com.google.code.gson:gson:2.7'
 }

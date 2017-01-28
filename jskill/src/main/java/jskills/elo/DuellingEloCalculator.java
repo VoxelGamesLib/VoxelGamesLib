@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.PairwiseComparison;
@@ -29,7 +29,7 @@ public class DuellingEloCalculator extends SkillCalculator {
     }
 
     @Override
-    public Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo,
+    public Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo,
                                                     Collection<ITeam> teams, int... teamRanks) {
         // On page 6 of the TrueSkill paper, the authors write:
         /* "When we had to process a team game or a game with more than two 
@@ -84,7 +84,7 @@ public class DuellingEloCalculator extends SkillCalculator {
         return result;
     }
 
-    private void updateDuels(GameInfo gameInfo,
+    private void updateDuels(GameRatingInfo gameInfo,
                              Map<IPlayer, Map<IPlayer, Double>> duels, IPlayer player1,
                              Rating player1Rating, IPlayer player2, Rating player2Rating,
                              PairwiseComparison weakToStrongComparison) {
@@ -113,7 +113,7 @@ public class DuellingEloCalculator extends SkillCalculator {
     }
 
     @Override
-    public double calculateMatchQuality(GameInfo gameInfo,
+    public double calculateMatchQuality(GameRatingInfo gameInfo,
                                         Collection<ITeam> teams) {
         // HACK! Need a better algorithm, this is just to have something there and it isn't good
         double minQuality = 1.0;

@@ -184,6 +184,7 @@ public class BukkitUser extends AbstractUser<Player> {
         player.setHealth(hunger);
     }
 
+    @Nonnull
     @Override
     public GameMode getGameMode() {
         return gameModeConverter.toVGL(player.getGameMode());

@@ -38,7 +38,7 @@ public abstract class SkillCalculator {
      *                  (e.g. 1, 2, 2)
      * @return All the players and their new ratings.
      */
-    public abstract Map<IPlayer, Rating> calculateNewRatings(GameInfo gameInfo,
+    public abstract Map<IPlayer, Rating> calculateNewRatings(GameRatingInfo gameInfo,
                                                              Collection<ITeam> teams, int... teamRanks);
 
     /**
@@ -49,7 +49,7 @@ public abstract class SkillCalculator {
      * @return The quality of the match between the teams as a percentage (0% = bad, 100% = well
      * matched).
      */
-    public abstract double calculateMatchQuality(GameInfo gameInfo, Collection<ITeam> teams);
+    public abstract double calculateMatchQuality(GameRatingInfo gameInfo, Collection<ITeam> teams);
 
     protected void validateTeamCountAndPlayersCountPerTeam(Collection<ITeam> teams) {
         validateTeamCountAndPlayersCountPerTeam(teams, totalTeamsAllowed, playersPerTeamAllowed);

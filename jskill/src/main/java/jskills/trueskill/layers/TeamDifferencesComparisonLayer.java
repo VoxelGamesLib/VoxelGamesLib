@@ -1,6 +1,6 @@
 package jskills.trueskill.layers;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.factorgraphs.DefaultVariable;
 import jskills.factorgraphs.Variable;
 import jskills.numerics.GaussianDistribution;
@@ -19,7 +19,7 @@ public class TeamDifferencesComparisonLayer extends
     public TeamDifferencesComparisonLayer(TrueSkillFactorGraph parentGraph, int[] teamRanks) {
         super(parentGraph);
         this.teamRanks = teamRanks;
-        final GameInfo gameInfo = parentFactorGraph.getGameInfo();
+        final GameRatingInfo gameInfo = parentFactorGraph.getGameInfo();
         epsilon = DrawMargin.GetDrawMarginFromDrawProbability(gameInfo.getDrawProbability(), gameInfo.getBeta());
     }
 

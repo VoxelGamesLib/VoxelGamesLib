@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.api.user;
 
 import com.google.inject.Injector;
 
+import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 
@@ -17,6 +18,7 @@ import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import jskills.IPlayer;
 import jskills.ISupportPartialPlay;
 import jskills.ISupportPartialUpdate;
+import jskills.Rating;
 
 /**
  * A Users represents an abstract player of the game. There are implementations for every server mod
@@ -211,5 +213,26 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
     /**
      * @return the gamemode the player is in
      */
+    @Nonnull
     GameMode getGameMode();
+
+    /**
+     * @param mode the mode to get the rating for
+     * @return the rating of this player for gamemode mode. will return default values if not
+     * present
+     */
+    Rating getRating(me.minidigger.voxelgameslib.api.game.GameMode mode);
+
+    /**
+     * Saves a rating for this users. will override existing ratings
+     *
+     * @param mode   the mode the rating was achieved in
+     * @param rating the new rating
+     */
+    void saveRating(me.minidigger.voxelgameslib.api.game.GameMode mode, Rating rating);
+
+    /**
+     * @return all ratings for this player
+     */
+    Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> getRatings();
 }

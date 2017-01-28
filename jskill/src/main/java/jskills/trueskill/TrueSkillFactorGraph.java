@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 import jskills.IPlayer;
 import jskills.ITeam;
 import jskills.Rating;
@@ -30,9 +30,9 @@ public class TrueSkillFactorGraph extends FactorGraph<TrueSkillFactorGraph> {
 
     private final List<FactorGraphLayerBase<GaussianDistribution>> layers;
     private final PlayerPriorValuesToSkillsLayer priorLayer;
-    private GameInfo gameInfo;
+    private GameRatingInfo gameInfo;
 
-    public TrueSkillFactorGraph(GameInfo gameInfo, Collection<ITeam> teams, int[] teamRanks) {
+    public TrueSkillFactorGraph(GameRatingInfo gameInfo, Collection<ITeam> teams, int[] teamRanks) {
         this.priorLayer = new PlayerPriorValuesToSkillsLayer(this, teams);
         setGameInfo(gameInfo);
 
@@ -45,11 +45,11 @@ public class TrueSkillFactorGraph extends FactorGraph<TrueSkillFactorGraph> {
                 new TeamDifferencesComparisonLayer(this, teamRanks)));
     }
 
-    public GameInfo getGameInfo() {
+    public GameRatingInfo getGameInfo() {
         return gameInfo;
     }
 
-    private void setGameInfo(GameInfo info) {
+    private void setGameInfo(GameRatingInfo info) {
         gameInfo = info;
     }
 

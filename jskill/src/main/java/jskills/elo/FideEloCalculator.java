@@ -1,6 +1,6 @@
 package jskills.elo;
 
-import jskills.GameInfo;
+import jskills.GameRatingInfo;
 
 /**
  * Including ELO's scheme as a simple comparison. See
@@ -17,7 +17,7 @@ public class FideEloCalculator extends TwoPlayerEloCalculator {
     }
 
     @Override
-    protected double getPlayerWinProbability(GameInfo gameInfo, double playerRating, double opponentRating) {
+    protected double getPlayerWinProbability(GameRatingInfo gameInfo, double playerRating, double opponentRating) {
         double ratingDifference = opponentRating - playerRating;
 
         return 1.0 /
