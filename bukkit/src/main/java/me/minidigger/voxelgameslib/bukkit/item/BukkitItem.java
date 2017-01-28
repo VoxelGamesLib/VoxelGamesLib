@@ -40,7 +40,11 @@ public class BukkitItem implements Item<ItemStack> {
 
     @Override
     public void setMaterial(Material material) {
-        itemStack.setType(materialConverter.fromVGL(material));
+        if (itemStack == null) {
+            itemStack = new ItemStack(materialConverter.fromVGL(material));
+        } else {
+            itemStack.setType(materialConverter.fromVGL(material));
+        }
     }
 
     @Override

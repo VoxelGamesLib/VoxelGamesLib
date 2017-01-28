@@ -28,6 +28,9 @@ public enum LangKey {
     GAME_CANT_SPECTATE("You can't join this game to spectate right now"),
     GAME_GAME_STARTED("Game started"),
     GAME_END("{aqua}Game ended"),
+    GAME_ABORT("{red}Game aborted"),
+    GAME_COULD_NOT_START("{red}Could not start game!"),
+    GAME_NO_GAME_FOUND("{red}No game to join found!"),
 
     GAME_GAMELIST_HEADER("{gold}##### Currently running games ####"),
     GAME_GAMELIST_ENTRY("{aqua}# {yellow}{uuid} {aqua}- {yellow}{mode} {aqua}in phase {yellow}{phase} {aqua}with {yellow}{players}({spectators}) {aqua}players", "uuid", "mode", "phase", "players", "spectators"),
@@ -74,7 +77,9 @@ public enum LangKey {
     WORLD_CREATOR_SAVE_ZIP_ERROR("Error while zipping the world,{msg}:{exception}", "msg", "exception"),
     WORLD_CREATOR_WRONG_STEP("You are trying to do the wrong step! You are at step {step}, you want to do step {entered}!", "step", "entered"),
 
-    WORLD_UNKNOWN_MAP("Could not find a map called {map} :/", "map");
+    WORLD_UNKNOWN_MAP("Could not find a map called {map} :/", "map"),
+
+    DUEL_WRONG_PLAYER_COUNT("{red}You can't duel with {yellow}{players} players, you need 2!", "players");
 
     @Nonnull
     private final String defaultValue;

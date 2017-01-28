@@ -51,7 +51,7 @@ public class VoteFeature extends AbstractFeature {
 
         if (availableMaps.size() == 0) {
             getPhase().getGame().broadcastMessage(LangKey.VOTE_NO_MAPS_FOUND);
-            getPhase().getGame().endGame();
+            getPhase().getGame().abortGame();
         }
 
         getPhase().getGame().getPlayers().forEach(this::sendVoteMessage);

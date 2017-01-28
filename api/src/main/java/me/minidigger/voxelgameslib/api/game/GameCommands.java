@@ -58,13 +58,25 @@ public class GameCommands {
             game.join(args.getSender());
             Lang.msg(args.getSender(), LangKey.GAME_GAME_STARTED);
         } else {
-            log.warning("game could not be started"); // TODO message
+            Lang.msg(args.getSender(), LangKey.GAME_COULD_NOT_START);
         }
     }
 
     @CommandInfo(name = "game.join", perm = "command.game.join", role = Role.DEFAULT, description = "Joins a game")
     public void gameJoin(@Nonnull CommandArguments args) {
         // todo game join command
+        Optional<GameMode> mode = gameHandler.getGameModes().stream().filter(gameMode -> gameMode.getName().equalsIgnoreCase(args.getArg(0))).findAny();
+        if (!mode.isPresent()) {
+            Lang.msg(args.getSender(), LangKey.GAME_GAMEMODE_UNKNOWN, args.getArg(0));
+            return;
+        }
+
+        Optional<Game> game = gameHandler.findGame(args.getSender(), mode.get());
+        if (game.isPresent()) {
+            game.get().join(args.getSender());
+        } else {
+            Lang.msg(args.getSender(), LangKey.GAME_NO_GAME_FOUND);
+        }
     }
 
     @CommandInfo(name = "game.leave", perm = "command.game.leave", role = Role.DEFAULT, description = "Leave a game")

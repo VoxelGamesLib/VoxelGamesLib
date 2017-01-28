@@ -6,6 +6,7 @@ dependencies {
     compile project(path: ":api", configuration: 'shadow')
 
     compile project(path: ":survivalgames", configuration: 'shadow')
+    compile project(path: ":1vs1", configuration: 'shadow')
 }
 
 repositories {

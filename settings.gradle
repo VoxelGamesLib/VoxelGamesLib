@@ -7,4 +7,5 @@ include 'website'
 include 'website-tools'
 include 'jskill'
 include 'jskill'
+include '1vs1'
 

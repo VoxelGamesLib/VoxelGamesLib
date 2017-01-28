@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.util.logging.Level;
 import javax.inject.Inject;
 
+import jskills.GameRatingInfo;
 import lombok.extern.java.Log;
 
 /**
@@ -29,9 +30,11 @@ public class GameModeTypeAdapter implements JsonDeserializer<GameMode> {
 
             String name = jsonObject.get("name").getAsString();
             String className = jsonObject.get("className").getAsString();
+            GameRatingInfo ratingInfo = context.deserialize(jsonObject.get("ratingInfo"), GameRatingInfo.class);
 
             Class clazz = Class.forName(className);
-            GameMode gameMode = new GameMode(name, clazz);
+            //noinspection unchecked
+            GameMode gameMode = new GameMode(name, clazz, ratingInfo);
             injector.injectMembers(gameMode);
             return gameMode;
         } catch (Exception e) {

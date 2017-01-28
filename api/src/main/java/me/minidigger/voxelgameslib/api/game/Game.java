@@ -190,4 +190,9 @@ public interface Game extends Tickable {
      */
     @Nullable
     Object getGameData(@Nonnull String key);
+
+    /**
+     * Similar to endGame, but doesn't with stuff like elo or stats
+     */
+    void abortGame();
 }

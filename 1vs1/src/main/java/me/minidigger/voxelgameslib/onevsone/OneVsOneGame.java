@@ -1,4 +1,4 @@
-package me.minidigger.voxelgameslib.survivalgames;
+package me.minidigger.voxelgameslib.onevsone;
 
 import java.util.Optional;
 import javax.annotation.Nonnull;
@@ -14,16 +14,16 @@ import me.minidigger.voxelgameslib.api.phase.phases.VotePhase;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
 /**
- * Created by Martin on 26.10.2016.
+ * Created by Martin on 28.01.2017.
  */
-@GameInfo(name = "SurvivalGames", author = "MiniDigger", version = "v1.0", description = "SurvivalGamesDescription")
-public class SurvivalGamesGame extends AbstractGame {
+@GameInfo(name = "1vs1", author = "MiniDigger", version = "v1.0", description = "1vs1 Description")
+public class OneVsOneGame extends AbstractGame {
 
     @Inject
     private WorldHandler worldHandler;
 
-    public SurvivalGamesGame() {
-        super(SurvivalGamesModule.GAMEMODE);
+    public OneVsOneGame() {
+        super(OneVsOneModule.GAMEMODE);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class SurvivalGamesGame extends AbstractGame {
         LobbyPhase lobbyPhase = createPhase(LobbyPhase.class);
         VotePhase votePhase = createPhase(VotePhase.class);
         GracePhase gracePhase = createPhase(GracePhase.class);
-        SurvivalGamesPhase survivalGamesPhase = createPhase(SurvivalGamesPhase.class);
+        OneVsOnePhase survivalGamesPhase = createPhase(OneVsOnePhase.class);
 
         lobbyPhase.setNextPhase(votePhase);
         votePhase.setNextPhase(gracePhase);

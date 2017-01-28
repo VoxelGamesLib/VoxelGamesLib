@@ -6,7 +6,8 @@
       "name": "HighJacked",
       "author": "MiniDigger",
       "gamemode": [
-        "SurvivalGames"
+        "SurvivalGames",
+        "1vs1"
       ]
     },
     {

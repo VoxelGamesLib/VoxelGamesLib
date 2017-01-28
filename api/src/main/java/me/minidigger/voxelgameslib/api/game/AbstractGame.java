@@ -185,6 +185,10 @@ public abstract class AbstractGame implements Game {
 
         broadcastMessage(LangKey.GAME_END);
 
+        end();
+    }
+
+    private void end() {
         while (players.size() != 0) {
             leave(players.get(0));
         }
@@ -196,6 +200,15 @@ public abstract class AbstractGame implements Game {
         activePhase.stop();
         tickHandler.end(this);
         gameHandler.removeGame(this);
+    }
+
+    @Override
+    public void abortGame() {
+        log.finer("abort  game");
+
+        broadcastMessage(LangKey.GAME_ABORT);
+
+        end();
     }
 
     private void handleElo() {

@@ -33,10 +33,11 @@ public class GameMode {
      * @param name      the name of this {@link GameMode}
      * @param gameClass the class that implements this {@link GameMode}
      */
-    public GameMode(@Nonnull String name, @Nonnull Class<? extends Game> gameClass) {
+    public GameMode(@Nonnull String name, @Nonnull Class<? extends Game> gameClass, GameRatingInfo ratingInfo) {
         this.name = name;
         this.gameClass = gameClass;
         className = gameClass.getName();
+        this.ratingInfo = ratingInfo;
         GameInfo[] infos = gameClass.getAnnotationsByType(GameInfo.class);
         if (infos.length > 0) {
             info = infos[0];

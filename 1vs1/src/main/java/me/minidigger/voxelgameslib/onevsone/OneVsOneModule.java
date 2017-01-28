@@ -1,4 +1,4 @@
-package me.minidigger.voxelgameslib.survivalgames;
+package me.minidigger.voxelgameslib.onevsone;
 
 import com.google.inject.Singleton;
 
@@ -13,13 +13,13 @@ import me.minidigger.voxelgameslib.api.module.ModuleInfo;
 import jskills.GameRatingInfo;
 
 /**
- * Created by Martin on 26.10.2016.
+ * Created by Martin on 28.01.2017.
  */
 @Singleton
-@ModuleInfo(name = "SurvivalGames", authors = "MiniDigger", version = "1.0.0")
-public class SurvivalGamesModule implements Module {
+@ModuleInfo(name = "1vs1", authors = "MiniDigger", version = "1.0.0")
+public class OneVsOneModule implements Module {
 
-    public static final GameMode GAMEMODE = new GameMode("SurvivalGames", SurvivalGamesGame.class, GameRatingInfo.getDefaultGameInfo());
+    public static final GameMode GAMEMODE = new GameMode("1vs1", OneVsOneGame.class, GameRatingInfo.getDefaultGameInfo());
 
     @Inject
     private GameHandler gameHandler;

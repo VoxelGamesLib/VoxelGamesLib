@@ -118,7 +118,7 @@ public abstract class AbstractPhase implements Phase {
     @Override
     public void start() {
         if (!checkDependencies()) {
-            game.endGame();
+            game.abortGame();
             return;
         }
         log.finer("start phase" + getName());
@@ -129,7 +129,7 @@ public abstract class AbstractPhase implements Phase {
             } catch (Exception ex) {
                 log.severe("error while starting " + feature.getName());
                 ex.printStackTrace();
-                game.endGame();
+                game.abortGame();
                 return;
             }
             eventHandler.registerEvents(feature);

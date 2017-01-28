@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -218,5 +219,44 @@ public class GameHandler implements Handler {
      */
     public void removeGame(Game game) {
         games.remove(game);
+    }
+
+    /**
+     * Searches for a game the user can join
+     *
+     * @param user     the user who wants to join
+     * @param gameMode the gamemode he wants to join
+     * @return the game he should join, if present
+     */
+    public Optional<Game> findGame(User user, GameMode gameMode) {
+        //TODO replace with a real matchmaking algorithm
+        List<Game> matched = games.stream().filter(g -> g.getGameMode().equals(gameMode)).collect(Collectors.toList());
+        if (matched.size() == 0) {
+            return Optional.empty();
+        }
+        if (matched.size() == 1) {
+            return Optional.of(matched.get(0));
+        }
+
+        matched = matched.stream().filter(g -> g.getActivePhase().allowJoin()).collect(Collectors.toList());
+
+        if (matched.size() == 0) {
+            matched = matched.stream().filter(g -> g.getActivePhase().allowSpectate()).collect(Collectors.toList());
+            if (matched.size() == 0) {
+                return Optional.empty();
+            }
+
+            if (matched.size() == 1) {
+                return Optional.of(matched.get(0));
+            }
+
+            return Optional.of(matched.get(0));
+        }
+
+        if (matched.size() == 1) {
+            return Optional.of(matched.get(0));
+        }
+
+        return Optional.of(matched.get(0));
     }
 }
