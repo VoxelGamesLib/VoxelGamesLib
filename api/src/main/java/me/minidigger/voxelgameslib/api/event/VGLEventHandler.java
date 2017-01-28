@@ -137,19 +137,6 @@ public class VGLEventHandler implements Handler {
      * @param listener the listener instance to unregister
      */
     public void unregisterEvents(Object listener) {
-        for (Class<? extends Event> key : registeredListeners.keySet()) {
-            List<RegisteredListener> listeners = registeredListeners.get(key);
-            RegisteredListener toRemove = null;
-            for (RegisteredListener list : listeners) {
-                if (list.equals(listener)) {
-                    toRemove = list;
-                    break;
-                }
-            }
-            if (toRemove != null) {
-                listeners.remove(toRemove);
-                registeredListeners.put(key, listeners);
-            }
-        }
+        unregisterEvents(listener.getClass());
     }
 }
