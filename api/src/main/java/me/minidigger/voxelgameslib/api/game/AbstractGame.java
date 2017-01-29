@@ -23,6 +23,7 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.server.Server;
+import me.minidigger.voxelgameslib.api.team.Team;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
@@ -172,15 +173,16 @@ public abstract class AbstractGame implements Game {
             activePhase.setRunning(true);
             activePhase.start();
         } else {
-            endGame();
+            log.warning("Game finished without a winner?!");
+            abortGame();
         }
     }
 
     @Override
-    public void endGame() {
+    public void endGame(@Nullable Team winnerTeam, @Nullable User winnerUser) {
         log.finer("end game");
 
-        handleElo();
+        handleElo(winnerTeam, winnerUser);
         //TODO handle stats
 
         broadcastMessage(LangKey.GAME_END);
@@ -211,26 +213,32 @@ public abstract class AbstractGame implements Game {
         end();
     }
 
-    private void handleElo() {
+    private void handleElo(@Nullable Team winnerTeam, @Nullable User winnerUser) {
         boolean handled = false;
-        try {
-            TeamFeature teamFeature = getActivePhase().getFeature(TeamFeature.class);
-            eloHandler.handleGameEnd(this, teamFeature);
-            handled = true;
-        } catch (NoSuchFeatureException ignored) {
+        if (winnerTeam != null) {
+            try {
+                TeamFeature teamFeature = getActivePhase().getFeature(TeamFeature.class);
+                eloHandler.handleGameEnd(this, teamFeature, winnerTeam);
+                handled = true;
+            } catch (NoSuchFeatureException ignored) {
+            }
         }
 
-        if (!handled) {
+        if (!handled && winnerUser != null) {
             try {
                 DuelFeature duelFeature = getActivePhase().getFeature(DuelFeature.class);
-                eloHandler.handleGameEnd(this, duelFeature);
+                eloHandler.handleGameEnd(this, duelFeature, winnerUser);
                 handled = true;
             } catch (NoSuchFeatureException ignored) {
             }
         }
 
         if (!handled) {
-            eloHandler.handleGameEnd(this);
+            if (winnerUser != null) {
+                eloHandler.handleGameEnd(this, winnerUser);
+            } else {
+                log.warning("Could not distribute any elo!");
+            }
         }
     }
 

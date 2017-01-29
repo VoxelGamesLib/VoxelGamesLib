@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserDamageEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserDeathEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
@@ -23,6 +24,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -108,6 +110,17 @@ public class UserListener implements Listener {
             event.setCancelled(e.isCanceled());
         } else {
             log.warning("User " + event.getEntity().getName() + " tried to be damaged without having a user object!");
+        }
+    }
+
+    @EventHandler
+    private void onDeath(@Nonnull PlayerDeathEvent event) {
+        Optional<User> user = handler.getUser(event.getEntity().getUniqueId());
+        if (user.isPresent()) {
+            UserDeathEvent e = new UserDeathEvent(user.get());
+            eventHandler.callEvent(e);
+        } else {
+            log.warning("User " + event.getEntity().getName() + " tried to die without having a user object!");
         }
     }
 }

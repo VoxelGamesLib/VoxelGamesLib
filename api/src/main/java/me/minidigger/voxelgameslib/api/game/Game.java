@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import me.minidigger.voxelgameslib.api.feature.Feature;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.phase.Phase;
+import me.minidigger.voxelgameslib.api.team.Team;
 import me.minidigger.voxelgameslib.api.tick.Tickable;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
@@ -70,9 +71,12 @@ public interface Game extends Tickable {
     void endPhase();
 
     /**
-     * Ends the game, handles who has won.
+     * Ends the game
+     *
+     * @param winnerTeam the team which won, might be null
+     * @param winnerUser the user which won, might be null
      */
-    void endGame();
+    void endGame(@Nullable Team winnerTeam, @Nullable User winnerUser);
 
     /**
      * @return the gamemode that is played in this game
