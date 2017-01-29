@@ -22,6 +22,10 @@ public class TheFuckYouForwardHandler extends ConsoleHandler {
         sb.append("[").append(hourFormat.format(new Date(record.getMillis()))).append(" ").append(record.getLevel().getName()).append("]: ");
         sb.append(record.getMessage());
         sout.println(sb.toString());
+
+        if (record.getThrown() != null) {
+            record.getThrown().printStackTrace(sout);
+        }
     }
 
     public void flush() {
