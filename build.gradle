@@ -75,7 +75,7 @@ subprojects {
     }
 
     test {
-        reports.html.enabled = false
+        reports.html.enabled = true
         filter {
             includeTestsMatching "*Test*"
         }
