@@ -8,7 +8,7 @@ import me.minidigger.voxelgameslib.api.utils.MathUtil;
 import org.bukkit.block.BlockFace;
 
 /**
- * Small util for BlockFace <-> yaw conversation <br> https://github.com/bergerkiller/BKCommonLib/blob/master/src/main/java/com/bergerkiller/bukkit/common/utils/FaceUtil.java
+ * Small util for BlockFace and yaw conversation <br> https://github.com/bergerkiller/BKCommonLib/blob/master/src/main/java/com/bergerkiller/bukkit/common/utils/FaceUtil.java
  */
 public class FaceUtil {
 
