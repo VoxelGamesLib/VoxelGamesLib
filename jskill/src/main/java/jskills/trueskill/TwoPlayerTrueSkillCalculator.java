@@ -21,10 +21,10 @@ import static jskills.numerics.MathUtils.square;
 
 /**
  * Calculates the new ratings for only two players.
- * <remarks>
+ * <b>
  * When you only have two players, a lot of the math simplifies. The main purpose of this class
  * is to show the bare minimum of what a TrueSkill implementation should have.
- * </remarks>
+ * </b>
  */
 public class TwoPlayerTrueSkillCalculator extends SkillCalculator {
     public TwoPlayerTrueSkillCalculator() {

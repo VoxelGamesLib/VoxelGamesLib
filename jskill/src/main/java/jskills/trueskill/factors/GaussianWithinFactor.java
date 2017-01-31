@@ -15,7 +15,7 @@ import static jskills.trueskill.TruncatedGaussianCorrectionFunctions.wWithinMarg
 
 /**
  * Factor representing a team difference that has not exceeded the draw margin.
- * <remarks>See the accompanying math paper for more details.</remarks>
+ * <b>See the accompanying math paper for more details.</b>
  */
 public class GaussianWithinFactor extends GaussianFactor {
 

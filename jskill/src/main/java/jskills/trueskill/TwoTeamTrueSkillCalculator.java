@@ -22,9 +22,9 @@ import static jskills.numerics.MathUtils.square;
 
 /**
  * Calculates new ratings for only two teams where each team has 1 or more players.
- * <remarks>
+ * <b>
  * When you only have two teams, the math is still simple: no factor graphs are used yet.
- * </remarks>
+ * </b>
  */
 public class TwoTeamTrueSkillCalculator extends SkillCalculator {
 
