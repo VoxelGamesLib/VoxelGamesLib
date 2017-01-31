@@ -29,7 +29,7 @@ import static jskills.numerics.MathUtils.square;
  *        σ * sqrt(2*pi)
  * </pre>
  *
- * @see http://mathworld.wolfram.com/NormalDistribution.html
+ * @see <a href="http://mathworld.wolfram.com/NormalDistribution.html">http://mathworld.wolfram.com/NormalDistribution.html</a>
  */
 public class GaussianDistribution {
 
@@ -185,7 +185,7 @@ public class GaussianDistribution {
      *
      * @param x the location to evaluate a normalized Gaussian at
      * @return the value at x of a normalized Gaussian centered at 0 of unit width.
-     * @see http://mathworld.wolfram.com/NormalDistribution.html
+     * @see <a href="http://mathworld.wolfram.com/NormalDistribution.html">http://mathworld.wolfram.com/NormalDistribution.html</a>
      */
     public static double at(double x) {
         return at(x, 0, 1);
@@ -200,7 +200,7 @@ public class GaussianDistribution {
      *
      * @param x the location to evaluate a normalized Gaussian at
      * @return the value at x of a normalized Gaussian centered at 0 of unit width.
-     * @see http://mathworld.wolfram.com/NormalDistribution.html
+     * @see <a href="http://mathworld.wolfram.com/NormalDistribution.html">http://mathworld.wolfram.com/NormalDistribution.html</a>
      */
     public static double at(double x, double mean, double standardDeviation) {
         double multiplier = 1.0 / (standardDeviation * sqrt(2 * PI));
