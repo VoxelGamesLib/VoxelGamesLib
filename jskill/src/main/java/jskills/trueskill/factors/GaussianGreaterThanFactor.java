@@ -15,7 +15,7 @@ import static jskills.trueskill.TruncatedGaussianCorrectionFunctions.wExceedsMar
 
 /**
  * Factor representing a team difference that has exceeded the draw margin.
- * <remarks>See the accompanying math paper for more details.</remarks>
+ * <b>See the accompanying math paper for more details.</b>
  */
 public class GaussianGreaterThanFactor extends GaussianFactor {
     private final double epsilon;
