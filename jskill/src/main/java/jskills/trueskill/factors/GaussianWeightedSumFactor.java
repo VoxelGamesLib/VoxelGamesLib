@@ -15,7 +15,7 @@ import static jskills.numerics.GaussianDistribution.sub;
 
 /**
  * Factor that sums together multiple Gaussians.
- * <remarks>See the accompanying math paper for more details.</remarks>
+ * <b>See the accompanying math paper for more details.</b>
  */
 public class GaussianWeightedSumFactor extends GaussianFactor {
 
