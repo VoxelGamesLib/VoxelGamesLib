@@ -17,7 +17,7 @@ public class TruncatedGaussianCorrectionFunctions {
      * correction of a single-sided truncated Gaussian with unit variance."</b>
      *
      * @param drawMargin In the paper, it's referred to as just "ε".
-     * @returns
+     * @return
      */
     public static double vExceedsMargin(double teamPerformanceDifference, double drawMargin, double c) {
         return vExceedsMargin(teamPerformanceDifference / c, drawMargin / c);
@@ -37,7 +37,7 @@ public class TruncatedGaussianCorrectionFunctions {
      * <b>In the reference F# implementation, this is referred to as "the multiplicative
      * correction of a single-sided truncated Gaussian with unit variance."</b>
      *
-     * @returns
+     * @return
      */
     public static double wExceedsMargin(double teamPerformanceDifference, double drawMargin, double c) {
         return wExceedsMargin(teamPerformanceDifference / c, drawMargin / c);
