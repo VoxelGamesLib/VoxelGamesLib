@@ -60,8 +60,8 @@ public @interface CommandInfo {
     boolean allowConsole() default true;
 
     /**
-     * The usage info gets printed if the sender failed to enter the correct arguments. < command>
-     * will be replaced with the used command label
+     * The usage info gets printed if the sender failed to enter the correct arguments. command
+     * (in diamond brackets) will be replaced with the used command label
      *
      * @return The usage info for this (sub)command
      */
