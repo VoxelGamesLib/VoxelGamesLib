@@ -6,7 +6,12 @@ dependencies {
     compile "org.reflections:reflections:0.9.10"
     compile "co.aikar:taskchain-core:3.4.3"
     compile 'nu.studer:java-ordered-properties:1.0.1'
+    compile 'org.hibernate:hibernate-core:5.2.7.Final'
 
     compile project(":bungeecord-chat")
     compile project(":jskill")
+}
+
+shadowJar {
+    relocate("javax.persistence", "me.minidigger.voxelgameslib.libs.javax.persistence")
 }

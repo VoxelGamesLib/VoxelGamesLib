@@ -19,6 +19,7 @@ import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.team.TeamHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
@@ -67,6 +68,8 @@ public class VoxelGamesLib {
     private EloHandler eloHandler;
     @Inject
     private TeamHandler teamHandler;
+    @Inject
+    private PersistenceHandler persistenceHandler;
 
     @Nonnull
     private Injector injector;
@@ -82,6 +85,7 @@ public class VoxelGamesLib {
         loggerHandler.start();
 
         configHandler.start();
+        persistenceHandler.start();
         langHandler.start();
         tickHandler.start();
         userHandler.start();
@@ -128,6 +132,7 @@ public class VoxelGamesLib {
 
         eventHandler.stop();
         commandHandler.stop();
+        persistenceHandler.stop();
 
         injector = null;
     }
