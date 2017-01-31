@@ -1,7 +1,7 @@
 package jskills.elo;
 
 /**
- * @see http://ratings.fide.com/calculator_rtd.phtml for details
+ * @see <a href="http://ratings.fide.com/calculator_rtd.phtml">http://ratings.fide.com/calculator_rtd.phtml</a> for details
  **/
 public class FideKFactor extends KFactor {
 

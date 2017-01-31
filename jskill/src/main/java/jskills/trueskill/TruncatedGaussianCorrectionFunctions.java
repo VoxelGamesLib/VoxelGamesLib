@@ -13,11 +13,11 @@ public class TruncatedGaussianCorrectionFunctions {
 
     /**
      * The "V" function where the team performance difference is greater than the draw margin.
-     * <remarks>In the reference F# implementation, this is referred to as "the additive
-     * correction of a single-sided truncated Gaussian with unit variance."</remarks>
+     * <b>In the reference F# implementation, this is referred to as "the additive
+     * correction of a single-sided truncated Gaussian with unit variance."</b>
      *
      * @param drawMargin In the paper, it's referred to as just "ε".
-     * @returns
+     * @return
      */
     public static double vExceedsMargin(double teamPerformanceDifference, double drawMargin, double c) {
         return vExceedsMargin(teamPerformanceDifference / c, drawMargin / c);
@@ -34,10 +34,10 @@ public class TruncatedGaussianCorrectionFunctions {
 
     /**
      * The "W" function where the team performance difference is greater than the draw margin.
-     * <remarks>In the reference F# implementation, this is referred to as "the multiplicative
-     * correction of a single-sided truncated Gaussian with unit variance."</remarks>
+     * <b>In the reference F# implementation, this is referred to as "the multiplicative
+     * correction of a single-sided truncated Gaussian with unit variance."</b>
      *
-     * @returns
+     * @return
      */
     public static double wExceedsMargin(double teamPerformanceDifference, double drawMargin, double c) {
         return wExceedsMargin(teamPerformanceDifference / c, drawMargin / c);

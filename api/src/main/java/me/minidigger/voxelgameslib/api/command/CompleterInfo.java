@@ -8,8 +8,8 @@ import javax.annotation.Nonnull;
 
 /**
  * Simple annotation to handle tabcompletion for a command<br> Methods which are annotated with this
- * annotation need to have single {@link CommandArguments} parameter and a {@link java.util.List}<
- * String> as return type
+ * annotation need to have single {@link CommandArguments} parameter and a {@link java.util.List} with type
+ * String as return type
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

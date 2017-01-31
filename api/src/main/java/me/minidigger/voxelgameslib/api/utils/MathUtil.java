@@ -6,7 +6,7 @@ package me.minidigger.voxelgameslib.api.utils;
 public class MathUtil {
 
     /**
-     * calculates & returns the inverse of a modulo n, both of which should be positive.  If the
+     * calculates and returns the inverse of a modulo n, both of which should be positive.  If the
      * inverse does not exist, 0 is returned.
      */
     public static int modInverse(int a, int n) {
@@ -28,7 +28,7 @@ public class MathUtil {
      * Wraps the angle to be between -180 and 180 degrees
      *
      * @param angle to wrap
-     * @return [-180 > angle >= 180]
+     * @return a value between -180 and 180 degrees
      */
     public static int wrapAngle(int angle) {
         int wrappedAngle = angle;

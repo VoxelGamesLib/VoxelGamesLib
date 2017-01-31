@@ -11,7 +11,7 @@ import static jskills.numerics.GaussianDistribution.sub;
 
 /**
  * Connects two variables and adds uncertainty.
- * <remarks>See the accompanying math paper for more details.</remarks>
+ * <b>See the accompanying math paper for more details.</b>
  */
 public class GaussianLikelihoodFactor extends GaussianFactor {
 
