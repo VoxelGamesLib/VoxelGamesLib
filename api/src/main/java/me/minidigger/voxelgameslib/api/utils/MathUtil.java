@@ -28,7 +28,7 @@ public class MathUtil {
      * Wraps the angle to be between -180 and 180 degrees
      *
      * @param angle to wrap
-     * @return [-180 > angle >= 180]
+     * @return <pre>[-180 > angle >= 180]</pre>
      */
     public static int wrapAngle(int angle) {
         int wrappedAngle = angle;
