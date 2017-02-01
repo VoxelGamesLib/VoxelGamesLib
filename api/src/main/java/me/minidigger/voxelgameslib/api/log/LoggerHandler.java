@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.log;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -52,6 +53,9 @@ public class LoggerHandler implements Handler {
                 record.setMessage("[VoxelGamesLib] " + record.getMessage());
             }
         };
+        // remove old handler, fuck you reloads ;)
+        Arrays.stream(logger.getHandlers()).filter(h -> h.getClass().getName().endsWith("LogHandler")).findAny().ifPresent(logger::removeHandler);
+
         logger.addHandler(handler);
 
         log.info("Logging activated.");

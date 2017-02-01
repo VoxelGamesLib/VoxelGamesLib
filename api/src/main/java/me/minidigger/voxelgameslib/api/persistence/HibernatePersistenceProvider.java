@@ -1,11 +1,22 @@
 package me.minidigger.voxelgameslib.api.persistence;
 
-import java.util.Date;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.spi.PersistenceProviderResolverHolder;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.reflections.Reflections;
+
+import java.util.Optional;
+import java.util.UUID;
+import javax.persistence.Entity;
+import javax.persistence.NoResultException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import me.minidigger.voxelgameslib.api.user.User;
 
 import lombok.extern.java.Log;
 
@@ -15,60 +26,68 @@ import lombok.extern.java.Log;
 @Log
 public class HibernatePersistenceProvider implements PersistenceProvider {
 
-    private EntityManagerFactory entityManagerFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public void start() {
-        log.info("Create factory");
+        // A SessionFactory is set up once for an application!
+        StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                .configure() // configures settings from hibernate.cfg.xml, we don't really want that
+                .build(); // TODO load settings from our config
 
-        // use bukkit class loader to load the persistence.xml
-//        ClassLoader backup = Thread.currentThread().getContextClassLoader();
-//        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-        PersistenceProviderResolverHolder.getPersistenceProviderResolver().getPersistenceProviders();
-//        try {
-//            Persistence.createEntityManagerFactory("GimmeDaError");
-//        } catch (Exception ignored) {
-//        }
-//        Thread.currentThread().setContextClassLoader(backup);
-//
-//        try {
-//            for (Method method : Class.forName("javax.persistence.Table", true, backup).getDeclaredMethods()) {
-//                System.out.println(method.getName());
-//            }
-//            System.out.println("....");
-//            for (Method method : Class.forName("javax.persistence.Table", true, getClass().getClassLoader()).getDeclaredMethods()) {
-//                System.out.println(method.getName());
-//            }
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-        entityManagerFactory = Persistence.createEntityManagerFactory("test123");
+        MetadataSources sources = new MetadataSources(registry);
+
+        new Reflections().getTypesAnnotatedWith(Entity.class).forEach(sources::addAnnotatedClass);
+
+        try {
+            Metadata metadata = sources.buildMetadata();
+            sessionFactory = metadata.buildSessionFactory();
+        } catch (Exception e) {
+            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
+            // so destroy it manually.
+            StandardServiceRegistryBuilder.destroy(registry);
+            e.printStackTrace();
+        }
     }
 
-    public void test() {
-        log.info("start test");
-        // create a couple of events...
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(new Event("Our very first event!", new Date()));
-        entityManager.persist(new Event("A follow up event", new Date()));
-        entityManager.getTransaction().commit();
-        entityManager.close();
+    @Override
+    public void saveUser(User user) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
-        log.info("pull stuff");
-        // now lets pull events from the database and list them
-        entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
-        List<Event> result = entityManager.createQuery("from Event", Event.class).getResultList();
-        for (Event event : result) {
-            System.out.println("Event (" + event.getDate() + ") : " + event.getTitle());
+        session.save(user);
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public Optional<User> loadUser(UUID id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class); // USES A USER DATA OBJECT TO FIX STUFF!
+        query.select(root).where(builder.equal(root.get("uuid"), id));
+
+        Optional<User> result;
+        try {
+            User user = session.createQuery(query).getSingleResult();
+            result = Optional.of(user);
+        } catch (NoResultException ex) {
+            result = Optional.empty();
         }
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        session.getTransaction().commit();
+        session.close();
+
+        return result;
     }
 
     @Override
     public void stop() {
-        entityManagerFactory.close();
+        if (sessionFactory != null) {
+            sessionFactory.close();
+        }
     }
 }

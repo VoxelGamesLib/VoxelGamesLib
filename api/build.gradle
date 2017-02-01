@@ -11,7 +11,3 @@ dependencies {
     compile project(":bungeecord-chat")
     compile project(":jskill")
 }
-
-shadowJar {
-    relocate("javax.persistence", "me.minidigger.voxelgameslib.libs.javax.persistence")
-}

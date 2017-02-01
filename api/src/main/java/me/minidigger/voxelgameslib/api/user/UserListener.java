@@ -46,10 +46,7 @@ public class UserListener {
             }
         }
 
-        User user = injector.getInstance(User.class);
-        //noinspection unchecked
-        user.setImplementationType(event.getPlayerObject());
-        handler.join(user);
+        handler.join(event.getUuid(), event.getPlayerObject());
     }
 
     @EventListener

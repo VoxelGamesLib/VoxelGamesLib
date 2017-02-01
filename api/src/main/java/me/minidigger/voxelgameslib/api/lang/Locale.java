@@ -1,7 +1,10 @@
 package me.minidigger.voxelgameslib.api.lang;
 
+import java.io.Serializable;
 import java.util.Optional;
 import javax.annotation.Nonnull;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +13,9 @@ import lombok.Data;
  * Represents a language a player can select to get all messages in that language
  */
 @Data
+@Entity
 @AllArgsConstructor
-public class Locale {
+public class Locale implements Serializable {
 
     public static final Locale ENGLISH = new Locale("english", "en");
     public static final Locale FRENCH = new Locale("french", "fr");
@@ -67,6 +71,13 @@ public class Locale {
         return Optional.empty();
     }
 
+    @Id
     private String name;
+    @Id
     private String tag;
+
+    protected Locale() {
+        // JPA
+    }
+
 }

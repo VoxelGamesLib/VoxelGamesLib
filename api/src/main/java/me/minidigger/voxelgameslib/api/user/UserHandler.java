@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.user;
 
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.exception.UserException;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 import lombok.extern.java.Log;
@@ -23,9 +25,13 @@ public class UserHandler implements Handler {
 
     @Inject
     private GameHandler gameHandler;
+    @Inject
+    private PersistenceHandler persistenceHandler;
+    @Inject
+    private Injector injector;
 
     private Map<UUID, User> users;
-    private Map<UUID, Object> tempData;
+    private Map<UUID, User> tempData;
 
     @Override
     public void start() {
@@ -40,36 +46,40 @@ public class UserHandler implements Handler {
     }
 
     /**
-     * Adds a users, if not already added
+     * Creates the user object for a new user
      *
-     * @param user the user to add
+     * @param uuid         the uuid of the new user
+     * @param playerObject the implementation type of the user
      * @throws UserException when the player was not logged in
      */
-    public void join(@Nonnull User user) {
-        if (!hasLoggedIn(user.getUuid())) {
-            throw new UserException("User " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ") tried to join without being logged in!");
+    public void join(@Nonnull UUID uuid, @Nonnull Object playerObject) {
+        if (!hasLoggedIn(uuid)) {
+            throw new UserException("User " + uuid + " tried to join without being logged in!");
         }
 
-        if (!users.containsKey(user.getUuid())) {
-            users.put(user.getUuid(), user);
-        }
-
-        //TODO apply loaded data
-        Object temp = tempData.remove(user.getUuid());
+        User user = tempData.remove(uuid);
+        //noinspection unchecked
+        user.setImplementationType(playerObject);
+        injector.injectMembers(user);
+        users.put(user.getUuid(), user);
         log.info("Applied data for user " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
     }
 
     /**
-     * Handles logout. All other handlers should try to handle logout here!
+     * Handles logout.
      *
      * @param id the uuid of the user that logged out
      */
     public void logout(@Nonnull UUID id) {
+        Optional<User> user = getUser(id);
+        if (user.isPresent()) {
+            //TODO go away, gamehandler, use the events!
+            gameHandler.getGames(user.get(), true).forEach(game -> game.leave(user.get()));
+            persistenceHandler.getProvider().saveUser(user.get());
+        }
+
         users.remove(id);
         tempData.remove(id);
-
-        Optional<User> user = getUser(id);
-        user.ifPresent(user1 -> gameHandler.getGames(user1, true).forEach(game -> game.leave(user1)));
     }
 
     /**
@@ -90,8 +100,14 @@ public class UserHandler implements Handler {
      */
     public void login(@Nonnull UUID uniqueId) {
         log.info("Loading data for user " + uniqueId);
-        // TODO load roles and stuff from somewhere
-        tempData.put(uniqueId, "HEYHO");
+
+        Optional<User> user = persistenceHandler.getProvider().loadUser(uniqueId);
+        if (user.isPresent()) {
+            tempData.put(uniqueId, user.get());
+        } else {
+            User newUser = injector.getInstance(User.class);
+            tempData.put(uniqueId, newUser);
+        }
     }
 
     /**
@@ -103,4 +119,5 @@ public class UserHandler implements Handler {
     public boolean hasLoggedIn(@Nonnull UUID uniqueId) {
         return tempData.containsKey(uniqueId);
     }
+
 }

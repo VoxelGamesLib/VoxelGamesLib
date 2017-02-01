@@ -38,6 +38,11 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
         return Role.ADMIN;
     }
 
+    @Override
+    public void setRole(Role role) {
+        // ignored
+    }
+
     @Nonnull
     @Override
     public Locale getLocale() {
@@ -47,6 +52,11 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     @Override
     public void setLocale(@Nonnull Locale locale) {
         // ignored
+    }
+
+    @Override
+    public void setUuid(UUID id) {
+        // idfk
     }
 
     @Nonnull

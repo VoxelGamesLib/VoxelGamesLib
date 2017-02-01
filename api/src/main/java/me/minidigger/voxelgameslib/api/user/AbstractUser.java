@@ -4,6 +4,7 @@ import com.google.inject.Injector;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import jskills.Rating;
  */
 public abstract class AbstractUser<T> implements User<T> {
 
-    private Role role;
+    private Role role = Role.DEFAULT;
     private Locale locale = Locale.ENGLISH;
     private Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> ratings = new HashMap<>();
 
@@ -36,6 +37,17 @@ public abstract class AbstractUser<T> implements User<T> {
     @Override
     public Role getRole() {
         return role;
+    }
+
+
+    @Override
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public void setUuid(UUID id) {
+        // idfk
     }
 
     @Nonnull

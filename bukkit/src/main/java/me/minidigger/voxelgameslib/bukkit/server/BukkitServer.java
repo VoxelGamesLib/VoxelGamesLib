@@ -56,7 +56,7 @@ public class BukkitServer extends AbstractServer {
             if (user.isPresent()) {
                 users.add(user.get());
             } else {
-                log.warning("Could not find a user for player " + player.getDisplayName() + "(" + player.getUniqueId() + ")");
+                // log.warning("Could not find a user for player " + player.getDisplayName() + "(" + player.getUniqueId() + ")");
             }
         }
         return users;
