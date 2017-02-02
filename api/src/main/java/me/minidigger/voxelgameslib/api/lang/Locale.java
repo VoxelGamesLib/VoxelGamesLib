@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.api.lang;
 import java.io.Serializable;
 import java.util.Optional;
 import javax.annotation.Nonnull;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -71,9 +72,9 @@ public class Locale implements Serializable {
         return Optional.empty();
     }
 
-    @Id
     private String name;
     @Id
+    @Column(name = "LOCALE_TAG")
     private String tag;
 
     protected Locale() {

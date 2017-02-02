@@ -31,7 +31,7 @@ public class UserHandler implements Handler {
     private Injector injector;
 
     private Map<UUID, User> users;
-    private Map<UUID, User> tempData;
+    private Map<UUID, UserData> tempData;
 
     @Override
     public void start() {
@@ -57,12 +57,13 @@ public class UserHandler implements Handler {
             throw new UserException("User " + uuid + " tried to join without being logged in!");
         }
 
-        User user = tempData.remove(uuid);
+        UserData data = tempData.remove(uuid);
+        User user = injector.getInstance(User.class);
         //noinspection unchecked
         user.setImplementationType(playerObject);
-        injector.injectMembers(user);
+        user.setData(data);
         users.put(user.getUuid(), user);
-        log.info("Applied data for user " + user.getUuid() + "(" + ChatUtil.toPlainText(user.getDisplayName()) + ")");
+        log.info("Applied data for user " + user.getUuid() + "(" + user.getData().getRole().getName() + " " + ChatUtil.toPlainText(user.getDisplayName()) + ")");
     }
 
     /**
@@ -75,7 +76,7 @@ public class UserHandler implements Handler {
         if (user.isPresent()) {
             //TODO go away, gamehandler, use the events!
             gameHandler.getGames(user.get(), true).forEach(game -> game.leave(user.get()));
-            persistenceHandler.getProvider().saveUser(user.get());
+            persistenceHandler.getProvider().saveUserData(user.get());
         }
 
         users.remove(id);
@@ -101,12 +102,11 @@ public class UserHandler implements Handler {
     public void login(@Nonnull UUID uniqueId) {
         log.info("Loading data for user " + uniqueId);
 
-        Optional<User> user = persistenceHandler.getProvider().loadUser(uniqueId);
-        if (user.isPresent()) {
-            tempData.put(uniqueId, user.get());
+        Optional<UserData> data = persistenceHandler.getProvider().loadUserData(uniqueId);
+        if (data.isPresent()) {
+            tempData.put(uniqueId, data.get());
         } else {
-            User newUser = injector.getInstance(User.class);
-            tempData.put(uniqueId, newUser);
+            tempData.put(uniqueId, new UserData(uniqueId));
         }
     }
 

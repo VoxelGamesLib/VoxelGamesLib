@@ -32,31 +32,23 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     @Inject
     private Injector injector;
 
-    @Nonnull
-    @Override
-    public Role getRole() {
-        return Role.ADMIN;
-    }
+    private UserData userData;
 
-    @Override
-    public void setRole(Role role) {
-        // ignored
+    protected AbstractConsoleUser() {
+        userData = new UserData(getUuid());
+        userData.setLocale(Locale.ENGLISH);
+        userData.setRole(Role.ADMIN);
     }
 
     @Nonnull
     @Override
-    public Locale getLocale() {
-        return Locale.ENGLISH;
+    public UserData getData() {
+        return userData;
     }
 
     @Override
-    public void setLocale(@Nonnull Locale locale) {
-        // ignored
-    }
-
-    @Override
-    public void setUuid(UUID id) {
-        // idfk
+    public void setData(UserData data) {
+        this.userData = data;
     }
 
     @Nonnull

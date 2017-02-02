@@ -5,20 +5,12 @@ import com.google.inject.Injector;
 import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
 
 import me.minidigger.voxelgameslib.api.ImplementMe;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
-import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Permission;
-import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 import jskills.IPlayer;
@@ -30,38 +22,26 @@ import jskills.Rating;
  * A Users represents an abstract player of the game. There are implementations for every server mod
  * available.<br>
  */
-@MappedSuperclass
 public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, ISupportPartialUpdate {
 
     /**
-     * @return the {@link Role} the user is assigned to
+     * @return the user data for this user
      */
     @Nonnull
-    @Enumerated(EnumType.STRING)
-    Role getRole();
-
-    void setRole(Role role);
+    UserData getData();
 
     /**
-     * @return the locale this player whished to receive messages in
-     */
-    @Nonnull
-    @ManyToOne
-    Locale getLocale();
-
-    /**
-     * sets the preferred locale of this user
+     * Updates the data object for this user. Should not really be used!
      *
-     * @param locale the perferred locale of this user
+     * @param data the new data object
      */
-    void setLocale(@Nonnull Locale locale);
+    void setData(UserData data);
 
     /**
      * @return the prefix that should be displayed in chat and other location where the player name
      * is displayed
      */
     @Nonnull
-    @Transient
     BaseComponent[] getPrefix();
 
     /**
@@ -69,7 +49,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * is displayed
      */
     @Nonnull
-    @Transient
     BaseComponent[] getSuffix();
 
     /**
@@ -77,24 +56,13 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * player implementation
      */
     @Nonnull
-    @Transient
     BaseComponent[] getDisplayName();
 
     /**
      * @return a unique identifier for that user.
      */
-    @Id
     @Nonnull
     UUID getUuid();
-
-    /**
-     * should not be used, only for db stuff
-     *
-     * @param id should not be used, only for db stuff
-     * @deprecated should not be used, only for db stuff
-     */
-    @Deprecated
-    void setUuid(UUID id);
 
     /**
      * Send a message to this user.
@@ -138,14 +106,12 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * @return the location this user is located at in his world
      */
     @Nonnull
-    @Transient
     Vector3D getLocation();
 
     /**
      * @return the world this user is currently playing on
      */
     @Nonnull
-    @Transient
     String getWorld();
 
     /**
@@ -184,7 +150,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * @return the injector that was used to create this user
      */
     @Nonnull
-    @Transient
     Injector getInjector();
 
     /**
@@ -202,7 +167,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
     /**
      * @return the health of the user
      */
-    @Transient
     double getHealth();
 
     /**
@@ -222,7 +186,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
     /**
      * @return the hunger level of the user
      */
-    @Transient
     double getHunger();
 
     /**
@@ -243,7 +206,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * @return the gamemode the player is in
      */
     @Nonnull
-    @Transient
     GameMode getGameMode();
 
     /**
@@ -264,7 +226,5 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
     /**
      * @return all ratings for this player
      */
-    @Transient
-    //TODO figure out how to store this
     Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> getRatings();
 }

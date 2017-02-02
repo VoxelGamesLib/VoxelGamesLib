@@ -4,14 +4,11 @@ import com.google.inject.Injector;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
-import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.role.Permission;
-import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
@@ -24,8 +21,7 @@ import jskills.Rating;
  */
 public abstract class AbstractUser<T> implements User<T> {
 
-    private Role role = Role.DEFAULT;
-    private Locale locale = Locale.ENGLISH;
+    private UserData userData;
     private Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> ratings = new HashMap<>();
 
     @Inject
@@ -35,30 +31,13 @@ public abstract class AbstractUser<T> implements User<T> {
 
     @Nonnull
     @Override
-    public Role getRole() {
-        return role;
-    }
-
-
-    @Override
-    public void setRole(Role role) {
-        this.role = role;
+    public UserData getData() {
+        return userData;
     }
 
     @Override
-    public void setUuid(UUID id) {
-        // idfk
-    }
-
-    @Nonnull
-    @Override
-    public Locale getLocale() {
-        return locale;
-    }
-
-    @Override
-    public void setLocale(@Nonnull Locale locale) {
-        this.locale = locale;
+    public void setData(UserData data) {
+        this.userData = data;
     }
 
     @Nonnull
@@ -76,7 +55,7 @@ public abstract class AbstractUser<T> implements User<T> {
     @Override
     public boolean hasPermission(@Nonnull Permission perm) {
         if (config.useRoleSystem) {
-            return getRole().hasPermission(perm);
+            return getData().getRole().hasPermission(perm);
         }
         return false;
     }

@@ -32,7 +32,7 @@ public class LangCommands {
         }
         sb.setLength(sb.length() - 1);
         Lang.msg(args.getSender(), LangKey.LANG_INSTALLED, sb.toString());
-        Lang.msg(args.getSender(), LangKey.LANG_CURRENT, args.getSender().getLocale().getName());
+        Lang.msg(args.getSender(), LangKey.LANG_CURRENT, args.getSender().getData().getLocale().getName());
     }
 
     @CommandInfo(name = "lang.set", perm = "command.lang.set", role = Role.DEFAULT, min = 1)
@@ -45,7 +45,7 @@ public class LangCommands {
                 return;
             }
         }
-        args.getSender().setLocale(loc.get());
+        args.getSender().getData().setLocale(loc.get());
         Lang.msg(args.getSender(), LangKey.LANG_UPDATE, loc.get().getName());
         if (!langHandler.getInstalledLocales().contains(loc.get())) {
             Lang.msg(args.getSender(), LangKey.LANG_NOT_ENABLED, loc.get().getName());

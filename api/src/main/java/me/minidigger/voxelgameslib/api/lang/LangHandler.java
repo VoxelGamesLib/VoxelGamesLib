@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 
 import lombok.extern.java.Log;
 
@@ -27,6 +28,8 @@ public class LangHandler implements Handler {
 
     @Inject
     private VoxelGamesLib voxelGameLib;
+    @Inject
+    private PersistenceHandler persistenceHandler;
 
     @Override
     public void start() {
@@ -45,6 +48,7 @@ public class LangHandler implements Handler {
             Optional<Locale> opt = Locale.fromTag(tag);
             if (opt.isPresent()) {
                 registerLocale(opt.get());
+                persistenceHandler.getProvider().saveLocale(opt.get());
             } else {
                 log.warning("Unknown lang tag " + tag);
             }

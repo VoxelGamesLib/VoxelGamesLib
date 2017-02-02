@@ -33,7 +33,7 @@ public abstract class AbstractServer implements Server {
     public int broadcastMessage(@Nonnull Role role, @Nonnull LangKey key, Object... args) {
         int i = 0;
         for (User user : getOnlineUsers()) {
-            if (role.equals(user.getRole())) {
+            if (role.equals(user.getData().getRole())) {
                 i++;
                 Lang.msg(user, key, args);
             }
@@ -45,7 +45,7 @@ public abstract class AbstractServer implements Server {
     public int broadcastMessage(@Nonnull Role role, @Nonnull BaseComponent... message) {
         int i = 0;
         for (User user : getOnlineUsers()) {
-            if (role.equals(user.getRole())) {
+            if (role.equals(user.getData().getRole())) {
                 i++;
                 user.sendMessage(message);
             }

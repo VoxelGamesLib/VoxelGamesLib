@@ -8,15 +8,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.reflections.Reflections;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.Entity;
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
+import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.user.UserData;
 
 import lombok.extern.java.Log;
 
@@ -43,45 +44,56 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
             Metadata metadata = sources.buildMetadata();
             sessionFactory = metadata.buildSessionFactory();
         } catch (Exception e) {
-            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-            // so destroy it manually.
             StandardServiceRegistryBuilder.destroy(registry);
             e.printStackTrace();
         }
     }
 
     @Override
-    public void saveUser(User user) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        session.save(user);
-
-        session.getTransaction().commit();
-        session.close();
+    public void saveUserData(User user) {
+        session((SessionExecutor<Void>) session -> {
+            session.saveOrUpdate(user.getData());
+            return null;
+        });
     }
 
     @Override
-    public Optional<User> loadUser(UUID id) {
+    public Optional<UserData> loadUserData(UUID id) {
+        return session(session -> Optional.ofNullable(session.get(UserData.class, id.toString())));
+    }
+
+    @Override
+    public void saveLocale(Locale locale) {
+        session((SessionExecutor<Void>) session -> {
+            session.saveOrUpdate(locale);
+            return null;
+        });
+    }
+
+    @Override
+    public List<Locale> loadLocales() {
+        return session(session -> {
+            CriteriaQuery<Locale> criteriaQuery = session.getCriteriaBuilder().createQuery(Locale.class);
+            CriteriaQuery<Locale> select = criteriaQuery.select(criteriaQuery.from(Locale.class));
+            TypedQuery<Locale> typedQuery = session.createQuery(select);
+            return typedQuery.getResultList();
+        });
+    }
+
+    private <T> T session(SessionExecutor<T> executor) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> root = query.from(User.class); // USES A USER DATA OBJECT TO FIX STUFF!
-        query.select(root).where(builder.equal(root.get("uuid"), id));
+        T t = executor.execute(session);
 
-        Optional<User> result;
-        try {
-            User user = session.createQuery(query).getSingleResult();
-            result = Optional.of(user);
-        } catch (NoResultException ex) {
-            result = Optional.empty();
-        }
         session.getTransaction().commit();
         session.close();
 
-        return result;
+        return t;
+    }
+
+    interface SessionExecutor<T> {
+        T execute(Session session);
     }
 
     @Override
