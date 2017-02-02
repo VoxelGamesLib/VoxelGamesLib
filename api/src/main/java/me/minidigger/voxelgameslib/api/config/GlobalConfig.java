@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.lang.Locale;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceConfig;
 import me.minidigger.voxelgameslib.api.utils.CollectionUtil;
 
 /**
@@ -17,7 +18,7 @@ import me.minidigger.voxelgameslib.api.utils.CollectionUtil;
 public class GlobalConfig extends Config {
 
     @Expose
-    public final int configVersion = 5;
+    public final int configVersion = 6;
     @Expose
     public int currentVersion = configVersion;
 
@@ -27,6 +28,8 @@ public class GlobalConfig extends Config {
     public boolean useRoleSystem = true;
     @Expose
     public List<String> availableLanguages = CollectionUtil.toStringList(Locale.values(), Locale::getTag);
+    @Expose
+    public PersistenceConfig persistence = new PersistenceConfig();
 
     /**
      * @return the default config, with all default settings

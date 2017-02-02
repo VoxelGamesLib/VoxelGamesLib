@@ -1,6 +1,6 @@
 {
   "configVersion": 3,
-  "currentVersion": 5,
+  "currentVersion": 6,
   "logLevel": "ALL",
   "useRoleSystem": true,
   "availableLanguages": [
@@ -9,5 +9,14 @@
     "de",
     "pt-br",
     "nl"
-  ]
+  ],
+  "persistence": {
+    "user": "voxelgameslib",
+    "pass": "----",
+    "driver": "com.mysql.jdbc.Driver",
+    "url": "jdbc:mysql://admin.minidigger.me:3306/voxelgameslib",
+    "dialect": "org.hibernate.dialect.MySQL5Dialect",
+    "pool_size": 10,
+    "showSQL": true
+  }
 }

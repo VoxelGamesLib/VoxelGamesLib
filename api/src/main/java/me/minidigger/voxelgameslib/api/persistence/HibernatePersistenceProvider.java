@@ -11,10 +11,12 @@ import org.reflections.Reflections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
+import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserData;
@@ -27,14 +29,23 @@ import lombok.extern.java.Log;
 @Log
 public class HibernatePersistenceProvider implements PersistenceProvider {
 
+    @Inject
+    private GlobalConfig config;
+
     private SessionFactory sessionFactory;
 
     @Override
     public void start() {
-        // A SessionFactory is set up once for an application!
         StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure() // configures settings from hibernate.cfg.xml, we don't really want that
-                .build(); // TODO load settings from our config
+                .applySetting("hibernate.connection.username", config.persistence.user)
+                .applySetting("hibernate.connection.password", config.persistence.pass)
+                .applySetting("hibernate.connection.driver_class", config.persistence.driver)
+                .applySetting("hibernate.connection.url", config.persistence.url)
+                .applySetting("hibernate.dialect", config.persistence.dialect)
+                .applySetting("hibernate.connection.pool_size", config.persistence.pool_size + "")
+                .applySetting("hibernate.hbm2ddl.auto", "update")
+                .applySetting("hibernate.show_sql", config.persistence.showSQL + "")
+                .build();
 
         MetadataSources sources = new MetadataSources(registry);
 

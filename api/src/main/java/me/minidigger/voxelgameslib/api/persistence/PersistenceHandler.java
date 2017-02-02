@@ -1,6 +1,9 @@
 package me.minidigger.voxelgameslib.api.persistence;
 
+import com.google.inject.Injector;
+
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
@@ -11,11 +14,14 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
 @Singleton
 public class PersistenceHandler implements Handler {
 
+    @Inject
+    private Injector injector;
+
     private PersistenceProvider activeProvider;
 
     @Override
     public void start() {
-        activeProvider = new HibernatePersistenceProvider();
+        activeProvider = injector.getInstance(HibernatePersistenceProvider.class);//TODO bind this?
         activeProvider.start();
     }
 
