@@ -24,7 +24,7 @@ import me.minidigger.voxelgameslib.api.user.UserData;
 import lombok.extern.java.Log;
 
 /**
- * Created by Martin on 29.01.2017.
+ * A implementation of the persistence provider based on hibernate
  */
 @Log
 public class HibernatePersistenceProvider implements PersistenceProvider {

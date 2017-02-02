@@ -30,6 +30,9 @@ public class PersistenceHandler implements Handler {
         activeProvider.stop();
     }
 
+    /**
+     * @return the currently active persistence provider
+     */
     @Nonnull
     public PersistenceProvider getProvider() {
         return activeProvider;
