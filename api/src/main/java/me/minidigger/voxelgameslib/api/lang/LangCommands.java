@@ -9,6 +9,7 @@ import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandExecutor;
 import me.minidigger.voxelgameslib.api.command.CommandInfo;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.Role;
 
 /**
@@ -23,6 +24,8 @@ public class LangCommands {
     private LangHandler langHandler;
     @Inject
     private GlobalConfig globalConfig;
+    @Inject
+    private PersistenceHandler persistenceHandler;
 
     @CommandInfo(name = "lang", perm = "command.lang", role = Role.DEFAULT)
     public void lang(@Nonnull CommandArguments args) {
@@ -50,5 +53,7 @@ public class LangCommands {
         if (!langHandler.getInstalledLocales().contains(loc.get())) {
             Lang.msg(args.getSender(), LangKey.LANG_NOT_ENABLED, loc.get().getName());
         }
+
+        persistenceHandler.getProvider().saveUserData(args.getSender().getData());
     }
 }
