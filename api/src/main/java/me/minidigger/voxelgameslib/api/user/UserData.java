@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -48,13 +49,13 @@ public class UserData implements Serializable {
     @JoinColumn(name = "LOCALE_TAG")
     private Locale locale = Locale.ENGLISH;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Map<String, Rating> ratings = new HashMap<>();
 
-    private String displayName;
+    private String displayName = "";
 
-    private String prefix = "{}";
-    private String suffix = "{}";
+    private String prefix = "{\"text\":\"\"}";
+    private String suffix = "{\"text\":\"\"}";
 
     /**
      * Creates a new userdata object
