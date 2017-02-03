@@ -201,4 +201,23 @@ public class Lang {
 
         return String.format(string, args);
     }
+
+    @Nonnull
+    public static String legacyColors(String message) {
+        StringBuilder result = new StringBuilder();
+        String[] tokens = message.split("\\{|}");
+        outer:
+        for (String token : tokens) {
+            for (ChatColor color : ChatColor.values()) {
+                if (color.name().equalsIgnoreCase(token)) {
+                    result.append(color);
+                    continue outer;
+                }
+            }
+
+            result.append(token);
+        }
+
+        return result.toString();
+    }
 }

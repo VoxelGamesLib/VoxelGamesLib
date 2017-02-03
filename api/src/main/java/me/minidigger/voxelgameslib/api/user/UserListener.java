@@ -33,7 +33,7 @@ public class UserListener {
             // something went horribly wrong
             event.setCanceled(true);
             // we don't have a locale here since the data was not loaded :/
-            event.setKickMessage(Lang.string(LangKey.DATA_NOT_LOADED));
+            event.setKickMessage(Lang.legacyColors(Lang.string(LangKey.DATA_NOT_LOADED)));
         }
     }
 
@@ -46,7 +46,7 @@ public class UserListener {
                 // something went horribly wrong
                 event.setCanceled(true);
                 // we don't have a locale here since the data was not loaded :/
-                event.setKickMessage(Lang.string(LangKey.DATA_NOT_LOADED));
+                event.setKickMessage(Lang.legacyColors(Lang.string(LangKey.DATA_NOT_LOADED)));
                 return;
             }
         }
