@@ -38,18 +38,6 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
 
     @Nonnull
     @Override
-    public BaseComponent[] getPrefix() {
-        return new ComponentBuilder("").create();
-    }
-
-    @Nonnull
-    @Override
-    public BaseComponent[] getSuffix() {
-        return new ComponentBuilder("").create();
-    }
-
-    @Nonnull
-    @Override
     public BaseComponent[] getDisplayName() {
         return new ComponentBuilder("ConsoleUser").create();
     }
@@ -104,7 +92,7 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     }
 
     @Override
-    public void setIventory(int slot, @Nonnull Item item) {
+    public void setInventory(int slot, @Nonnull Item item) {
         // ignore
     }
 

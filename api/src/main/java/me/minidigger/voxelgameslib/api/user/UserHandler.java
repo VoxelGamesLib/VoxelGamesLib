@@ -15,7 +15,7 @@ import me.minidigger.voxelgameslib.api.exception.UserException;
 import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
+import me.minidigger.voxelgameslib.api.utils.MojangUtil;
 
 import lombok.extern.java.Log;
 
@@ -63,7 +63,7 @@ public class UserHandler implements Handler {
         user.setImplementationType(playerObject);
         user.setData(data);
         users.put(user.getUuid(), user);
-        log.info("Applied data for user " + user.getUuid() + "(" + user.getData().getRole().getName() + " " + ChatUtil.toPlainText(user.getDisplayName()) + ")");
+        log.info("Applied data for user " + user.getUuid() + "(" + user.getData().getRole().getName() + " " + user.getData().getDisplayName() + ")");
     }
 
     /**
@@ -98,8 +98,9 @@ public class UserHandler implements Handler {
      * Called when a user logs in. used to load all kind of stuff. Should only be called async!
      *
      * @param uniqueId the id of the user that logged in
+     * @return false if the user needs to be kicked
      */
-    public void login(@Nonnull UUID uniqueId) {
+    public boolean login(@Nonnull UUID uniqueId) {
         log.info("Loading data for user " + uniqueId);
 
         Optional<UserData> data = persistenceHandler.getProvider().loadUserData(uniqueId);
@@ -109,9 +110,17 @@ public class UserHandler implements Handler {
             tempData.put(uniqueId, userDara);
         } else {
             UserData userDara = new UserData(uniqueId);
+            try {
+                userDara.setDisplayName(MojangUtil.getDisplayName(uniqueId));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
             injector.injectMembers(userDara);
             tempData.put(uniqueId, userDara);
         }
+
+        return true;
     }
 
     /**

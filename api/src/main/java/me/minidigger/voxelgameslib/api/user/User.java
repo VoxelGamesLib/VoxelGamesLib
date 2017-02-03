@@ -36,27 +36,6 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
     void setData(UserData data);
 
     /**
-     * @return the prefix that should be displayed in chat and other location where the player name
-     * is displayed
-     */
-    @Nonnull
-    BaseComponent[] getPrefix();
-
-    /**
-     * @return the suffix that should be displayed in chat and other location where the player name
-     * is displayed
-     */
-    @Nonnull
-    BaseComponent[] getSuffix();
-
-    /**
-     * @return the display name of the user. doesn't need to be bound to the name of the underlying
-     * player implementation
-     */
-    @Nonnull
-    BaseComponent[] getDisplayName();
-
-    /**
      * @return a unique identifier for that user.
      */
     @Nonnull
@@ -135,7 +114,7 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * @param slot the slot to change
      * @param item the new item that should be placed in that slot
      */
-    void setIventory(int slot, @Nonnull Item item);
+    void setInventory(int slot, @Nonnull Item item);
 
     /**
      * @param slot the slot
@@ -143,6 +122,12 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      */
     @Nonnull
     Item getInventory(int slot);
+
+    /**
+     * Should be called to mark the display name as dirty. will cause getDisplayName to generate a
+     * fresh version the next time its executed
+     */
+    void markDisplayNameAsDirty();
 
     /**
      * @return the injector that was used to create this user
@@ -205,4 +190,13 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      */
     @Nonnull
     GameMode getGameMode();
+
+    /**
+     * returns the display name of the user, consists of prefix, name and suffix. <b>this method
+     * caches the display name. if you changed the prefix, suffix or display name of the user, you
+     * need to mark the display name as dirty!</b>
+     *
+     * @return the display name of the user, consists of prefix, name and suffix.
+     */
+    BaseComponent[] getDisplayName();
 }

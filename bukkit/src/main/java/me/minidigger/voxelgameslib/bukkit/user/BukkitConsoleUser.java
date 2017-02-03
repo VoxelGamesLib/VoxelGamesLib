@@ -7,6 +7,7 @@ import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.user.AbstractConsoleUser;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
+import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -42,5 +43,16 @@ public class BukkitConsoleUser extends AbstractConsoleUser<ConsoleCommandSender>
     @Override
     public void sendMessage(@Nonnull BaseComponent... message) {
         user.sendMessage("[VoxelGamesLib]" + ChatUtil.toPlainText(message));
+    }
+
+    @Override
+    public void markDisplayNameAsDirty() {
+        // ignore
+    }
+
+    @Nonnull
+    @Override
+    public BaseComponent[] getDisplayName() {
+        return new ComponentBuilder("CONSOLE").create();
     }
 }

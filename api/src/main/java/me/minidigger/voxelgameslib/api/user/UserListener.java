@@ -29,15 +29,20 @@ public class UserListener {
 
     @EventListener
     public void onAsyncLogin(@Nonnull AsyncUserLoginEvent event) {
-        handler.login(event.getUuid());
+        if (!handler.login(event.getUuid())) {
+            // something went horribly wrong
+            event.setCanceled(true);
+            // we don't have a locale here since the data was not loaded :/
+            event.setKickMessage(Lang.string(LangKey.DATA_NOT_LOADED));
+        }
     }
 
     @EventListener
     public void onLogin(@Nonnull UserLoginEvent event) {
         if (!handler.hasLoggedIn(event.getUuid())) {
             // worst case: load data sync
-            handler.login(event.getUuid());
-            if (!handler.hasLoggedIn(event.getUuid())) {
+            boolean login = handler.login(event.getUuid());
+            if (!login || !handler.hasLoggedIn(event.getUuid())) {
                 // something went horribly wrong
                 event.setCanceled(true);
                 // we don't have a locale here since the data was not loaded :/

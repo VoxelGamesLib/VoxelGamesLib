@@ -8,7 +8,6 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.server.Server;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 /**
  * Util methods related to the command system
@@ -70,7 +69,7 @@ public class CommandUtil {
      */
     @Nonnull
     public static List<String> completeWithPlayerNames(@Nonnull String prefix) {
-        return server.getOnlineUsers().stream().map(user -> ChatUtil.toPlainText(user.getDisplayName()))
+        return server.getOnlineUsers().stream().map(user -> user.getData().getDisplayName())
                 .filter(name -> name.toLowerCase().startsWith(prefix.toLowerCase())).collect(Collectors.toList());
     }
 }

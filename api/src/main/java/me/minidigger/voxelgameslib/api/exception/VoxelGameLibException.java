@@ -10,7 +10,7 @@ public class VoxelGameLibException extends RuntimeException {
     /**
      * @param message the message that explains the issue
      */
-    VoxelGameLibException(@Nonnull String message) {
+    public VoxelGameLibException(@Nonnull String message) {
         super(message);
     }
 

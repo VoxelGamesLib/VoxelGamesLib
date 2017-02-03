@@ -11,7 +11,6 @@ import me.minidigger.voxelgameslib.api.game.Game;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.team.Team;
 import me.minidigger.voxelgameslib.api.user.User;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 import jskills.IPlayer;
 import jskills.ITeam;
@@ -57,7 +56,7 @@ public class EloHandler implements Handler {
 
             User user = (User) iPlayer;
             user.getData().saveRating(game.getGameMode(), newRatings.get(iPlayer));
-            log.info("New Rating for " + ChatUtil.toPlainText(user.getDisplayName()) + " is "
+            log.info("New Rating for " + user.getData().getDisplayName() + " is "
                     + newRatings.get(iPlayer).getMean() + "(" + newRatings.get(iPlayer).getStandardDeviation() + ")");
         }
     }

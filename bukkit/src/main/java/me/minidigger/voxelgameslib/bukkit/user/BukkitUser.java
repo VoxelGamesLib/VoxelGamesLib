@@ -12,10 +12,8 @@ import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.user.AbstractUser;
 import me.minidigger.voxelgameslib.api.user.GameMode;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
-import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.chat.ComponentSerializer;
 
 import org.bukkit.Bukkit;
@@ -57,12 +55,6 @@ public class BukkitUser extends AbstractUser<Player> {
 
     @Nonnull
     @Override
-    public BaseComponent[] getDisplayName() {
-        return new ComponentBuilder(player.getDisplayName()).create();
-    }
-
-    @Nonnull
-    @Override
     public UUID getUuid() {
         return player.getUniqueId();
     }
@@ -89,7 +81,7 @@ public class BukkitUser extends AbstractUser<Player> {
         if (w != null) {
             player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
         } else {
-            log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
+            log.warning("Tried to teleport player " + getData().getDisplayName() + " to world " + world + " which is not loaded!");
         }
     }
 
@@ -100,7 +92,7 @@ public class BukkitUser extends AbstractUser<Player> {
             Vector3D loc = new Vector3D(w.getSpawnLocation().getX(), w.getSpawnLocation().getY(), w.getSpawnLocation().getZ());
             player.teleport(new Location(w, loc.getX(), loc.getY(), loc.getZ()));
         } else {
-            log.warning("Tried to teleport player " + ChatUtil.toPlainText(getDisplayName()) + " to world " + world + " which is not loaded!");
+            log.warning("Tried to teleport player " + getData().getDisplayName() + " to world " + world + " which is not loaded!");
         }
     }
 
@@ -141,7 +133,7 @@ public class BukkitUser extends AbstractUser<Player> {
     }
 
     @Override
-    public void setIventory(int slot, @Nonnull Item item) {
+    public void setInventory(int slot, @Nonnull Item item) {
         player.getInventory().setItem(slot, ((BukkitItem) item).getImplementationType());
     }
 

@@ -8,7 +8,6 @@ import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.game.GameJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.game.GameLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 import lombok.extern.java.Log;
 
@@ -29,11 +28,11 @@ public class GameListener {
 
     @EventListener
     public void onL(@Nonnull GameLeaveEvent event) {
-        log.finer(ChatUtil.toPlainText(event.getUser().getDisplayName()) + " left the game " + event.getGame().getGameMode().getName());
+        log.finer(event.getUser().getData().getDisplayName() + " left the game " + event.getGame().getGameMode().getName());
     }
 
     @EventListener
     public void onJ(@Nonnull GameJoinEvent event) {
-        log.finer(ChatUtil.toPlainText(event.getUser().getDisplayName()) + " joined the game " + event.getGame().getGameMode().getName());
+        log.finer(event.getUser().getData().getDisplayName() + " joined the game " + event.getGame().getGameMode().getName());
     }
 }

@@ -12,7 +12,6 @@ import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.ItemBuilder;
 import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.user.User;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 import jskills.Rating;
 import lombok.extern.java.Log;
@@ -32,9 +31,9 @@ public class OneVsOneFeature extends AbstractFeature {
         Rating r1 = duelFeature.getOne().getData().getRating(getPhase().getGame().getGameMode());
         Rating r2 = duelFeature.getTwo().getData().getRating(getPhase().getGame().getGameMode());
 
-        log.info(ChatUtil.toPlainText(duelFeature.getOne().getDisplayName()) + "[" +
+        log.info(duelFeature.getOne().getData().getDisplayName() + "[" +
                 r1.getMean() + "(" + r1.getStandardDeviation() + ")] duels "
-                + ChatUtil.toPlainText(duelFeature.getTwo().getDisplayName()) + "[" +
+                + duelFeature.getTwo().getData().getDisplayName() + "[" +
                 r2.getMean() + "(" + r2.getStandardDeviation() + ")]");
 
         // TODO better items, lol

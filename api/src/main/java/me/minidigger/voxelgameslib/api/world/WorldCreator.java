@@ -29,7 +29,6 @@ import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.user.User;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 import me.minidigger.voxelgameslib.api.utils.ZipUtil;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ClickEvent;
@@ -84,7 +83,7 @@ public class WorldCreator {
     @CommandInfo(name = "worldcreator.start", perm = "command.worldcreator.start", role = Role.ADMIN, allowConsole = false)
     public void start(@Nonnull CommandArguments arguments) {
         if (editor != null) {
-            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_IN_USE, ChatUtil.toPlainText(editor.getDisplayName()));
+            Lang.msg(arguments.getSender(), LangKey.WORLD_CREATOR_IN_USE, editor.getData().getDisplayName());
             return;
         }
 

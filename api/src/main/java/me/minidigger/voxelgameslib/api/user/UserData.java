@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,11 +20,15 @@ import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.Role;
 
 import jskills.Rating;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The data for a user
  */
 @Entity
+@Getter
+@Setter
 public class UserData implements Serializable {
 
     @Inject
@@ -48,6 +51,16 @@ public class UserData implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private Map<String, Rating> ratings = new HashMap<>();
 
+    private String displayName;
+
+    private String prefix = "{}";
+    private String suffix = "{}";
+
+    /**
+     * Creates a new userdata object
+     *
+     * @param id the uuid of the user
+     */
     public UserData(UUID id) {
         this.uuid = id;
         this.id = id.toString();
@@ -56,61 +69,6 @@ public class UserData implements Serializable {
     protected UserData() {
         // JPA
     }
-
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-        this.id = uuid.toString();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-        this.uuid = UUID.fromString(id);
-    }
-
-    /**
-     * @return the {@link Role} the user is assigned to
-     */
-    @Nonnull
-    public Role getRole() {
-        return role;
-    }
-
-    /**
-     * updates the role of this user
-     *
-     * @param role the new role
-     */
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    /**
-     * @return the locale this player wishes to receive messages in
-     */
-    @Nonnull
-    public Locale getLocale() {
-        return locale;
-    }
-
-
-    /**
-     * sets the preferred locale of this user
-     *
-     * @param locale the preferred locale of this user
-     */
-    public void setLocale(@Nonnull Locale locale) {
-        this.locale = locale;
-    }
-
 
     /**
      * @param mode the mode to get the rating for

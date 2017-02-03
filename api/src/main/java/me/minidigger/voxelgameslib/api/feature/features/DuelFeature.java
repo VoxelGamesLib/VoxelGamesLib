@@ -5,7 +5,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import me.minidigger.voxelgameslib.api.feature.AbstractFeature;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.User;
-import me.minidigger.voxelgameslib.api.utils.ChatUtil;
 
 /**
  * Feature that handles dueling.
@@ -39,7 +38,7 @@ public class DuelFeature extends AbstractFeature {
         } else if (user.equals(two)) {
             return one;
         }
-        throw new IllegalArgumentException(ChatUtil.toPlainText(user.getDisplayName()) + " is neither one nor two");
+        throw new IllegalArgumentException(user.getData().getDisplayName() + " is neither one nor two");
     }
 
     @Override
