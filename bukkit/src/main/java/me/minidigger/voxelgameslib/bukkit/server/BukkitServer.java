@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.bukkit.server;
 
+import com.google.inject.Injector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +39,7 @@ import lombok.extern.java.Log;
 @Singleton
 public class BukkitServer extends AbstractServer {
 
-    private ConsoleUser user = new BukkitConsoleUser();
+    private ConsoleUser user;
 
     @Inject
     private UserHandler userHandler;
@@ -47,6 +49,8 @@ public class BukkitServer extends AbstractServer {
     private BossBarStyleConverter bossBarStyleConverter;
     @Inject
     private VectorConverter vectorConverter;
+    @Inject
+    private Injector injector;
 
     @Override
     public List<User> getOnlineUsers() {
@@ -64,6 +68,10 @@ public class BukkitServer extends AbstractServer {
 
     @Override
     public ConsoleUser getConsoleUser() {
+        if (user == null) {
+            user = new BukkitConsoleUser();
+            injector.injectMembers(user);
+        }
         return user;
     }
 

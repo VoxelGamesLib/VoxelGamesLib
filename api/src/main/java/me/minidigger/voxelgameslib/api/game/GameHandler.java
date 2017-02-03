@@ -25,6 +25,7 @@ import me.minidigger.voxelgameslib.api.event.events.game.GameStartEvent;
 import me.minidigger.voxelgameslib.api.exception.GameModeNotAvailableException;
 import me.minidigger.voxelgameslib.api.exception.GameStartException;
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.User;
 
@@ -46,6 +47,8 @@ public class GameHandler implements Handler {
     @Inject
     @Named("GameDefinitionFolder")
     private File gameDefinitionFolder;
+    @Inject
+    private PersistenceHandler persistenceHandler;
     @Inject
     private Gson gson;
 

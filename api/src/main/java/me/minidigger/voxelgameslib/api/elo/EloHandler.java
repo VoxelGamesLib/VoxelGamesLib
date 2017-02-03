@@ -43,8 +43,8 @@ public class EloHandler implements Handler {
 
     public void handleGameEnd(Game game, DuelFeature duelFeature, User winner) {
         List<ITeam> teams = new ArrayList<>();
-        teams.add(new jskills.Team(duelFeature.getOne(), duelFeature.getOne().getRating(game.getGameMode())));
-        teams.add(new jskills.Team(duelFeature.getTwo(), duelFeature.getTwo().getRating(game.getGameMode())));
+        teams.add(new jskills.Team(duelFeature.getOne(), duelFeature.getOne().getData().getRating(game.getGameMode())));
+        teams.add(new jskills.Team(duelFeature.getTwo(), duelFeature.getTwo().getData().getRating(game.getGameMode())));
         if (!winner.equals(duelFeature.getOne())) {
             Collections.reverse(teams);
         }
@@ -56,7 +56,7 @@ public class EloHandler implements Handler {
             }
 
             User user = (User) iPlayer;
-            user.saveRating(game.getGameMode(), newRatings.get(iPlayer));
+            user.getData().saveRating(game.getGameMode(), newRatings.get(iPlayer));
             log.info("New Rating for " + ChatUtil.toPlainText(user.getDisplayName()) + " is "
                     + newRatings.get(iPlayer).getMean() + "(" + newRatings.get(iPlayer).getStandardDeviation() + ")");
         }

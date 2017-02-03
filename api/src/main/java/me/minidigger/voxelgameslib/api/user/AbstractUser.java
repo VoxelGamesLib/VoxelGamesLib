@@ -2,8 +2,6 @@ package me.minidigger.voxelgameslib.api.user;
 
 import com.google.inject.Injector;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
@@ -11,8 +9,6 @@ import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
-
-import jskills.Rating;
 
 /**
  * abstract implementation of the user interface that deals with some stuff
@@ -22,7 +18,6 @@ import jskills.Rating;
 public abstract class AbstractUser<T> implements User<T> {
 
     private UserData userData;
-    private Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> ratings = new HashMap<>();
 
     @Inject
     private GlobalConfig config;
@@ -60,8 +55,6 @@ public abstract class AbstractUser<T> implements User<T> {
         return false;
     }
 
-    /* elo stuff */
-
     @Nonnull
     @Override
     public Injector getInjector() {
@@ -78,24 +71,4 @@ public abstract class AbstractUser<T> implements User<T> {
         return 1.0;
     }
 
-
-    @Override
-    public Rating getRating(me.minidigger.voxelgameslib.api.game.GameMode mode) {
-        Rating rating = ratings.get(mode);
-        if (rating == null) {
-            rating = mode.getRatingInfo().getDefaultRating();
-            // no need to save here
-        }
-        return rating;
-    }
-
-    @Override
-    public void saveRating(me.minidigger.voxelgameslib.api.game.GameMode mode, Rating rating) {
-        ratings.put(mode, rating);
-    }
-
-    @Override
-    public Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> getRatings() {
-        return ratings;
-    }
 }

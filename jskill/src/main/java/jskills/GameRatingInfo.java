@@ -2,9 +2,13 @@ package jskills;
 
 import com.google.gson.annotations.Expose;
 
+import javax.persistence.Basic;
+import javax.persistence.Embeddable;
+
 /**
  * Parameters about the game for calculating the TrueSkill.
  */
+@Embeddable
 public class GameRatingInfo {
 
     private static final double defaultInitialMean = 25.0;
@@ -14,14 +18,19 @@ public class GameRatingInfo {
     private static final double defaultInitialStandardDeviation = defaultInitialMean / 3.0;
 
     @Expose
+    @Basic
     private double initialMean;
     @Expose
+    @Basic
     private double initialStandardDeviation;
     @Expose
+    @Basic
     private double beta;
     @Expose
+    @Basic
     private double dynamicsFactor;
     @Expose
+    @Basic
     private double drawProbability;
 
     public GameRatingInfo(double initialMean, double initialStandardDeviation,
@@ -31,6 +40,10 @@ public class GameRatingInfo {
         this.beta = beta;
         this.dynamicsFactor = dynamicFactor;
         this.drawProbability = drawProbability;
+    }
+
+    protected GameRatingInfo() {
+        //JPA
     }
 
     public static GameRatingInfo getDefaultGameInfo() {

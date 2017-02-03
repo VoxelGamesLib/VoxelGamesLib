@@ -1,6 +1,10 @@
 package jskills;
 
 import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import jskills.numerics.GaussianDistribution;
 
@@ -9,20 +13,33 @@ import static jskills.numerics.MathUtils.square;
 /**
  * Container for a player's rating.
  */
+@Entity
 public class Rating {
 
     private static final int defaultConservativeStandardDeviationMultiplier = 3;
 
-    private final double conservativeStandardDeviationMultiplier;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Basic
+    private double conservativeStandardDeviationMultiplier;
+
+    @Basic
     // The statistical mean value of the rating (also known as μ).
-    private final double mean;
+    private double mean;
 
+    @Basic
     // The standard deviation (the spread) of the rating. This is also known as σ.
-    private final double standardDeviation;
+    private double standardDeviation;
 
+    @Basic
     // A conservative estimate of skill based on the mean and standard deviation.
-    private final double conservativeRating;
+    private double conservativeRating;
+
+    protected Rating() {
+        // JPA
+    }
 
     /**
      * Constructs a rating.

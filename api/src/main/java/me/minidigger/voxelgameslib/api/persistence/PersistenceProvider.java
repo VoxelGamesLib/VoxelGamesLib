@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.lang.Locale;
-import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserData;
 
 /**
@@ -15,11 +14,11 @@ import me.minidigger.voxelgameslib.api.user.UserData;
 public interface PersistenceProvider extends Handler {
 
     /**
-     * Persists a user
+     * Persists the data of a user
      *
-     * @param user the user to persist
+     * @param user the user data to persist
      */
-    void saveUserData(User user);
+    void saveUserData(UserData user);
 
     /**
      * Tries to load the data for a user based on a uuid

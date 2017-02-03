@@ -76,7 +76,7 @@ public class UserHandler implements Handler {
         if (user.isPresent()) {
             //TODO go away, gamehandler, use the events!
             gameHandler.getGames(user.get(), true).forEach(game -> game.leave(user.get()));
-            persistenceHandler.getProvider().saveUserData(user.get());
+            persistenceHandler.getProvider().saveUserData(user.get().getData());
         }
 
         users.remove(id);
@@ -104,9 +104,13 @@ public class UserHandler implements Handler {
 
         Optional<UserData> data = persistenceHandler.getProvider().loadUserData(uniqueId);
         if (data.isPresent()) {
-            tempData.put(uniqueId, data.get());
+            UserData userDara = data.get();
+            injector.injectMembers(userDara);
+            tempData.put(uniqueId, userDara);
         } else {
-            tempData.put(uniqueId, new UserData(uniqueId));
+            UserData userDara = new UserData(uniqueId);
+            injector.injectMembers(userDara);
+            tempData.put(uniqueId, userDara);
         }
     }
 

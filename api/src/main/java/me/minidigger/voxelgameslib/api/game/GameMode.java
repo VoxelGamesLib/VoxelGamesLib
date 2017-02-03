@@ -3,7 +3,7 @@ package me.minidigger.voxelgameslib.api.game;
 import com.google.gson.annotations.Expose;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.persistence.Transient;
 
 import jskills.GameRatingInfo;
 import lombok.extern.java.Log;
@@ -14,18 +14,24 @@ import lombok.extern.java.Log;
 @Log
 public class GameMode {
 
-    @Nonnull
     @Expose
-    private final String name;
-    @Nonnull
-    private final Class<? extends Game> gameClass;
+    private String name;
+
+    @Transient
+    private Class<? extends Game> gameClass;
+
     @Expose
-    private final String className;
-    @Nullable
+    private String className;
+
+    @Transient
     private GameInfo info;
 
     @Expose
     private GameRatingInfo ratingInfo;
+
+    protected GameMode() {
+        // JPA
+    }
 
     /**
      * Constructs a new {@link GameMode}

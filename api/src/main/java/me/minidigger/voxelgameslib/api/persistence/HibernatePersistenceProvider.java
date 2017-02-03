@@ -18,7 +18,6 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.lang.Locale;
-import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserData;
 
 import lombok.extern.java.Log;
@@ -61,9 +60,9 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
     }
 
     @Override
-    public void saveUserData(User user) {
+    public void saveUserData(UserData user) {
         session((SessionExecutor<Void>) session -> {
-            session.saveOrUpdate(user.getData());
+            session.saveOrUpdate(user);
             return null;
         });
     }

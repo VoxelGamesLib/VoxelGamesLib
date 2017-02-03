@@ -2,8 +2,6 @@ package me.minidigger.voxelgameslib.api.user;
 
 import com.google.inject.Injector;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -12,15 +10,10 @@ import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.ItemBuilder;
 import me.minidigger.voxelgameslib.api.item.Material;
-import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.role.Permission;
-import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.ComponentBuilder;
-
-import jskills.GameRatingInfo;
-import jskills.Rating;
 
 /**
  * Abstract implementation of the console user interface that deals with most stuff
@@ -32,23 +25,15 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     @Inject
     private Injector injector;
 
-    private UserData userData;
-
-    protected AbstractConsoleUser() {
-        userData = new UserData(getUuid());
-        userData.setLocale(Locale.ENGLISH);
-        userData.setRole(Role.ADMIN);
-    }
-
     @Nonnull
     @Override
     public UserData getData() {
-        return userData;
+        throw new UnsupportedOperationException("Console has no data!");
     }
 
     @Override
     public void setData(UserData data) {
-        this.userData = data;
+        throw new UnsupportedOperationException("Console has no data!");
     }
 
     @Nonnull
@@ -186,21 +171,5 @@ public abstract class AbstractConsoleUser<T> implements ConsoleUser<T> {
     @Override
     public double getPartialUpdatePercentage() {
         return 1.0;
-    }
-
-
-    @Override
-    public Rating getRating(me.minidigger.voxelgameslib.api.game.GameMode mode) {
-        return GameRatingInfo.getDefaultGameInfo().getDefaultRating();
-    }
-
-    @Override
-    public void saveRating(me.minidigger.voxelgameslib.api.game.GameMode mode, Rating rating) {
-        // ignore
-    }
-
-    @Override
-    public Map<me.minidigger.voxelgameslib.api.game.GameMode, Rating> getRatings() {
-        return new HashMap<>();
     }
 }

@@ -12,7 +12,7 @@
   ],
   "persistence": {
     "user": "voxelgameslib",
-    "pass": "----",
+    "pass": "JKpzpbsLbBaF3jrh",
     "driver": "com.mysql.jdbc.Driver",
     "url": "jdbc:mysql://admin.minidigger.me:3306/voxelgameslib",
     "dialect": "org.hibernate.dialect.MySQL5Dialect",
