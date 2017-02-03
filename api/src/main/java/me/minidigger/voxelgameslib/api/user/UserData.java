@@ -118,7 +118,7 @@ public class UserData implements Serializable {
      * present
      */
     public Rating getRating(me.minidigger.voxelgameslib.api.game.GameMode mode) {
-        Rating rating = ratings.get(mode);
+        Rating rating = ratings.get(mode.getName());
         if (rating == null) {
             rating = mode.getRatingInfo().getDefaultRating();
             // no need to save here
