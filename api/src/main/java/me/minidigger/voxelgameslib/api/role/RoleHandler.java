@@ -77,7 +77,7 @@ public class RoleHandler implements Handler {
     @Nonnull
     public Optional<Role> getRole(@Nonnull String role) {
         try {
-            return Optional.of(Role.valueOf(role));
+            return Optional.of(Role.fromName(role));
         } catch (IllegalArgumentException ex) {
             return Optional.empty();
         }

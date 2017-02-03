@@ -59,4 +59,20 @@ public enum Role {
 
         return false;
     }
+
+    /**
+     * Searches for the role with the given. throws a illegal argument exception if the role doesn't
+     * exist.
+     *
+     * @param name the name to search for
+     * @return the role that was found.
+     */
+    public static Role fromName(String name) {
+        for (Role role : values()) {
+            if (role.getName().equalsIgnoreCase(name)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException();
+    }
 }

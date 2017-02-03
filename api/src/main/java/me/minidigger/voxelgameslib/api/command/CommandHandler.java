@@ -119,6 +119,7 @@ public class CommandHandler implements Handler {
      */
     protected void registerCommand(@Nonnull String commandLabel, @Nonnull CommandInfo info, @Nonnull Method method, @Nonnull Object object) {
         commandMap.put(commandLabel, new Pair<>(method, object));
+        roleHandler.registerPermission(info.perm(), info.role().getName());
     }
 
     /**
@@ -244,7 +245,7 @@ public class CommandHandler implements Handler {
                 CommandInfo commandInfo = command.getFirst().getAnnotation(CommandInfo.class);
                 Optional<Permission> perm = roleHandler.getPermission(commandInfo.perm());
                 if (perm.isPresent() && !sender.hasPermission(perm.get())) {
-                    Lang.msg(sender, LangKey.COMMAND_NO_PERMISSION, perm.get().getString());
+                    Lang.msg(sender, LangKey.COMMAND_NO_PERMISSION, perm.get().getRole().getName());
                     return true;
                 }
                 if (!commandInfo.allowConsole() && sender instanceof ConsoleUser) {

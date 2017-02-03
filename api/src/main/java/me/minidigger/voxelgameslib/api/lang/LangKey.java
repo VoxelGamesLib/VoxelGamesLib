@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
  */
 public enum LangKey {
 
-    COMMAND_NO_PERMISSION("You don't have the required permission {perm} to execute this command!", "perm"),
+    COMMAND_NO_PERMISSION("You need to be {role} to execute this command!", "role"),
     COMMAND_NO_CONSOLE("This command can't be executed via console!"),
     COMMAND_TOO_FEW_ARGUMENTS("You entered too few arguments! Minimum is {min}, you entered {actual}", "min", "actual"),
     COMMAND_TOO_MANY_ARGUMENTS("You entered too many arguments! Maximum is {max}, you entered {actual}", "min", "actual"),
