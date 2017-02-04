@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.timings.Timings;
 
 import lombok.extern.java.Log;
 
@@ -54,9 +55,11 @@ public class VGLEventHandler implements Handler {
      * Searches the classpath for events to register. registers every event
      */
     public void registerEvents() {
-        Set<Class<?>> listeners = new Reflections().getTypesAnnotatedWith(EventListener.class);
+        Timings.time("RegisterEvents", () -> {
+            Set<Class<?>> listeners = new Reflections().getTypesAnnotatedWith(EventListener.class);
 
-        listeners.forEach(this::registerEvents);
+            listeners.forEach(this::registerEvents);
+        });
     }
 
     /**

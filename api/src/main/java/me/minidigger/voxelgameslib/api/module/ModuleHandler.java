@@ -13,6 +13,7 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
+import me.minidigger.voxelgameslib.api.timings.Timings;
 
 import lombok.extern.java.Log;
 
@@ -44,20 +45,22 @@ public class ModuleHandler implements Handler {
     }
 
     private void findModules() {
-        Set<Class<?>> modules = new Reflections().getTypesAnnotatedWith(ModuleInfo.class);
+        Timings.time("RegisterModules", () -> {
+            Set<Class<?>> modules = new Reflections().getTypesAnnotatedWith(ModuleInfo.class);
 
-        for (Class<?> clazz : modules) {
-            ModuleInfo info = clazz.getAnnotation(ModuleInfo.class);
-            if (info == null) continue; // should not occur
-            log.info("Loading module " + info.name() + " v" + info.version() + " by " + Arrays.toString(info.authors()));
-            if (Module.class.isAssignableFrom(clazz)) {
-                Module module = (Module) injector.getInstance(clazz);
-                this.modules.add(module);
-            } else {
-                log.warning("Class " + clazz.getSimpleName() + " has the ModuleInfo annotation but does not implement Module!");
+            for (Class<?> clazz : modules) {
+                ModuleInfo info = clazz.getAnnotation(ModuleInfo.class);
+                if (info == null) continue; // should not occur
+                log.info("Loading module " + info.name() + " v" + info.version() + " by " + Arrays.toString(info.authors()));
+                if (Module.class.isAssignableFrom(clazz)) {
+                    Module module = (Module) injector.getInstance(clazz);
+                    this.modules.add(module);
+                } else {
+                    log.warning("Class " + clazz.getSimpleName() + " has the ModuleInfo annotation but does not implement Module!");
+                }
             }
-        }
 
-        log.info("Loaded " + modules.size() + " modules!");
+            log.info("Loaded " + modules.size() + " modules!");
+        });
     }
 }

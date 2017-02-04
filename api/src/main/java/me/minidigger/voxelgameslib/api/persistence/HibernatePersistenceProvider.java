@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.lang.Locale;
+import me.minidigger.voxelgameslib.api.timings.Timings;
 import me.minidigger.voxelgameslib.api.user.UserData;
 
 import lombok.extern.java.Log;
@@ -48,7 +49,8 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
 
         MetadataSources sources = new MetadataSources(registry);
 
-        new Reflections().getTypesAnnotatedWith(Entity.class).forEach(sources::addAnnotatedClass);
+        Timings.time("RegisterDBEntities", () ->
+                new Reflections().getTypesAnnotatedWith(Entity.class).forEach(sources::addAnnotatedClass));
 
         try {
             Metadata metadata = sources.buildMetadata();

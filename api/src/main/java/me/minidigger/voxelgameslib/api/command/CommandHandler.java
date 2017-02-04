@@ -22,6 +22,7 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
+import me.minidigger.voxelgameslib.api.timings.Timings;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.utils.Pair;
@@ -62,8 +63,10 @@ public class CommandHandler implements Handler {
      * Registers all commands in the classpath
      */
     public void registerCommands() {
-        Set<Class<?>> excutors = new Reflections().getTypesAnnotatedWith(CommandExecutor.class);
-        excutors.forEach(aClass -> register(injector.getInstance(aClass)));
+        Timings.time("RegisterCommands", () -> {
+            Set<Class<?>> excutors = new Reflections().getTypesAnnotatedWith(CommandExecutor.class);
+            excutors.forEach(aClass -> register(injector.getInstance(aClass)));
+        });
     }
 
     /**

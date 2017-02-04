@@ -23,6 +23,7 @@ import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.team.TeamHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
+import me.minidigger.voxelgameslib.api.timings.Timings;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
@@ -80,30 +81,32 @@ public class VoxelGamesLib {
      * @param injector the injector that was used to create this class
      */
     public void onEnable(@Nonnull Injector injector) {
-        this.injector = injector;
+        Timings.time("EnableAllHandler", () -> {
+            this.injector = injector;
 
-        loggerHandler.start();
+            loggerHandler.start();
 
-        configHandler.start();
-        persistenceHandler.start();
-        langHandler.start();
-        tickHandler.start();
-        userHandler.start();
-        roleHandler.start();
-        errorHandler.start();
-        mapHandler.start();
-        worldHandler.start();
-        teamHandler.start();
-        eloHandler.start();
+            configHandler.start();
+            persistenceHandler.start();
+            langHandler.start();
+            tickHandler.start();
+            userHandler.start();
+            roleHandler.start();
+            errorHandler.start();
+            mapHandler.start();
+            worldHandler.start();
+            teamHandler.start();
+            eloHandler.start();
 
-        gameHandler.start();
-        moduleHandler.start();
+            gameHandler.start();
+            moduleHandler.start();
 
-        //load event and command stuff after modules so that modules get a chance to provide
-        eventHandler.start();
-        commandHandler.start();
+            //load event and command stuff after modules so that modules get a chance to provide
+            eventHandler.start();
+            commandHandler.start();
 
-        doAdditionalStuff();
+            doAdditionalStuff();
+        });
 
         eventHandler.callEvent(new VoxelGameLibEnableEvent());
     }
