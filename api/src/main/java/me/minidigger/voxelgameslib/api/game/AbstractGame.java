@@ -218,7 +218,7 @@ public abstract class AbstractGame implements Game {
         if (winnerTeam != null) {
             try {
                 TeamFeature teamFeature = getActivePhase().getFeature(TeamFeature.class);
-                eloHandler.handleGameEnd(this, teamFeature, winnerTeam);
+                eloHandler.handleGameEnd(this, teamFeature);
                 handled = true;
             } catch (NoSuchFeatureException ignored) {
             }
