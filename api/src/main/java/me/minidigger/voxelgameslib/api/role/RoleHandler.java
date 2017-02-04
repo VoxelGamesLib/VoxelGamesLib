@@ -1,11 +1,13 @@
 package me.minidigger.voxelgameslib.api.role;
 
+import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.exception.DuplicatePermissionDefinitionException;
 import me.minidigger.voxelgameslib.api.exception.NoSuchRoleException;
@@ -18,11 +20,13 @@ import me.minidigger.voxelgameslib.api.handler.Handler;
 @Singleton
 public class RoleHandler implements Handler {
 
+    @Inject
+    private Injector injector;
+
     private final List<Permission> knownPermissions = new ArrayList<>();
 
     @Override
     public void start() {
-
     }
 
     @Override

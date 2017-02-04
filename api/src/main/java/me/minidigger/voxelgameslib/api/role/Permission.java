@@ -1,12 +1,16 @@
 package me.minidigger.voxelgameslib.api.role;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 /**
  * A permission is the ability to do something. a user can get a permission to do something via his
  * role or manually via the string.
  */
 public class Permission {
+
+    @Inject
+    private static RoleHandler roleHandler;
 
     @Nonnull
     private final String string;
@@ -32,5 +36,16 @@ public class Permission {
     @Nonnull
     public Role getRole() {
         return role;
+    }
+
+    /**
+     * Convenience method to statically register a permission
+     *
+     * @param perm the permission string to register
+     * @param role the role this permission defaults to
+     * @return the new permission object
+     */
+    public static Permission register(String perm, Role role) {
+        return roleHandler.registerPermission(perm, role.getName());
     }
 }

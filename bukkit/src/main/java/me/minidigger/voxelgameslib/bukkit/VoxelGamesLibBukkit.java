@@ -33,6 +33,7 @@ import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.phase.Phase;
 import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
+import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
@@ -164,6 +165,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
             requestStaticInjection(VoxelGamesLib.class);
             requestStaticInjection(CommandUtil.class);
+            requestStaticInjection(Permission.class);
         }
 
         @Provides
