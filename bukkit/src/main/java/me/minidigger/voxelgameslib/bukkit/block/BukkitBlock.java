@@ -4,6 +4,8 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.block.Block;
+import me.minidigger.voxelgameslib.api.block.metadata.BlockMetaData;
+import me.minidigger.voxelgameslib.api.block.metadata.BlockMetaFactory;
 import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.bukkit.item.MaterialConverter;
@@ -18,8 +20,11 @@ public class BukkitBlock implements Block<org.bukkit.block.Block> {
     private MaterialConverter materialConverter;
     @Inject
     private VectorConverter vectorConverter;
+    @Inject
+    private BlockMetaFactory blockMetaFactory;
 
     private org.bukkit.block.Block block;
+    private BlockMetaData blockMetaData;
 
     @Override
     public Material getMaterial() {
@@ -29,6 +34,7 @@ public class BukkitBlock implements Block<org.bukkit.block.Block> {
     @Override
     public void setMaterial(Material material) {
         block.setType(materialConverter.fromVGL(material));
+        blockMetaData = blockMetaFactory.createMetaData(this);
     }
 
     @Override
@@ -51,6 +57,11 @@ public class BukkitBlock implements Block<org.bukkit.block.Block> {
         return block.getWorld().getName();
     }
 
+    @Override
+    public BlockMetaData getMetaData() {
+        return blockMetaData;
+    }
+
     @Nonnull
     @Override
     public org.bukkit.block.Block getImplementationType() {
@@ -60,5 +71,6 @@ public class BukkitBlock implements Block<org.bukkit.block.Block> {
     @Override
     public void setImplementationType(@Nonnull org.bukkit.block.Block block) {
         this.block = block;
+        blockMetaData = blockMetaFactory.createMetaData(this);
     }
 }

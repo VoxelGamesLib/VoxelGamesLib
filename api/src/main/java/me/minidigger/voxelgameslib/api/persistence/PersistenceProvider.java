@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.lang.Locale;
+import me.minidigger.voxelgameslib.api.signs.SignLocation;
 import me.minidigger.voxelgameslib.api.user.UserData;
 
 /**
@@ -39,4 +40,16 @@ public interface PersistenceProvider extends Handler {
      * @return all persisted locales
      */
     List<Locale> loadLocales();
+
+    /**
+     * @return all saved sign locations
+     */
+    List<SignLocation> loadSigns();
+
+    /**
+     * Saves all sign locations
+     *
+     * @param signs the locs to save
+     */
+    void saveSigns(List<SignLocation> signs);
 }

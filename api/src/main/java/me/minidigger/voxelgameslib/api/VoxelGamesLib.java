@@ -22,6 +22,7 @@ import me.minidigger.voxelgameslib.api.matchmaking.MatchmakingHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
+import me.minidigger.voxelgameslib.api.signs.SignHandler;
 import me.minidigger.voxelgameslib.api.team.TeamHandler;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.timings.Timings;
@@ -30,10 +31,12 @@ import me.minidigger.voxelgameslib.api.world.WorldHandler;
 
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
+import lombok.extern.java.Log;
 
 /**
  * The main class of this framework. Gets called by the main classes of the different server mods.
  */
+@Log
 @Singleton
 public class VoxelGamesLib {
 
@@ -74,6 +77,8 @@ public class VoxelGamesLib {
     private PersistenceHandler persistenceHandler;
     @Inject
     private MatchmakingHandler matchmakingHandler;
+    @Inject
+    private SignHandler signHandler;
 
     @Nonnull
     private Injector injector;
@@ -84,6 +89,11 @@ public class VoxelGamesLib {
      * @param injector the injector that was used to create this class
      */
     public void onEnable(@Nonnull Injector injector) {
+        taskChainFactory.setDefaultErrorHandler((e, t) -> {
+            log.severe("Task " + t.hashCode() + " generated an exception:");
+            e.printStackTrace();
+        });
+
         Timings.time("EnableAllHandler", () -> {
             this.injector = injector;
 
@@ -101,6 +111,7 @@ public class VoxelGamesLib {
             teamHandler.start();
             eloHandler.start();
             matchmakingHandler.start();
+            signHandler.start();
 
             gameHandler.start();
             moduleHandler.start();
@@ -134,6 +145,7 @@ public class VoxelGamesLib {
             teamHandler.stop();
             eloHandler.stop();
             matchmakingHandler.stop();
+            signHandler.stop();
 
             gameHandler.stop();
             moduleHandler.stop();

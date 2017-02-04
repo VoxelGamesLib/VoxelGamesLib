@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.server;
 
 import java.util.List;
+import java.util.Optional;
 import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.bossbar.BossBar;
@@ -14,6 +15,7 @@ import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.utils.Pair;
+import me.minidigger.voxelgameslib.api.world.World;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 
 /**
@@ -88,4 +90,17 @@ public interface Server {
      * @return the current spawn point for this server
      */
     Pair<String, Vector3D> getSpawn();
+
+    /**
+     * @return the list of loaded worlds
+     */
+    List<World> getWorlds();
+
+    /**
+     * Gets the world with the given name
+     *
+     * @param world the name of the world
+     * @return the world, if present
+     */
+    Optional<World> getWorld(String world);
 }

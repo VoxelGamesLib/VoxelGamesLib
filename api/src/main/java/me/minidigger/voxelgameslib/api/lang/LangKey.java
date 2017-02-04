@@ -56,6 +56,11 @@ public enum LangKey {
     ROLE_UPDATED_OTHER("{green}The role of {yellow}{user}{green} was updated to {yellow}{role}", "user", "role"),
     ROLE_UPDATED_SELF("{green}Your role was updated to {yellow}{role}", "user", "role"),
 
+    SIGNS_BREAK_NO_PERM("{red}You are not allowed to break this {yellow}{placeholder}{red} sign, only a {yellow}{role}{red} can do that!", "placeholder", "role"),
+    SIGNS_BREAK_SUCCESS("{green}You have destroyed a {yellow}{placeholder}{green} sign.", "placeholder"),
+    SIGNS_PLACE_NO_PERM("{red}You are not allowed to place this {yellow}{placeholder}{red} sign, only a {yellow}{role}{red} can do that!", "placeholder", "role"),
+    SIGNS_PLACE_SUCCESS("{green}You have placed a {yellow}{placeholder}{green} sign.", "placeholder"),
+
     VOTE_ALREADY_VOTED("{red}You've already voted!"),
     VOTE_END("{aqua}Map {yellow}{name}{aqua} by {yellow}{author}{aqua} won with {yellow}{votes}{aqua} votes", "name", "author", "votes"),
     VOTE_MESSAGE_TOP("{gold}### You can now vote for a map! ###"),

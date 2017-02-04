@@ -18,6 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.lang.Locale;
+import me.minidigger.voxelgameslib.api.signs.SignLocation;
 import me.minidigger.voxelgameslib.api.timings.Timings;
 import me.minidigger.voxelgameslib.api.user.UserData;
 
@@ -76,7 +77,7 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
 
     @Override
     public void saveLocale(Locale locale) {
-        session((SessionExecutor<Void>) session -> {
+        session(session -> {
             session.saveOrUpdate(locale);
             return null;
         });
@@ -89,6 +90,24 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
             CriteriaQuery<Locale> select = criteriaQuery.select(criteriaQuery.from(Locale.class));
             TypedQuery<Locale> typedQuery = session.createQuery(select);
             return typedQuery.getResultList();
+        });
+    }
+
+    @Override
+    public List<SignLocation> loadSigns() {
+        return session(session -> {
+            CriteriaQuery<SignLocation> criteriaQuery = session.getCriteriaBuilder().createQuery(SignLocation.class);
+            CriteriaQuery<SignLocation> select = criteriaQuery.select(criteriaQuery.from(SignLocation.class));
+            TypedQuery<SignLocation> typedQuery = session.createQuery(select);
+            return typedQuery.getResultList();
+        });
+    }
+
+    @Override
+    public void saveSigns(List<SignLocation> signs) {
+        session(session -> {
+            signs.forEach(session::saveOrUpdate);
+            return null;
         });
     }
 

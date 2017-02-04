@@ -1,6 +1,7 @@
 package me.minidigger.voxelgameslib.api.block;
 
 import me.minidigger.voxelgameslib.api.ImplementMe;
+import me.minidigger.voxelgameslib.api.block.metadata.BlockMetaData;
 import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 
@@ -43,4 +44,9 @@ public interface Block<T> extends ImplementMe<T> {
      * @return the world this block is placed in
      */
     String getWorld();
+
+    /**
+     * @return the block metadata
+     */
+    BlockMetaData getMetaData();
 }

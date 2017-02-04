@@ -14,7 +14,8 @@ import me.minidigger.voxelgameslib.api.map.Map;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
-import me.minidigger.voxelgameslib.bukkit.util.FaceUtil;
+import me.minidigger.voxelgameslib.api.utils.DirectionUtil;
+import me.minidigger.voxelgameslib.bukkit.block.DirectionConverter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -36,6 +37,8 @@ public class BukkitMapScanner extends MapScanner {
 
     @Inject
     private Injector injector;
+    @Inject
+    private DirectionConverter directionConverter;
 
     @Override
     public void searchForMarkers(@Nonnull Map map, @Nonnull Vector3D center, int range) {
@@ -69,7 +72,8 @@ public class BukkitMapScanner extends MapScanner {
                                     log.warning("owning player name null?!");
                                     markerData = skull.getOwner();
                                 }
-                                markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()), FaceUtil.faceToYaw(skull.getRotation()), markerData));
+                                markers.add(new Marker(new Vector3D(skull.getX(), skull.getY(), skull.getZ()),
+                                        DirectionUtil.directionToYaw(directionConverter.toVGL(skull.getRotation())), markerData));
                             } else {
                                 log.warning("unknown owner");
                             }

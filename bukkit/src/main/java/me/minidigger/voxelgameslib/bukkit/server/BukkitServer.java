@@ -19,11 +19,13 @@ import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.utils.Pair;
+import me.minidigger.voxelgameslib.api.world.World;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarColorConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarStyleConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.scoreboard.BukkitScoreboard;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
+import me.minidigger.voxelgameslib.bukkit.world.BukkitWorld;
 import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
 
 import org.bukkit.Bukkit;
@@ -100,5 +102,19 @@ public class BukkitServer extends AbstractServer {
     public Pair<String, Vector3D> getSpawn() {
         Location spawn = Bukkit.getWorlds().get(0).getSpawnLocation();
         return new Pair<>(spawn.getWorld().getName(), vectorConverter.toVGL(spawn.toVector()));
+    }
+
+    @Override
+    public List<World> getWorlds() {
+        List<World> worlds = new ArrayList<>();
+
+        for (org.bukkit.World world : Bukkit.getWorlds()) {
+            BukkitWorld w = injector.getInstance(BukkitWorld.class);
+            //noinspection unchecked
+            w.setImplementationType(world);
+            worlds.add(w);
+        }
+
+        return worlds;
     }
 }

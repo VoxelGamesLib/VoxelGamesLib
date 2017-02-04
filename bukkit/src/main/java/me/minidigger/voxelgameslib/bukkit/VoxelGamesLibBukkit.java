@@ -16,6 +16,8 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.block.Block;
+import me.minidigger.voxelgameslib.api.block.metadata.EmptyBlockMetaData;
+import me.minidigger.voxelgameslib.api.block.metadata.SignMetaData;
 import me.minidigger.voxelgameslib.api.bossbar.BossBar;
 import me.minidigger.voxelgameslib.api.command.CommandArguments;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
@@ -41,20 +43,25 @@ import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.world.World;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.block.BlockListener;
 import me.minidigger.voxelgameslib.bukkit.block.BukkitBlock;
+import me.minidigger.voxelgameslib.bukkit.block.metadata.BukkitEmptyBlockMetaData;
+import me.minidigger.voxelgameslib.bukkit.block.metadata.BukkitSignMetaData;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.bukkit.log.BukkitLogHandler;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.server.BukkitServer;
+import me.minidigger.voxelgameslib.bukkit.sign.SignListener;
 import me.minidigger.voxelgameslib.bukkit.tick.BukkitTickHandler;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
 import me.minidigger.voxelgameslib.bukkit.user.UserListener;
+import me.minidigger.voxelgameslib.bukkit.world.BukkitWorld;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorldHandler;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
@@ -99,6 +106,7 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(BlockListener.class), this);
+        this.getServer().getPluginManager().registerEvents(injector.getInstance(SignListener.class), this);
 
         try {
             new Metrics(this);
@@ -154,6 +162,9 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(BossBar.class).to(BukkitBossBar.class);
             bind(Block.class).to(BukkitBlock.class);
+            bind(World.class).to(BukkitWorld.class);
+            bind(SignMetaData.class).to(BukkitSignMetaData.class);
+            bind(EmptyBlockMetaData.class).to(BukkitEmptyBlockMetaData.class);
             bind(LoggerHandler.class).to(BukkitLogHandler.class).asEagerSingleton();
             bind(Server.class).to(BukkitServer.class).asEagerSingleton();
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
