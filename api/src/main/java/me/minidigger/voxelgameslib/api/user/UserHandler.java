@@ -133,4 +133,13 @@ public class UserHandler implements Handler {
         return tempData.containsKey(uniqueId);
     }
 
+    /**
+     * searches for a user with that display name
+     *
+     * @param displayname the display name of the user
+     * @return the user with that display name, if present
+     */
+    public Optional<User> getUser(String displayname) {
+        return users.values().stream().filter(u -> u.getData().getDisplayName().equalsIgnoreCase(displayname)).findFirst();
+    }
 }

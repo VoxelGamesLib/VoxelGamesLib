@@ -38,6 +38,7 @@ public enum LangKey {
 
     GENERAL_INVALID_ARGUMENT("{red}u w00t m8? {yellow}{arg}{red} is not an valid argument!", "arg"),
     GENERAL_INVALID_NUMBER("{yellow}{num}{red} is not a valid number!", "num"),
+    GENERAL_INVALID_USER_NAME("{red}Unknown user {yellow}{user}{red}!", "user"),
 
     LANG_CURRENT("{aqua}You are currently using language {yellow}{lang}{aqua}, use {yellow}/lang set <language>{aqua} to set it to another language.", "lang"),
     LANG_INSTALLED("{aqua}The following languages are installed and available on this server: {yellow}{langs}", "langs"),
@@ -48,6 +49,12 @@ public enum LangKey {
     LOG_LEVEL_CURRENT("{aqua}The current log level is {yellow}{level}", "level"),
     LOG_LEVEL_SET("{green}Log level was set to {yellow}{level}", "level"),
     LOG_LEVEL_UNKNOWN("{red}Unknown log level {yellow}{level}", "level"),
+
+    ROLE_SELF("{aqua}You are {yellow}{role}{aqua}.", "role"),
+    ROLE_OTHERS("{yellow}{user}{aqua} is {yellow}{role}{aqua}.", "user", "role"),
+    ROLE_UNKNOWN_ROLE("{red}Unknown role {yellow}{role}{red}!", "role"),
+    ROLE_UPDATED_OTHER("{green}The role of {yellow}{user}{green} was updated to {yellow}{role}", "user", "role"),
+    ROLE_UPDATED_SELF("{green}Your role was updated to {yellow}{role}", "user", "role"),
 
     VOTE_ALREADY_VOTED("{red}You've already voted!"),
     VOTE_END("{aqua}Map {yellow}{name}{aqua} by {yellow}{author}{aqua} won with {yellow}{votes}{aqua} votes", "name", "author", "votes"),
