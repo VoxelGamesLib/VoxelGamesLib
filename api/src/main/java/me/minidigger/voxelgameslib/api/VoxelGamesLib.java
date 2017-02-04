@@ -18,6 +18,7 @@ import me.minidigger.voxelgameslib.api.game.GameHandler;
 import me.minidigger.voxelgameslib.api.lang.LangHandler;
 import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapHandler;
+import me.minidigger.voxelgameslib.api.matchmaking.MatchmakingHandler;
 import me.minidigger.voxelgameslib.api.module.ModuleHandler;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
@@ -71,6 +72,8 @@ public class VoxelGamesLib {
     private TeamHandler teamHandler;
     @Inject
     private PersistenceHandler persistenceHandler;
+    @Inject
+    private MatchmakingHandler matchmakingHandler;
 
     @Nonnull
     private Injector injector;
@@ -97,6 +100,7 @@ public class VoxelGamesLib {
             worldHandler.start();
             teamHandler.start();
             eloHandler.start();
+            matchmakingHandler.start();
 
             gameHandler.start();
             moduleHandler.start();
@@ -116,28 +120,30 @@ public class VoxelGamesLib {
      */
     public void onDisable() {
         eventHandler.callEvent(new VoxelGamesLibDisableEvent());
+        Timings.time("DisableAllHandler", () -> {
+            loggerHandler.stop();
 
-        loggerHandler.stop();
+            configHandler.stop();
+            langHandler.stop();
+            tickHandler.stop();
+            userHandler.stop();
+            roleHandler.stop();
+            errorHandler.stop();
+            mapHandler.stop();
+            worldHandler.stop();
+            teamHandler.stop();
+            eloHandler.stop();
+            matchmakingHandler.stop();
 
-        configHandler.stop();
-        langHandler.stop();
-        tickHandler.stop();
-        userHandler.stop();
-        roleHandler.stop();
-        errorHandler.stop();
-        mapHandler.stop();
-        worldHandler.stop();
-        teamHandler.stop();
-        eloHandler.stop();
+            gameHandler.stop();
+            moduleHandler.stop();
 
-        gameHandler.stop();
-        moduleHandler.stop();
+            eventHandler.stop();
+            commandHandler.stop();
+            persistenceHandler.stop();
 
-        eventHandler.stop();
-        commandHandler.stop();
-        persistenceHandler.stop();
-
-        injector = null;
+            injector = null;
+        });
     }
 
     /**
