@@ -99,6 +99,13 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(UserListener.class), this);
         this.getServer().getPluginManager().registerEvents(injector.getInstance(BlockListener.class), this);
+
+        try {
+            new Metrics(this);
+        } catch (Exception ex) {
+            log.warning("Error while enabling metrics");
+            ex.printStackTrace();
+        }
     }
 
     @Override
