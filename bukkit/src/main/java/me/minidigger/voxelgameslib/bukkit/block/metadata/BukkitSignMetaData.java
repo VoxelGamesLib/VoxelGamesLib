@@ -26,6 +26,7 @@ public class BukkitSignMetaData implements SignMetaData {
     @Override
     public void setLine(String line, int i) {
         sign.setLine(i, line);
+        sign.update();
     }
 
     @Override
@@ -33,6 +34,7 @@ public class BukkitSignMetaData implements SignMetaData {
         for (int i = 0; i < lines.length; i++) {
             sign.setLine(i, lines[i]);
         }
+        sign.update();
     }
 
     @Override

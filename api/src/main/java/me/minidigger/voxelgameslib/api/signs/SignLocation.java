@@ -16,7 +16,9 @@ import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.world.World;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Setter;
 
 /**
  * Stores the location of a traced sign into the db
@@ -37,13 +39,28 @@ public class SignLocation {
     @Transient
     private Block block;
 
+    @Column
+    @Setter(AccessLevel.PRIVATE)
+    private String lines0;
+    @Column
+    @Setter(AccessLevel.PRIVATE)
+    private String lines1;
+    @Column
+    @Setter(AccessLevel.PRIVATE)
+    private String lines2;
+    @Column
+    @Setter(AccessLevel.PRIVATE)
+    private String lines3;
+
     /**
      * Constructs a new sign location
      *
      * @param location the coordinates
      * @param world    the world
+     * @param server   the server to get block information from
+     * @param lines    the lines this sign currently has
      */
-    public SignLocation(Vector3D location, String world, Server server) {
+    public SignLocation(Vector3D location, String world, Server server, String[] lines) {
         this.location = location;
         this.world = world;
 
@@ -53,11 +70,31 @@ public class SignLocation {
         }
 
         block = w.get().getBlockAt(location);
+        if (!(block.getMetaData() instanceof SignMetaData)) {
+            throw new VoxelGameLibException("No sign at world " + world + " location " + location);
+        }
+        setLines(lines);
     }
 
     protected SignLocation() {
         //JPA
+        setLines(new String[]{lines0, lines1, lines2, lines3});
     }
+
+    public void setLines(String[] lines) {
+        lines0 = lines[0];
+        lines1 = lines[1];
+        lines2 = lines[2];
+        lines3 = lines[3];
+        if (this.block != null) {
+            ((SignMetaData) this.block.getMetaData()).setLines(lines);
+        }
+    }
+
+    public String[] getLines() {
+        return new String[]{lines0, lines1, lines2, lines3};
+    }
+
 
     /**
      * Checks if the block on this location is still a sign

@@ -79,6 +79,18 @@ public class Vector3D implements Cloneable {
         return a;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vector3D vector3D = (Vector3D) o;
+
+        if (Double.compare(vector3D.x, x) != 0) return false;
+        if (Double.compare(vector3D.y, y) != 0) return false;
+        return Double.compare(vector3D.z, z) == 0;
+    }
+
     /**
      * {@inheritDoc}
      */

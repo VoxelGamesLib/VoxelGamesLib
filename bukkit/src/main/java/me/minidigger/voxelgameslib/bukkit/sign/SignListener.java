@@ -32,8 +32,12 @@ public class SignListener implements Listener {
     public void onUpdate(SignChangeEvent event) {
         Optional<User> user = userHandler.getUser(event.getPlayer().getUniqueId());
         if (user.isPresent()) {
-            eventHandler.callEvent(new SignUpdateEvent(event.getBlock().getWorld().getName(),
-                    vectorConverter.toVGL(event.getBlock().getLocation().toVector()), event.getLines(), user.get()));
+            SignUpdateEvent e = new SignUpdateEvent(event.getBlock().getWorld().getName(),
+                    vectorConverter.toVGL(event.getBlock().getLocation().toVector()), event.getLines(), user.get());
+            eventHandler.callEvent(e);
+            for (int i = 0; i < event.getLines().length; i++) {
+                event.setLine(i, e.getText()[i]);
+            }
         } else {
             log.warning(event.getPlayer().getDisplayName() + " tired to change a sign without having a user");
         }

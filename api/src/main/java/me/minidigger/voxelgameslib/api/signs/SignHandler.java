@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -94,6 +95,22 @@ public class SignHandler implements Handler {
     }
 
     /**
+     * Checks if there is a sign at the given location and returns it
+     *
+     * @param vector3D the location to check
+     * @param world    the world to check
+     * @return the sign, if present
+     */
+    public Optional<SignLocation> getSignAt(Vector3D vector3D, String world) {
+        for (SignLocation signLocation : signLocations) {
+            if (signLocation.getLocation().equals(vector3D) && signLocation.getWorld().equals(world)) {
+                return Optional.of(signLocation);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
      * Starts the task to update signs
      */
     public void startUpdateTask() {
@@ -152,9 +169,12 @@ public class SignHandler implements Handler {
      *
      * @param location the location of the new sign
      * @param world    the world of the new sign
+     * @param lines    the lines the new sign has
      */
-    public void addSign(Vector3D location, String world) {
+    public void addSign(Vector3D location, String world, String[] lines) {
         dirty = true;
-        signLocations.add(new SignLocation(location, world, server));
+        if (!getSignAt(location, world).isPresent()) {
+            signLocations.add(new SignLocation(location, world, server, lines));
+        }
     }
 }
