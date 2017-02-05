@@ -64,7 +64,16 @@ public class SignLocation {
      *
      * @return if the block is still a sign
      */
-    public boolean isStillValid() {
+    public boolean isStillValid(Server server) {
+        if (block == null) {
+            Optional<World> w = server.getWorld(world);
+            if (!w.isPresent()) {
+                throw new VoxelGameLibException("Unknown world " + world);
+            }
+
+            block = w.get().getBlockAt(location);
+        }
+
         return block.getMetaData() instanceof SignMetaData;
     }
 
@@ -74,9 +83,6 @@ public class SignLocation {
      * @param eventHandler the event handler that should handle the event
      */
     public void fireUpdateEvent(VGLEventHandler eventHandler) {
-        if (!isStillValid()) {
-            return;
-        }
         SignMetaData metaData = (SignMetaData) block.getMetaData();
         String[] text = metaData.getLines();
         SignUpdateEvent event = new SignUpdateEvent(world, location, text);

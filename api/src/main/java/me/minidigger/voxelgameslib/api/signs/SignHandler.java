@@ -1,7 +1,10 @@
 package me.minidigger.voxelgameslib.api.signs;
 
+import com.google.inject.Injector;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +16,7 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.block.Block;
+import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
@@ -35,15 +39,21 @@ public class SignHandler implements Handler {
     private PersistenceHandler persistenceHandler;
     @Inject
     private Server server;
+    private GlobalConfig config;
+    @Inject
+    private Injector injector;
 
     private Map<String, SignPlaceHolder> placeHolders;
     private List<SignLocation> signLocations;
+    private List<SignLocation> markedForRemoval;
 
     private boolean dirty = false;
 
     @Override
     public void start() {
         placeHolders = new HashMap<>();
+        markedForRemoval = new ArrayList<>();
+        config = injector.getInstance(GlobalConfig.class);
 
         signLocations = persistenceHandler.getProvider().loadSigns();
 
@@ -73,7 +83,7 @@ public class SignHandler implements Handler {
      * Starts the task to update signs
      */
     public void startUpdateTask() {
-        VoxelGamesLib.newChain().delay(1, TimeUnit.MINUTES).sync(this::updateSigns).execute(this::startUpdateTask, (e, t) -> {
+        VoxelGamesLib.newChain().delay(config.signUpdateInterval, TimeUnit.SECONDS).sync(this::updateSigns).execute(this::startUpdateTask, (e, t) -> {
             log.warning("Error while updating signs, trying again...");
             e.printStackTrace();
             startUpdateTask();
@@ -81,6 +91,10 @@ public class SignHandler implements Handler {
 
         if (dirty) {
             persistenceHandler.getProvider().saveSigns(signLocations);
+            if (markedForRemoval != null && markedForRemoval.size() > 0) {
+                persistenceHandler.getProvider().deleteSigns(markedForRemoval);
+                markedForRemoval.clear();
+            }
             dirty = false;
         }
     }
@@ -90,11 +104,13 @@ public class SignHandler implements Handler {
             Iterator<SignLocation> iterator = signLocations.listIterator();
             while (iterator.hasNext()) {
                 SignLocation loc = iterator.next();
-                if (loc.isStillValid()) {
+                if (loc.isStillValid(server)) {
                     loc.fireUpdateEvent(eventHandler);
                 } else {
                     log.finer("Removing old placeholder sign at " + loc.getWorld() + " " + loc.getLocation());
+                    dirty = true;
                     iterator.remove();
+                    markedForRemoval.add(loc);
                 }
             }
         });
@@ -112,6 +128,7 @@ public class SignHandler implements Handler {
             SignLocation loc = iterator.next();
             if (loc.getWorld().equals(block.getWorld()) && loc.getLocation().equals(block.getLocation())) {
                 iterator.remove();
+                markedForRemoval.add(loc);
             }
         }
     }

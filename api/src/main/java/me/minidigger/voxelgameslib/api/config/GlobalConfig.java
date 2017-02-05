@@ -18,7 +18,7 @@ import me.minidigger.voxelgameslib.api.utils.CollectionUtil;
 public class GlobalConfig extends Config {
 
     @Expose
-    public final int configVersion = 6;
+    public final int configVersion = 7;
     @Expose
     public int currentVersion = configVersion;
 
@@ -30,6 +30,7 @@ public class GlobalConfig extends Config {
     public List<String> availableLanguages = CollectionUtil.toStringList(Locale.values(), Locale::getTag);
     @Expose
     public PersistenceConfig persistence = new PersistenceConfig();
+    public int signUpdateInterval = 60;
 
     /**
      * @return the default config, with all default settings

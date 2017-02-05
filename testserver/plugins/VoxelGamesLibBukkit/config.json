@@ -1,6 +1,6 @@
 {
   "configVersion": 3,
-  "currentVersion": 6,
+  "currentVersion": 7,
   "logLevel": "ALL",
   "useRoleSystem": true,
   "availableLanguages": [

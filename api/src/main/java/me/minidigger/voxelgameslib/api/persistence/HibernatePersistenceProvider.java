@@ -111,6 +111,14 @@ public class HibernatePersistenceProvider implements PersistenceProvider {
         });
     }
 
+    @Override
+    public void deleteSigns(List<SignLocation> signs) {
+        session(session -> {
+            signs.forEach(session::delete);
+            return null;
+        });
+    }
+
     private <T> T session(SessionExecutor<T> executor) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();

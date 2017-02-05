@@ -52,4 +52,9 @@ public interface PersistenceProvider extends Handler {
      * @param signs the locs to save
      */
     void saveSigns(List<SignLocation> signs);
+
+    /**
+     * Empties the sign table
+     */
+    void deleteSigns(List<SignLocation> signs);
 }
