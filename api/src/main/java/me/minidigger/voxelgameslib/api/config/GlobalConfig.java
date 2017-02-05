@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
+import javax.persistence.ElementCollection;
 
 import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceConfig;
@@ -17,8 +18,7 @@ import me.minidigger.voxelgameslib.api.utils.CollectionUtil;
 @Singleton
 public class GlobalConfig extends Config {
 
-    @Expose
-    public final int configVersion = 7;
+    public final int configVersion = 1;
     @Expose
     public int currentVersion = configVersion;
 
@@ -30,6 +30,7 @@ public class GlobalConfig extends Config {
     public List<String> availableLanguages = CollectionUtil.toStringList(Locale.values(), Locale::getTag);
     @Expose
     public PersistenceConfig persistence = new PersistenceConfig();
+    @Expose
     public int signUpdateInterval = 60;
 
     /**

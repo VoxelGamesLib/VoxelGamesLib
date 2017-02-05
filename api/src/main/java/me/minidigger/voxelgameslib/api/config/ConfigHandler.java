@@ -52,6 +52,8 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             log.info("Loading global config");
             globalConfig = loadConfig(globalConfigFile, GlobalConfig.class);
 
+            System.out.println(globalConfig.getConfigVersion() + " " + globalConfig.getCurrentVersion());
+
             if (checkMigrate(globalConfig)) {
                 migrate(globalConfigFile, globalConfig);
             }
@@ -60,7 +62,7 @@ public class ConfigHandler implements Handler, Provider<GlobalConfig> {
             try {
                 logHandler.setLevel(Level.parse(globalConfig.logLevel));
             } catch (IllegalArgumentException ex) {
-                log.warning("Unknown log level " + globalConfig.logLevel + " speficied via config, setting back to INFO");
+                log.warning("Unknown log level " + globalConfig.logLevel + " specified via config, setting back to INFO");
                 logHandler.setLevel(Level.INFO);
             }
         }

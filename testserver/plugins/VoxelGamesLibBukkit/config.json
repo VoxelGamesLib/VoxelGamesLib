@@ -1,14 +1,19 @@
 {
-  "configVersion": 3,
-  "currentVersion": 7,
+  "currentVersion": 3,
   "logLevel": "ALL",
   "useRoleSystem": true,
   "availableLanguages": [
     "en",
     "fr",
     "de",
-    "pt-br",
-    "nl"
+    "it",
+    "pt",
+    "ru",
+    "es",
+    "sv",
+    "tr",
+    "nl",
+    "pt-br"
   ],
   "persistence": {
     "user": "voxelgameslib",
@@ -18,5 +23,6 @@
     "dialect": "org.hibernate.dialect.MySQL5Dialect",
     "pool_size": 10,
     "showSQL": true
-  }
+  },
+  "signUpdateInterval": 60
 }
