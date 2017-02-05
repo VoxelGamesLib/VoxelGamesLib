@@ -9,6 +9,7 @@ import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.user.AsyncUserLoginEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserDamageEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserDeathEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserInteractEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserJoinEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLeaveEvent;
 import me.minidigger.voxelgameslib.api.event.events.user.UserLoginEvent;
@@ -17,15 +18,18 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
+import me.minidigger.voxelgameslib.bukkit.block.BlockConverter;
 import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -44,6 +48,10 @@ public class UserListener implements Listener {
     private VGLEventHandler eventHandler;
     @Inject
     private VectorConverter vectorConverter;
+    @Inject
+    private InteractionTypeConverter interactionTypeConverter;
+    @Inject
+    private BlockConverter blockConverter;
 
     @EventHandler
     public void login(@Nonnull PlayerLoginEvent event) {
@@ -114,13 +122,34 @@ public class UserListener implements Listener {
     }
 
     @EventHandler
-    private void onDeath(@Nonnull PlayerDeathEvent event) {
+    public void onDeath(@Nonnull PlayerDeathEvent event) {
         Optional<User> user = handler.getUser(event.getEntity().getUniqueId());
         if (user.isPresent()) {
             UserDeathEvent e = new UserDeathEvent(user.get());
             eventHandler.callEvent(e);
         } else {
             log.warning("User " + event.getEntity().getName() + " tried to die without having a user object!");
+        }
+    }
+
+    @EventHandler
+    public void onInteract(@Nonnull PlayerInteractEvent event) {
+        Optional<User> user = handler.getUser(event.getPlayer().getUniqueId());
+        if (user.isPresent()) {
+            UserInteractEvent e = new UserInteractEvent(user.get(), interactionTypeConverter.toVGL(event.getAction()), blockConverter.toVGL(event.getClickedBlock()));
+            eventHandler.callEvent(e);
+            if (e.isShouldUseBlock()) {
+                event.setUseInteractedBlock(Event.Result.ALLOW);
+            } else {
+                event.setUseInteractedBlock(Event.Result.DENY);
+            }
+            if (e.isShouldUseItem()) {
+                event.setUseItemInHand(Event.Result.ALLOW);
+            } else {
+                event.setUseItemInHand(Event.Result.DENY);
+            }
+        } else {
+            log.warning("User " + event.getPlayer().getName() + " tried to die without having a user object!");
         }
     }
 }

@@ -6,6 +6,7 @@ import me.minidigger.voxelgameslib.api.block.metadata.SignMetaData;
 import me.minidigger.voxelgameslib.api.event.EventListener;
 import me.minidigger.voxelgameslib.api.event.events.block.BlockBreakEvent;
 import me.minidigger.voxelgameslib.api.event.events.sign.SignUpdateEvent;
+import me.minidigger.voxelgameslib.api.event.events.user.UserInteractEvent;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.role.Permission;
@@ -76,6 +77,24 @@ public class SignListener {
                             Lang.msg(event.getUser(), LangKey.SIGNS_BREAK_NO_PERM, key, placeHolderSignBreak.getRole().getName());
                             return;
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventListener
+    public void signInteract(UserInteractEvent event) {
+        // is block a sign?
+        if (event.getBlock().getMetaData() instanceof SignMetaData) {
+            SignMetaData metaData = (SignMetaData) event.getBlock().getMetaData();
+            // has sign a placeholder?
+            for (int i = 0; i < metaData.getLines().length; i++) {
+                String line = metaData.getLines()[i];
+                for (String key : signHandler.getButtons().keySet()) {
+                    if (line.contains("%" + key + "%")) {
+                        // TODO implement perms for sign buttons
+                        signHandler.getButtons().get(key).execute(event.getUser(), event.getBlock());
                     }
                 }
             }

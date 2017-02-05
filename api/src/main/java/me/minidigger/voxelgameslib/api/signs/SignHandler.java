@@ -23,6 +23,7 @@ import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.timings.Timings;
+import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 import lombok.extern.java.Log;
 
@@ -43,6 +44,7 @@ public class SignHandler implements Handler {
     @Inject
     private Injector injector;
 
+    private Map<String, SignButton> buttons;
     private Map<String, SignPlaceHolder> placeHolders;
     private List<SignLocation> signLocations;
     private List<SignLocation> markedForRemoval;
@@ -53,6 +55,7 @@ public class SignHandler implements Handler {
     public void start() {
         placeHolders = new HashMap<>();
         markedForRemoval = new ArrayList<>();
+        buttons = new HashMap<>();
         config = injector.getInstance(GlobalConfig.class);
 
         signLocations = persistenceHandler.getProvider().loadSigns();
@@ -60,6 +63,8 @@ public class SignHandler implements Handler {
         placeHolders.put("world", (SimpleSignPlaceHolder) (event, key) -> event.getWorld());
         placeHolders.put("time", (SimpleSignPlaceHolder) (event, key) -> DateTimeFormatter.ISO_TIME.format(LocalTime.now()));
         placeHolders.put("location", (SimpleSignPlaceHolder) (event, key) -> event.getLocation().toString().replace("V", ""));
+
+        buttons.put("test", (user, block) -> user.sendMessage(new TextComponent("WOW")));
 
         startUpdateTask();
     }
@@ -77,6 +82,15 @@ public class SignHandler implements Handler {
      */
     public Map<String, SignPlaceHolder> getPlaceHolders() {
         return placeHolders;
+    }
+
+    /**
+     * gets map with all registered sign buttons
+     *
+     * @return all sign buttons
+     */
+    public Map<String, SignButton> getButtons() {
+        return buttons;
     }
 
     /**
