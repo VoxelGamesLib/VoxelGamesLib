@@ -20,13 +20,13 @@ import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
 import me.minidigger.voxelgameslib.api.utils.Pair;
 import me.minidigger.voxelgameslib.api.world.World;
-import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarColorConverter;
-import me.minidigger.voxelgameslib.bukkit.bossbar.BossBarStyleConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BossBarColorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BossBarStyleConverter;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.scoreboard.BukkitScoreboard;
 import me.minidigger.voxelgameslib.bukkit.user.BukkitConsoleUser;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorld;
-import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.VectorConverter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

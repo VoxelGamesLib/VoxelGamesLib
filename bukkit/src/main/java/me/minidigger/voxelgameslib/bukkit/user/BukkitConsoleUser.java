@@ -3,6 +3,7 @@ package me.minidigger.voxelgameslib.bukkit.user;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.block.Direction;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.user.AbstractConsoleUser;
 import me.minidigger.voxelgameslib.api.utils.ChatUtil;
@@ -54,5 +55,10 @@ public class BukkitConsoleUser extends AbstractConsoleUser<ConsoleCommandSender>
     @Override
     public BaseComponent[] getDisplayName() {
         return new ComponentBuilder("CONSOLE").create();
+    }
+
+    @Override
+    public Direction getFacingDirection() {
+        return Direction.SELF;
     }
 }

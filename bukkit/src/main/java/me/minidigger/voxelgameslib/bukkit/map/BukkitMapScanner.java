@@ -15,7 +15,7 @@ import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.map.Marker;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.utils.DirectionUtil;
-import me.minidigger.voxelgameslib.bukkit.block.DirectionConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.DirectionConverter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;

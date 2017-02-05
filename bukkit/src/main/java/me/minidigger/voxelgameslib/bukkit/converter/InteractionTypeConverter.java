@@ -1,4 +1,4 @@
-package me.minidigger.voxelgameslib.bukkit.user;
+package me.minidigger.voxelgameslib.bukkit.converter;
 
 import me.minidigger.voxelgameslib.api.convert.Converter;
 import me.minidigger.voxelgameslib.api.event.events.user.UserInteractEvent;

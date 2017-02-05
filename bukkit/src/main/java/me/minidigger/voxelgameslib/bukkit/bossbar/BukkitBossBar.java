@@ -8,6 +8,9 @@ import me.minidigger.voxelgameslib.api.bossbar.BossBarColor;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarModifier;
 import me.minidigger.voxelgameslib.api.bossbar.BossBarStyle;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.bukkit.converter.BossBarColorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BossBarFlagConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BossBarStyleConverter;
 
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;

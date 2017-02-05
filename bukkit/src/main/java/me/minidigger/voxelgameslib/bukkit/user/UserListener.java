@@ -18,8 +18,9 @@ import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
-import me.minidigger.voxelgameslib.bukkit.block.BlockConverter;
-import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BlockConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.InteractionTypeConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.VectorConverter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;

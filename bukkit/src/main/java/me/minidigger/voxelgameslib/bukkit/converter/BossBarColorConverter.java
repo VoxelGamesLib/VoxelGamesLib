@@ -1,4 +1,4 @@
-package me.minidigger.voxelgameslib.bukkit.bossbar;
+package me.minidigger.voxelgameslib.bukkit.converter;
 
 import javax.inject.Singleton;
 

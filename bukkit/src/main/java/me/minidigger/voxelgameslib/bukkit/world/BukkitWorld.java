@@ -6,7 +6,8 @@ import javax.inject.Inject;
 import me.minidigger.voxelgameslib.api.block.Block;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.world.World;
-import me.minidigger.voxelgameslib.bukkit.block.BlockConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.BlockConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.VectorConverter;
 
 /**
  * Created by Martin on 04.02.2017.

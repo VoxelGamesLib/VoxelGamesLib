@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.Material;
+import me.minidigger.voxelgameslib.bukkit.converter.MaterialConverter;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

@@ -4,6 +4,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import me.minidigger.voxelgameslib.api.block.Direction;
 import me.minidigger.voxelgameslib.api.command.CommandHandler;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
@@ -12,6 +13,8 @@ import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.RoleHandler;
 import me.minidigger.voxelgameslib.api.user.AbstractUser;
 import me.minidigger.voxelgameslib.api.user.GameMode;
+import me.minidigger.voxelgameslib.api.utils.DirectionUtil;
+import me.minidigger.voxelgameslib.bukkit.converter.GameModeConverter;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.BaseComponent;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.chat.ComponentSerializer;
@@ -185,5 +188,10 @@ public class BukkitUser extends AbstractUser<Player> {
     @Override
     public void setGameMode(GameMode mode) {
         player.setGameMode(gameModeConverter.fromVGL(mode));
+    }
+
+    @Override
+    public Direction getFacingDirection() {
+        return DirectionUtil.yawToDirection(player.getLocation().getYaw());
     }
 }

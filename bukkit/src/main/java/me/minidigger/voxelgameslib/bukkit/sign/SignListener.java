@@ -7,7 +7,7 @@ import me.minidigger.voxelgameslib.api.event.VGLEventHandler;
 import me.minidigger.voxelgameslib.api.event.events.sign.SignUpdateEvent;
 import me.minidigger.voxelgameslib.api.user.User;
 import me.minidigger.voxelgameslib.api.user.UserHandler;
-import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.VectorConverter;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

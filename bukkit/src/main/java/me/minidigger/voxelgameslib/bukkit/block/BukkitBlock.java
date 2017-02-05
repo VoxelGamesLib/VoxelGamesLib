@@ -8,8 +8,8 @@ import me.minidigger.voxelgameslib.api.block.metadata.BlockMetaData;
 import me.minidigger.voxelgameslib.api.block.metadata.BlockMetaFactory;
 import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
-import me.minidigger.voxelgameslib.bukkit.item.MaterialConverter;
-import me.minidigger.voxelgameslib.bukkit.world.VectorConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.MaterialConverter;
+import me.minidigger.voxelgameslib.bukkit.converter.VectorConverter;
 
 /**
  * Created by Martin on 08.01.2017.
