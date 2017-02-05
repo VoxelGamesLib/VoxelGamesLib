@@ -90,7 +90,7 @@ public class WorldCreator {
         editor = arguments.getSender();
         gameModes = new ArrayList<>();
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_DISPLAY_NAME, arguments.getSender().getData().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator world ")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_ENTER_WORLD_NAME, arguments.getSender().getData().getLocale()).event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/worldcreator world ")).create());
 
         step = 1;
     }
