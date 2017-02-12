@@ -1,0 +1,28 @@
+{
+  "currentVersion": 1,
+  "logLevel": "INFO",
+  "useRoleSystem": true,
+  "availableLanguages": [
+    "en",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ru",
+    "es",
+    "sv",
+    "tr",
+    "nl",
+    "pt-br"
+  ],
+  "persistence": {
+    "user": "voxelgameslib",
+    "pass": "pass",
+    "driver": "com.mysql.jdbc.Driver",
+    "url": "jdbc:mysql://localhost:3306/voxelgameslib",
+    "dialect": "org.hibernate.dialect.MySQL5Dialect",
+    "pool_size": 10,
+    "showSQL": true
+  },
+  "signUpdateInterval": 60
+}
