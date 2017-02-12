@@ -4,10 +4,11 @@ import com.google.inject.Injector;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
+
+import me.minidigger.voxelgameslib.api.item.metadata.ItemMetaData;
 
 /**
  * Call to create items, as a chainable builder.
@@ -56,7 +57,7 @@ public class ItemBuilder {
      */
     @Nonnull
     public ItemBuilder variation(byte variation) {
-        item.setVariation(variation);
+        item.setDamage(variation);
         return this;
     }
 
@@ -130,39 +131,23 @@ public class ItemBuilder {
     }
 
     /**
-     * Addeds a tag to this item. a tag is a NBT tag for most server mods.
-     *
-     * @param tag   the key of the tag to add
-     * @param value the value for the tag
-     * @return this builder for chaining
-     */
-    @Nonnull
-    public ItemBuilder tag(@Nonnull String tag, @Nonnull Object value) {
-        Map<String, Object> tags = item.getTags();
-        if (tags == null) {
-            tags = new HashMap<>();
-        }
-        tags.put(tag, value);
-        item.setTags(tags);
-        return this;
-    }
-
-    /**
-     * Clears all tags for this item
-     *
-     * @return this builder for chaining
-     */
-    @Nonnull
-    public ItemBuilder clearTags() {
-        item.setTags(new HashMap<>());
-        return this;
-    }
-
-    /**
      * @return the constructed item
      */
     @Nonnull
     public Item build() {
         return item;
+    }
+
+    /**
+     * Allows modification of the item meta
+     *
+     * @param consumer consumer to modify the meta
+     * @return this builder for chaining
+     */
+    public ItemBuilder meta(Consumer<ItemMetaData> consumer) {
+        ItemMetaData meta = item.getItemMetaData();
+        consumer.accept(meta);
+        meta.update();
+        return this;
     }
 }

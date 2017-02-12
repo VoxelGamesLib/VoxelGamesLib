@@ -16,6 +16,8 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.block.Block;
+import me.minidigger.voxelgameslib.api.block.Direction;
+import me.minidigger.voxelgameslib.api.block.metadata.ColorMetaData;
 import me.minidigger.voxelgameslib.api.block.metadata.EmptyBlockMetaData;
 import me.minidigger.voxelgameslib.api.block.metadata.SignMetaData;
 import me.minidigger.voxelgameslib.api.bossbar.BossBar;
@@ -31,6 +33,9 @@ import me.minidigger.voxelgameslib.api.game.GameMode;
 import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.ItemInstanceCreator;
+import me.minidigger.voxelgameslib.api.item.Material;
+import me.minidigger.voxelgameslib.api.item.metadata.EmptyItemMetaData;
+import me.minidigger.voxelgameslib.api.item.metadata.SkullItemMetaData;
 import me.minidigger.voxelgameslib.api.log.LoggerHandler;
 import me.minidigger.voxelgameslib.api.map.MapScanner;
 import me.minidigger.voxelgameslib.api.phase.Phase;
@@ -43,16 +48,20 @@ import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.utils.DirectionUtil;
 import me.minidigger.voxelgameslib.api.world.World;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
 import me.minidigger.voxelgameslib.bukkit.block.BlockListener;
 import me.minidigger.voxelgameslib.bukkit.block.BukkitBlock;
+import me.minidigger.voxelgameslib.bukkit.block.metadata.BukkitColorMetaData;
 import me.minidigger.voxelgameslib.bukkit.block.metadata.BukkitEmptyBlockMetaData;
 import me.minidigger.voxelgameslib.bukkit.block.metadata.BukkitSignMetaData;
 import me.minidigger.voxelgameslib.bukkit.bossbar.BukkitBossBar;
 import me.minidigger.voxelgameslib.bukkit.command.BukkitCommandHandler;
 import me.minidigger.voxelgameslib.bukkit.item.BukkitItem;
+import me.minidigger.voxelgameslib.bukkit.item.metadata.BukkitEmptyItemMetaData;
+import me.minidigger.voxelgameslib.bukkit.item.metadata.BukkitSkullItemMetaData;
 import me.minidigger.voxelgameslib.bukkit.log.BukkitLogHandler;
 import me.minidigger.voxelgameslib.bukkit.map.BukkitMapScanner;
 import me.minidigger.voxelgameslib.bukkit.server.BukkitServer;
@@ -81,13 +90,14 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
 
     private VoxelGamesLibBukkit voxelGamesLibBukkit;
     private VoxelGamesLib voxelGameLib;
+    private Injector injector;
 
     @Override
     public void onEnable() {
         voxelGamesLibBukkit = this;
 
         // enable guice and the api
-        Injector injector = Guice.createInjector(new BukkitInjector());
+        injector = Guice.createInjector(new BukkitInjector());
 
         voxelGameLib = injector.getInstance(VoxelGamesLib.class);
         voxelGameLib.onEnable(injector);
@@ -156,18 +166,25 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
         protected void configure() {
             bind(CommandHandler.class).to(BukkitCommandHandler.class);
             bind(User.class).to(BukkitUser.class);
-            bind(Item.class).to(BukkitItem.class);
             bind(TickHandler.class).to(BukkitTickHandler.class);
             bind(ConsoleUser.class).to(BukkitConsoleUser.class);
             bind(MapScanner.class).to(BukkitMapScanner.class);
             bind(BossBar.class).to(BukkitBossBar.class);
-            bind(Block.class).to(BukkitBlock.class);
             bind(World.class).to(BukkitWorld.class);
-            bind(SignMetaData.class).to(BukkitSignMetaData.class);
-            bind(EmptyBlockMetaData.class).to(BukkitEmptyBlockMetaData.class);
             bind(LoggerHandler.class).to(BukkitLogHandler.class).asEagerSingleton();
             bind(Server.class).to(BukkitServer.class).asEagerSingleton();
             bind(WorldHandler.class).to(BukkitWorldHandler.class).asEagerSingleton();
+
+            // blocks
+            bind(SignMetaData.class).to(BukkitSignMetaData.class);
+            bind(EmptyBlockMetaData.class).to(BukkitEmptyBlockMetaData.class);
+            bind(Block.class).to(BukkitBlock.class);
+
+            // items
+            bind(Item.class).to(BukkitItem.class);
+            bind(EmptyItemMetaData.class).to(BukkitEmptyItemMetaData.class);
+            bind(SkullItemMetaData.class).to(BukkitSkullItemMetaData.class);
+            bind(ColorMetaData.class).to(BukkitColorMetaData.class);
 
             bind(WorldConfig.class).toProvider(WorldHandler.class);
             bind(GlobalConfig.class).toProvider(ConfigHandler.class);

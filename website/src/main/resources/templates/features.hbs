@@ -1,56 +1,61 @@
-{{# partial "title"}}
-    Features | VoxelGamesLib
-{{/partial}}
-
 {{# partial "page"}}
-    <div class="new-block">
-        <div class="row">
-            <div class="col-sm-6 col-md-offset-3">
-                <div class="typography-article">
-                    <h4>Features</h4>
+    <div class="row center-xs middle-xs features-row">
+        <div class="col-xs-6">
+            <h1>Features</h1>
+        </div>
+    </div>
+
+    {{#each features}}
+        <div class="row center-xs feature-row">
+            <div class="col-xs-6 accordeon container">
+                <div class="accordeon title smooth">
+                    {{name}}
+                    <div class="fullname">
+                        v{{version}} by {{author}}
+                    </div>
                 </div>
-                <div class="clear"></div>
-                <div data-wow-delay="0.3s" class="accordeon">
-                    {{# each features }}
-                        <div class="soft-shadow">
-                            <div class="entry">
-                                <div class="title">
-                                <span class="glyphicon glyphicon-chevron-right"
-                                      aria-hidden="true"></span>
-                                    {{ name }}
-                                    <div class="subtitle">
-                                        ({{ fullName }})
-                                    </div>
-                                    <!-- todo, needs to be inline, should take ::active into consideration too -->
+                <div class="accordeon body smooth">
+                    <div class="row description">
+                        <div class="col-xs-12">
+                            {{description}}
+                        </div>
+                    </div>
+                    <div class="row details">
+                        <div class="col-xs-6">
+                            <div class="row vars">
+                                <div class="col-xs-12">
+                                    <h1>Parameter:</h1>
+                                    <ul>
+                                        {{#each params}}
+                                            <li>{{this}}</li>
+                                        {{/each}}
+                                        <ul>
                                 </div>
-                                <div style="display: none;" class="text">
-                                    {{ version }} by {{ author }} <br>
-                                    {{description }}<br><br>
-                                    <h2>Dependencies</h2>
-                                    <!-- todo fix list style -->
-                                    <div class=" typography-article" style="margin-bottom: 10px">
-                                        <ul class="list-style-3 with-a-bit-less-color">
-                                            {{# each dependencies }}
-                                                <li style="color: rgba(255, 255, 255, 1);">{{this }}  </li>
-                                            {{/each}}
-                                        </ul>
-                                    </div>
-                                    <h2>Params</h2>
-                                    <div class=" typography-article" style="margin-bottom: 10px">
-                                        <ul class="list-style-3 with-a-bit-less-color">
-                                            {{# each params }}
-                                                <li style="color: rgba(255, 255, 255, 1);">{{this }}  </li>
-                                            {{/each}}
-                                        </ul>
-                                    </div>
+                            </div>
+                            <div class="row dependencies">
+                                <div class="col-xs-12">
+                                    <h1>Dependencies</h1>
+                                    <ul>
+                                        {{#each dependencies}}
+                                            <li>{{this}}</li>
+                                        {{/each}}
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    {{/each}}
+                        <div class="col-xs-6">
+                            code snippet
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    {{/each}}
+{{/partial}}
+
+{{# partial "title"}}
+    Features | VoxelGamesLib
 {{/partial}}
 
 {{>base.hbs}}

@@ -2,12 +2,13 @@ package me.minidigger.voxelgameslib.bukkit.item;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.Material;
+import me.minidigger.voxelgameslib.api.item.metadata.ItemMetaData;
+import me.minidigger.voxelgameslib.api.item.metadata.ItemMetaFactory;
 import me.minidigger.voxelgameslib.bukkit.converter.MaterialConverter;
 
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,11 @@ public class BukkitItem implements Item<ItemStack> {
     @Inject
     private MaterialConverter materialConverter;
 
+    @Inject
+    private ItemMetaFactory itemMetaFactory;
+
     private ItemStack itemStack;
+    private ItemMetaData itemMetaData;
 
     @Nonnull
     @Override
@@ -46,16 +51,22 @@ public class BukkitItem implements Item<ItemStack> {
         } else {
             itemStack.setType(materialConverter.fromVGL(material));
         }
+        itemMetaData = itemMetaFactory.createMetaData(this);
     }
 
     @Override
-    public byte getVariation() {
-        return itemStack.getData().getData();
+    public ItemMetaData getItemMetaData(){
+        return itemMetaData;
     }
 
     @Override
-    public void setVariation(byte variation) {
-        itemStack.getData().setData(variation);
+    public short getDamage() {
+        return itemStack.getDurability();
+    }
+
+    @Override
+    public void setDamage(short damage) {
+        itemStack.setDurability(damage);
     }
 
     @Override
@@ -105,32 +116,5 @@ public class BukkitItem implements Item<ItemStack> {
     @Override
     public void clearLore() {
         setLore(new ArrayList<>());
-    }
-
-    @Nonnull
-    @Override
-    public Map<String, Object> getTags() {
-        //TODO reimplement tags
-        return null;
-    }
-
-    @Override
-    public void addTag(String key, Object value) {
-
-    }
-
-    @Override
-    public void removeTag(String key) {
-
-    }
-
-    @Override
-    public void clearTags() {
-
-    }
-
-    @Override
-    public void setTags(@Nonnull Map tags) {
-
     }
 }

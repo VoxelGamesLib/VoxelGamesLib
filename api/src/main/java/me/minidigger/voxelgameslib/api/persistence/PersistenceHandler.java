@@ -21,8 +21,9 @@ public class PersistenceHandler implements Handler {
 
     @Override
     public void start() {
-        activeProvider = injector.getInstance(HibernatePersistenceProvider.class);//TODO bind this?
-        activeProvider.start();
+//        activeProvider = injector.getInstance(HibernatePersistenceProvider.class);//TODO bind this?
+//        activeProvider.start();
+        activeProvider = new EmptyPersistenceProvider();
     }
 
     @Override

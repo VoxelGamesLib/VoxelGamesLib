@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.ImplementMe;
+import me.minidigger.voxelgameslib.api.block.Direction;
 import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
@@ -199,4 +200,9 @@ public interface User<T> extends ImplementMe<T>, IPlayer, ISupportPartialPlay, I
      * @return the display name of the user, consists of prefix, name and suffix.
      */
     BaseComponent[] getDisplayName();
+
+    /**
+     * @return the direction the player is looking in
+     */
+    Direction getFacingDirection();
 }

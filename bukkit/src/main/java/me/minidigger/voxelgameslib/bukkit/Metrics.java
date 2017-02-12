@@ -3,10 +3,12 @@ package me.minidigger.voxelgameslib.bukkit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -146,7 +148,7 @@ public class Metrics {
                     }
                 });
             }
-        }, 1000 * 60 * 5, 1000 * 60 * 30);
+        }, 1000 * 60 * 1, 1000 * 60 * 30);
         // Submit the data every 30 minutes, first time after 5 minutes to give other plugins enough time to start
         // WARNING: Changing the frequency has no effect but your plugin WILL be blocked/deleted!
         // WARNING: Just don't do it!
@@ -290,6 +292,12 @@ public class Metrics {
         outputStream.write(compressedData);
         outputStream.flush();
         outputStream.close();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String buffer;
+        while ((buffer = reader.readLine()) != null) {
+            System.out.println(buffer);
+        }
 
         connection.getInputStream().close(); // We don't care about the response - Just send our data :)
     }

@@ -1,10 +1,9 @@
 package me.minidigger.voxelgameslib.api.item;
 
 import java.util.List;
-import java.util.Map;
-import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.ImplementMe;
+import me.minidigger.voxelgameslib.api.item.metadata.ItemMetaData;
 
 /**
  * A item a player can have in his inventory
@@ -24,17 +23,21 @@ public interface Item<T> extends ImplementMe<T> {
     void setMaterial(Material material);
 
     /**
-     * @return the variation of this item
+     * @return the item meta data for this item
      */
-    // todo handle item variants better
-    byte getVariation();
+    ItemMetaData getItemMetaData();
 
     /**
-     * changes the variation of this item
-     *
-     * @param variation the new variation
+     * @return the damage of this item
      */
-    void setVariation(byte variation);
+    short getDamage();
+
+    /**
+     * changes the damage value of this item
+     *
+     * @param damage the new damage
+     */
+    void setDamage(short damage);
 
     /**
      * @return the amount of this item
@@ -83,37 +86,4 @@ public interface Item<T> extends ImplementMe<T> {
      * clear the lore for this item
      */
     void clearLore();
-
-    /**
-     * @return a list with tags, often implemented using nbt
-     */
-    @Nonnull
-    Map<String, Object> getTags();
-
-    /**
-     * sets the tags for this item, often implemented using nbt
-     *
-     * @param tags the new tags
-     */
-    void setTags(@Nonnull Map<String, Object> tags);
-
-    /**
-     * adds a new tag to this item
-     *
-     * @param key   the key
-     * @param value the value of the tag
-     */
-    void addTag(String key, Object value);
-
-    /**
-     * removes a tag from this item
-     *
-     * @param key the key of the tab to be removed
-     */
-    void removeTag(String key);
-
-    /**
-     * clears all (custom) tags for this item
-     */
-    void clearTags();
 }

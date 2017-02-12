@@ -19,4 +19,9 @@ public class BukkitEmptyBlockMetaData implements EmptyBlockMetaData {
     public void setBlock(Block block) {
         this.block = block;
     }
+
+    @Override
+    public void update() {
+        // ignore
+    }
 }

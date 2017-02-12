@@ -1,45 +1,64 @@
 {{# partial "page"}}
-    <div class="new-block type-10 scroll-to-block" data-id="team">
-        <div class="container">
-            <div class="row page-tagline">
-                <div class="col-md-6 col-md-offset-3">
-                    <h2 class="title">gamemodes</h2>
-                    <div class="description">VoxelGamesLib offers many different gamemodes and it
-                        even allows you to define your own modes.<br>
-                        You can find a list with all gamemodes that are currently included below
-                    </div>
-                </div>
-            </div>
+    <div class="row center-xs" id="gamemode-box-title">
+        <div class="col-xs-6">
+            <h1>GameModes</h1>
+            <p>VoxelGamesLib ships with many GameModes, that you can easily setup and use<br>
+                The full list is available below. You can click on each mode to get to the
+                documentation
+                of that mode to see what you need to do to make it playable.
+            <p>
+        </div>
+    </div>
 
-            <div class="row team-inline-entry">
-                {{# each gamemodes }}
-                    <div class="col-sm-4">
-                        <div class="paddings-container">
-                            <div class="image-wrapper">
-                                <div class="image-socials-box">
-                                    <div class="vertical-align">
-                                        {{# each icons}}
-                                            <a href="{{ link }}"><i class="fa {{ icon }} fa-fw"
-                                                                    style="color: black"></i></a>
-                                        {{/each}}
-                                    </div>
-                                </div>
-                                <img class="thumbnail-image" src="{{ image }}"
-                                     height="493" width="370" alt=""/>
-                            </div>
-                            <div class="name">{{ name }}</div>
-                            <div class="position">{{ sub }}</div>
-                            <div class="description">{{ description }}</div>
-                        </div>
-                    </div>
-                {{/each}}
+    <div class="row center-xs gamemode-box-row">
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+    </div>
+
+    <div class="row center-xs gamemode-box-row">
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
+            </div>
+        </div>
+        <div class="col-xs-2">
+            <div class="box" style="background-image: url(http://placehold.it/200x400)">
+                TEST
             </div>
         </div>
     </div>
 {{/partial}}
 
 {{# partial "title"}}
-    GameModes | VoxelGamesLib
+    Gamemodes | VoxelGamesLib
 {{/partial}}
 
 {{>base.hbs}}

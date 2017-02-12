@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import me.minidigger.voxelgameslib.api.block.Block;
 
 /**
- * Factory which is capeable of creating new blockmetadata instance
+ * Factory which is capable of creating new block meta data instances
  */
 @Singleton
 public class BlockMetaFactory {
@@ -17,7 +17,7 @@ public class BlockMetaFactory {
     private Injector injector;
 
     /**
-     * Create a new block meta data instance for a spefied block.
+     * Create a new block meta data instance for a specified block.
      * if no suiting instance is found, it will return an empty one.
      *
      * @param block the block to get the meta data for
@@ -29,6 +29,12 @@ public class BlockMetaFactory {
             case WALL_SIGN:
             case STANDING_SIGN:
                 return instance(SignMetaData.class, block);
+            case WOOL:
+            case STAINED_GLASS:
+            case STAINED_GLASS_PANE:
+            case STAINED_HARDENED_CLAY:
+            case CARPET:
+                return instance(ColorMetaData.class, block);
             default:
                 return instance(EmptyBlockMetaData.class, block);
         }

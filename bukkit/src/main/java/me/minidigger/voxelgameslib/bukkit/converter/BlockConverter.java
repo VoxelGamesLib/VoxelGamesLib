@@ -2,6 +2,7 @@ package me.minidigger.voxelgameslib.bukkit.converter;
 
 import com.google.inject.Injector;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -23,7 +24,12 @@ public class BlockConverter implements Converter<Block, org.bukkit.block.Block> 
     }
 
     @Override
+    @Nullable
     public Block toVGL(org.bukkit.block.Block block) {
+        if(block == null){
+            return null;
+        }
+
         Block b = injector.getInstance(Block.class);
         //noinspection unchecked
         b.setImplementationType(block);

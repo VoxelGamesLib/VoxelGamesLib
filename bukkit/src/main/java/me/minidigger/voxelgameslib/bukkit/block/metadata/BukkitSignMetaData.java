@@ -47,4 +47,9 @@ public class BukkitSignMetaData implements SignMetaData {
         this.block = block;
         this.sign = (Sign) ((org.bukkit.block.Block) block.getImplementationType()).getState();
     }
+
+    @Override
+    public void update() {
+        sign.update();
+    }
 }

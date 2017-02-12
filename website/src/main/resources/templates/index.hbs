@@ -1,10 +1,198 @@
-{{# partial "header-class"}}
-    <header>{{/partial}}
-
 {{# partial "page"}}
-    {{>banner.hbs}}
-    {{>about.hbs}}
-    {{>contribute.hbs}}
+    <!-- header -->
+    <div class="row middle-xs center-xs" id="banner-row">
+        <div class="col-xs">
+            <div class="banner image"></div>
+            <div class="banner dark"></div>
+            <div class="banner-title">
+                <h1>VoxelGamesLib</h1>
+                <p>Multi-platform, fully-featured, data-driven, abstract and expendable minecraft
+                    minigames framework</p>
+                <p></p>
+                <p>Starting, running and managing a minigames server was never that easy before!</p>
+            </div>
+        </div>
+    </div>
+    <!-- /header -->
+
+    <!-- gamemode logos -->
+    <div class="row middle-xs center-xs" id="gamemode-logos-row">
+        <div class="col-xs gamemode-image left two smooth">
+            <img src="http://placehold.it/200x400"/>
+        </div>
+        <div class="col-xs gamemode-image left one smooth">
+            <img src="http://placehold.it/200x400"/>
+        </div>
+        <div class="col-xs gamemode-image middle smooth">
+            <img src="http://placehold.it/200x400"/>
+        </div>
+        <div class="col-xs gamemode-image right one smooth">
+            <img src="http://placehold.it/200x400"/>
+        </div>
+        <div class="col-xs gamemode-image right two smooth">
+            <img src="http://placehold.it/200x400"/>
+        </div>
+    </div>
+    <!-- /gamemode logos -->
+
+    <!-- gamemodes -->
+    <div class="row around-xs middle-xs center-xs" id="gamemodes-row">
+        <div class="col-xs-1"></div>
+        <div class="col-xs-2 counter">
+            <div class="number" data-count="10">0</div>
+            <div class="title">Gamemodes</div>
+            <p>10 Gamemodes included for you to easily install and play!</p>
+        </div>
+        <div class="col-xs-2 counter">
+            <div class="number" data-count="200">0</div>
+            <div class="title">Features</div>
+            <p>200 Features available for you to customize the Games or create your own from
+                scratch!</p>
+        </div>
+        <div class="col-xs-2 counter">
+            <div class="number" data-count="20">0</div>
+            <div class="title">Addons</div>
+            <p>10 Community created Addons to Get even more stuff!</p>
+        </div>
+        <div class="col-xs-1"></div>
+    </div>
+    <!-- /gamemodes -->
+
+    <!-- text stuff -->
+    <div class="row text-row">
+        <div class="col-xs-offset-2 col-xs-4">
+            <img src="http://placehold.it/800x400"/>
+        </div>
+        <div class="col-xs-4">
+            <div class="text">
+                <h1>What is VoxelGamesLib?</h1>
+                <p>VoxelGamesLib is a minigame framework for minecraft servers.
+                    It allows you to easily create, manage and play minigames with your friends
+                    or even start your own minigames network.</p>
+                <p>It packages many gamemodes by default, but you can easily create your one ones
+                    even without knowing how to code. Every game is split up into multiple phases
+                    (LobbyPhase, VotePhase, GracePhase, GamePhase for example). You can add new
+                    features
+                    (small bits of gameplay, written by a programmer) to every phase. There are many
+                    phases
+                    and features available but if you know how to programm, you can easily create
+                    your own ones.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row text-row">
+        <div class="col-xs-offset-2 col-xs-4">
+            <div class="text">
+                <h1>What is VoxelGamesLib?</h1>
+                <p>VoxelGamesLib is a minigame framework for minecraft servers.
+                    It allows you to easily create, manage and play minigames with your friends
+                    or even start your own minigames network.</p>
+                <p>It packages many gamemodes by default, but you can easily create your one ones
+                    even without knowing how to code. Every game is split up into multiple phases
+                    (LobbyPhase, VotePhase, GracePhase, GamePhase for example). You can add new
+                    features
+                    (small bits of gameplay, written by a programmer) to every phase. There are many
+                    phases
+                    and features available but if you know how to programm, you can easily create
+                    your own ones.</p>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <img src="http://placehold.it/800x400"/>
+        </div>
+    </div>
+    <!-- /text stuff -->
+
+    <!-- testamoninals -->
+    <div class="row middle-xs center-xs testamonial-title">
+        <div class="col-xs">
+            <h1>What others think</h2>
+        </div>
+    </div>
+    <div class="row middle-xs center-xs testamonial">
+        <div class="col-xs-1">
+            <button onclick="prev()">&laquo;</button>
+        </div>
+        <div class="col-xs-9 scroller">
+            <ul class="items">
+                <li class="item">
+                    <div class="row middle-xs around-xs testamonial-row">
+                        <div class="col-xs-2">
+                            <!-- MiniDigger -->
+                            <img src="https://crafatar.com/renders/body/2c771d16-f492-4f7a-adb7-61c38a9c9bfb?size=4&default=MHF_Steve&overlay"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="bubble left">
+                                text
+                            </div>
+                            <div class="testamonial-user">
+                                MiniDigger, author of VoxelGamesLib
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="bubble right">
+                                Have something to say about VoxelGamesLib?<br>
+                                Hit me up via mail
+                                (<a href="mailto://admin@minidigger.me">admin@minidigger.me</a>) and
+                                ill add it here!
+                            </div>
+                            <div class="testamonial-user">
+                                MiniDigger, author of VoxelGamesLib
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <!-- MiniDigger -->
+                            <img class="flip"
+                                 src="https://crafatar.com/renders/body/2c771d16-f492-4f7a-adb7-61c38a9c9bfb?size=4&default=MHF_Steve&overlay"/>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+                    <div class="row middle-xs around-xs testamonial-row">
+                        <div class="col-xs-2">
+                            <!-- MiniDigger -->
+                            <img src="https://crafatar.com/renders/body/2c771d16-f492-4f7a-adb7-61c38a9c9bfb?size=4&default=MHF_Steve&overlay"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="bubble left">
+                                text
+                            </div>
+                            <div class="testamonial-user">
+                                MiniDigger, author of VoxelGamesLib
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="bubble right">
+                                Have something to say about VoxelGamesLib?<br>
+                                Hit me up via mail
+                                (<a href="mailto://admin@minidigger.me">admin@minidigger.me</a>) and
+                                ill add it here!
+                            </div>
+                            <div class="testamonial-user">
+                                MiniDigger, author of VoxelGamesLib
+                            </div>
+                        </div>
+                        <div class="col-xs-2">
+                            <!-- MiniDigger -->
+                            <img class="flip"
+                                 src="https://crafatar.com/renders/body/2c771d16-f492-4f7a-adb7-61c38a9c9bfb?size=4&default=MHF_Steve&overlay"/>
+                        </div>
+                    </div>
+                </li>
+                <li class="item">
+
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-1">
+            <button onclick="next()">&raquo;</button>
+        </div>
+    </div>
+    <!-- /testamonial -->
+{{/partial}}
+
+{{# partial "title"}}
+    Home | VoxelGamesLib
 {{/partial}}
 
 {{>base.hbs}}

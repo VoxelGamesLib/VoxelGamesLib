@@ -18,4 +18,9 @@ public interface BlockMetaData {
      * @param block the new block
      */
     void setBlock(Block block);
+
+    /**
+     * Updates the underlying block
+     */
+    void update();
 }

@@ -84,7 +84,7 @@ public enum LangKey {
     WORLD_CREATOR_GAMEMODE_DONE_BUTTON("{gold}Done."),
     WORLD_CREATOR_INFO("TODO: Enter a nice info message about the world creator"),//TODO world creator info
     WORLD_CREATOR_IN_USE("{red}The user {yellow}{user}{red} is currently using the world creator!", "user"),
-    WORLD_CREATOR_MAP_SUMMARY("TODO: Enter a nice summary message"),//TODO nice summery about map
+    WORLD_CREATOR_MAP_SUMMARY("TODO: Enter a nice summary message {displayname} {worldname} {author} {center} {radius} {gamemodes}", "displayname", "worldname", "author", "center", "radius", "gamemodes"),//TODO nice summery about map
     WORLD_CREATOR_SAVE_CONFIG_ERROR("{red}Error while saving the world config, {yellow}{msg}:{exception}", "msg", "exception"),
     WORLD_CREATOR_SAVE_ZIP_ERROR("{red}Error while zipping the world, {yellow}{msg}:{exception}", "msg", "exception"),
     WORLD_CREATOR_WRONG_STEP("{red}You are trying to do the wrong step! You are at step {yellow}{step}{red}, you want to do step {yellow}{entered}{red}!", "step", "entered"),

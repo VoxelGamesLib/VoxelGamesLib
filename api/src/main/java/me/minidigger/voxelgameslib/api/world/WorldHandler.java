@@ -94,7 +94,7 @@ public abstract class WorldHandler implements Handler, Provider<WorldConfig> {
                 throw new MapException("Could not load map config for map " + name + ". Fileheader was null. Does it has a map.json?");
 
             } catch (Exception e) {
-                throw new MapException("Error while trying to load map config", e);
+                throw new MapException("Error while trying to load map config " + name, e);
             }
         } else {
             return map.get();

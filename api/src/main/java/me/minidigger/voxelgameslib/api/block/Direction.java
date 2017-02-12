@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.block;
 
+import me.minidigger.voxelgameslib.api.map.Vector3D;
+
 /**
  * Represents the direction things can point in
  */
@@ -66,6 +68,13 @@ public enum Direction {
      */
     public int getModZ() {
         return modZ;
+    }
+
+    /**
+     * @return a vector representation of this direction
+     */
+    public Vector3D getVector() {
+        return new Vector3D(modX, modY, modZ);
     }
 
     /**

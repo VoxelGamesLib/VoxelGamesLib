@@ -1,0 +1,7 @@
+group 'me.minidigger.voxelgameslib'
+version 'unspecified'
+
+dependencies {
+    compileOnly project(":api")
+    testCompile project(":api")
+}

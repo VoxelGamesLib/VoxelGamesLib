@@ -49,4 +49,23 @@ public interface Block<T> extends ImplementMe<T> {
      * @return the block metadata
      */
     BlockMetaData getMetaData();
+
+    /**
+     * Gets the block that is one block ahead in the given location
+     *
+     * @param dir the direction
+     * @return the block that is next in the given direction
+     */
+    default Block getRelative(Direction dir) {
+        return getRelative(dir, 1);
+    }
+
+    /**
+     * Gets the block that is amount block ahead in the given location
+     *
+     * @param dir    the direction
+     * @param amount the amount of blocks to "walk" into the given direction
+     * @return the block that is amount blocks ahead in the given direction
+     */
+    Block getRelative(Direction dir, int amount);
 }

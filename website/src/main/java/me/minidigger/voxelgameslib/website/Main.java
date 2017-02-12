@@ -9,6 +9,8 @@ import com.github.jknack.handlebars.io.TemplateLoader;
 
 import java.io.File;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import me.minidigger.voxelgameslib.website.model.GameMode;
 
 import spark.ModelAndView;
 import spark.TemplateEngine;
+import spark.route.RouteOverview;
 
 import static spark.Spark.exception;
 import static spark.Spark.get;
@@ -45,12 +48,14 @@ public class Main {
         if (localhost) {
             String projectDir = System.getProperty("user.dir");
 
-            String staticDir = "/website/src/main/resources/public";
+            String staticDir = "/src/main/resources/public";
             staticFiles.externalLocation(projectDir + staticDir);
 
-            String templateDir = "/website/src/main/resources/templates";
+            String templateDir = "/src/main/resources/templates";
             String templateRoot = new File(projectDir + templateDir).getPath();
             templateLoader = new FileTemplateLoader(templateRoot);
+
+            RouteOverview.enableRouteOverview();
         } else {
             staticFiles.location("/public");
             staticFiles.expireTime(TimeUnit.MINUTES.toSeconds(10));
@@ -65,22 +70,30 @@ public class Main {
             model.put("themeChooser", themeChooser);
             model.put("contributingEntries", contributingEntries);
             return new ModelAndView(model, "index.hbs");
-        }, new MaTemplateEngine(templateLoader));
+        } , new MaTemplateEngine(templateLoader));
 
         get("/gamemodes", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("themeChooser", themeChooser);
             model.put("gamemodes", gameModes);
             return new ModelAndView(model, "gamemodes.hbs");
-        }, new MaTemplateEngine(templateLoader));
+        } , new MaTemplateEngine(templateLoader));
 
         get("/features", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("themeChooser", themeChooser);
             model.put("features", features);
             return new ModelAndView(model, "features.hbs");
-        }, new MaTemplateEngine(templateLoader));
+        } , new MaTemplateEngine(templateLoader));
 
+        get("/*", (req, res) -> {
+            res.status(404);
+            Map<String, Object> model = new HashMap<>();
+            model.put("error-title", "Not Found");
+            model.put("error-description", "The content you were looking for was not found. Oh no!");
+            return new ModelAndView(model, "error.hbs");
+        } , new MaTemplateEngine(templateLoader));
+        
         notFound((req, res) -> {
             res.status(404);
             TemplateEngine engine = new MaTemplateEngine(templateLoader);
@@ -104,11 +117,18 @@ public class Main {
         });
 
         exception(Exception.class, (ex, req, res) -> {
-            res.status(404);
+            res.status(500);
             TemplateEngine engine = new MaTemplateEngine(templateLoader);
             Map<String, Object> model = new HashMap<>();
             model.put("error-title", "Error: " + ex.getClass().getSimpleName());
             model.put("error-description", "There was a Error. Oh no!<br>" + ex.getClass() + ": " + ex.getMessage());
+            
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            ex.printStackTrace(pw);
+            model.put("stacktrace", sw.toString());
+            pw.close();
+
             String html = engine.render(new ModelAndView(model, "error.hbs"));
             res.body(html);
         });
@@ -116,11 +136,11 @@ public class Main {
 
     private static void loadData() {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        //noinspection unchecked
+        // noinspection unchecked
         gameModes = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/gamemodes.json")), List.class);
-        //noinspection unchecked
+        // noinspection unchecked
         features = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/features.json")), List.class);
-        //noinspection unchecked
+        // noinspection unchecked
         contributingEntries = gson.fromJson(new InputStreamReader(Main.class.getResourceAsStream("/data/contributingEntries.json")), List.class);
     }
 }

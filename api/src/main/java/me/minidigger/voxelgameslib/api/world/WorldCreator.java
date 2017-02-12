@@ -182,7 +182,7 @@ public class WorldCreator {
                     .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode " + mode.getName())).create());
         }
 
-        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE, arguments.getSender().getData().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode done")).create());
+        arguments.getSender().sendMessage(Lang.trans(LangKey.WORLD_CREATOR_DONE_QUERY, arguments.getSender().getData().getLocale()).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/worldcreator gamemode done")).create());
 
         step = 6;
     }

@@ -211,6 +211,20 @@ public class Vector3D implements Cloneable {
     }
 
     /**
+     * Rotates this vector around the Y axis in the given angle, in radians
+     *
+     * @param angle the angle in radians
+     * @return a new, rotated vector
+     */
+    public final Vector3D rotateAroundY(double angle) {
+        return new Vector3D(
+                x * Math.cos(angle) - z * Math.sin(angle),
+                y,
+                x * Math.sin(angle) + z * Math.cos(angle)
+        );
+    }
+
+    /**
      * Gets the magnitude of this vector
      *
      * @return A double representing the magnitude (length)

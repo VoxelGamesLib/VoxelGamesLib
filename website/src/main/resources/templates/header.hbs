@@ -1,26 +1,29 @@
-{{#block "header-class"}}
-    <header class="act default-act">{{/block}}
-    <a href="/" id="logo">
-        <img src="img/theme-1/logo.png" alt=""/>
-        <img class="act" src="img/theme-1/logo-act.png" alt=""/>
-    </a>
-    <div class="mob-icon">
-        <span></span>
+<!-- nav -->
+<header>
+    <div class="row top-xs transperent smooth nav-row disabled">
+        <div class="col-xs-9">
+            <div class="box">VoxelGamesLib</div>
+        </div>
+        <div class="col-xs">
+            <div class="box"><a class="smooth" href="/">Home</a></div>
+        </div>
+        <div class="col-xs">
+            <div class="box dropdown">
+                <a class="smooth" href="/gamemodes">GameModes</a>
+                <div class="dropdown-entry">
+                    <a href="#1">TEST</a>
+                    <a href="#2">TEST</a>
+                    <a href="#3">TEST</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs">
+            <div class="box">
+                <a class="smooth" href="/features">Features</a>
+            </div>
+        </div>
     </div>
-    <nav>
-        <ul>
-            <li><a href="/">home</a></li>
-            <li><a href="/features">features</a></li>
-            <li><a href="/gamemodes">gamemodes</a></li>
-        </ul>
-    </nav>
 </header>
+<!-- /nav -->
 
-<div id="loader-wrapper">
-    <img src="img/theme-1/logo.png" alt=""/>
-    <span></span>
-</div>
-
-
-<div id="content-wrapper">
-    <div class="blocks-container">
+<div id="page-container">

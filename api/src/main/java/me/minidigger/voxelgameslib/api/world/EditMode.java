@@ -16,6 +16,7 @@ import me.minidigger.voxelgameslib.api.item.Hand;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.ItemBuilder;
 import me.minidigger.voxelgameslib.api.item.Material;
+import me.minidigger.voxelgameslib.api.item.metadata.SkullItemMetaData;
 import me.minidigger.voxelgameslib.api.lang.Lang;
 import me.minidigger.voxelgameslib.api.lang.LangKey;
 import me.minidigger.voxelgameslib.api.role.Role;
@@ -63,7 +64,7 @@ public class EditMode {
     public void skull(@Nonnull CommandArguments args) {
         if (editMode.contains(args.getSender().getUuid())) {
             String name = args.getArg(0);
-            Item skull = new ItemBuilder(Material.SKULL_ITEM, injector).variation((byte) 3).name(name).tag("SkullOwner", name).build();
+            Item skull = new ItemBuilder(Material.SKULL_ITEM, injector).variation((byte) 3).name(name).meta(m -> ((SkullItemMetaData) m).setOwner(name)).build();
             args.getSender().setItemInHand(Hand.MAINHAND, skull);
         } else {
             Lang.msg(args.getSender(), LangKey.EDITMODE_NOT_ENABLED);

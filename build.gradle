@@ -58,7 +58,7 @@ subprojects {
             exclude(dependency("junit:junit"))
         }
         mergeServiceFiles()
-        relocate("javax.persistence","me.minidigger.voxelgameslib.libs.javax.persistence")
+        relocate("javax.persistence", "me.minidigger.voxelgameslib.libs.javax.persistence")
     }
 
     rebel {
@@ -77,6 +77,12 @@ subprojects {
             }
             resource {
                 directory = "bungeecord-chat/build/classes/main"
+            }
+            resource {
+                directory = "splatoon/build/classes/main"
+            }
+            resource {
+                directory = "hub/build/classes/main"
             }
         }
     }

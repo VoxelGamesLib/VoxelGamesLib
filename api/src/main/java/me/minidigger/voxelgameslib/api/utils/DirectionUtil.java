@@ -12,7 +12,7 @@ import me.minidigger.voxelgameslib.api.block.Direction;
 public class DirectionUtil {
 
     private static final Direction[] AXIS = new Direction[4];
-    private static final Direction[] RADIAL = {Direction.WEST, Direction.NORTH_WEST, Direction.NORTH, Direction.NORTH_EAST, Direction.EAST, Direction.SOUTH_EAST, Direction.SOUTH, Direction.SOUTH_WEST, Direction.WEST};
+    private static final Direction[] RADIAL = {Direction.WEST, Direction.NORTH_WEST, Direction.NORTH, Direction.NORTH_EAST, Direction.EAST, Direction.SOUTH_EAST, Direction.SOUTH, Direction.SOUTH_WEST};
     private static final EnumMap<Direction, Integer> notches = new EnumMap<>(Direction.class);
 
     static {
@@ -68,9 +68,26 @@ public class DirectionUtil {
     @Nonnull
     public static Direction yawToDirection(float yaw, boolean useSubCardinalDirections) {
         if (useSubCardinalDirections) {
-            return RADIAL[Math.round(yaw / 45f) & 0x7];
+            // System.out.println((yaw / 45f) + " " + (Math.round(yaw / 45f) & 0x7)); //FIXME IDEK
+            return RADIAL[(Math.round((yaw - 90) / 45f) & 0x7)];
         } else {
             return AXIS[Math.round(yaw / 90f) & 0x3];
         }
+    }
+
+    /**
+     * Gets the next direction clock wise
+     *
+     * @param direction the starting direction
+     * @param steps     the amount of steps to go
+     * @return the direction
+     */
+    public static Direction getNext(Direction direction, int steps) {
+        for (int i = 0; i < RADIAL.length; i++) {
+            if (RADIAL[i] == direction) {
+                return RADIAL[Math.floorMod(i + steps, RADIAL.length)];
+            }
+        }
+        return Direction.SELF;
     }
 }

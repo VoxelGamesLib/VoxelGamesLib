@@ -9,4 +9,5 @@ include 'jskill'
 include 'jskill'
 include '1vs1'
 include 'hub'
+include 'splatoon'
 
