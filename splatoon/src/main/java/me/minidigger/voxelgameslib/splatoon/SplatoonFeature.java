@@ -136,7 +136,6 @@ public class SplatoonFeature extends AbstractFeature {
 
                 // set block
                 metaData.setColor(team.get().getColor());
-                metaData.update();
                 colors.put(block.getLocation(), team.get().getColor());
             }
         }

@@ -20,7 +20,8 @@ public interface ItemMetaData {
     void setItem(Item item);
 
     /**
-     * Updates the underlying item
+     * Updates the underlying item<br>
+     * <b>INTERNAL. SHOULD ONLY BE USED BY THE IMPLEMENTATION</b>
      */
-    void update();
+    void internal_update();
 }

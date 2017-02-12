@@ -33,7 +33,7 @@ public class BukkitColorMetaData implements ColorMetaData {
     }
 
     @Override
-    public void update() {
+    public void internal_update() {
         // ignored
     }
 }

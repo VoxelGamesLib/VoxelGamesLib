@@ -20,7 +20,8 @@ public interface BlockMetaData {
     void setBlock(Block block);
 
     /**
-     * Updates the underlying block
+     * Updates the underlying block<br>
+     * <b>INTERNAL. SHOULD ONLY BE USED BY THE IMPLEMENTATION</b>
      */
-    void update();
+    void internal_update();
 }

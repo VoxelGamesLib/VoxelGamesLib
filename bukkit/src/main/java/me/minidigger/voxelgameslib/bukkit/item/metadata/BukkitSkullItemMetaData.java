@@ -33,6 +33,7 @@ public class BukkitSkullItemMetaData implements SkullItemMetaData {
     @Override
     public void setOwner(String name) {
         skullMeta.setOwner(name);
+        internal_update();
     }
 
     @Override
@@ -51,7 +52,7 @@ public class BukkitSkullItemMetaData implements SkullItemMetaData {
     }
 
     @Override
-    public void update() {
+    public void internal_update() {
         ((BukkitItem) item).getImplementationType().setItemMeta(skullMeta);
     }
 }

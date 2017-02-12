@@ -21,7 +21,7 @@ public class BukkitEmptyBlockMetaData implements EmptyBlockMetaData {
     }
 
     @Override
-    public void update() {
+    public void internal_update() {
         // ignore
     }
 }

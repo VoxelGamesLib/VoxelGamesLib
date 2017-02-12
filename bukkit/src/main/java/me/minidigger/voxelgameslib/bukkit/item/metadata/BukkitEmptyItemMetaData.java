@@ -21,7 +21,7 @@ public class BukkitEmptyItemMetaData implements EmptyItemMetaData {
     }
 
     @Override
-    public void update() {
+    public void internal_update() {
         // ignore
     }
 }
