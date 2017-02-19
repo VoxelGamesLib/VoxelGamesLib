@@ -49,7 +49,7 @@ public class FunCommands {
         }
     }
 
-    @CommandInfo(name = "taco", perm = "command.taco", role = Role.PREMIUM, min = 1, usage = "Sends a user a nice taco")
+    @CommandInfo(name = "taco", perm = "command.taco", role = Role.PREMIUM, min = 1, usage = "Sends a user a nice taco.")
     public void taco(CommandArguments arguments) {
         if (tacoStuff == null) {
             arguments.getSender().sendMessage(new TextComponent("No tacos loaded :("));
