@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.lang;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Optional;
 import javax.annotation.Nonnull;
@@ -75,6 +77,7 @@ public class Locale implements Serializable {
     private String name;
     @Id
     @Column(name = "LOCALE_TAG")
+    @Expose
     private String tag;
 
     protected Locale() {

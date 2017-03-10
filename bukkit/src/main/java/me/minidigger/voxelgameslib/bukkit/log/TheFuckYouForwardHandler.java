@@ -13,7 +13,7 @@ import java.util.logging.LogRecord;
  */
 public class TheFuckYouForwardHandler extends ConsoleHandler {
     //    private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss:SSS");
-    //TODO change vanilla log format to include millis too
+    //maybe change vanilla log format to include millis too <-- hell no
     private static final SimpleDateFormat hourFormat = new SimpleDateFormat("kk:mm:ss");
     private final PrintStream sout = new PrintStream(new FileOutputStream(FileDescriptor.out));
 

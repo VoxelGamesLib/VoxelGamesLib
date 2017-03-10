@@ -169,7 +169,6 @@ public class VoxelGamesLib {
     /**
      * Create a new (normal) chain using the right factory for this server mod
      *
-     * @param <T> TODO what is this?
      * @return a normal task chain
      */
     @Nonnull
@@ -180,7 +179,6 @@ public class VoxelGamesLib {
     /**
      * Create a new shared chain using the right factory for this server mod
      *
-     * @param <T>  TODO what is this?
      * @param name the name of the new shared chain
      * @return a shared task chain
      */

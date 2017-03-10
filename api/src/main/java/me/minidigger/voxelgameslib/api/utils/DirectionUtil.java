@@ -68,7 +68,6 @@ public class DirectionUtil {
     @Nonnull
     public static Direction yawToDirection(float yaw, boolean useSubCardinalDirections) {
         if (useSubCardinalDirections) {
-            // System.out.println((yaw / 45f) + " " + (Math.round(yaw / 45f) & 0x7)); //FIXME IDEK
             return RADIAL[(Math.round((yaw - 90) / 45f) & 0x7)];
         } else {
             return AXIS[Math.round(yaw / 90f) & 0x3];

@@ -7,17 +7,24 @@ import java.lang.annotation.Target;
 import javax.annotation.Nonnull;
 
 /**
- * Created by Martin on 26.10.2016.
+ * Marks a class as module, specifies some useful data about the module
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModuleInfo {
 
+    /**
+     * @return the name of the module
+     */
     @Nonnull String name();
 
+    /**
+     * @return the authors of the module
+     */
     @Nonnull String[] authors();
 
+    /**
+     * @return the version of the module
+     */
     @Nonnull String version();
-
-    //TODO module info javadoc
 }

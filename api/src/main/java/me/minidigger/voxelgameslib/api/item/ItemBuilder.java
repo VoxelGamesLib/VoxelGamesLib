@@ -147,7 +147,6 @@ public class ItemBuilder {
     public ItemBuilder meta(Consumer<ItemMetaData> consumer) {
         ItemMetaData meta = item.getItemMetaData();
         consumer.accept(meta);
-      //  meta.update(); FIXME !!!!
         return this;
     }
 }

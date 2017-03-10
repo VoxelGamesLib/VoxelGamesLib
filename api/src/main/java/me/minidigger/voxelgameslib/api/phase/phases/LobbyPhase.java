@@ -17,8 +17,6 @@ import me.minidigger.voxelgameslib.api.user.GameMode;
  */
 public class LobbyPhase extends AbstractPhase {
 
-    //TODO lobby phase
-
     @Override
     public void init() {
         setName("LobbyPhase");

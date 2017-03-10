@@ -15,6 +15,9 @@
     "nl",
     "pt-br"
   ],
+  "defaultLocale": {
+    "tag": "en"
+  },
   "persistence": {
     "user": "voxelgameslib",
     "pass": "pass",

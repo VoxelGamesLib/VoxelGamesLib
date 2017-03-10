@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.inject.Singleton;
-import javax.persistence.ElementCollection;
 
 import me.minidigger.voxelgameslib.api.lang.Locale;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceConfig;
@@ -28,6 +27,8 @@ public class GlobalConfig extends Config {
     public boolean useRoleSystem = true;
     @Expose
     public List<String> availableLanguages = CollectionUtil.toStringList(Locale.values(), Locale::getTag);
+    @Expose
+    public Locale defaultLocale = Locale.ENGLISH;
     @Expose
     public PersistenceConfig persistence = new PersistenceConfig();
     @Expose

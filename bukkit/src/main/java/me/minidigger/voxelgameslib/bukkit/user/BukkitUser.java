@@ -64,7 +64,7 @@ public class BukkitUser extends AbstractUser<Player> {
 
     @Override
     public void sendMessage(@Nonnull BaseComponent... message) {
-        //TODO this is so ugly...
+        //this is so ugly, but we live with that for now since we want to be compatible with bukkit and don't really need nms
         Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "tellraw " + player.getName() + " " + ComponentSerializer.toString(message));
     }
 

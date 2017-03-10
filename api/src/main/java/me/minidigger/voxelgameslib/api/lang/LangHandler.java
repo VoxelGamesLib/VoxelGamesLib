@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
+import me.minidigger.voxelgameslib.api.config.ConfigHandler;
 import me.minidigger.voxelgameslib.api.config.GlobalConfig;
 import me.minidigger.voxelgameslib.api.handler.Handler;
 import me.minidigger.voxelgameslib.api.persistence.PersistenceHandler;
@@ -23,17 +24,21 @@ import lombok.extern.java.Log;
 public class LangHandler implements Handler {
 
     private final Map<Locale, LangStorage> storages = new HashMap<>();
-    private final Locale defaultLocale = Locale.ENGLISH; //TODO move defaultLocale to config
+    private Locale defaultLocale;
     private LangStorage defaultStorage;
 
     @Inject
     private VoxelGamesLib voxelGameLib;
     @Inject
     private PersistenceHandler persistenceHandler;
+    @Inject
+    private ConfigHandler configHandler;
 
     @Override
     public void start() {
         Lang.setLangHandler(this);
+
+        defaultLocale = configHandler.get().defaultLocale;
 
         defaultStorage = voxelGameLib.getInjector().getInstance(LangStorage.class);
         defaultStorage.setLocale(defaultLocale);

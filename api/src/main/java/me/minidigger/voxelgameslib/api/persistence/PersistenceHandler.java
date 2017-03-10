@@ -22,7 +22,7 @@ public class PersistenceHandler implements Handler {
     @Override
     public void start() {
 //        activeProvider = injector.getInstance(HibernatePersistenceProvider.class);//TODO bind this?
-//        activeProvider.start();
+//        activeProvider.start(); //TODO fix persistence
         activeProvider = new EmptyPersistenceProvider();
     }
 

@@ -208,7 +208,6 @@ public abstract class AbstractPhase implements Phase {
     }
 
     private boolean checkDependencies() {
-        //TODO better error handling here, once logging is done
         List<Class<? extends Feature>> orderedFeatures = new ArrayList<>();
         List<Class<? extends Feature>> added = new ArrayList<>();
         try {
@@ -216,7 +215,7 @@ public abstract class AbstractPhase implements Phase {
 
             // add all dependencies to the graph
             for (Feature feature : getFeatures()) {
-                for (Class<? extends Feature> dependency : feature.getDependencies()) {
+                for (@SuppressWarnings("unchecked") Class<? extends Feature> dependency : feature.getDependencies()) {
                     if (dependency.equals(feature.getClass())) {
                         log.severe(feature.getName() + " tried to depend on itself...");
                         continue;

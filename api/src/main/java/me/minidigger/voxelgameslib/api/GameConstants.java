@@ -6,7 +6,5 @@ package me.minidigger.voxelgameslib.api;
  */
 public class GameConstants {
 
-    //TODO do we need to let modules change those?
-
     public static int TPS = 20;
 }

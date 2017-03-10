@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -126,11 +127,10 @@ public class LangStorage {
 
     /**
      * Gets the value for a key. it this storage does not have a translation for that key, the
-     * parent storage is used.
+     * parent storage is used. If parent has no translation for that key, the default value is used.
      *
      * @param key the key that should be translated
      * @return the translation for that key
-     * @throws LangException if the parent storage did not return a value translation.
      */
     @Nonnull
     public String get(@Nonnull LangKey key) {
@@ -142,7 +142,8 @@ public class LangStorage {
         }
 
         if (message == null || message.length() < 2) {
-            throw new LangException("Could not find value for lang key " + key.name()); //TODO do we want to return the default value here?
+            log.log(Level.WARNING,"Could not find value for lang key " + key.name());
+            return key.getDefaultValue();
         }
 
         return message;

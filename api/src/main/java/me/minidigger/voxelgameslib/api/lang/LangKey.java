@@ -13,6 +13,7 @@ public enum LangKey {
     COMMAND_NO_CONSOLE("{red}This command can't be executed via console!"),
     COMMAND_TOO_FEW_ARGUMENTS("{red}You entered too few arguments! Minimum is {yellow}{min}{red}, you entered {yellow}{actual}", "min", "actual"),
     COMMAND_TOO_MANY_ARGUMENTS("{red}You entered too many arguments! Maximum is {yellow}{max}{red}, you entered {yellow}{actual}", "min", "actual"),
+    COMMAND_USAGE("{red}Usage: {usage}", "usage"),
 
     DATA_NOT_LOADED("{red}Your data has not been loaded, please join again!"),
 

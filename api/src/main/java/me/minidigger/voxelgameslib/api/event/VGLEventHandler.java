@@ -89,7 +89,7 @@ public class VGLEventHandler implements Handler {
                 log.warning("Could not register event listener " + executor.getDeclaringClass().getName() + ":" + executor.getName() + ": " + executor.getParameterTypes()[0].getName() + " is not a valid event!");
                 continue;
             }
-            //EventListener eventListener = executor.getAnnotation(EventListener.class); TODO DO something with the EventListener annotation
+            EventListener eventListener = executor.getAnnotation(EventListener.class);
             RegisteredListener registeredListener = new RegisteredListener(listener, executor);
             @SuppressWarnings("unchecked")
             Class<? extends Event> event = (Class<? extends Event>) executor.getParameterTypes()[0];

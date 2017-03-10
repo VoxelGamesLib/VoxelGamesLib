@@ -263,13 +263,13 @@ public class CommandHandler implements Handler {
 
                     if (commandInfo.min() != -1 && newArgs.length < commandInfo.min()) {
                         Lang.msg(sender, LangKey.COMMAND_TOO_FEW_ARGUMENTS, commandInfo.min(), newArgs.length);
-                        // TODO send usage
+                        Lang.msg(sender, LangKey.COMMAND_USAGE, commandInfo.usage());
                         return true;
                     }
 
                     if (commandInfo.max() != -1 && newArgs.length > commandInfo.max()) {
                         Lang.msg(sender, LangKey.COMMAND_TOO_FEW_ARGUMENTS, commandInfo.max(), newArgs.length);
-                        // TODO send usage
+                        Lang.msg(sender, LangKey.COMMAND_USAGE, commandInfo.usage());
                         return true;
                     }
 
