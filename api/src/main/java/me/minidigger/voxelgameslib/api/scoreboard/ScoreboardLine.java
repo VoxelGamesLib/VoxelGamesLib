@@ -1,10 +1,19 @@
 package me.minidigger.voxelgameslib.api.scoreboard;
 
 /**
- * Created by Martin on 07.01.2017.
+ * Represents a line of a scoreboard
  */
 public interface ScoreboardLine {
+
+    /**
+     * @return the (current) value of this line
+     */
     String getValue();
 
-    //TODO properly implement scoreboard lines
+    /**
+     * changes the value of this line
+     *
+     * @param value the new value
+     */
+    void setValue(String value);
 }

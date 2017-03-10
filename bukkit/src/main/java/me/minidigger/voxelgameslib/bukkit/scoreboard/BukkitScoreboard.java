@@ -5,13 +5,16 @@ import javax.annotation.Nonnull;
 
 import me.minidigger.voxelgameslib.api.scoreboard.AbstractScoreboard;
 import me.minidigger.voxelgameslib.api.scoreboard.ScoreboardLine;
+import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
 import me.minidigger.voxelgameslib.api.user.User;
+import me.minidigger.voxelgameslib.api.utils.RandomUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 /**
  * Created by Martin on 07.01.2017.
@@ -42,8 +45,6 @@ public class BukkitScoreboard extends AbstractScoreboard {
     @Override
     public void addLine(int key, @Nonnull ScoreboardLine line) {
         super.addLine(key, line);
-
-        objective.getScore(line.getValue()).setScore(key);
     }
 
     @Override
@@ -71,5 +72,35 @@ public class BukkitScoreboard extends AbstractScoreboard {
         super.removeUser(user);
 
         ((Player) user.getImplementationType()).setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
+    }
+
+    @Override
+    public StringScoreboardLine createAndAddLine(String content) {
+        Team team = scoreboard.registerNewTeam("line" + RandomUtil.generateString(8));
+        BukkitStringScoreboardLine scoreboardLine = new BukkitStringScoreboardLine(content, team);
+        int score = addLine(scoreboardLine);
+        String entry = scoreboardLine.setScore(score);
+        objective.getScore(entry).setScore(score);
+        return scoreboardLine;
+    }
+
+    @Override
+    public StringScoreboardLine createAndAddLine(String key, String content) {
+        Team team = scoreboard.registerNewTeam("line" + key);
+        BukkitStringScoreboardLine scoreboardLine = new BukkitStringScoreboardLine(content, team);
+        int score = addLine(key, scoreboardLine);
+        String entry = scoreboardLine.setScore(score);
+        objective.getScore(entry).setScore(score);
+        return scoreboardLine;
+    }
+
+    @Override
+    public StringScoreboardLine createAndAddLine(int pos, String content) {
+        Team team = scoreboard.registerNewTeam("line" + pos);
+        BukkitStringScoreboardLine scoreboardLine = new BukkitStringScoreboardLine(content, team);
+        addLine(pos, scoreboardLine);
+        String entry = scoreboardLine.setScore(pos);
+        objective.getScore(entry).setScore(pos);
+        return scoreboardLine;
     }
 }

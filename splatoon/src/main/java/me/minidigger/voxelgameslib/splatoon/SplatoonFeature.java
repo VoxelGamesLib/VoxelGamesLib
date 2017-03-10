@@ -18,7 +18,7 @@ import me.minidigger.voxelgameslib.api.feature.features.TeamFeature;
 import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.map.Vector3D;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
-import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
+import me.minidigger.voxelgameslib.api.scoreboard.ScoreboardLine;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.team.Team;
 import me.minidigger.voxelgameslib.api.user.User;
@@ -43,9 +43,6 @@ public class SplatoonFeature extends AbstractFeature {
     private int greenCounter = 10;
     private int purpleCounter = 10;
 
-    private StringScoreboardLine greenLine;
-    private StringScoreboardLine purple;
-
     @Inject
     private Server server;
 
@@ -57,11 +54,11 @@ public class SplatoonFeature extends AbstractFeature {
         scoreboard = getPhase().getFeature(ScoreboardFeature.class).getScoreboard();
 
         scoreboard.setTitle("Splatoon");
-        scoreboard.addLine("teamNameGreen", new StringScoreboardLine(ChatColor.GREEN + "Green"));
-        scoreboard.addLine("blocksGreen", greenLine = new StringScoreboardLine(ChatColor.GREEN + "50%"));
+        scoreboard.createAndAddLine("teamNameGreen", ChatColor.GREEN + "Green");
+        scoreboard.createAndAddLine("blocksGreen", ChatColor.GREEN + "50%");
 
-        scoreboard.addLine("teamNamePurple", new StringScoreboardLine(ChatColor.LIGHT_PURPLE + "Purple"));
-        scoreboard.addLine("blocksPurple", purple = new StringScoreboardLine(ChatColor.LIGHT_PURPLE + "50%"));
+        scoreboard.createAndAddLine("teamNamePurple", ChatColor.LIGHT_PURPLE + "Purple");
+        scoreboard.createAndAddLine("blocksPurple", ChatColor.LIGHT_PURPLE + "50%");
 
         // load world
         Optional<World> world = server.getWorld(getPhase().getFeature(MapFeature.class).getMap().getWorldName());
@@ -99,11 +96,15 @@ public class SplatoonFeature extends AbstractFeature {
             }
         }
 
+        // calc new score
         double green = ((greenCounter + purpleCounter) * 100) / greenCounter;
         double purple = ((greenCounter + purpleCounter) * 100) / purpleCounter;
 
-        System.out.println("green: " + green + " purple: " + purple);
-        // TODO update scoreboard
+        // update scoreboard
+        Optional<ScoreboardLine> lineGreen = scoreboard.getLine("blocksGreen");
+        lineGreen.ifPresent(line -> line.setValue(ChatColor.GREEN + "" + green + "%"));
+        Optional<ScoreboardLine> linePurple = scoreboard.getLine("blocksPurple");
+        linePurple.ifPresent(line -> line.setValue(ChatColor.LIGHT_PURPLE + "" + purple + "%"));
     }
 
     private void paint(User user, Block... blocks) {

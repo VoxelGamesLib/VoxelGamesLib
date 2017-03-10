@@ -16,7 +16,6 @@ import javax.inject.Singleton;
 
 import me.minidigger.voxelgameslib.api.VoxelGamesLib;
 import me.minidigger.voxelgameslib.api.block.Block;
-import me.minidigger.voxelgameslib.api.block.Direction;
 import me.minidigger.voxelgameslib.api.block.metadata.ColorMetaData;
 import me.minidigger.voxelgameslib.api.block.metadata.EmptyBlockMetaData;
 import me.minidigger.voxelgameslib.api.block.metadata.SignMetaData;
@@ -33,7 +32,6 @@ import me.minidigger.voxelgameslib.api.game.GameMode;
 import me.minidigger.voxelgameslib.api.game.GameModeTypeAdapter;
 import me.minidigger.voxelgameslib.api.item.Item;
 import me.minidigger.voxelgameslib.api.item.ItemInstanceCreator;
-import me.minidigger.voxelgameslib.api.item.Material;
 import me.minidigger.voxelgameslib.api.item.metadata.EmptyItemMetaData;
 import me.minidigger.voxelgameslib.api.item.metadata.SkullItemMetaData;
 import me.minidigger.voxelgameslib.api.log.LoggerHandler;
@@ -43,12 +41,10 @@ import me.minidigger.voxelgameslib.api.phase.PhaseTypeAdapter;
 import me.minidigger.voxelgameslib.api.role.Permission;
 import me.minidigger.voxelgameslib.api.role.Role;
 import me.minidigger.voxelgameslib.api.scoreboard.Scoreboard;
-import me.minidigger.voxelgameslib.api.scoreboard.StringScoreboardLine;
 import me.minidigger.voxelgameslib.api.server.Server;
 import me.minidigger.voxelgameslib.api.tick.TickHandler;
 import me.minidigger.voxelgameslib.api.user.ConsoleUser;
 import me.minidigger.voxelgameslib.api.user.User;
-import me.minidigger.voxelgameslib.api.utils.DirectionUtil;
 import me.minidigger.voxelgameslib.api.world.World;
 import me.minidigger.voxelgameslib.api.world.WorldConfig;
 import me.minidigger.voxelgameslib.api.world.WorldHandler;
@@ -72,13 +68,13 @@ import me.minidigger.voxelgameslib.bukkit.user.BukkitUser;
 import me.minidigger.voxelgameslib.bukkit.user.UserListener;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorld;
 import me.minidigger.voxelgameslib.bukkit.world.BukkitWorldHandler;
-import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.ChatColor;
 import me.minidigger.voxelgameslib.libs.net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
@@ -151,7 +147,25 @@ public final class VoxelGamesLibBukkit extends JavaPlugin implements Listener {
     @CommandInfo(name = "scoreboardtest", perm = "command.scoreboardtest", role = Role.ADMIN)
     public void scoreboardtest(CommandArguments args) {
         Scoreboard scoreboard = voxelGameLib.getInjector().getInstance(Server.class).createScoreboard("Test");
-        scoreboard.addLine("test", new StringScoreboardLine("Value! " + ChatColor.RED + "COLOR!"));
+        scoreboard.createAndAddLine("key", "Test Line");
+        scoreboard.addUser(args.getSender());
+
+        new BukkitRunnable() {
+            int i = 1;
+
+            @Override
+            public void run() {
+                i++;
+                StringBuilder s = new StringBuilder();
+                for (int x = 0; x < i; x++) {
+                    s.append(x);
+                }
+                scoreboard.getLine("key").ifPresent(line -> line.setValue(s.toString()));
+                if (i > 25) {
+                    cancel();
+                }
+            }
+        }.runTaskTimer(this, 1, 10);
     }
 
     @CommandInfo(name = "logtest", perm = "command.logtest", role = Role.ADMIN)

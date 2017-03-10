@@ -132,4 +132,29 @@ public interface Scoreboard {
      */
     void setImplObject(Object object);
 
+    /**
+     * Creates a new simple scoreboard line and adds it automatically
+     *
+     * @param content the content of the line
+     * @return the newly created line
+     */
+    StringScoreboardLine createAndAddLine(String content);
+
+    /**
+     * Creates a new simple scoreboard line and adds it automatically
+     *
+     * @param content the content of the line
+     * @param key     the key of the line
+     * @return the newly created line
+     */
+    StringScoreboardLine createAndAddLine(String key, String content);
+
+    /**
+     * Creates a new simple scoreboard line and adds it automatically
+     *
+     * @param content the content of the line
+     * @param pos     the position of the line
+     * @return the newly created line
+     */
+    StringScoreboardLine createAndAddLine(int pos, String content);
 }
