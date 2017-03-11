@@ -29,7 +29,7 @@ public class OneVsOneGame extends AbstractGame {
     @Override
     public void initGameFromModule() {
         setMinPlayers(2);
-        setMaxPlayers(14);
+        setMaxPlayers(2);
 
         LobbyPhase lobbyPhase = createPhase(LobbyPhase.class);
         VotePhase votePhase = createPhase(VotePhase.class);

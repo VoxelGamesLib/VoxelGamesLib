@@ -6,6 +6,12 @@
     "bypassesPlayerLimit": false
   },
   {
+    "uuid": "4ce4a7ff-f9e7-32af-9c15-ad176dbecf5a",
+    "name": "Test1",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
     "uuid": "2c771d16-f492-4f7a-adb7-61c38a9c9bfb",
     "name": "MiniDigger",
     "level": 4,

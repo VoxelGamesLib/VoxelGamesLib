@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.feature.features;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Arrays;
 
 import me.minidigger.voxelgameslib.api.event.EventListener;
@@ -13,7 +15,9 @@ import me.minidigger.voxelgameslib.api.item.Material;
         description = "Small feature that blocks block breaking if active")
 public class NoBlockBreakFeature extends AbstractFeature {
 
+    @Expose
     private Material[] whitelist = new Material[0];
+    @Expose
     private Material[] blacklist = new Material[0];
 
     /**
