@@ -59,9 +59,9 @@ public class UserHandler implements Handler {
 
         UserData data = tempData.remove(uuid);
         User user = injector.getInstance(User.class);
+        user.setData(data);
         //noinspection unchecked
         user.setImplementationType(playerObject);
-        user.setData(data);
         users.put(user.getUuid(), user);
         log.info("Applied data for user " + user.getUuid() + "(" + user.getData().getRole().getName() + " " + user.getData().getDisplayName() + ")");
     }
@@ -112,9 +112,8 @@ public class UserHandler implements Handler {
             UserData userDara = new UserData(uniqueId);
             try {
                 userDara.setDisplayName(MojangUtil.getDisplayName(uniqueId));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+            } catch (Exception ignore) {
+                // offline users don't have a real name
             }
             injector.injectMembers(userDara);
             tempData.put(uniqueId, userDara);

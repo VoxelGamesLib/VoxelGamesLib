@@ -52,7 +52,7 @@ public class UserData implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Map<String, Rating> ratings = new HashMap<>();
 
-    private String displayName = "";
+    private String displayName = "<error>";
 
     private String prefix = "{\"text\":\"\"}";
     private String suffix = "{\"text\":\"\"}";

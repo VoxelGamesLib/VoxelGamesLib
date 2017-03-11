@@ -41,6 +41,10 @@ public class BukkitUser extends AbstractUser<Player> {
     @Override
     public void setImplementationType(@Nonnull Player p) {
         player = p;
+        // we need to apply the name for offline users here
+        if(getData().getDisplayName().equals("<error>")){
+            getData().setDisplayName(p.getName());
+        }
     }
 
     @Nonnull

@@ -37,13 +37,14 @@ public class MojangUtil {
         URL url = new URL(NAME_HISTORY_URL.replace("%1", id.toString().replace("-", "")));
         System.out.println(url.toString());
         Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(url.openStream())));
-        String json = scanner.nextLine();
-        System.out.println(json);
-        JSONArray jsonArray = (JSONArray) new JSONParser().parse(json);
-        if (json.length() > 0) {
-            return (String) ((JSONObject) jsonArray.get(0)).get("name");
+        if (scanner.hasNext()) {
+            String json = scanner.nextLine();
+            System.out.println(json);
+            JSONArray jsonArray = (JSONArray) new JSONParser().parse(json);
+            if (json.length() > 0) {
+                return (String) ((JSONObject) jsonArray.get(0)).get("name");
+            }
         }
-
 
         throw new VoxelGameLibException("User has no name! " + id);
     }
