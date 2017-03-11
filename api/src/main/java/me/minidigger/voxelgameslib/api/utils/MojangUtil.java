@@ -1,7 +1,5 @@
 package me.minidigger.voxelgameslib.api.utils;
 
-import com.google.gson.Gson;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,7 +21,7 @@ public class MojangUtil {
 
     private static final String NAME_HISTORY_URL = "https://api.mojang.com/user/profiles/%1/names";
 
-    private static final Gson gson = new Gson();
+    //TODO we need to do some caching to not break mojang api rate limits
 
     /**
      * Tries to fetch the current display name for the user
@@ -33,16 +31,18 @@ public class MojangUtil {
      * @throws IOException           if something goes wrong
      * @throws VoxelGameLibException if the user has no display name
      */
-    public static String getDisplayName(UUID id) throws IOException, VoxelGameLibException, ParseException {
+    public static String getDisplayName(UUID id) throws IOException, VoxelGameLibException {
         URL url = new URL(NAME_HISTORY_URL.replace("%1", id.toString().replace("-", "")));
         System.out.println(url.toString());
         Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(url.openStream())));
         if (scanner.hasNext()) {
             String json = scanner.nextLine();
-            System.out.println(json);
-            JSONArray jsonArray = (JSONArray) new JSONParser().parse(json);
-            if (json.length() > 0) {
-                return (String) ((JSONObject) jsonArray.get(0)).get("name");
+            try {
+                JSONArray jsonArray = (JSONArray) new JSONParser().parse(json);
+                if (json.length() > 0) {
+                    return (String) ((JSONObject) jsonArray.get(0)).get("name");
+                }
+            } catch (ParseException ignore) {
             }
         }
 
