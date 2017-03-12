@@ -105,6 +105,32 @@ public class Lang {
     }
 
     /**
+     * Parses a string into the legacy chat format that is still used for some sutff in
+     * minecraft...<br> Mostly handles color variables
+     *
+     * @param string the input string
+     * @return the properly formatted legacy string
+     */
+    @Nonnull
+    public static String parseLegacyFormat(@Nonnull String string) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] tokens = string.split("\\{|}");
+        ChatColor savedColor = ChatColor.WHITE;
+        outer:
+        for (String token : tokens) {
+            for (ChatColor color : ChatColor.values()) {
+                if (color.name().equalsIgnoreCase(token)) {
+                    savedColor = color;
+                    continue outer;
+                }
+            }
+            stringBuilder.append(ChatColor.COLOR_CHAR).append(savedColor.getCode()).append(token);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    /**
      * Sends the user a message that contains the translated version (using his local) of the
      * specified key
      *

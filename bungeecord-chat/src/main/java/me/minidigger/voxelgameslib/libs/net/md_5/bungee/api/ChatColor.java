@@ -9,6 +9,7 @@ import lombok.Getter;
 /**
  * Simplistic enumeration of all supported color values for chat.
  */
+@Getter // VGL: make char accessible
 public enum ChatColor {
 
     /**

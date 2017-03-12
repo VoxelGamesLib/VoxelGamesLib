@@ -1,5 +1,6 @@
 package me.minidigger.voxelgameslib.api.phase.phases;
 
+import me.minidigger.voxelgameslib.api.feature.features.BossBarFeature;
 import me.minidigger.voxelgameslib.api.feature.features.ClearInventoryFeature;
 import me.minidigger.voxelgameslib.api.feature.features.GameModeFeature;
 import me.minidigger.voxelgameslib.api.feature.features.HealFeature;
@@ -53,10 +54,13 @@ public class LobbyPhase extends AbstractPhase {
         gameModeFeature.setGameMode(GameMode.SURVIVAL);
         addFeature(gameModeFeature);
 
-        LobbyFeature lobbyFeature = getGame().createFeature(LobbyFeature.class,this);
+        LobbyFeature lobbyFeature = getGame().createFeature(LobbyFeature.class, this);
         addFeature(lobbyFeature);
 
-        ScoreboardFeature scoreboardFeature = getGame().createFeature(ScoreboardFeature.class,this);
+        ScoreboardFeature scoreboardFeature = getGame().createFeature(ScoreboardFeature.class, this);
         addFeature(scoreboardFeature);
+
+        BossBarFeature bossBarFeature = getGame().createFeature(BossBarFeature.class, this);
+        addFeature(bossBarFeature);
     }
 }
