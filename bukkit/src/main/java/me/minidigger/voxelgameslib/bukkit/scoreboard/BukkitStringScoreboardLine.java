@@ -17,6 +17,7 @@ public class BukkitStringScoreboardLine extends StringScoreboardLine {
     public BukkitStringScoreboardLine(String value, Team team) {
         super(value);
         this.team = team;
+        setValue(value);
     }
 
     String setScore(int score) {

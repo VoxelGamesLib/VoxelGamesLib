@@ -81,6 +81,7 @@ public class BukkitScoreboard extends AbstractScoreboard {
         int score = addLine(scoreboardLine);
         String entry = scoreboardLine.setScore(score);
         objective.getScore(entry).setScore(score);
+        scoreboardLine.setValue(content);
         return scoreboardLine;
     }
 
@@ -91,6 +92,7 @@ public class BukkitScoreboard extends AbstractScoreboard {
         int score = addLine(key, scoreboardLine);
         String entry = scoreboardLine.setScore(score);
         objective.getScore(entry).setScore(score);
+        scoreboardLine.setValue(content);
         return scoreboardLine;
     }
 
@@ -101,6 +103,7 @@ public class BukkitScoreboard extends AbstractScoreboard {
         addLine(pos, scoreboardLine);
         String entry = scoreboardLine.setScore(pos);
         objective.getScore(entry).setScore(pos);
+        scoreboardLine.setValue(content);
         return scoreboardLine;
     }
 }
