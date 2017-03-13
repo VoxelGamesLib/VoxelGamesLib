@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.user;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,21 +42,28 @@ public class UserData implements Serializable {
     private UUID uuid;
 
     @Id
+    @Expose
     private String id;
 
+    @Expose
     @Enumerated(EnumType.STRING)
     private Role role = Role.DEFAULT;
 
     @OneToOne
     @JoinColumn(name = "LOCALE_TAG")
+    @Expose
     private Locale locale = Locale.ENGLISH;
 
+    @Expose
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Map<String, Rating> ratings = new HashMap<>();
 
+    @Expose
     private String displayName = "<error>";
 
+    @Expose
     private String prefix = "{\"text\":\"\"}";
+    @Expose
     private String suffix = "{\"text\":\"\"}";
 
     /**

@@ -83,5 +83,4 @@ public class Locale implements Serializable {
     protected Locale() {
         // JPA
     }
-
 }

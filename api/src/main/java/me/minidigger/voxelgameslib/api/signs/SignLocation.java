@@ -1,5 +1,7 @@
 package me.minidigger.voxelgameslib.api.signs;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,24 +32,30 @@ public class SignLocation {
     @GeneratedValue
     private Long id;
 
+    @Expose
     @Column
     private Vector3D location;
 
+    @Expose
     @Column
     private String world;
 
     @Transient
     private Block block;
 
+    @Expose
     @Column
     @Setter(AccessLevel.PRIVATE)
     private String lines0;
+    @Expose
     @Column
     @Setter(AccessLevel.PRIVATE)
     private String lines1;
+    @Expose
     @Column
     @Setter(AccessLevel.PRIVATE)
     private String lines2;
+    @Expose
     @Column
     @Setter(AccessLevel.PRIVATE)
     private String lines3;

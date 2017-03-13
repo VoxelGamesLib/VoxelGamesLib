@@ -23,7 +23,8 @@ public class PersistenceHandler implements Handler {
     public void start() {
 //        activeProvider = injector.getInstance(HibernatePersistenceProvider.class);//TODO bind this?
 //        activeProvider.start(); //TODO fix persistence
-        activeProvider = new EmptyPersistenceProvider();
+        activeProvider = injector.getInstance(FlatFileJsonPersistenceProvider.class);
+        activeProvider.start();
     }
 
     @Override
